@@ -9,6 +9,47 @@ import { useAudience } from "@/components/jupiter/Audience";
 import { zoneKid, zoneKidName } from "@/data/blueprintVoices";
 import { zoneTM } from "@/data/tobyMoby";
 import { TobyMoby } from "@/components/blueprint/TobyMoby";
+import { NewMarker } from "@/components/blueprint/Parts";
+
+/** What each Science topic points at on the map, in kid words and grown-up words. Everything here is already stated, with sources, on the process cards. */
+const SPOTS: Record<string, { ids: string[]; title: string; kid: string; adult: string }> = {
+  money: {
+    ids: ["greenhouse", "packing", "water", "capture"],
+    title: "Money and jobs",
+    kid: "The money and the jobs come from the new green things: the greenhouses, the packing house and school, and the clean-water machine. People work there, and the town gets paid.",
+    adult: "The new revenue and jobs come from what is added on the same land: greenhouse leases and about 1,000 greenhouse jobs, the packing house and NMSU / DACC institute, water sales from the 5 MGD plant, and captured CO₂ with buyers.",
+  },
+  heat: {
+    ids: ["hx", "greenhouse"],
+    title: "Where the heat goes",
+    kid: "The computers' heat goes through the little red box (HX) and warms the greenhouses instead of the sky.",
+    adult: "Heat leaves the halls through the plate heat exchanger (HX) on the warm-water header and feeds the greenhouses and the water plant's preheat before the dry coolers.",
+  },
+  carbon: {
+    ids: ["capture"],
+    title: "Catching the gas",
+    kid: "The gas-catching box is right next to the power plant. It catches the gas before it floats away.",
+    adult: "Capture and compression skids sit beside the fuel-cell plant; captured CO₂ goes to greenhouses, concrete and aggregate first, with deep storage as the fallback.",
+  },
+  water: {
+    ids: ["water"],
+    title: "Clean water",
+    kid: "This is the clean-water machine. Salty water goes in, clean water comes out for the town.",
+    adult: "The 5 MGD brackish desalination plant (NMSU design) delivers to CRRUA; brine is injected about 20 miles away, below the aquifer.",
+  },
+  solar: {
+    ids: ["solarGround", "dcMain", "dcN1", "dcN2", "dcE"],
+    title: "Sun, hot rock and wind",
+    kid: "Solar panels go on all the big roofs and in the strip by the fans. The sun helps a little; hot rock and wind do most of the work.",
+    adult: "Rooftop solar on every hall roof plus a ground strip is about 1% of the load, stated honestly; geothermal and delivered wind are what retire gas hours.",
+  },
+  food: {
+    ids: ["greenhouse", "packing", "water"],
+    title: "Food and jobs",
+    kid: "Food comes from here: the greenhouses grow tomatoes with the computers' heat, the packing house boxes them up, and the water machine gives them water.",
+    adult: "About 150 acres of greenhouses on waste heat and captured CO₂, a packing house with its own gate at the border crossing, and water from the desalination plant.",
+  },
+};
 import {
   zones,
   features,
@@ -186,6 +227,26 @@ export function SitePlan() {
   // On phones and tablets the detail panel opens full-screen; on desktop it is the side column.
   const [open, setOpen] = useState(false);
   const [mobile, setMobile] = useState(false);
+  // Arrived from the Science page: point at the things this topic is about.
+  const [spot, setSpot] = useState<string | null>(null);
+  const [next, setNext] = useState<string | null>(null);
+  useEffect(() => {
+    try {
+      const q = new URLSearchParams(window.location.search);
+      const sp = q.get("spot");
+      if (sp && SPOTS[sp]) {
+        setSpot(sp);
+        setNext(q.get("next"));
+        setView("ours");
+        setSelected(SPOTS[sp].ids[0] === "hx" ? "power" : zones.find((z) => features.find((f) => f.id === SPOTS[sp].ids[0])?.zoneId === z.id)?.id ?? "greenhouse");
+        setSelFeature(SPOTS[sp].ids[0]);
+      }
+    } catch {
+      /* no query string */
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const spotIds = new Set(spot ? SPOTS[spot].ids : []);
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 1023px)");
     const sync = () => setMobile(mq.matches);
@@ -218,6 +279,26 @@ export function SitePlan() {
 
   return (
     <>
+    {spot && (
+      <div className="pj-reveal mb-4 rounded p-4" style={{ backgroundColor: "#fff8e6", border: "2px solid #fdb715" }} role="region" aria-live="polite">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <div className="text-[13px] font-black uppercase tracking-wide" style={{ color: "#8a6a00" }}>Look here · {SPOTS[spot].title}</div>
+            <p className="mt-1" style={{ fontSize: isKid ? 19 : 16, lineHeight: 1.55, color: "#3c3c3c" }}>
+              {isKid ? SPOTS[spot].kid : SPOTS[spot].adult} <strong>The yellow arrows on the map point at them.</strong>
+            </p>
+            {next && (
+              <a href={next} className="mt-2 inline-flex min-h-[40px] items-center rounded px-4 text-[14px] font-black uppercase text-white" style={{ backgroundColor: "#2e8b57" }}>
+                {isKid ? "See how it works →" : "See the process drawing →"}
+              </a>
+            )}
+          </div>
+          <button type="button" onClick={() => setSpot(null)} aria-label="Dismiss" className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full" style={{ color: "#6b6b6b", border: "1px solid #d9d9d9", fontSize: 18 }}>
+            ×
+          </button>
+        </div>
+      </div>
+    )}
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
       <div className="lg:col-span-2">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
@@ -376,19 +457,24 @@ export function SitePlan() {
             </filter>
           </defs>
           {visible
-            .filter((f) => f.id === selFeature || f.zoneId === hover)
+            .filter((f) => f.id === selFeature || f.zoneId === hover || spotIds.has(f.id))
             .map((f) => (
               <polygon
                 key={`hl-${f.id}`}
                 points={outline(f)}
                 fill="none"
-                stroke={f.id === selFeature ? "#2e8b57" : "#fdb715"}
-                strokeWidth={f.id === selFeature ? 5 : 3}
+                stroke={spotIds.has(f.id) ? "#fdb715" : f.id === selFeature ? "#2e8b57" : "#fdb715"}
+                strokeWidth={spotIds.has(f.id) ? 6 : f.id === selFeature ? 5 : 3}
                 strokeLinejoin="round"
                 filter={f.id === selFeature ? "url(#pj-glow)" : undefined}
                 pointerEvents="none"
               />
             ))}
+          {/* Arrows for the thing the reader came to see */}
+          {spot &&
+            visible
+              .filter((f) => spotIds.has(f.id))
+              .map((f) => <NewMarker key={`spot-${f.id}`} box={f.rect} side={f.rect.y < 120 ? "bottom" : "top"} label="HERE" color="#fdb715" textColor="#003047" />)}
 
           <text x={22} y={10} fontSize={9} fontWeight={800} fill="#003047">
             DRONE VIEW OF THEIR AUG. 27, 2026 RENDER · NORTH UP · NOT TO SURVEY SCALE

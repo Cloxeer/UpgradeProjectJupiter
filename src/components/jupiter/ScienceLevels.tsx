@@ -1,6 +1,6 @@
 "use client";
 
-import { LevelSwitch, useLevel, levelMeta } from "./Level";
+import { AudiencePicker, useAudience, audienceMeta } from "./Audience";
 import { topics } from "@/data/science-levels";
 import { Cite, SourceList } from "@/components/Cite";
 import { TheySay } from "./TheySay";
@@ -9,18 +9,23 @@ import { keyComponentTabs as theirComponents, impactTabs as theirImpact } from "
 
 /** Wraps the adult sections; renders the simple or expert view instead when the reader picks that level. */
 export function ScienceLevels({ children }: { children: React.ReactNode }) {
-  const [level] = useLevel();
+  // One site-wide choice, the same six readers as the Blueprint. Little kid gets pictures and one sentence; Expert gets the numbers.
+  const [audience] = useAudience();
+  const level: "little" | "adult" | "expert" = audience === "kid" ? "little" : audience === "expert" ? "expert" : "adult";
   return (
     <>
-      <div className="pj-container py-8">
-        <div className="mb-3 text-center text-[14px] font-black uppercase tracking-wide" style={{ color: "#2e8b57" }}>How should we explain it?</div>
-        <LevelSwitch />
+      <div className="pj-container py-8" id="science-who">
+        <div className="mb-3 text-center text-[14px] font-black uppercase tracking-wide" style={{ color: "#2e8b57" }}>Who are you viewing as?</div>
+        <div className="mx-auto max-w-[1000px]">
+          <AudiencePicker compact revealSelector="#science-body" />
+        </div>
         <p className="mt-3 text-center" style={{ fontSize: 15, color: "#6b6b6b" }}>
-          Now showing: <strong>{levelMeta[level].label}</strong> · {levelMeta[level].short}. Their original sections stay one click below ours at every level.
+          Now showing: <strong>{audienceMeta[audience].label}</strong> · {audienceMeta[audience].short}. Their original sections stay one click below ours for every reader.
         </p>
       </div>
+      <div id="science-body" className="scroll-mt-32" />
       {level === "adult" && children}
-      {(level === "little" || level === "kid") && <Simple level={level} />}
+      {level === "little" && <Simple level="little" />}
       {level === "expert" && (
         <>
           <Expert />
@@ -36,7 +41,7 @@ function Simple({ level }: { level: "little" | "kid" }) {
     <div className="pj-container pb-16">
       <div className="mx-auto grid max-w-[1000px] grid-cols-1 gap-4 sm:grid-cols-2">
         {topics.map((t) => (
-          <a key={t.id} href={t.blueprint} className="flex gap-4 rounded bg-white p-5 shadow-sm hover:shadow-md" style={{ borderLeft: "6px solid #2e8b57" }}>
+          <a key={t.id} href={`/blueprint?spot=${t.id}&next=${encodeURIComponent(t.blueprint)}#site`} className="flex gap-4 rounded bg-white p-5 shadow-sm hover:shadow-md" style={{ borderLeft: "6px solid #2e8b57" }}>
             <div style={{ fontSize: level === "little" ? 56 : 40, lineHeight: 1 }} aria-hidden>{t.icon}</div>
             <div>
               <h3 className="font-black" style={{ fontSize: level === "little" ? 24 : 20, color: "#003047" }}>{t.title}</h3>
