@@ -6,6 +6,7 @@ import { KeyComponentsSection } from "@/components/jupiter/KeyComponentsSection"
 import { IrbSection } from "@/components/jupiter/IrbSection";
 import { HelpImprove } from "@/components/jupiter/HelpImprove";
 import { ScienceLevels } from "@/components/jupiter/ScienceLevels";
+import { Stamp } from "@/components/jupiter/Stamp";
 import { WhatItMeansSection } from "@/components/jupiter/WhatItMeansSection";
 
 export const metadata: Metadata = {
@@ -21,7 +22,7 @@ export default function SciencePage() {
         <section style={{ backgroundColor: "#003047" }}>
           <div className="pj-container py-14 text-center">
             <h1 className="font-black text-white" style={{ fontSize: "clamp(36px,6vw,56px)", lineHeight: 1.05 }}>
-              <span className="pj-stamp pj-stamp--upgrade" style={{ fontSize: "0.55em", verticalAlign: "middle", marginRight: 12 }}>Upgrade</span> THE SCIENCE
+              <Stamp kind="upgrade">THE SCIENCE</Stamp>
             </h1>
             <p className="mx-auto mt-5 max-w-[820px] text-gold" style={{ fontSize: 20, lineHeight: 1.4, fontWeight: 600 }}>
               Why each part of the upgrade works, what it costs, and what the documents say. Their original sections sit one click below ours.
