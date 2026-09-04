@@ -80,4 +80,4 @@ export const rows: Row[] = [
   },
 ];
 
-export const allSources = Array.from(new Set(rows.flatMap((r) => r.sources)));
+export const allSources = Array.from(new Set([...rows.flatMap((r) => r.sources), "ipcc-ar6-spm", "nmbg-164", "usgs-mesilla-taap", "bloom-stack-life"]));

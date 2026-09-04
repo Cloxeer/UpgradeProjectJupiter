@@ -11,7 +11,7 @@ export const sourceMap: SourcePage[] = [
       { title: "Who are you (audience panels)", ids: ["cba", "epm-jobs", "county-qa", "nmsu", "sob", "sunland-park-ozone", "ala-sota-2025", "dailylobo", "haussamen-water", "cbd-well", "epa-watersense", "render", "sweden", "nmpr-stay", "bloom-chart", "doe-pv-cost"] },
       { title: "Highlights", ids: ["bocc", "econpdf", "cba", "nmsu", "faq", "county-qa", "epm-jobs", "sob", "sunland-park-ozone", "ala-sota-2025", "bloom-chart", "bloom-fuels", "haussamen-water", "cbd-well", "epa-watersense"] },
       { title: "Two Jupiters", ids: ["sob", "sunland-park-ozone", "photo-grs"] },
-      { title: "Net loss, year after year", ids: ["sob", "bocc", "cba", "cbd-well", "haussamen-water", "nmsu", "sunland-park-ozone", "ala-sota-2025", "epa-ozone-naaqs", "epm-jobs", "sweden", "notice", "carrier-furnace", "render"] },
+      { title: "Net loss, year after year", ids: ["sob", "bocc", "cba", "cbd-well", "haussamen-water", "nmsu", "sunland-park-ozone", "ala-sota-2025", "epa-ozone-naaqs", "epm-jobs", "sweden", "notice", "carrier-furnace", "render", "nmbg-164", "ipcc-ar6-spm", "usgs-mesilla-taap", "bloom-stack-life"] },
       { title: "Updates and status tracker", ids: ["cba", "nmpr-stay", "abq-stay", "notice", "cbd-well", "slo", "energyconnects", "abq-reports", "bocc"] },
     ],
   },

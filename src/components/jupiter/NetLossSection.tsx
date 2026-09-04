@@ -3,48 +3,109 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { SectionHeading } from "./SectionHeading";
-import { SourceList } from "@/components/Cite";
+import { Cite, SourceList } from "@/components/Cite";
 import { rows, YEARS, operating, allSources, GHG_PERMIT_TPY, OUR_WATER_GPD, type Year } from "@/data/netloss";
 import { Cloud, Neighborhood } from "@/components/blueprint/Parts";
 import { useCopy } from "./AudienceText";
 import { useAudience } from "./Audience";
 
-/** Smog grows with operating years in their plan; stays small and light in ours. */
+/*
+  Long-view rules, all from cited sources (see the note under the pictures):
+  - CO2 is a running total that never resets (IPCC AR6: cumulative CO2 drives warming near-linearly; effects last centuries).
+  - HB93 requires net-zero by 2045 = year 19. Their route is credits, so drawing exhaust after year 19 assumes the fuel cells
+    still burn gas. Our plan retires gas hours to zero by then (Process 4).
+  - Bloom stacks last about 5 years, so stacks are swapped roughly every 5 operating years (Fast Company / Bloom).
+  - The IRB lease is 30 years: at year 30 the land returns to the tax rolls (CBA).
+  - New Mexico is projected 5–7 °F warmer within 50 years with recharge down at least 25% (NMBGMR Bulletin 164, 2022);
+    Mesilla groundwater already fell 2000–2020 (USGS). So the water table keeps dropping in the long views.
+*/
+const HB93_YEAR = 19; // 2045 - 2026
+const LEASE_YEARS = 30;
+const WARM_YEAR = 44; // ~2070, the end of the state's 50-year projection window
+const STACK_LIFE = 5;
+
+/** Smog (or clean air) over the neighborhood. Clouds and haze scale with the running CO2 total, uncapped. */
 function SmogScene({ smog, years }: { smog: boolean; years: number }) {
   const op = operating(years);
-  const k = Math.min(1, op / 20);
-  const size = smog ? 22 + k * 40 : 18;
-  const tons = GHG_PERMIT_TPY * op;
+  const tons = smog ? GHG_PERMIT_TPY * op : GHG_PERMIT_TPY * 0.075 * op;
+  const gasOff = !smog && op >= HB93_YEAR; // our plan: no gas hours after 2045
+  // Haze: 0 at start, 1 at about 800 million tons (their 80-year total). Clouds: one more per ~120 million tons.
+  const k = Math.min(1, tons / 8e8);
+  const nClouds = smog ? Math.min(7, 1 + Math.floor(tons / 1.2e8)) : gasOff ? 0 : 2;
+  const swaps = Math.floor(op / STACK_LIFE);
+  const warm = years >= WARM_YEAR;
+  const sky = smog ? `rgb(${217 - k * 90},${211 - k * 105},${199 - k * 120})` : warm ? "#f6efe0" : "#eaf4fb";
   return (
     <svg viewBox="0 0 320 130" className="w-full" role="img" aria-label={smog ? `Smog over homes after ${years} years` : `Clean air over homes after ${years} years`}>
-      <rect x={0} y={0} width={320} height={130} fill={smog ? `rgb(${217 - k * 60},${211 - k * 70},${199 - k * 80})` : "#eaf4fb"} />
-      {smog && op > 0 && <rect x={0} y={0} width={320} height={130} fill="#3a3a3a" opacity={0.08 + k * 0.32} />}
-      <Cloud cx={110} cy={38} size={size} variant={smog && op > 0 ? "smog" : "clean"} opacity={smog ? 0.5 + k * 0.5 : 0.8} />
-      <Cloud cx={225} cy={30} size={size * 0.75} variant={smog && op > 0 ? "smog" : "clean"} opacity={smog ? 0.4 + k * 0.5 : 0.7} />
-      {smog && op > 0 && <Cloud cx={280} cy={52} size={size * 0.55} variant="smog" opacity={0.3 + k * 0.5} />}
+      <rect x={0} y={0} width={320} height={130} fill={sky} />
+      {smog && op > 0 && <rect x={0} y={0} width={320} height={130} fill="#3a3a3a" opacity={0.06 + k * 0.42} />}
+      {warm && (
+        <g>
+          <circle cx={292} cy={22} r={11} fill="#fdb715" opacity={0.95} />
+          {[0, 45, 90, 135].map((a) => (
+            <line key={a} x1={292 - 16 * Math.cos((a * Math.PI) / 180)} y1={22 - 16 * Math.sin((a * Math.PI) / 180)} x2={292 + 16 * Math.cos((a * Math.PI) / 180)} y2={22 + 16 * Math.sin((a * Math.PI) / 180)} stroke="#fdb715" strokeWidth={2} />
+          ))}
+        </g>
+      )}
+      {Array.from({ length: nClouds }).map((_, i) => (
+        <Cloud key={i} cx={40 + ((i * 47) % 250)} cy={28 + (i % 3) * 12} size={smog ? 16 + k * 22 : 14} variant={smog && op > 0 ? "smog" : "clean"} opacity={smog ? 0.45 + k * 0.5 : 0.7} />
+      ))}
       <Neighborhood x={20} y={92} w={280} />
-      {!smog && op > 0 && [0, 1, 2].map((i) => <path key={i} d={`M${230 + i * 26},92 l0,-14 l10,-8 l10,8 l0,14 z`} fill="#d7f0dc" stroke="#1f5f3a" strokeWidth={1} />)}
-      <rect x={4} y={4} width={smog ? 150 : 132} height={22} rx={3} fill="#ffffff" fillOpacity={0.9} />
+      {!smog && op > 0 && Array.from({ length: Math.min(5, 1 + Math.floor(op / 6)) }).map((_, i) => <path key={i} d={`M${178 + i * 26},92 l0,-14 l10,-8 l10,8 l0,14 z`} fill="#d7f0dc" stroke="#1f5f3a" strokeWidth={1} />)}
+      <rect x={4} y={4} width={smog ? 168 : 150} height={22} rx={3} fill="#ffffff" fillOpacity={0.9} />
       <text x={10} y={19} fontSize={10} fontWeight={800} fill={smog ? "#8e3b2f" : "#1f5f3a"}>
-        {op === 0 ? `Year ${years}: still building` : smog ? `Year ${years}: ${(tons / 1e6).toFixed(0)} M tons released` : `Year ${years}: ${((tons * 0.075) / 1e6).toFixed(0)} M tons released`}
+        {op === 0 ? `Year ${years}: still building` : `Year ${years}: ${(tons / 1e6).toFixed(0)} M tons in the air, running total`}
       </text>
+      {op > 0 && smog && (
+        <>
+          <rect x={4} y={30} width={172} height={16} rx={3} fill="#ffffff" fillOpacity={0.85} />
+          <text x={10} y={41} fontSize={8} fontWeight={700} fill="#3c3c3c">
+            {swaps > 0 ? `fuel-cell stacks swapped ~${swaps}× (5-yr life)` : "fuel cells on their first stacks"}
+            {op >= HB93_YEAR ? " · past the 2045 deadline" : ""}
+          </text>
+        </>
+      )}
+      {gasOff && (
+        <>
+          <rect x={4} y={30} width={150} height={16} rx={3} fill="#ffffff" fillOpacity={0.85} />
+          <text x={10} y={41} fontSize={8} fontWeight={700} fill="#1f5f3a">gas hours: 0 since 2045 (HB93)</text>
+        </>
+      )}
       <text x={160} y={124} textAnchor="middle" fontSize={8} fontWeight={800} fill={smog ? "#8e3b2f" : "#1f5f3a"}>
-        {smog ? (op === 0 ? "CONSTRUCTION DUST · SUNLAND PARK ALREADY FAILS THE OZONE STANDARD" : "SMOG FORMS DOWNWIND ON HOT DAYS · SUNLAND PARK, SANTA TERESA") : op === 0 ? "CAPTURE SKIDS INSTALLED BEFORE POWER-ON" : "CAPTURED AT THE STACK · MONITORED · PUBLISHED"}
+        {smog
+          ? op === 0
+            ? "CONSTRUCTION DUST · SUNLAND PARK ALREADY FAILS THE OZONE STANDARD"
+            : op >= HB93_YEAR
+              ? "SHOWN ASSUMING THE FUEL CELLS STILL BURN GAS AFTER 2045"
+              : "SMOG FORMS DOWNWIND ON HOT DAYS · SUNLAND PARK, SANTA TERESA"
+          : op === 0
+            ? "CAPTURE SKIDS INSTALLED BEFORE POWER-ON"
+            : gasOff
+              ? "NO EXHAUST · GEOTHERMAL, WIND AND CAPTURE CARRY THE LOAD"
+              : "CAPTURED AT THE STACK · MONITORED · PUBLISHED"}
       </text>
+      {warm && (
+        <text x={316} y={48} textAnchor="end" fontSize={7} fontWeight={800} fill="#8a6a00">
+          NM ~5–7 °F WARMER BY 2070 (STATE PROJECTION)
+        </text>
+      )}
     </svg>
   );
 }
 
-/** Water table drops with years in their plan; clean water added rises in ours. */
+/** Water table drops with years in their plan (and recharge falls); clean water added rises in ours. */
 function WaterGauge({ down, years }: { down: boolean; years: number }) {
   const op = operating(years);
-  const k = Math.min(1, years / 30);
-  const top = down ? 50 + k * 40 : Math.max(30, 60 - Math.min(1, op / 20) * 30);
+  // Their plan: the table keeps falling for the whole horizon (USGS decline 2000-2020; recharge down 25%+ in the state projection).
+  const kDown = Math.min(1, years / 80);
+  const top = down ? 50 + kDown * 62 : Math.max(24, 60 - Math.min(1, op / 25) * 36);
   const gal = OUR_WATER_GPD * 365 * op;
-  const downLabelY = Math.min(104, Math.max(63, top - 5)); // below the dashed 2026 line, above the arrow tip
+  const downLabelY = Math.min(112, Math.max(63, top - 5));
+  const warm = years >= WARM_YEAR;
+  const leaseOver = years >= LEASE_YEARS;
   return (
     <svg viewBox="0 0 320 130" className="w-full" role="img" aria-label={down ? `Aquifer level after ${years} years` : `Clean water added after ${years} years`}>
-      <rect x={0} y={0} width={320} height={130} fill="#e3cfa8" />
+      <rect x={0} y={0} width={320} height={130} fill={warm ? "#e8d0a0" : "#e3cfa8"} />
       <rect x={0} y={top} width={320} height={130 - top} fill={down ? "#7a9bb5" : "#4f8fd0"} className="transition-all duration-500" />
       <rect x={290} y={8} width={12} height={top + 4} fill="#5a5a5a" />
       <line x1={0} y1={50} x2={320} y2={50} stroke="#003047" strokeWidth={1} strokeDasharray="4 4" />
@@ -53,8 +114,10 @@ function WaterGauge({ down, years }: { down: boolean; years: number }) {
         <>
           <path d={`M60,52 L60,${top - 4}`} stroke="#c0392b" strokeWidth={3} strokeDasharray="4 3" />
           <path d={`M60,${top - 4} l-6,-8 M60,${top - 4} l6,-8`} stroke="#c0392b" strokeWidth={3} fill="none" />
-          <rect x={68} y={downLabelY - 9} width={150} height={12} rx={2} fill="#e3cfa8" fillOpacity={0.9} />
-          <text x={72} y={downLabelY} fontSize={9} fontWeight={800} fill="#8e3b2f">year {years}: water table pulled down</text>
+          <rect x={68} y={downLabelY - 9} width={190} height={12} rx={2} fill="#e3cfa8" fillOpacity={0.9} />
+          <text x={72} y={downLabelY} fontSize={9} fontWeight={800} fill="#8e3b2f">
+            year {years}: water table pulled down{warm ? " · recharge falling" : ""}
+          </text>
         </>
       ) : (
         <>
@@ -62,8 +125,20 @@ function WaterGauge({ down, years }: { down: boolean; years: number }) {
           {op > 0 && <path d="M60,64 L60,40 M60,40 l-6,8 M60,40 l6,8" stroke="#1f5f3a" strokeWidth={3} fill="none" />}
         </>
       )}
+      {leaseOver && (
+        <>
+          <rect x={4} y={4} width={128} height={12} rx={2} fill="#ffffff" fillOpacity={0.85} />
+          <text x={8} y={13} fontSize={7.5} fontWeight={800} fill="#003047">LEASE OVER (YR 30) · LAND BACK ON TAX ROLLS</text>
+        </>
+      )}
       <text x={160} y={124} textAnchor="middle" fontSize={8} fontWeight={800} fill={down ? "#8e3b2f" : "#1f5f3a"}>
-        {down ? "FRESH WATER TAKEN FOR FILLS, BUILDING AND OPERATIONS" : "SALTY DEEP WATER TREATED · CLEAN WATER TO CRRUA"}
+        {down
+          ? warm
+            ? "FRESH WATER STILL TAKEN · STATE PROJECTS RECHARGE DOWN 25%+ BY 2070"
+            : "FRESH WATER TAKEN FOR FILLS, BUILDING AND OPERATIONS"
+          : warm
+            ? "SALTY DEEP WATER TREATED · MORE VALUABLE AS THE STATE DRIES"
+            : "SALTY DEEP WATER TREATED · CLEAN WATER TO CRRUA"}
       </text>
     </svg>
   );
@@ -184,6 +259,11 @@ export function NetLossSection() {
             document.body,
           )}
 
+        {year >= 30 && (
+          <p className="pj-adult mx-auto mb-6 max-w-[1000px] rounded px-4 py-3 text-[14px]" style={{ backgroundColor: "#fff8e6", lineHeight: 1.55, color: "#3c3c3c" }}>
+            <strong>What the long views assume, and where it comes from.</strong> CO₂ is a running total because cumulative emissions drive warming almost linearly and the effects last for centuries<Cite ids={["ipcc-ar6-spm"]} />. HB93 requires net-zero by 2045 (year 19); their route is credits, so exhaust after that assumes the fuel cells still burn gas, while the upgrade retires gas hours to zero by then<Cite ids={["cba", "bocc"]} />. Stacks are swapped about every five years<Cite ids={["bloom-stack-life"]} />. The 30-year lease ends at year 30 and the land returns to the tax rolls<Cite ids={["cba"]} />. New Mexico is projected 5–7 °F warmer within 50 years with groundwater recharge down at least 25%<Cite ids={["nmbg-164"]} />, and Mesilla groundwater already fell from 2000 to 2020<Cite ids={["usgs-mesilla-taap"]} />, so the water table keeps dropping under their plan. Beyond 2070 the state projection ends; the drawings hold at its endpoint rather than extrapolate.
+          </p>
+        )}
         {/* Year bar: sticks under the header while you scroll the rows */}
         <div className="sticky z-20 mx-auto mb-4 max-w-[1000px] rounded bg-white px-3 py-2 shadow-md" style={{ top: 96, border: "1px solid #e0e0e0" }}>
         <div className="mb-1 text-center text-[13px] font-bold uppercase" style={{ color: "#3c3c3c" }}>{kid ? "How many years from now?" : "After how many years?"}</div>
