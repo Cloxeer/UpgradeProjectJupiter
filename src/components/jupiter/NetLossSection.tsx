@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { SectionHeading } from "./SectionHeading";
 import { SourceList } from "@/components/Cite";
 import { rows, YEARS, operating, allSources, GHG_PERMIT_TPY, OUR_WATER_GPD, type Year } from "@/data/netloss";
@@ -71,6 +72,21 @@ function WaterGauge({ down, years }: { down: boolean; years: number }) {
 export function NetLossSection() {
   const [year, setYear] = useState<Year>(5);
   const [openRow, setOpenRow] = useState<number | null>(null);
+  // Tap a year picture to open it big (full-screen on phones, a dialog on desktop), like the blueprint drawings.
+  const [zoom, setZoom] = useState<"ours" | "theirs" | null>(null);
+  useEffect(() => {
+    if (!zoom) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setZoom(null);
+    };
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [zoom]);
   const copy = useCopy();
   const [audience] = useAudience();
   const kid = audience === "kid";
@@ -93,21 +109,66 @@ export function NetLossSection() {
         <div className="mb-2 text-center text-[14px] font-bold uppercase" style={{ color: "#6b6b6b" }}>Year {year} · pick another year below the pictures</div>
         {/* Pictures: ours first, side by side */}
         <div className="mx-auto mb-8 grid max-w-[1000px] grid-cols-2 gap-2 sm:gap-4">
-          <div className="rounded bg-white p-2 shadow-sm sm:p-3" style={{ borderTop: "4px solid #2e8b57" }}>
-            <div className="mb-2 text-[12px] font-black uppercase sm:text-[14px]" style={{ color: "#1f5f3a" }}>{kid ? "Our plan" : "Force-upgraded"} · year {year}</div>
+          <button type="button" onClick={() => setZoom("ours")} className="rounded bg-white p-2 text-left shadow-sm sm:p-3" style={{ borderTop: "4px solid #2e8b57" }} aria-label={`Open the upgraded year ${year} pictures full-screen`}>
+            <div className="mb-2 flex items-center justify-between text-[12px] font-black uppercase sm:text-[14px]" style={{ color: "#1f5f3a" }}>
+              <span>{kid ? "Our plan" : "Force-upgraded"} · year {year}</span>
+              <span aria-hidden style={{ fontSize: 14 }}>⤢</span>
+            </div>
             <SmogScene smog={false} years={year} />
             <div className="mt-2">
               <WaterGauge down={false} years={year} />
             </div>
-          </div>
-          <div className="rounded bg-white p-2 shadow-sm sm:p-3" style={{ borderTop: "4px solid #c0392b" }}>
-            <div className="mb-2 text-[12px] font-black uppercase sm:text-[14px]" style={{ color: "#c0392b" }}>{kid ? "Their plan" : "As filed"} · year {year}</div>
+          </button>
+          <button type="button" onClick={() => setZoom("theirs")} className="rounded bg-white p-2 text-left shadow-sm sm:p-3" style={{ borderTop: "4px solid #c0392b" }} aria-label={`Open the as-filed year ${year} pictures full-screen`}>
+            <div className="mb-2 flex items-center justify-between text-[12px] font-black uppercase sm:text-[14px]" style={{ color: "#c0392b" }}>
+              <span>{kid ? "Their plan" : "As filed"} · year {year}</span>
+              <span aria-hidden style={{ fontSize: 14 }}>⤢</span>
+            </div>
             <SmogScene smog years={year} />
             <div className="mt-2">
               <WaterGauge down years={year} />
             </div>
-          </div>
+          </button>
         </div>
+        {zoom &&
+          createPortal(
+            <>
+              <div className="pj-backdrop" onClick={() => setZoom(null)} aria-hidden />
+              <div className="pj-sheet" role="dialog" aria-modal="true" aria-label={`${zoom === "ours" ? "Upgraded" : "As filed"}, year ${year}`}>
+                <div className="pj-sheet__grab" />
+                <div className="p-4 sm:p-6" style={{ borderTop: `6px solid ${zoom === "ours" ? "#2e8b57" : "#c0392b"}` }}>
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <div className="text-[13px] font-bold uppercase tracking-wide" style={{ color: zoom === "ours" ? "#1f5f3a" : "#c0392b" }}>
+                        {zoom === "ours" ? (kid ? "Our plan" : "Force-upgraded") : kid ? "Their plan" : "As filed"}
+                      </div>
+                      <h4 className="mt-0.5 font-bold" style={{ fontSize: 22, color: "#003047" }}>
+                        After {year} {year === 1 ? "year" : "years"}
+                      </h4>
+                    </div>
+                    <button type="button" onClick={() => setZoom(null)} className="rounded-full px-3 py-1.5 text-[15px] font-black" style={{ color: "#6b6b6b", border: "1px solid #d9d9d9" }} aria-label="Close">
+                      ✕
+                    </button>
+                  </div>
+                  <div className="mt-4">
+                    <SmogScene smog={zoom === "theirs"} years={year} />
+                  </div>
+                  <div className="mt-3">
+                    <WaterGauge down={zoom === "theirs"} years={year} />
+                  </div>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {YEARS.map((y) => (
+                      <button key={y} type="button" onClick={() => setYear(y)} className="min-h-[40px] rounded px-3 text-[14px] font-black" style={{ minWidth: 44, backgroundColor: year === y ? "#003047" : "#fff", color: year === y ? "#fff" : "#003047", border: "1px solid #003047" }} aria-pressed={year === y}>
+                        {y}
+                      </button>
+                    ))}
+                  </div>
+                  <p className="mt-3 text-[14px]" style={{ color: "#6b6b6b" }}>Pick another year while it is open. Tap outside or ✕ to go back.</p>
+                </div>
+              </div>
+            </>,
+            document.body,
+          )}
 
         {/* Year bar: sticks under the header while you scroll the rows */}
         <div className="sticky z-20 mx-auto mb-4 max-w-[1000px] rounded bg-white px-3 py-2 shadow-md" style={{ top: 96, border: "1px solid #e0e0e0" }}>

@@ -8,6 +8,9 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import { nav, banner, LAST_UPDATED } from "@/data/upgrade";
 import { MenuIcon } from "./icons";
 
+/** The two pages the nav keeps underlined so readers know where to look. */
+const KEY_PAGES = new Set(["/blueprint", "/petition"]);
+
 const BANNER_KEY = "pj-banner-hidden";
 const bannerListeners = new Set<() => void>();
 function readBannerHidden(): boolean {
@@ -106,12 +109,12 @@ export function SiteHeader() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-7 lg:flex">
+        <nav className="pj-nav hidden items-center gap-7 lg:flex">
           {nav.map((item) => (
             <a
               key={item.label}
               href={item.href}
-              className="text-[15px] font-semibold uppercase tracking-wide text-navy transition-colors hover:text-teal"
+              className={`pj-nav__link text-[15px] font-semibold uppercase tracking-wide text-navy ${KEY_PAGES.has(item.href) ? "pj-nav__link--key" : ""}`}
             >
               {item.label}
             </a>
@@ -134,17 +137,19 @@ export function SiteHeader() {
       {mobileOpen && (
         <nav className="pj-menu fixed inset-0 z-[95] flex flex-col bg-white lg:hidden" aria-label="Site menu">
           <div className="pj-container flex items-center justify-between" style={{ paddingBlock: 12 }}>
-            <span className="text-[13px] font-black uppercase tracking-wide" style={{ color: "#c0392b" }}>Force Upgrade Project Jupiter</span>
+            <a href="/petition" onClick={() => setMobileOpen(false)} className="min-h-[44px] inline-flex items-center text-[13px] font-black uppercase tracking-wide" style={{ color: "#c0392b" }}>
+              Force Upgrade Project Jupiter → sign the petition
+            </a>
             <button type="button" aria-label="Close menu" onClick={() => setMobileOpen(false)} className="-mr-2 flex h-11 w-11 items-center justify-center rounded text-navy" style={{ fontSize: 30, lineHeight: 1 }}>
               ×
             </button>
           </div>
-          <div className="flex flex-1 flex-col items-center justify-center gap-1 px-6 pb-16">
+          <div className="pj-nav flex flex-1 flex-col items-center justify-center gap-1 px-6 pb-16">
             {nav.map((item, i) => (
               <a
                 key={item.label}
                 href={item.href}
-                className="pj-menu__item flex min-h-[52px] items-center justify-center text-[22px] font-black uppercase tracking-wide text-navy"
+                className={`pj-menu__item pj-nav__link flex min-h-[52px] items-center justify-center text-[22px] font-black uppercase tracking-wide text-navy ${KEY_PAGES.has(item.href) ? "pj-nav__link--key" : ""}`}
                 style={{ animationDelay: `${0.2 * i}s` }}
                 onClick={() => setMobileOpen(false)}
               >
