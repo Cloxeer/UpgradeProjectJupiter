@@ -35,6 +35,8 @@ function SmogScene({ smog, years }: { smog: boolean; years: number }) {
   const swaps = Math.floor(op / STACK_LIFE);
   const warm = years >= WARM_YEAR;
   const sky = smog ? `rgb(${217 - k * 90},${211 - k * 105},${199 - k * 120})` : warm ? "#f6efe0" : "#eaf4fb";
+  const topLabel = op === 0 ? `Year ${years}: still building` : `Year ${years}: ${(tons / 1e6).toFixed(0)} M tons in the air, running total`;
+  const swapLabel = `${swaps > 0 ? `fuel-cell stacks swapped ~${swaps}× (5-yr life)` : "fuel cells on their first stacks"}${op >= HB93_YEAR ? " · past the 2045 deadline" : ""}`;
   return (
     <svg viewBox="0 0 320 130" className="w-full" role="img" aria-label={smog ? `Smog over homes after ${years} years` : `Clean air over homes after ${years} years`}>
       <rect x={0} y={0} width={320} height={130} fill={sky} />
@@ -52,16 +54,15 @@ function SmogScene({ smog, years }: { smog: boolean; years: number }) {
       ))}
       <Neighborhood x={20} y={92} w={280} />
       {!smog && op > 0 && Array.from({ length: Math.min(5, 1 + Math.floor(op / 6)) }).map((_, i) => <path key={i} d={`M${178 + i * 26},92 l0,-14 l10,-8 l10,8 l0,14 z`} fill="#d7f0dc" stroke="#1f5f3a" strokeWidth={1} />)}
-      <rect x={4} y={4} width={smog ? 168 : 150} height={22} rx={3} fill="#ffffff" fillOpacity={0.9} />
+      <rect x={4} y={4} width={Math.min(300, topLabel.length * 5.6 + 12)} height={22} rx={3} fill="#ffffff" fillOpacity={0.9} />
       <text x={10} y={19} fontSize={10} fontWeight={800} fill={smog ? "#8e3b2f" : "#1f5f3a"}>
-        {op === 0 ? `Year ${years}: still building` : `Year ${years}: ${(tons / 1e6).toFixed(0)} M tons in the air, running total`}
+        {topLabel}
       </text>
       {op > 0 && smog && (
         <>
-          <rect x={4} y={30} width={172} height={16} rx={3} fill="#ffffff" fillOpacity={0.85} />
+          <rect x={4} y={30} width={Math.min(300, swapLabel.length * 4.5 + 12)} height={16} rx={3} fill="#ffffff" fillOpacity={0.85} />
           <text x={10} y={41} fontSize={8} fontWeight={700} fill="#3c3c3c">
-            {swaps > 0 ? `fuel-cell stacks swapped ~${swaps}× (5-yr life)` : "fuel cells on their first stacks"}
-            {op >= HB93_YEAR ? " · past the 2045 deadline" : ""}
+            {swapLabel}
           </text>
         </>
       )}
@@ -85,9 +86,12 @@ function SmogScene({ smog, years }: { smog: boolean; years: number }) {
               : "CAPTURED AT THE STACK · MONITORED · PUBLISHED"}
       </text>
       {warm && (
-        <text x={316} y={48} textAnchor="end" fontSize={7} fontWeight={800} fill="#8a6a00">
-          NM ~5–7 °F WARMER BY 2070 (STATE PROJECTION)
-        </text>
+        <g>
+          <rect x={4} y={50} width={196} height={13} rx={3} fill="#ffffff" fillOpacity={0.85} />
+          <text x={10} y={59.5} fontSize={7} fontWeight={800} fill="#8a6a00">
+            NM ~5–7 °F WARMER BY 2070 (STATE PROJECTION)
+          </text>
+        </g>
       )}
     </svg>
   );
@@ -127,7 +131,7 @@ function WaterGauge({ down, years }: { down: boolean; years: number }) {
       )}
       {leaseOver && (
         <>
-          <rect x={4} y={4} width={128} height={12} rx={2} fill="#ffffff" fillOpacity={0.85} />
+          <rect x={4} y={4} width={190} height={12} rx={2} fill="#ffffff" fillOpacity={0.85} />
           <text x={8} y={13} fontSize={7.5} fontWeight={800} fill="#003047">LEASE OVER (YR 30) · LAND BACK ON TAX ROLLS</text>
         </>
       )}
