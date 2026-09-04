@@ -74,7 +74,7 @@ main [role="tablist"][aria-label="Who are you viewing as"] > button {
   transform-origin: left center;
   transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.pj-nav__link:hover::after, .pj-nav__link:focus-visible::after { transform: scaleX(1); }
+.pj-nav__link:hover::after, .pj-nav__link:focus-visible::after, .pj-nav__link--current::after { transform: scaleX(1); }
 .pj-nav .pj-menu__item.pj-nav__link--key::before { height: 3px; }
 @media (prefers-reduced-motion: reduce) { .pj-nav__link::after { transition: none; } }
 

@@ -4,6 +4,7 @@ import { asset } from "@/lib/base";
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { nav, banner, LAST_UPDATED } from "@/data/upgrade";
 import { MenuIcon } from "./icons";
@@ -38,6 +39,9 @@ function hideBanner() {
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  // The page you are on keeps its yellow line in place (no hover needed).
+  const pathname = usePathname() ?? "/";
+  const isCurrent = (href: string) => (href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/"));
   // The banner can be dismissed for the rest of the visit (remembered per tab, so it returns on the next visit).
   const bannerHidden = useSyncExternalStore(subscribeBanner, readBannerHidden, () => false);
 
@@ -114,7 +118,8 @@ export function SiteHeader() {
             <a
               key={item.label}
               href={item.href}
-              className={`pj-nav__link text-[15px] font-semibold uppercase tracking-wide text-navy ${KEY_PAGES.has(item.href) ? "pj-nav__link--key" : ""}`}
+              className={`pj-nav__link text-[15px] font-semibold uppercase tracking-wide text-navy ${KEY_PAGES.has(item.href) ? "pj-nav__link--key" : ""} ${isCurrent(item.href) ? "pj-nav__link--current" : ""}`}
+              aria-current={isCurrent(item.href) ? "page" : undefined}
             >
               {item.label}
             </a>
@@ -149,7 +154,8 @@ export function SiteHeader() {
               <a
                 key={item.label}
                 href={item.href}
-                className={`pj-menu__item pj-nav__link flex min-h-[52px] items-center justify-center text-[22px] font-black uppercase tracking-wide text-navy ${KEY_PAGES.has(item.href) ? "pj-nav__link--key" : ""}`}
+                className={`pj-menu__item pj-nav__link flex min-h-[52px] items-center justify-center text-[22px] font-black uppercase tracking-wide text-navy ${KEY_PAGES.has(item.href) ? "pj-nav__link--key" : ""} ${isCurrent(item.href) ? "pj-nav__link--current" : ""}`}
+                aria-current={isCurrent(item.href) ? "page" : undefined}
                 style={{ animationDelay: `${0.2 * i}s` }}
                 onClick={() => setMobileOpen(false)}
               >
