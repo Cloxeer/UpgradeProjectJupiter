@@ -1,0 +1,90 @@
+/*
+  Mobile containment rules.
+  One place for every rule that keeps content inside its box on a phone:
+  no text over its backdrop, no drawing past the screen edge, no badge over a picture,
+  and every detail view opening full-screen. Layout only; no copy lives here.
+*/
+
+/* 1. Text never escapes its container. Long words wrap; boxes grow to fit. */
+main :where(p, li, div, span, figcaption, td, th, h1, h2, h3, h4, button, a) {
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+/* Headline stamps get their own line instead of leaning over the words beside them. */
+h1 .pj-stamp {
+  display: block;
+  width: max-content;
+  margin: 0.15em auto 0;
+}
+/* The audience squares grew past their cells; let each cell take the height its label needs. */
+main [role="tablist"][aria-label="Who are you viewing as"] > button {
+  aspect-ratio: auto !important;
+  min-height: 112px;
+  height: auto;
+}
+
+/* 2. Drawings fit the screen width. Nothing scrolls sideways in the page. */
+@media (max-width: 640px) {
+  .pj-scroll { overflow-x: hidden; }
+  .pj-scroll svg.pj-diagram { min-width: 0; width: 100%; }
+}
+/* The drawing sits in its own frame. In the normal view the frame clips nothing (the drawing fits).
+   In the enlarged view only this frame slides; sliders, bars and text below it stay put. */
+.pj-frame { position: relative; width: 100%; overflow: hidden; }
+.pj-bigwrap .pj-frame {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #003047 #e6e6e6;
+  border: 2px dashed #d99a00;
+  border-radius: 12px;
+  padding-bottom: 6px;
+}
+@media (max-width: 767px) {
+  .pj-bigwrap .pj-frame svg.pj-diagram { min-width: 760px; }
+  /* Edge fades signal that more drawing is off to the side. */
+  .pj-bigwrap .pj-frame {
+    mask-image: linear-gradient(to right, transparent, #000 24px, #000 calc(100% - 24px), transparent);
+  }
+}
+/* 6. Opening anything glides in (Apple-style ease-out), never snaps. */
+@keyframes pj-reveal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.pj-reveal { animation: pj-reveal 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.pj-theysay > summary { justify-content: space-between; }
+
+/* 7. Little-kid mode: pictures, sliders and Toby & Sal. Grown-up helper text stays out of the way. */
+.pj-kid .pj-adult, html[data-audience="kid"] .pj-adult, html[data-audience="kid"] .pj-num { display: none !important; }
+
+@keyframes pj-swipe { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+.pj-swipe-cue span:last-child { animation: pj-swipe 1s ease-in-out infinite; }
+.pj-swipe-cue span:first-child { animation: pj-swipe 1s ease-in-out infinite reverse; }
+
+/* 3. Every detail view is full-screen on a phone: parts, buildings, and the enlarged drawing alike. */
+@media (max-width: 767px) {
+  .pj-sheet {
+    top: 0;
+    bottom: 0;
+    max-height: none;
+    height: 100dvh;
+    border-radius: 0 !important;
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .pj-sheet__grab { display: none; }
+}
+
+/* A pop-up must always finish opening, even if its card is paused off-screen. */
+.pj-paused .pj-sheet, .pj-paused .pj-backdrop { animation-play-state: running !important; }
+
+/* 4. The drone-view side panel exists on desktop only; on phones and tablets it appears as a full-screen view when a building is tapped. */
+@media (max-width: 1023px) {
+  .pj-site-panel:not(.pj-fs) { display: none; }
+}
+
+/* 5. Stamps and badges sit beside pictures and words, never on top of them, on small screens. */
+@media (max-width: 640px) {
+  header .pj-stamp--overlay {
+    top: auto;
+    bottom: -0.2em;
+    transform: translate(-50%, 0) rotate(-7deg);
+  }
+}

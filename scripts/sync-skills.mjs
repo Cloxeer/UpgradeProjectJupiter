@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * Generates clone-website command/skill files for all supported AI coding platforms.
- * Source of truth: .claude/skills/clone-website/SKILL.md
+ * Generates command/skill files for all supported AI coding platforms.
+ * Source of truth: .claude/skills/<skill-name>/SKILL.md
  *
  * Usage: node scripts/sync-skills.mjs
  */
@@ -12,26 +12,32 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const SOURCE = join(ROOT, '.claude', 'skills', 'clone-website', 'SKILL.md');
 
-// --- Parse source skill ---
-
-let raw;
-try {
-  raw = readFileSync(SOURCE, 'utf8').replace(/\r\n/g, '\n');
-} catch {
-  console.error(`Error: Source skill not found at .claude/skills/clone-website/SKILL.md`);
-  process.exit(1);
-}
-
-const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-if (!match) {
-  console.error('Error: Could not parse SKILL.md frontmatter');
-  process.exit(1);
-}
-
-const body = match[2];
-const shortDesc = 'Reverse-engineer and clone any website as a pixel-perfect replica';
+const SKILLS = [
+  {
+    name: 'clone-website',
+    shortDesc:
+      'Reverse-engineer and clone any website as a pixel-perfect replica',
+    argumentHint: '<url>',
+    geminiArgs: '{{args}}',
+    noArgsReplace: (text) =>
+      text.replace(/\$ARGUMENTS/g, 'the target URL provided by the user'),
+  },
+  {
+    name: 'extract-halite-template',
+    shortDesc:
+      'Extract a reference website into a HaliteWebDevelopment JSON template variant (not Next.js)',
+    argumentHint: '<referenceUrl> <genre> <variantSlug> [haliteRepoPath]',
+    geminiArgs: '{{args}}',
+    noArgsReplace: (text) =>
+      text
+        .replace(/\$ARGUMENTS/g, 'the inputs provided by the user')
+        .replace(
+          /Parse `\$ARGUMENTS`/g,
+          'Parse the user-provided arguments (referenceUrl, genre, variantSlug, optional haliteRepoPath)',
+        ),
+  },
+];
 
 // --- Helpers ---
 
@@ -42,71 +48,100 @@ function write(relPath, content) {
   console.log(`  \u2713 ${relPath}`);
 }
 
-const HEADER =
-  '<!-- AUTO-GENERATED from .claude/skills/clone-website/SKILL.md \u2014 do not edit directly.\n' +
-  '     Run `node scripts/sync-skills.mjs` to regenerate. -->\n\n';
+const HEADER = (skillName) =>
+  `<!-- AUTO-GENERATED from .claude/skills/${skillName}/SKILL.md \u2014 do not edit directly.\n` +
+  `     Run \`node scripts/sync-skills.mjs\` to regenerate. -->\n\n`;
 
-const noArgs = (text) => text.replace(/\$ARGUMENTS/g, 'the target URL provided by the user');
+function parseSkill(sourcePath) {
+  let raw;
+  try {
+    raw = readFileSync(sourcePath, 'utf8').replace(/\r\n/g, '\n');
+  } catch {
+    console.error(`Error: Source skill not found at ${sourcePath}`);
+    process.exit(1);
+  }
 
-// --- Generate ---
+  const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  if (!match) {
+    console.error(`Error: Could not parse frontmatter in ${sourcePath}`);
+    process.exit(1);
+  }
 
-console.log('Syncing clone-website skill to all platforms...');
-console.log(`  Source: .claude/skills/clone-website/SKILL.md\n`);
+  return { raw, body: match[2] };
+}
 
-// 1. Codex CLI — same SKILL.md format, same $ARGUMENTS syntax
-write('.codex/skills/clone-website/SKILL.md', raw);
+function syncSkill(skill) {
+  const sourcePath = join(ROOT, '.claude', 'skills', skill.name, 'SKILL.md');
+  const { raw, body } = parseSkill(sourcePath);
+  const noArgsBody = skill.noArgsReplace(body);
+  const geminiBody = body.replace(/\$ARGUMENTS/g, skill.geminiArgs);
+  const header = HEADER(skill.name);
 
-// 2. GitHub Copilot — same SKILL.md format
-write('.github/skills/clone-website/SKILL.md', raw);
+  console.log(`Syncing ${skill.name}...`);
+  console.log(`  Source: .claude/skills/${skill.name}/SKILL.md\n`);
 
-// 3. Cursor — plain markdown, no argument substitution support
-write('.cursor/commands/clone-website.md', HEADER + noArgs(body));
+  // 1. Codex CLI
+  write(`.codex/skills/${skill.name}/SKILL.md`, raw);
 
-// 4. Windsurf — markdown workflow
-write('.windsurf/workflows/clone-website.md', HEADER + noArgs(body));
+  // 2. GitHub Copilot
+  write(`.github/skills/${skill.name}/SKILL.md`, raw);
 
-// 5. Gemini CLI — TOML format, {{args}} for arguments
-const geminiBody = body.replace(/\$ARGUMENTS/g, '{{args}}');
-write(
-  '.gemini/commands/clone-website.toml',
-  `# AUTO-GENERATED from .claude/skills/clone-website/SKILL.md\n` +
-    `# Run \`node scripts/sync-skills.mjs\` to regenerate.\n\n` +
-    `description = "${shortDesc}"\n` +
-    `name = "clone-website"\n\n` +
-    `prompt = '''\n${geminiBody}\n'''\n`
-);
+  // 3. Cursor
+  write(`.cursor/commands/${skill.name}.md`, header + noArgsBody);
 
-// 6. OpenCode — markdown + YAML frontmatter, $ARGUMENTS works natively
-write(
-  '.opencode/commands/clone-website.md',
-  `---\ndescription: "${shortDesc}"\n---\n${HEADER}${body}`
-);
+  // 4. Windsurf
+  write(`.windsurf/workflows/${skill.name}.md`, header + noArgsBody);
 
-// 7. Augment Code — markdown + YAML frontmatter
-write(
-  '.augment/commands/clone-website.md',
-  `---\ndescription: "${shortDesc}"\nargument-hint: "<url>"\n---\n${HEADER}${body}`
-);
+  // 5. Gemini CLI
+  write(
+    `.gemini/commands/${skill.name}.toml`,
+    `# AUTO-GENERATED from .claude/skills/${skill.name}/SKILL.md\n` +
+      `# Run \`node scripts/sync-skills.mjs\` to regenerate.\n\n` +
+      `description = "${skill.shortDesc}"\n` +
+      `name = "${skill.name}"\n\n` +
+      `prompt = '''\n${geminiBody}\n'''\n`,
+  );
 
-// 8. Continue — prompt file with invokable: true
-write(
-  '.continue/commands/clone-website.md',
-  `---\nname: clone-website\ndescription: "${shortDesc}"\ninvokable: true\n---\n${HEADER}${body}`
-);
+  // 6. OpenCode
+  write(
+    `.opencode/commands/${skill.name}.md`,
+    `---\ndescription: "${skill.shortDesc}"\n---\n${header}${body}`,
+  );
 
-// 9. Amazon Q — JSON agent definition
-write(
-  '.amazonq/cli-agents/clone-website.json',
-  JSON.stringify(
-    {
-      name: 'clone-website',
-      description: shortDesc,
-      prompt: noArgs(body),
-      fileContext: ['AGENTS.md', 'docs/research/**'],
-    },
-    null,
-    2
-  ) + '\n'
-);
+  // 7. Augment Code
+  write(
+    `.augment/commands/${skill.name}.md`,
+    `---\ndescription: "${skill.shortDesc}"\nargument-hint: "${skill.argumentHint}"\n---\n${header}${body}`,
+  );
 
-console.log('\nDone! 9 platform command files generated from source skill.');
+  // 8. Continue
+  write(
+    `.continue/commands/${skill.name}.md`,
+    `---\nname: ${skill.name}\ndescription: "${skill.shortDesc}"\ninvokable: true\n---\n${header}${body}`,
+  );
+
+  // 9. Amazon Q
+  write(
+    `.amazonq/cli-agents/${skill.name}.json`,
+    JSON.stringify(
+      {
+        name: skill.name,
+        description: skill.shortDesc,
+        prompt: noArgsBody,
+        fileContext: ['AGENTS.md', 'docs/research/**'],
+      },
+      null,
+      2,
+    ) + '\n',
+  );
+
+  console.log('');
+}
+
+console.log('Syncing skills to all platforms...\n');
+
+for (const skill of SKILLS) {
+  syncSkill(skill);
+}
+
+console.log(`Done! ${SKILLS.length} skills \u00d7 9 platform files generated.`);
