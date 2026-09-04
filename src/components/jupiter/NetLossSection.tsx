@@ -35,8 +35,8 @@ function SmogScene({ smog, years }: { smog: boolean; years: number }) {
   const swaps = Math.floor(op / STACK_LIFE);
   const warm = years >= WARM_YEAR;
   const sky = smog ? `rgb(${217 - k * 90},${211 - k * 105},${199 - k * 120})` : warm ? "#f6efe0" : "#eaf4fb";
-  const topLabel = op === 0 ? `Year ${years}: still building` : `Year ${years}: ${(tons / 1e6).toFixed(0)} M tons in the air, running total`;
-  const swapLabel = `${swaps > 0 ? `fuel-cell stacks swapped ~${swaps}× (5-yr life)` : "fuel cells on their first stacks"}${op >= HB93_YEAR ? " · past the 2045 deadline" : ""}`;
+  const topLabel = op === 0 ? `Year ${years}: still building` : `Year ${years}: ${(tons / 1e6).toFixed(0)} M tons CO₂, running total`;
+  void swaps;
   return (
     <svg viewBox="0 0 320 130" className="w-full" role="img" aria-label={smog ? `Smog over homes after ${years} years` : `Clean air over homes after ${years} years`}>
       <rect x={0} y={0} width={320} height={130} fill={sky} />
@@ -54,24 +54,10 @@ function SmogScene({ smog, years }: { smog: boolean; years: number }) {
       ))}
       <Neighborhood x={20} y={92} w={280} />
       {!smog && op > 0 && Array.from({ length: Math.min(5, 1 + Math.floor(op / 6)) }).map((_, i) => <path key={i} d={`M${178 + i * 26},92 l0,-14 l10,-8 l10,8 l0,14 z`} fill="#d7f0dc" stroke="#1f5f3a" strokeWidth={1} />)}
-      <rect x={4} y={4} width={Math.min(300, topLabel.length * 5.6 + 12)} height={22} rx={3} fill="#ffffff" fillOpacity={0.9} />
-      <text x={10} y={19} fontSize={10} fontWeight={800} fill={smog ? "#8e3b2f" : "#1f5f3a"}>
+      <rect x={4} y={4} width={Math.min(240, topLabel.length * 5 + 10)} height={16} rx={3} fill="#ffffff" fillOpacity={0.9} />
+      <text x={9} y={15.5} fontSize={9} fontWeight={800} fill={smog ? "#8e3b2f" : "#1f5f3a"}>
         {topLabel}
       </text>
-      {op > 0 && smog && (
-        <>
-          <rect x={4} y={30} width={Math.min(300, swapLabel.length * 4.5 + 12)} height={16} rx={3} fill="#ffffff" fillOpacity={0.85} />
-          <text x={10} y={41} fontSize={8} fontWeight={700} fill="#3c3c3c">
-            {swapLabel}
-          </text>
-        </>
-      )}
-      {gasOff && (
-        <>
-          <rect x={4} y={30} width={150} height={16} rx={3} fill="#ffffff" fillOpacity={0.85} />
-          <text x={10} y={41} fontSize={8} fontWeight={700} fill="#1f5f3a">gas hours: 0 since 2045 (HB93)</text>
-        </>
-      )}
       <text x={160} y={124} textAnchor="middle" fontSize={8} fontWeight={800} fill={smog ? "#8e3b2f" : "#1f5f3a"}>
         {smog
           ? op === 0
@@ -85,14 +71,6 @@ function SmogScene({ smog, years }: { smog: boolean; years: number }) {
               ? "NO EXHAUST · GEOTHERMAL, WIND AND CAPTURE CARRY THE LOAD"
               : "CAPTURED AT THE STACK · MONITORED · PUBLISHED"}
       </text>
-      {warm && (
-        <g>
-          <rect x={4} y={50} width={196} height={13} rx={3} fill="#ffffff" fillOpacity={0.85} />
-          <text x={10} y={59.5} fontSize={7} fontWeight={800} fill="#8a6a00">
-            NM ~5–7 °F WARMER BY 2070 (STATE PROJECTION)
-          </text>
-        </g>
-      )}
     </svg>
   );
 }
@@ -106,7 +84,6 @@ function WaterGauge({ down, years }: { down: boolean; years: number }) {
   const gal = OUR_WATER_GPD * 365 * op;
   const downLabelY = Math.min(112, Math.max(63, top - 5));
   const warm = years >= WARM_YEAR;
-  const leaseOver = years >= LEASE_YEARS;
   return (
     <svg viewBox="0 0 320 130" className="w-full" role="img" aria-label={down ? `Aquifer level after ${years} years` : `Clean water added after ${years} years`}>
       <rect x={0} y={0} width={320} height={130} fill={warm ? "#e8d0a0" : "#e3cfa8"} />
@@ -129,12 +106,6 @@ function WaterGauge({ down, years }: { down: boolean; years: number }) {
           {op > 0 && <path d="M60,64 L60,40 M60,40 l-6,8 M60,40 l6,8" stroke="#1f5f3a" strokeWidth={3} fill="none" />}
         </>
       )}
-      {leaseOver && (
-        <>
-          <rect x={4} y={4} width={190} height={12} rx={2} fill="#ffffff" fillOpacity={0.85} />
-          <text x={8} y={13} fontSize={7.5} fontWeight={800} fill="#003047">LEASE OVER (YR 30) · LAND BACK ON TAX ROLLS</text>
-        </>
-      )}
       <text x={160} y={124} textAnchor="middle" fontSize={8} fontWeight={800} fill={down ? "#8e3b2f" : "#1f5f3a"}>
         {down
           ? warm
@@ -145,6 +116,138 @@ function WaterGauge({ down, years }: { down: boolean; years: number }) {
             : "SALTY DEEP WATER TREATED · CLEAN WATER TO CRRUA"}
       </text>
     </svg>
+  );
+}
+
+type Fact = { id: string; chip: string; color: string; info: string; sources: string[] };
+
+/** The facts behind a picture at this year, for this side. Each is a chip; tap or hover for the explanation and source. */
+function factsFor(side: "ours" | "theirs", years: number, kid: boolean): Fact[] {
+  const op = operating(years);
+  const theirs = side === "theirs";
+  const tons = theirs ? GHG_PERMIT_TPY * op : GHG_PERMIT_TPY * 0.075 * op;
+  const out: Fact[] = [];
+  if (op > 0) {
+    out.push({
+      id: "co2",
+      chip: `${(tons / 1e6).toFixed(0)} M tons CO₂ so far`,
+      color: theirs ? "#c0392b" : "#2e8b57",
+      info: kid
+        ? "This is all the planet-warming gas let out since the plant turned on, added up. It does not go away on its own for hundreds of years."
+        : `Running total since operations began (year 2): ${theirs ? "the permitted 10,144,115 tons a year" : "the 5–10% not captured"} × ${op} operating years. Counted cumulatively because warming tracks cumulative CO₂ almost linearly and the effects persist for centuries.`,
+      sources: ["sob", "ipcc-ar6-spm"],
+    });
+  }
+  if (theirs && op > 0) {
+    const swaps = Math.floor(op / STACK_LIFE);
+    out.push({
+      id: "stacks",
+      chip: swaps > 0 ? `~${swaps} stack swaps` : "first stacks",
+      color: "#6b6b6b",
+      info: kid
+        ? "The power machines wear out inside and get new parts about every five years. That is how many times so far."
+        : `Bloom expects fuel-cell stacks to be replaced about every 5 years, so over ${op} operating years that is roughly ${swaps} swap${swaps === 1 ? "" : "s"} across 2,275 stacks. An operating reality of the plant, not a claim about its owners.`,
+      sources: ["bloom-stack-life", "sob"],
+    });
+  }
+  if (theirs && op >= HB93_YEAR) {
+    out.push({
+      id: "hb93",
+      chip: "past the 2045 deadline",
+      color: "#c0392b",
+      info: kid
+        ? "A New Mexico law says the plant has to be clean by 2045. Their plan does that with paperwork, not by changing the machines, so we keep drawing the smoke."
+        : "HB93 requires this microgrid to run on net-zero carbon resources by 2045 (year 19). The filed plan's route is carbon-free 'matching', which buys credits elsewhere and changes nothing at the stacks, so this drawing assumes the fuel cells still burn gas after 2045.",
+      sources: ["cba", "bocc"],
+    });
+  }
+  if (!theirs && op >= HB93_YEAR) {
+    out.push({
+      id: "gasoff",
+      chip: "0 gas hours since 2045",
+      color: "#2e8b57",
+      info: kid
+        ? "By 2045 hot rock and wind do the work, so the gas machines rest all year and there is no smoke."
+        : "Process 4 retires gas hours every year (geothermal, delivered wind, rooftop solar) to meet HB93's 2045 net-zero requirement physically, not by credits. From then on the stacks are idle and there is no exhaust.",
+      sources: ["cba"],
+    });
+  }
+  if (!theirs && op > 0) {
+    out.push({
+      id: "water",
+      chip: `${((OUR_WATER_GPD * 365 * op) / 1e9).toFixed(0)} B gallons made`,
+      color: "#1f7ae0",
+      info: kid ? "Clean water made from salty water, all added up since the plant started." : `5 million gallons a day × 365 × ${op} operating years, from NMSU's 5 MGD brackish desalination design delivered to CRRUA.`,
+      sources: ["nmsu"],
+    });
+  }
+  if (years >= LEASE_YEARS) {
+    out.push({
+      id: "lease",
+      chip: "lease over · land on tax rolls",
+      color: "#003047",
+      info: kid
+        ? "The county's 30-year deal with the company is finished by now, so the land pays normal taxes again."
+        : "The industrial revenue bond lease in the Community Benefits Agreement runs 30 years. When it ends (year 30) the property returns to the tax rolls, so payments in lieu of taxes stop and ordinary property tax applies.",
+      sources: ["cba"],
+    });
+  }
+  if (years >= WARM_YEAR) {
+    out.push({
+      id: "warm",
+      chip: "NM ~5–7 °F warmer by 2070",
+      color: "#d99400",
+      info: kid
+        ? "Scientists for New Mexico say the state will be a lot hotter and drier by the time you are grown up, with less water coming into the ground."
+        : "New Mexico's Bureau of Geology projects 5 to 7 °F of warming over the next 50 years, major-river flows down 16 to 28%, and groundwater recharge down at least 25%. Shown as context on both sides; beyond 2070 the projection ends and the drawing holds at its endpoint.",
+      sources: ["nmbg-164"],
+    });
+  }
+  if (theirs && years >= WARM_YEAR) {
+    out.push({
+      id: "recharge",
+      chip: "water table still falling",
+      color: "#8e3b2f",
+      info: kid
+        ? "Their plan keeps taking the good water while less rain and snow refill it, so the water underground keeps dropping."
+        : "Mesilla groundwater already declined from 2000 to 2020 as streamflow fell and withdrawals rose; with recharge projected down at least 25%, continued fresh-water withdrawals keep pulling the table down.",
+      sources: ["usgs-mesilla-taap", "nmbg-164"],
+    });
+  }
+  return out;
+}
+
+function LongViewFacts({ side, years, kid }: { side: "ours" | "theirs"; years: number; kid: boolean }) {
+  const facts = factsFor(side, years, kid);
+  const [openId, setOpenId] = useState<string | null>(null);
+  const open = facts.find((f) => f.id === openId) ?? null;
+  if (facts.length === 0) return null;
+  return (
+    <div className="mt-2">
+      <div className="flex flex-wrap gap-1.5">
+        {facts.map((f) => (
+          <button
+            key={f.id}
+            type="button"
+            title={f.info}
+            onClick={() => setOpenId(openId === f.id ? null : f.id)}
+            aria-expanded={openId === f.id}
+            className="inline-flex min-h-[28px] items-center gap-1.5 rounded-full border px-2.5 text-[12px] font-bold leading-none transition-colors"
+            style={{ borderColor: openId === f.id ? f.color : "#e0e0e0", backgroundColor: openId === f.id ? "#f4f4f4" : "#fff", color: "#003047" }}
+          >
+            <span className="inline-block h-2 w-2 flex-shrink-0 rounded-full" style={{ backgroundColor: f.color }} />
+            {f.chip}
+            <span aria-hidden style={{ color: "#9a9a9a", fontSize: 11 }}>ⓘ</span>
+          </button>
+        ))}
+      </div>
+      {open && (
+        <div className="pj-reveal mt-2 rounded p-3 text-left" style={{ backgroundColor: "#f7f7f7", borderLeft: `4px solid ${open.color}`, fontSize: kid ? 15 : 14, lineHeight: 1.55, color: "#3c3c3c" }}>
+          {open.info}
+          {!kid && <Cite ids={open.sources} />}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -188,26 +291,26 @@ export function NetLossSection() {
         <div className="mb-2 text-center text-[14px] font-bold uppercase" style={{ color: "#6b6b6b" }}>Year {year} · pick another year below the pictures</div>
         {/* Pictures: ours first, side by side */}
         <div className="mx-auto mb-8 grid max-w-[1000px] grid-cols-2 gap-2 sm:gap-4">
-          <button type="button" onClick={() => setZoom("ours")} className="rounded bg-white p-2 text-left shadow-sm sm:p-3" style={{ borderTop: "4px solid #2e8b57" }} aria-label={`Open the upgraded year ${year} pictures full-screen`}>
-            <div className="mb-2 flex items-center justify-between text-[12px] font-black uppercase sm:text-[14px]" style={{ color: "#1f5f3a" }}>
-              <span>{kid ? "Our plan" : "Force-upgraded"} · year {year}</span>
-              <span aria-hidden style={{ fontSize: 14 }}>⤢</span>
-            </div>
-            <SmogScene smog={false} years={year} />
-            <div className="mt-2">
-              <WaterGauge down={false} years={year} />
-            </div>
-          </button>
-          <button type="button" onClick={() => setZoom("theirs")} className="rounded bg-white p-2 text-left shadow-sm sm:p-3" style={{ borderTop: "4px solid #c0392b" }} aria-label={`Open the as-filed year ${year} pictures full-screen`}>
-            <div className="mb-2 flex items-center justify-between text-[12px] font-black uppercase sm:text-[14px]" style={{ color: "#c0392b" }}>
-              <span>{kid ? "Their plan" : "As filed"} · year {year}</span>
-              <span aria-hidden style={{ fontSize: 14 }}>⤢</span>
-            </div>
-            <SmogScene smog years={year} />
-            <div className="mt-2">
-              <WaterGauge down years={year} />
-            </div>
-          </button>
+          {(["ours", "theirs"] as const).map((side) => {
+            const theirs = side === "theirs";
+            return (
+              <div key={side} className="rounded bg-white p-2 shadow-sm sm:p-3" style={{ borderTop: `4px solid ${theirs ? "#c0392b" : "#2e8b57"}` }}>
+                <div className="mb-2 flex items-center justify-between text-[12px] font-black uppercase sm:text-[14px]" style={{ color: theirs ? "#c0392b" : "#1f5f3a" }}>
+                  <span>{theirs ? (kid ? "Their plan" : "As filed") : kid ? "Our plan" : "Force-upgraded"} · year {year}</span>
+                  <button type="button" onClick={() => setZoom(side)} aria-label={`Open the ${theirs ? "as-filed" : "upgraded"} year ${year} pictures full-screen`} className="flex h-8 w-8 items-center justify-center rounded" style={{ fontSize: 15, color: "#003047" }}>
+                    ⤢
+                  </button>
+                </div>
+                <button type="button" onClick={() => setZoom(side)} className="block w-full text-left" aria-label={`Open the ${theirs ? "as-filed" : "upgraded"} year ${year} pictures full-screen`}>
+                  <SmogScene smog={theirs} years={year} />
+                  <div className="mt-2">
+                    <WaterGauge down={theirs} years={year} />
+                  </div>
+                </button>
+                <LongViewFacts side={side} years={year} kid={kid} />
+              </div>
+            );
+          })}
         </div>
         {zoom &&
           createPortal(
@@ -235,6 +338,7 @@ export function NetLossSection() {
                   <div className="mt-3">
                     <WaterGauge down={zoom === "theirs"} years={year} />
                   </div>
+                  <LongViewFacts side={zoom} years={year} kid={kid} />
                   <div className="mt-4 flex flex-wrap gap-2">
                     {YEARS.map((y) => (
                       <button key={y} type="button" onClick={() => setYear(y)} className="min-h-[40px] rounded px-3 text-[14px] font-black" style={{ minWidth: 44, backgroundColor: year === y ? "#003047" : "#fff", color: year === y ? "#fff" : "#003047", border: "1px solid #003047" }} aria-pressed={year === y}>
