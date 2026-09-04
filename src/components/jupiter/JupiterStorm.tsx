@@ -7,7 +7,7 @@ import { Cite } from "@/components/Cite";
 import { useAudience } from "@/components/jupiter/Audience";
 import { jupiterKid } from "@/data/blueprintVoices";
 
-const YEARS = [2, 5, 10, 15, 20, 30] as const;
+const YEARS = [2, 5, 10, 15, 20, 30, 40, 50, 80] as const;
 
 /** Two Jupiters: NASA's Great Red Spot for the plan as filed, our own drawing of a calm Jupiter for the upgrade. The storm grows with the year. */
 export function JupiterStorm() {

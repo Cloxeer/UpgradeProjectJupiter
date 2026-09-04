@@ -12,7 +12,7 @@ export const OUR_WATER_GPD = 5_000_000;
 export const OUR_JOBS = 3_000;
 export const OUR_FOOD_LBS_YR = 60_000_000;
 
-export const YEARS = [0, 1, 2, 5, 10, 15, 20, 25, 30] as const;
+export const YEARS = [0, 1, 2, 5, 10, 15, 20, 25, 30, 40, 50, 80] as const;
 export type Year = (typeof YEARS)[number];
 
 /** Operating years: construction runs through year 2 (their Q3 2028 target), so nothing is emitted or produced before then. */

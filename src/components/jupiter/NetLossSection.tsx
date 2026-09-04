@@ -164,6 +164,20 @@ export function NetLossSection() {
                     ))}
                   </div>
                   <p className="mt-3 text-[14px]" style={{ color: "#6b6b6b" }}>Pick another year while it is open. Tap outside or ✕ to go back.</p>
+                  {/* Every line of the comparison, for this side only: the question, this side's figure, and the why. */}
+                  <div className="mt-4 space-y-3">
+                    {rows.map((r) => (
+                      <div key={r.label} className="rounded border p-3" style={{ borderColor: "#e6e6e6", backgroundColor: zoom === "ours" ? "#f3faf5" : "#fff6f4" }}>
+                        <div className="font-black" style={{ fontSize: kid ? 17 : 15, lineHeight: 1.3, color: "#003047" }}>{kid && r.kidLabel ? r.kidLabel : r.label}</div>
+                        <div className="mt-1 font-black" style={{ fontSize: kid ? 19 : 17, lineHeight: 1.35, color: zoom === "ours" ? "#1f5f3a" : "#8e3b2f" }}>
+                          {zoom === "ours" ? r.ours(year) : r.theirs(year)}
+                        </div>
+                        <p className="mt-1" style={{ fontSize: kid ? 15 : 14, lineHeight: 1.55, color: "#3c3c3c" }}>
+                          <strong>{kid ? "How we know:" : "Why:"}</strong> {kid && r.kidHow ? r.kidHow : r.how}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </>,
