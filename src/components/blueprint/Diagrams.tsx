@@ -296,7 +296,7 @@ function Bar({ parts, total, what }: { parts: { label: string; value: number; co
       {what && (
         <p className="mb-1 text-[13px] font-bold uppercase tracking-wide" style={{ color: "#6b6b6b" }}>This bar is {what}</p>
       )}
-      <div className="flex h-8 w-full overflow-hidden rounded">
+      <div className="flex h-8 w-full overflow-hidden rounded" title={what ? `The full width is ${what}; each color is that part's share: ${parts.map((p) => `${plainLabel(p.label)} ${Math.round((p.value / total) * 100)}%`).join(", ")}.` : undefined}>
         {parts.map((p) => (
           <div key={p.label} title={`${p.label}: ${Math.round(p.value).toLocaleString()}`} className="transition-all duration-500" style={{ width: `${Math.max(0, (p.value / total) * 100)}%`, backgroundColor: p.color }} />
         ))}
@@ -309,11 +309,9 @@ function Bar({ parts, total, what }: { parts: { label: string; value: number; co
           </span>
         ))}
       </div>
-      {what && (
-        <p className="mt-2" style={{ fontSize: kid ? 17 : 14, lineHeight: 1.55, color: kid ? "#1f5f3a" : "#6b6b6b" }}>
-          {kid
-            ? parts.map((p) => `The ${COLOR_WORDS[p.color] ?? "colored"} part is ${plainLabel(p.label).toLowerCase()}: ${shareWords((p.value / total) * 100)}.`).join(" ")
-            : `The full width is ${what}; each color is that part's share: ${parts.map((p) => `${plainLabel(p.label)} ${Math.round((p.value / total) * 100)}%`).join(", ")}.`}
+      {what && kid && (
+        <p className="mt-2" style={{ fontSize: 17, lineHeight: 1.55, color: "#1f5f3a" }}>
+          {parts.map((p) => `The ${COLOR_WORDS[p.color] ?? "colored"} part is ${plainLabel(p.label).toLowerCase()}: ${shareWords((p.value / total) * 100)}.`).join(" ")}
         </p>
       )}
     </div>
