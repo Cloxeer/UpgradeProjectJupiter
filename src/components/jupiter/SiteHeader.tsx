@@ -4,13 +4,54 @@ import { asset } from "@/lib/base";
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { nav, banner, LAST_UPDATED } from "@/data/upgrade";
 import { MenuIcon } from "./icons";
+
+const BANNER_KEY = "pj-banner-hidden";
+const bannerListeners = new Set<() => void>();
+function readBannerHidden(): boolean {
+  try {
+    return sessionStorage.getItem(BANNER_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+function subscribeBanner(l: () => void) {
+  bannerListeners.add(l);
+  return () => {
+    bannerListeners.delete(l);
+  };
+}
+function hideBanner() {
+  try {
+    sessionStorage.setItem(BANNER_KEY, "1");
+  } catch {
+    /* storage unavailable */
+  }
+  bannerListeners.forEach((l) => l());
+}
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  // The banner can be dismissed for the rest of the visit (remembered per tab, so it returns on the next visit).
+  const bannerHidden = useSyncExternalStore(subscribeBanner, readBannerHidden, () => false);
+
+  // Full-screen menu: lock the page behind it and close on Escape.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [mobileOpen]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -24,12 +65,23 @@ export function SiteHeader() {
       className="sticky top-0 z-50 w-full bg-white transition-all duration-300"
       style={{ boxShadow: scrolled ? "0 2px 8px rgba(0,0,0,0.08)" : "none" }}
     >
-      {/* Parody / not-affiliated banner */}
-      <div style={{ backgroundColor: "#c0392b" }}>
-        <p className="pj-container py-1 text-center text-[11.5px] leading-[1.3] text-white sm:py-1.5 sm:text-[13px] sm:leading-[1.4]">
-          {banner} <span style={{ whiteSpace: "nowrap", fontWeight: 800 }}>Last updated {LAST_UPDATED}.</span>
-        </p>
-      </div>
+      {/* Parody / not-affiliated banner; dismissible on phones */}
+      {!bannerHidden && (
+        <div className="relative" style={{ backgroundColor: "#c0392b" }}>
+          <p className="pj-container py-1 pr-12 text-center text-[11.5px] leading-[1.3] text-white sm:py-1.5 sm:text-[13px] sm:leading-[1.4] lg:pr-5">
+            {banner} <span style={{ whiteSpace: "nowrap", fontWeight: 800 }}>Last updated {LAST_UPDATED}.</span>
+          </p>
+          <button
+            type="button"
+            onClick={hideBanner}
+            aria-label="Dismiss this notice"
+            className="absolute right-1 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full text-white lg:hidden"
+            style={{ fontSize: 22, lineHeight: 1 }}
+          >
+            ×
+          </button>
+        </div>
+      )}
 
       <div className="pj-container flex items-center justify-between">
         <Link
@@ -69,23 +121,31 @@ export function SiteHeader() {
         {/* Mobile toggle */}
         <button
           type="button"
-          aria-label="Menu"
+          aria-label={mobileOpen ? "Close menu" : "Menu"}
+          aria-expanded={mobileOpen}
           className="-mr-2 flex h-11 w-11 items-center justify-center rounded text-navy lg:hidden"
           onClick={() => setMobileOpen((o) => !o)}
         >
-          <MenuIcon className="h-7 w-7" />
+          {mobileOpen ? <span style={{ fontSize: 28, lineHeight: 1 }}>×</span> : <MenuIcon className="h-7 w-7" />}
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu: the whole page goes white, and the options arrive one after another. */}
       {mobileOpen && (
-        <nav className="border-t border-line bg-white lg:hidden">
-          <div className="pj-container flex flex-col py-2">
-            {nav.map((item) => (
+        <nav className="pj-menu fixed inset-0 z-[95] flex flex-col bg-white lg:hidden" aria-label="Site menu">
+          <div className="pj-container flex items-center justify-between" style={{ paddingBlock: 12 }}>
+            <span className="text-[13px] font-black uppercase tracking-wide" style={{ color: "#c0392b" }}>Force Upgrade Project Jupiter</span>
+            <button type="button" aria-label="Close menu" onClick={() => setMobileOpen(false)} className="-mr-2 flex h-11 w-11 items-center justify-center rounded text-navy" style={{ fontSize: 30, lineHeight: 1 }}>
+              ×
+            </button>
+          </div>
+          <div className="flex flex-1 flex-col items-center justify-center gap-1 px-6 pb-16">
+            {nav.map((item, i) => (
               <a
                 key={item.label}
                 href={item.href}
-                className="border-b border-line py-3 text-[15px] font-semibold uppercase tracking-wide text-navy"
+                className="pj-menu__item flex min-h-[52px] items-center justify-center text-[22px] font-black uppercase tracking-wide text-navy"
+                style={{ animationDelay: `${0.2 * i}s` }}
                 onClick={() => setMobileOpen(false)}
               >
                 {item.label}

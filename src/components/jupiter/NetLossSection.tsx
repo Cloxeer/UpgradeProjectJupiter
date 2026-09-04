@@ -92,16 +92,16 @@ export function NetLossSection() {
 
         <div className="mb-2 text-center text-[14px] font-bold uppercase" style={{ color: "#6b6b6b" }}>Year {year} · pick another year below the pictures</div>
         {/* Pictures: ours first, side by side */}
-        <div className="mx-auto mb-8 grid max-w-[1000px] grid-cols-1 gap-4 md:grid-cols-2">
-          <div className="rounded bg-white p-3 shadow-sm" style={{ borderTop: "4px solid #2e8b57" }}>
-            <div className="mb-2 text-[14px] font-black uppercase" style={{ color: "#1f5f3a" }}>{kid ? "Our plan" : "Force-upgraded"} · year {year}</div>
+        <div className="mx-auto mb-8 grid max-w-[1000px] grid-cols-2 gap-2 sm:gap-4">
+          <div className="rounded bg-white p-2 shadow-sm sm:p-3" style={{ borderTop: "4px solid #2e8b57" }}>
+            <div className="mb-2 text-[12px] font-black uppercase sm:text-[14px]" style={{ color: "#1f5f3a" }}>{kid ? "Our plan" : "Force-upgraded"} · year {year}</div>
             <SmogScene smog={false} years={year} />
             <div className="mt-2">
               <WaterGauge down={false} years={year} />
             </div>
           </div>
-          <div className="rounded bg-white p-3 shadow-sm" style={{ borderTop: "4px solid #c0392b" }}>
-            <div className="mb-2 text-[14px] font-black uppercase" style={{ color: "#c0392b" }}>{kid ? "Their plan" : "As filed"} · year {year}</div>
+          <div className="rounded bg-white p-2 shadow-sm sm:p-3" style={{ borderTop: "4px solid #c0392b" }}>
+            <div className="mb-2 text-[12px] font-black uppercase sm:text-[14px]" style={{ color: "#c0392b" }}>{kid ? "Their plan" : "As filed"} · year {year}</div>
             <SmogScene smog years={year} />
             <div className="mt-2">
               <WaterGauge down years={year} />
