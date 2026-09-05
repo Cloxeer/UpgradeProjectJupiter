@@ -40,7 +40,7 @@ export function Clickable({ id, selected, onSelect, children }: { id: string; se
 export type Box = { x: number; y: number; w: number; h: number };
 
 /** "NEW" badge sitting just outside one side of a part, centered on that side (or at one end), arrow pointing into the part. */
-export function NewMarker({ box, side = "top", align = "center", label = "NEW" }: { box: Box; side?: "top" | "bottom" | "left" | "right"; align?: "start" | "center" | "end"; label?: string }) {
+export function NewMarker({ box, side = "top", align = "center", label = "NEW", color = "#2e8b57", textColor = "#fff" }: { box: Box; side?: "top" | "bottom" | "left" | "right"; align?: "start" | "center" | "end"; label?: string; color?: string; textColor?: string }) {
   const along = (len: number, base: number) => (align === "start" ? base + 22 : align === "end" ? base + len - 22 : base + len / 2);
   let ax = 0, ay = 0, bx = 0, by = 0;
   if (side === "top") { ax = along(box.w, box.x); ay = box.y; bx = ax; by = ay - 15; }
@@ -53,9 +53,9 @@ export function NewMarker({ box, side = "top", align = "center", label = "NEW" }
   const head = `M${ax},${ay} L${ax - dir[0] * 7 + px * 5},${ay - dir[1] * 7 + py * 5} L${ax - dir[0] * 7 - px * 5},${ay - dir[1] * 7 - py * 5} Z`;
   return (
     <g pointerEvents="none">
-      <path d={head} fill="#2e8b57" />
-      <rect x={bx - 18} y={by - 8} width={36} height={16} rx={8} fill="#2e8b57" stroke="#ffffff" strokeWidth={1.5} />
-      <text x={bx} y={by + 3.5} textAnchor="middle" fontSize={9} fontWeight={900} fill="#fff" letterSpacing={0.5}>
+      <path d={head} fill={color} />
+      <rect x={bx - 18} y={by - 8} width={36} height={16} rx={8} fill={color} stroke="#ffffff" strokeWidth={1.5} />
+      <text x={bx} y={by + 3.5} textAnchor="middle" fontSize={9} fontWeight={900} fill={textColor} letterSpacing={0.5}>
         {label}
       </text>
     </g>

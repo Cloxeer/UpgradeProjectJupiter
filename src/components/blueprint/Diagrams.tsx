@@ -30,6 +30,7 @@ import { usePlanMode, PlanSwitch, OURS } from "@/components/blueprint/PlanMode";
 import { Term } from "@/components/jupiter/Term";
 import { useAudience, type Audience } from "@/components/jupiter/Audience";
 import { kidSteps, takeaways, takeawayNotes } from "@/data/blueprintVoices";
+import { FeasibilityChip } from "@/components/jupiter/Feasibility";
 import { processTM } from "@/data/tobyMoby";
 import { TobyMoby } from "@/components/blueprint/TobyMoby";
 import { humanHeat, tempRange, temp, pctOfBond, GAL_PER_HOME_DAY } from "@/lib/units";
@@ -172,6 +173,7 @@ function Card({ title, kicker, children, intro, kid, sources, mode, onMode, voic
         <span className="mr-1 text-[12px] font-black uppercase tracking-wide" style={{ color: "#1f5f3a" }}>{pointLabel} ·</span>
         <strong>{point}</strong>
       </p>
+      <FeasibilityChip process={kicker} />
       {!isKid && takeawayNotes[kicker] && (
         <details name="pj-one" className="-mt-2 mb-3 rounded px-3 py-1" style={{ backgroundColor: "#eaf6ee" }}>
           <summary className="cursor-pointer text-[14px] font-bold" style={{ color: "#1f5f3a" }}>How can heat make cooling? And is there a winter here? ▾</summary>
@@ -283,10 +285,20 @@ function Card({ title, kicker, children, intro, kid, sources, mode, onMode, voic
   );
 }
 
-function Bar({ parts, total }: { parts: { label: string; value: number; color: string }[]; total: number }) {
+const COLOR_WORDS: Record<string, string> = { "#2e8b57": "green", "#1f7ae0": "blue", "#6f8f9a": "gray", "#003047": "dark blue", "#9aa5ad": "light gray", "#c0392b": "red", "#e07b00": "orange" };
+const plainLabel = (l: string) => l.replace(/\s*\([^)]*\)/g, "").replace(/\s+MW$/i, "").trim();
+const shareWords = (pct: number) => (pct <= 0.5 ? "nothing" : pct >= 60 ? "most of it" : pct >= 25 ? "a big piece" : pct >= 5 ? "a small piece" : "a tiny sliver");
+
+/** A stacked bar plus a sentence that says what the bar is, so nobody has to guess what the colors mean. */
+function Bar({ parts, total, what }: { parts: { label: string; value: number; color: string }[]; total: number; what?: string }) {
+  const [audience] = useAudience();
+  const kid = audience === "kid";
   return (
     <div>
-      <div className="flex h-8 w-full overflow-hidden rounded">
+      {what && (
+        <p className="mb-1 text-[13px] font-bold uppercase tracking-wide" style={{ color: "#6b6b6b" }}>This bar is {what}</p>
+      )}
+      <div className="flex h-8 w-full overflow-hidden rounded" title={what ? `The full width is ${what}; each color is that part's share: ${parts.map((p) => `${plainLabel(p.label)} ${Math.round((p.value / total) * 100)}%`).join(", ")}.` : undefined}>
         {parts.map((p) => (
           <div key={p.label} title={`${p.label}: ${Math.round(p.value).toLocaleString()}`} className="transition-all duration-500" style={{ width: `${Math.max(0, (p.value / total) * 100)}%`, backgroundColor: p.color }} />
         ))}
@@ -299,6 +311,11 @@ function Bar({ parts, total }: { parts: { label: string; value: number; color: s
           </span>
         ))}
       </div>
+      {what && kid && (
+        <p className="mt-2" style={{ fontSize: 17, lineHeight: 1.55, color: "#1f5f3a" }}>
+          {parts.map((p) => `The ${COLOR_WORDS[p.color] ?? "colored"} part is ${plainLabel(p.label).toLowerCase()}: ${shareWords((p.value / total) * 100)}.`).join(" ")}
+        </p>
+      )}
     </div>
   );
 }
@@ -574,7 +591,7 @@ export function HeatDiagram() {
 
       <Slider label="Greenhouse acres (proposed)" value={acres} min={50} max={400} step={10} unit="acres" onChange={setAcres} disabled={!ours} />
       <div className="mt-4">
-        <Bar total={HEAT_MW} parts={[{ label: "Greenhouses MW", value: gh, color: "#2e8b57" }, { label: "Water plant MW", value: desal + brine, color: "#1f7ae0" }, { label: "Dry coolers MW", value: dry, color: "#6f8f9a" }]} />
+        <Bar what="all the heat the computers make, and where it goes" total={HEAT_MW} parts={[{ label: "Greenhouses MW", value: gh, color: "#2e8b57" }, { label: "Water plant MW", value: desal + brine, color: "#1f7ae0" }, { label: "Dry coolers MW", value: dry, color: "#6f8f9a" }]} />
       </div>
       <div className="pj-stats mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
         <Stat label="Heat put to work" value={`${Math.round(reused)} MW`} sub={<>≈ {reusedH.furnaces.toLocaleString()} home furnaces&apos; worth<Cite ids={["carrier-furnace"]} /> · {((reused / HEAT_MW) * 100).toFixed(1)}% of the total · {winter ? "winter: greenhouse root heat" : "summer: absorption cooling + brine drying"}</>} color={ours ? "#2e8b57" : "#c0392b"} />
@@ -757,7 +774,7 @@ export function CarbonDiagram() {
         <Slider label="Share of captured CO₂ used (greenhouses, concrete, aggregate) instead of stored" value={ours ? useShare : 0} min={0} max={100} step={5} unit="%" onChange={setUseShare} disabled={!ours} />
       </div>
       <div className="mt-4">
-        <Bar total={GHG_PERMIT_TPY} parts={[{ label: "Captured (tons/yr)", value: captured, color: "#003047" }, { label: "Released (tons/yr)", value: left, color: "#9aa5ad" }]} />
+        <Bar what="all the gas the power plant breathes out in a year" total={GHG_PERMIT_TPY} parts={[{ label: "Captured (tons/yr)", value: captured, color: "#003047" }, { label: "Released (tons/yr)", value: left, color: "#9aa5ad" }]} />
       </div>
       <div className="pj-stats mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
         <Stat label="Released" value={`${(leftLow / 1e6).toFixed(2)}–${(left / 1e6).toFixed(2)} Mt`} sub={<>per year, applicant vs. NMED figure<Cite ids={["sob"]} /></>} color={r >= 0.9 ? "#2e8b57" : "#c0392b"} />
@@ -1183,7 +1200,7 @@ export function SolarDiagram() {
         <Slider label="Roofs with solar" value={ours ? step : 0} min={0} max={solarSteps.length} step={1} unit={`of ${solarSteps.length}`} onChange={setStep} disabled={!ours} />
       </div>
       <div className="mt-4">
-        <Bar total={IT_LOAD_MW} parts={[{ label: "Gas fuel cells (avg MW)", value: IT_LOAD_MW * gasShare, color: "#c0392b" }, { label: "Geothermal (avg MW)", value: geoAvg, color: "#2e8b57" }, { label: "Wind + solar by wire (avg MW)", value: ppaAvg, color: "#1f7ae0" }, { label: "Rooftop solar (avg MW)", value: avgMW, color: "#e07b00" }]} />
+        <Bar what="where the electricity comes from on an average hour" total={IT_LOAD_MW} parts={[{ label: "Gas fuel cells (avg MW)", value: IT_LOAD_MW * gasShare, color: "#c0392b" }, { label: "Geothermal (avg MW)", value: geoAvg, color: "#2e8b57" }, { label: "Wind + solar by wire (avg MW)", value: ppaAvg, color: "#1f7ae0" }, { label: "Rooftop solar (avg MW)", value: avgMW, color: "#e07b00" }]} />
       </div>
       <ol className="pj-list mt-3 grid grid-cols-1 gap-1 sm:grid-cols-2" style={{ fontSize: 14 }}>
         {solarSteps.map((s, i) => {
