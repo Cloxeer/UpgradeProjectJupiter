@@ -25,11 +25,6 @@ export function MoreForAudience({ foldFor, label, children }: { foldFor: Audienc
         >
           {open ? "Less" : "More"}: {label} {open ? "▲" : "▼"}
         </button>
-        {!open && (
-          <p className="mt-2" style={{ fontSize: 14, color: "#6b6b6b" }}>
-            Folded to keep this page short. Pick &ldquo;Expert&rdquo; above to see everything at once.
-          </p>
-        )}
       </div>
       {open && <div className="pj-reveal">{children}</div>}
     </div>

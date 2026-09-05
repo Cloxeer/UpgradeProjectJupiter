@@ -16,6 +16,16 @@ export function PetitionForm() {
           Sign the petition ↗
         </a>
         <p className="mt-3 text-[13px]" style={{ color: "rgba(255,255,255,0.6)" }}>Opens a secure Google Form in a new tab.</p>
+        <div className="mt-5 rounded p-3 text-left" style={{ backgroundColor: "rgba(255,255,255,0.08)" }}>
+          <div className="text-[12px] font-black uppercase tracking-wide" style={{ color: "#fdb715" }}>After you sign</div>
+          <p className="mt-1" style={{ fontSize: 14, lineHeight: 1.55, color: "rgba(255,255,255,0.85)" }}>
+            The names go in the public-comment packet handed to the commissioners at a second- or fourth-Tuesday meeting, and to the legislators who sponsor the bills.
+            Step two takes sixty seconds:{" "}
+            <a href="/legislators#commission" className="font-bold underline" style={{ color: "#fdb715" }}>
+              email your commissioner, script included →
+            </a>
+          </p>
+        </div>
       </div>
 
       <p className="mt-4 text-center" style={{ fontSize: 14, color: "#6b6b6b" }}>

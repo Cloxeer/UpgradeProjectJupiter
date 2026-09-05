@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { nav, banner, LAST_UPDATED } from "@/data/upgrade";
+import { nav, banner, mission, LAST_UPDATED } from "@/data/upgrade";
 import { MenuIcon } from "./icons";
 
 /** The two pages the nav keeps underlined so readers know where to look. */
@@ -75,14 +75,14 @@ export function SiteHeader() {
       {/* Parody / not-affiliated banner; dismissible on phones */}
       {!bannerHidden && (
         <div className="relative" style={{ backgroundColor: "#c0392b" }}>
-          <p className="pj-container py-1 pr-12 text-center text-[11.5px] leading-[1.3] text-white sm:py-1.5 sm:text-[13px] sm:leading-[1.4] lg:pr-5">
+          <p className="pj-container py-1 pr-12 text-center text-[11.5px] leading-[1.3] text-white sm:py-1.5 sm:text-[13px] sm:leading-[1.4]">
             {banner} <span style={{ whiteSpace: "nowrap", fontWeight: 800 }}>Last updated {LAST_UPDATED}.</span>
           </p>
           <button
             type="button"
             onClick={hideBanner}
             aria-label="Dismiss this notice"
-            className="absolute right-1 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full text-white lg:hidden"
+            className="absolute right-1 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full text-white hover:bg-white/15"
             style={{ fontSize: 22, lineHeight: 1 }}
           >
             ×
@@ -137,6 +137,11 @@ export function SiteHeader() {
           {mobileOpen ? <span style={{ fontSize: 28, lineHeight: 1 }}>×</span> : <MenuIcon className="h-7 w-7" />}
         </button>
       </div>
+
+      {/* The mission, one sentence, the same for every reader. This is what the site wants. */}
+      <p className={`pj-container py-1.5 text-center font-semibold text-[13px] leading-[1.35] sm:text-[14px] ${scrolled ? "hidden lg:block" : ""}`} style={{ backgroundColor: "#003047", color: "#fdb715" }}>
+        {mission}
+      </p>
 
       {/* Mobile menu: the whole page goes white, and the options arrive one after another. */}
       {mobileOpen && (

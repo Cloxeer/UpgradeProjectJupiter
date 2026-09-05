@@ -30,6 +30,7 @@ import { usePlanMode, PlanSwitch, OURS } from "@/components/blueprint/PlanMode";
 import { Term } from "@/components/jupiter/Term";
 import { useAudience, type Audience } from "@/components/jupiter/Audience";
 import { kidSteps, takeaways, takeawayNotes } from "@/data/blueprintVoices";
+import { FeasibilityChip } from "@/components/jupiter/Feasibility";
 import { processTM } from "@/data/tobyMoby";
 import { TobyMoby } from "@/components/blueprint/TobyMoby";
 import { humanHeat, tempRange, temp, pctOfBond, GAL_PER_HOME_DAY } from "@/lib/units";
@@ -172,6 +173,7 @@ function Card({ title, kicker, children, intro, kid, sources, mode, onMode, voic
         <span className="mr-1 text-[12px] font-black uppercase tracking-wide" style={{ color: "#1f5f3a" }}>{pointLabel} ·</span>
         <strong>{point}</strong>
       </p>
+      <FeasibilityChip process={kicker} />
       {!isKid && takeawayNotes[kicker] && (
         <details name="pj-one" className="-mt-2 mb-3 rounded px-3 py-1" style={{ backgroundColor: "#eaf6ee" }}>
           <summary className="cursor-pointer text-[14px] font-bold" style={{ color: "#1f5f3a" }}>How can heat make cooling? And is there a winter here? ▾</summary>

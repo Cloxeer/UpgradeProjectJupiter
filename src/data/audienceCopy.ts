@@ -1,4 +1,4 @@
-// Whole-page copy per audience. "overall" is the site's normal voice (the data in ./upgrade.ts);
+// Whole-page copy per audience. "overall" is the Earth voice, the default (air, water, land and people first);
 // each other audience overrides the blocks below. Numbers are the same in every voice; only the wording changes.
 import type { Audience } from "@/components/jupiter/Audience";
 import { heroBullets, heroQuestion, whatIsParagraphs, pitches, willList, willNotList, updatesLead, ctaText } from "./upgrade";
@@ -37,35 +37,36 @@ export const expertCopy: Copy = {
   supportLead: "Tell Doña Ana County and the State of New Mexico: do not cancel Project Jupiter. Force the upgrade before the first fuel cell turns on.",
 };
 
+/** Earth: the default voice. Air, water, land and people first; the numbers second, as proof. Plain words, no jargon. */
 export const overallCopy: Copy = {
-  heroQuestion: "WHAT SHOULD PROJECT JUPITER MEAN FOR NEW MEXICO?",
+  heroQuestion: "WHAT SHOULD PROJECT JUPITER MEAN FOR THE EARTH, AND FOR US?",
   heroBullets: [
-    { strong: "More money for the county.", rest: " About $6.6 billion in Phase 1 instead of $4.7 billion, from the same land, for about 1.5% more cost." },
-    { strong: "More jobs that last.", rest: " About 3,000 permanent jobs instead of the 750 the company signed for." },
-    { strong: "Water added, not taken.", rest: " A plant that turns salty groundwater into 5 million gallons a day of drinking water for CRRUA." },
-    { strong: "Cleaner air.", rest: " The CO₂ caught at the stack and used, and every ton of smog measured and made public." },
-    { strong: "Food grown next door.", rest: " About 150 acres of greenhouses heated and cooled by the computers' own heat." },
-    { strong: "", rest: "Same buildings, same timeline. Force the upgrade." },
+    { strong: "Cleaner air.", rest: " The plant's exhaust is caught at the stack and used, instead of about 10 million tons of CO₂ a year going into a sky that already fails the smog standard." },
+    { strong: "Water given back.", rest: " Salty groundwater nobody can drink becomes 5 million gallons a day of clean water for the towns next door, instead of drinking water being taken." },
+    { strong: "Heat that feeds people.", rest: " The computers' warmth grows about 60 million pounds of food a year next door, instead of being blown into the desert." },
+    { strong: "Less gas every year.", rest: " Hot rock under the valley and New Mexico's own wind take over more hours, so the gas machines rest more each year." },
+    { strong: "Work for the people who live here.", rest: " About 3,000 permanent jobs instead of the 750 the company signed for, with a training school on site." },
+    { strong: "", rest: "Same buildings, same timeline, about 1.5% more. This is the version the Earth can live with." },
   ],
   whatIsParagraphs: [
-    "Project Jupiter is a giant data center being built near Sunland Park with its own gas-fired power plant. The county approved $165 billion in bonds for it in 2025. The state's draft permit says the plant would release about 10 million tons of CO₂ a year, more than Albuquerque and Las Cruces combined, in an area that already fails the federal smog standard. The company signed for 750 jobs, takes drinking water from CRRUA, and blows all the computers' heat into the desert.",
-    "The upgrade keeps everything they are building and adds five things: catch the CO₂ at the stack and use it, turn the heat into food and cooling, make drinking water from the salty aquifer, cut gas hours with geothermal and wind, and put every ton of smog on a public meter. It costs about 1.5% more. Pick who you are above and the page explains it your way; pick Expert for every number and source.",
+    "Project Jupiter is a giant data center being built near Sunland Park, with its own gas-fired power plant beside it. The county approved $165 billion in bonds for it in 2025. As filed, the plant would release about 10 million tons of CO₂ a year, more than Albuquerque and Las Cruces combined, over a valley whose air has failed the federal smog standard since 2018. It takes drinking water from the local utility and pumps more from the fresh aquifer under everyone's wells. All the computers' heat is blown into the desert. The company signed for 750 jobs.",
+    "The upgrade does not cancel any of it. It keeps every building and the same schedule, and adds five things the Earth and the people here need: catch the CO₂ and use it, turn the heat into food and cooling, make clean water from the salty aquifer, replace gas hours with geothermal and wind, and put every ton of smog on a public meter. About 1.5% more. Pick who you are below if you want it explained your way.",
   ],
-  highlightsIntro: "Eight things their website says, and what the upgrade delivers instead. Tap a card to see how we got the number.",
+  highlightsIntro: "Eight things their website says, and what the air, the water and the people here get instead. Tap a card to see how we got the number.",
   pitches: [
-    { title: "If you run the company", body: "Lease the land you are not using, sell the heat your fans throw away, catch exhaust that is 95% CO₂, and buy clean power that cuts your gas bill. About 1.5% more, and a permit that survives review." },
-    { title: "If you hold the vote", body: "The county owns the land during the bond term. Write five conditions into the lease before the fuel cells arrive: capture, one permit, heat for growers, the water plant, bonds tied to jobs delivered." },
-    { title: "If you live here", body: "Water added to your pipes instead of taken, smog measured instead of estimated, food grown next door, and jobs you can drive to." },
+    { title: "For the air", body: "The fuel cells' exhaust is about 95% CO₂ once dried, which is exactly why it can be caught. Capture skids in the fuel-cell yard, one air permit, and monitors on every stack with the readings public." },
+    { title: "For the water", body: "Deep under the desert is salty water nobody can drink. NMSU already designed the plant that cleans it: 5 million gallons a day into the towns' pipes, so the aquifer under everyone's wells is left alone." },
+    { title: "For the people", body: "The land beside the fans grows food all year. The training school is on site. About 3,000 jobs go to people who already live here, and the smog they breathe is measured instead of estimated." },
   ],
-  netlossLead: "Pick a year. The green side is what the upgrade delivers by then; the red side is the plan as filed, on the company's own numbers.",
-  willTitle: "THE UPGRADE:",
-  willList: ["Brings about $6.6 billion in Phase 1 instead of $4.7 billion", "Makes about 3,000 permanent jobs instead of 750", "Adds 5 million gallons a day of clean water", "Catches and uses the CO₂ and measures every ton of smog", "Grows about 60 million pounds of food a year next door"],
-  willNotTitle: "THE PLAN AS FILED:",
-  willNotList: ["Releases about 10 million tons of CO₂ a year", "Keeps each smog gas just under the strict-review line", "Signs for 750 jobs and $12 million a year", "Takes drinking water and pumps from the fresh aquifer", "Blows all the heat into the desert"],
-  updatesLead: "Construction is 9% complete by the company's own report. A court has paused the air permit and the water well. None of the five conditions is in the county lease yet.",
-  scienceIntro: "How each part works, explained at four reading levels.",
+  netlossLead: "Pick a year. The green side is what the air, the water and the people here have gained by then under the upgrade. The red side is the plan as filed, on the company's own numbers.",
+  willTitle: "THE UPGRADE GIVES THE EARTH AND THE VALLEY:",
+  willList: ["The CO₂ caught and used, and every ton of smog on a public meter", "5 million gallons a day of clean water added, not taken", "About 60 million pounds of food a year grown on the computers' heat", "Gas machines that rest more every year as geothermal and wind take over", "About 3,000 permanent jobs for people who live here, instead of 750"],
+  willNotTitle: "THE PLAN AS FILED GIVES THEM:",
+  willNotList: ["About 10 million tons of CO₂ a year into the sky", "Each smog gas kept just under the strict-review line, over a town that already fails the standard", "Drinking water taken and more pumped from the fresh aquifer", "All the heat blown into the desert", "750 jobs and $12 million a year"],
+  updatesLead: "Concrete is being poured now: 9% complete by the company's own report. A court has paused the air permit and the water well. None of the five conditions is in the county lease yet, so there is still time.",
+  scienceIntro: "How each part works, explained for every reader, with the documents behind it.",
   ctaAfter: ctaText.after,
-  supportLead: "Tell Doña Ana County: do not cancel Project Jupiter. Force the upgrade before the first fuel cell turns on.",
+  supportLead: "Tell Doña Ana County: do not cancel Project Jupiter. Make it earn its place on this land before the first fuel cell turns on.",
 };
 
 const legislator: Copy = {
@@ -108,7 +109,7 @@ const legislator: Copy = {
   ],
   updatesLead: "Construction is 9% complete by the developers' July 28, 2026 report. The permit and the well are stayed. The lease amendments have to be adopted before the fuel cells are delivered; today none of the five conditions is in the lease.",
   scienceIntro: "The engineering behind each condition, with vendor specifications, operating plants and university research, at four reading levels. The Expert level is the one to hand staff.",
-  ctaAfter: " To Put The Five Conditions In The Lease For ",
+  ctaAfter: " to put the five conditions in the lease for ",
   supportLead: "Ask the commission to amend the IRB leases and the Legislature to pass the three bills before the first fuel cell turns on. The conditions cost the developer about 1.5% of the bond.",
 };
 
@@ -152,30 +153,29 @@ const homeowner: Copy = {
   ],
   updatesLead: "Concrete is being poured now: 9% complete by the developers' own July report. The permit and the well are on hold in court. Nothing about water, air or jobs is written into the county lease yet, and the lease is the only place it can be enforced.",
   scienceIntro: "How the water plant, the capture, the heat and the greenhouses work, explained at four reading levels. Pick 'Adult' for the plain version.",
-  ctaAfter: " To Get Water, Clean Air And Food Out Of ",
+  ctaAfter: " to get water, clean air and food out of ",
   supportLead: "Ask your county commissioner one question: are the five conditions in the lease yet? Today the answer is no.",
 };
 
 const business: Copy = {
   heroQuestion: "WHERE IS THE MONEY IN THE UPGRADE?",
   heroBullets: [
-    { strong: "Land to lease.", rest: " About 150 acres inside the fence for commercial greenhouses, with warm water and CO₂ piped in. Lease plus heat revenue to the developer is estimated at about $130,000 an acre a year." },
-    { strong: "Water to sell.", rest: " A 5 MGD plant, priced by NMSU at $269 million for the whole system, selling into a utility whose demand is projected to more than double by 2042." },
-    { strong: "Heat to sell.", rest: " About 2,400 MW of heat is rejected for free today. Winter greenhouse heat, summer absorption cooling and desalination preheat turn a cost into a product." },
+    { strong: "The most sophisticated campus in the country.", rest: " To our knowledge no U.S. hyperscale site yet combines stack capture, heat reuse, water production and a public emissions meter. The first one owns that headline." },
+    { strong: "Metrics shareholders can track.", rest: " Tons captured, gas hours avoided, gallons produced, verified jobs and lease revenue per acre: five numbers reported every quarter that turn an ESG promise into an earnings line." },
+    { strong: "New revenue on land you already hold.", rest: " About 150 acres of greenhouse leases with heat and CO₂ piped in, a 5 MGD water plant with a utility customer, and heat sold instead of blown away. Lease plus heat alone is estimated at about $130,000 an acre a year." },
     { strong: "Gas to buy less of.", rest: " Geothermal and delivered wind under contract cut gas hours every year, and gas is the plant's largest operating cost." },
-    { strong: "A workforce on site.", rest: " A $50 million NMSU / DACC institute trains for power, water, greenhouse and hardware jobs." },
-    { strong: "", rest: "Added capital is about 1.5% of the $165 billion bond, and about $450 million of it is grower capital, off the developer's balance sheet." },
+    { strong: "", rest: "Added capital is about 1.5% of the $165 billion bond, about $450 million of it grower capital off the developer's balance sheet, and the permit stops being a court risk." },
   ],
   whatIsParagraphs: [
     "Project Jupiter is a $165 billion hyperscale campus in Santa Teresa with a 2,462 MW Bloom fuel-cell microgrid, financed through county industrial revenue bonds that swap property tax for lease payments over 30 years. As filed it is a closed box: one tenant, one product, all power from gas, all heat rejected, no water produced. The air permit and the construction well are stayed in court and the gas pipeline's state-land route has been denied twice, which is schedule risk for everyone on the site.",
     "The upgrade opens side businesses on the same land without touching the halls or the schedule: greenhouse leases with heat and CO₂ as inputs, a water plant with a utility customer, a packing house at the border crossing, and a contracted clean-power share that lowers the fuel bill. Each has a precedent: Gothenburg heats greenhouses on data-center heat, El Paso has run a 27.5 MGD brackish plant since 2007, Google has bought 396 MW of enhanced geothermal for 2028.",
-    "What it does for the developer: lower fan and chiller electricity, lease and water revenue, a permit that survives review, and the fee offsets the signed CBA already allows. The county could put similar certainty on the table for a plan that meets the five conditions. That is a proposal, not a promise.",
+    "What it does for the developer: lower fan and chiller electricity, lease and water revenue, a permit that survives review, and the fee offsets the signed CBA already allows. It also makes this, to our knowledge, the first hyperscale campus in the country to combine stack capture, heat reuse, water production and a public emissions meter, with five quarterly metrics shareholders can audit. The county could put similar certainty on the table for a plan that meets the five conditions. That is a proposal, not a promise.",
   ],
   highlightsIntro: "Eight of their published figures with the revenue and cost behind each answer. Tap a card for the arithmetic.",
   pitches: [
     { title: "If you grow", body: "Glass greenhouses at about $3 million an acre, industry average, on leased land with winter heat at a fraction of gas cost, CO₂ enrichment from the stacks, a packing house and a border crossing next door. About 6.5 jobs an acre including packing." },
     { title: "If you run the campus", body: "You lease 150 acres you are not using, sell heat your fans are already paid to reject, capture exhaust that is 95% CO₂, and contract geothermal and wind that cut your biggest operating cost. It adds about 1.5% and ends the litigation that has your permit frozen." },
-    { title: "If you invest", body: "The water plant has a designed system, a priced budget and a utility customer with rising demand. The greenhouses have industry-average yields and a market that imports produce through Santa Teresa today. Every figure here is labeled estimate or cited." },
+    { title: "If you hold the stock", body: "A stayed permit is an unpriced risk on the balance sheet; a capture-first, monitored campus removes it. It also gives the investor-relations team five auditable numbers each quarter: tons of CO₂ captured and sold, gas hours displaced by geothermal and wind, gallons of water delivered, jobs verified against the lease, and greenhouse lease revenue. Those are the metrics that keep an earnings multiple high when the next moratorium bill is filed." },
   ],
   netlossLead: "The as-filed column is what the site produces for anyone but the tenant: nothing. The upgraded column is the new revenue and the new assets, year by year, on cited figures.",
   willTitle: "THE UPGRADE CREATES:",
@@ -196,8 +196,8 @@ const business: Copy = {
   ],
   updatesLead: "Construction 9% complete by the developers' July 28 report; permit and well stayed; pipeline route denied twice. The lease amendments are the moment to add the side businesses, before the fuel cells are delivered.",
   scienceIntro: "The engineering and the precedents behind each revenue line, at four reading levels. The Expert level carries the units, capacity factors and costs.",
-  ctaAfter: " To Open The Side Businesses On ",
-  supportLead: "Tell the county the upgrade is a business plan, not a protest: leases, water, heat and clean power on the same site, for about 1.5% more.",
+  ctaAfter: " to open the side businesses on ",
+  supportLead: "Tell the county the upgrade is a business plan, not a protest: leases, water, heat and clean power on the same site, for about 1.5% more, and the most sophisticated data-center campus in the country to show for it.",
 };
 
 const kid: Copy = {
@@ -228,7 +228,7 @@ const kid: Copy = {
   willNotList: ["10 million tons of gas into the sky every year", "Smog over the houses on hot days", "Less water in the ground each year", "All the heat blown into the desert", "750 jobs"],
   updatesLead: "They have started pouring the concrete. A judge paused their air permit and their water well. None of our ideas is written into the county's deal yet, so there is still time.",
   scienceIntro: "How each idea works, in pictures and a few words.",
-  ctaAfter: " To Change Your Future At ",
+  ctaAfter: " to change your future at ",
   supportLead: "Ask a grown-up to sign the petition and to ask the county to put the smart ideas in the deal before the plant turns on.",
 };
 
