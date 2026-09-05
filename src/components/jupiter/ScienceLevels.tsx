@@ -6,6 +6,35 @@ import { Cite, SourceList } from "@/components/Cite";
 import { TheySay } from "./TheySay";
 import { Tabs } from "./Tabs";
 import { keyComponentTabs as theirComponents, impactTabs as theirImpact } from "@/data/jupiter";
+import { Glossary } from "./Term";
+
+/** The problem and the fix for each topic, two lines each. Read first; the full sections follow. */
+function ExecutiveCards() {
+  return (
+    <div className="pj-container pb-4">
+      <div className="mx-auto grid max-w-[1100px] grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {topics.map((t) => (
+          <a key={t.id} href={t.blueprint} className="rounded bg-white p-4 shadow-sm hover:shadow-md" style={{ borderTop: "4px solid #2e8b57" }}>
+            <div className="flex items-center gap-2">
+              <span style={{ fontSize: 22 }} aria-hidden>{t.icon}</span>
+              <h3 className="font-black" style={{ fontSize: 17, color: "#003047" }}>{t.title}</h3>
+            </div>
+            <p className="mt-2" style={{ fontSize: 14, lineHeight: 1.5, color: "#3c3c3c" }}>
+              <strong style={{ color: "#c0392b" }}>As filed: </strong>{t.problem}
+            </p>
+            <p className="mt-1.5" style={{ fontSize: 14, lineHeight: 1.5, color: "#3c3c3c" }}>
+              <strong style={{ color: "#1f5f3a" }}>The fix: </strong>{t.fix}
+            </p>
+            <span className="mt-2 inline-block text-[13px] font-bold underline" style={{ color: "#15768c" }}>See it drawn →</span>
+          </a>
+        ))}
+      </div>
+      <div className="mx-auto mt-4 max-w-[1100px]">
+        <Glossary keys={["MW", "MGD", "tpy", "CO2e", "captureEfficiency", "brackish", "PSD", "TitleV", "nonattainment", "IRB", "CBA"]} />
+      </div>
+    </div>
+  );
+}
 
 /** Wraps the adult sections; renders the simple or expert view instead when the reader picks that level. */
 export function ScienceLevels({ children }: { children: React.ReactNode }) {
@@ -24,6 +53,7 @@ export function ScienceLevels({ children }: { children: React.ReactNode }) {
         </p>
       </div>
       <div id="science-body" className="scroll-mt-32" />
+      {level !== "little" && <ExecutiveCards />}
       {level === "adult" && children}
       {level === "little" && <Simple level="little" />}
       {level === "expert" && (

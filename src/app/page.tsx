@@ -1,6 +1,5 @@
 import { SiteHeader } from "@/components/jupiter/SiteHeader";
 import { HeroSection } from "@/components/jupiter/HeroSection";
-import { CtaBar } from "@/components/jupiter/CtaBar";
 import { WhatIsSection } from "@/components/jupiter/WhatIsSection";
 import { HighlightsSection } from "@/components/jupiter/HighlightsSection";
 import { SpeedCostSection } from "@/components/jupiter/SpeedCostSection";
@@ -21,9 +20,8 @@ export default function Home() {
       <SiteHeader />
       <main>
         <HeroSection />
-        <CtaBar />
-        <WhoAreYou />
         <WhatIsSection />
+        <WhoAreYou />
         <HighlightsSection />
         <NetLossSection />
         <SupportSection />

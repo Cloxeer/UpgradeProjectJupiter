@@ -76,11 +76,24 @@ function SmogScene({ smog, years }: { smog: boolean; years: number }) {
 }
 
 /** Water table drops with years in their plan (and recharge falls); clean water added rises in ours. */
+/** Water surface (SVG y) for a side at a given year. Both sides sit exactly on the 2026 line (y=50) at year 0. */
+function waterTop(down: boolean, years: number): number {
+  if (down) {
+    // Their plan: the table keeps falling for the whole horizon (USGS decline 2000-2020; recharge down 25%+ in the state projection).
+    return 50 + Math.min(1, years / 80) * 62;
+  }
+  // Ours: nothing until the plant opens (operating year 0), then clean water added rises above the line.
+  return 50 - Math.min(1, operating(years) / 28) * 34;
+}
+/** Where the table stood in earlier years, on the same decline slope the model uses forward (USGS: the Mesilla table has been falling for decades). */
+const HISTORY_MARKS: { year: number; y: number }[] = [
+  { year: 1980, y: 50 - ((2026 - 1980) / 80) * 62 },
+  { year: 2005, y: 50 - ((2026 - 2005) / 80) * 62 },
+];
+
 function WaterGauge({ down, years }: { down: boolean; years: number }) {
   const op = operating(years);
-  // Their plan: the table keeps falling for the whole horizon (USGS decline 2000-2020; recharge down 25%+ in the state projection).
-  const kDown = Math.min(1, years / 80);
-  const top = down ? 50 + kDown * 62 : Math.max(24, 60 - Math.min(1, op / 25) * 36);
+  const top = waterTop(down, years);
   const gal = OUR_WATER_GPD * 365 * op;
   const downLabelY = Math.min(112, Math.max(63, top - 5));
   const warm = years >= WARM_YEAR;
@@ -90,7 +103,16 @@ function WaterGauge({ down, years }: { down: boolean; years: number }) {
       <rect x={0} y={top} width={320} height={130 - top} fill={down ? "#7a9bb5" : "#4f8fd0"} className="transition-all duration-500" />
       <rect x={290} y={8} width={12} height={top + 4} fill="#5a5a5a" />
       <line x1={0} y1={50} x2={320} y2={50} stroke="#003047" strokeWidth={1} strokeDasharray="4 4" />
-      <text x={6} y={46} fontSize={8} fontWeight={700} fill="#003047">2026 level</text>
+      <text x={6} y={46} fontSize={8} fontWeight={700} fill="#003047">2026 level · year 0</text>
+      {/* History: where the table stood in 1980 and 2005, so the reader sees it was already falling before either plan. */}
+      {HISTORY_MARKS.map((m) => (
+        <g key={m.year}>
+          <line x1={200} y1={m.y} x2={288} y2={m.y} stroke="#5a5a5a" strokeWidth={1} strokeDasharray="2 3" />
+          <text x={197} y={m.y + 3} textAnchor="end" fontSize={7} fontWeight={800} fill="#5a5a5a">
+            {m.year} level
+          </text>
+        </g>
+      ))}
       {down ? (
         <>
           <path d={`M60,52 L60,${top - 4}`} stroke="#c0392b" strokeWidth={3} strokeDasharray="4 3" />
@@ -102,8 +124,8 @@ function WaterGauge({ down, years }: { down: boolean; years: number }) {
         </>
       ) : (
         <>
-          <text x={72} y={top + 16} fontSize={9} fontWeight={800} fill="#ffffff">{op === 0 ? "plant under construction" : `year ${years}: ${(gal / 1e9).toFixed(0)} billion gallons made`}</text>
-          {op > 0 && <path d="M60,64 L60,40 M60,40 l-6,8 M60,40 l6,8" stroke="#1f5f3a" strokeWidth={3} fill="none" />}
+          <text x={72} y={104} fontSize={9} fontWeight={800} fill="#ffffff">{op === 0 ? `year ${years}: plant under construction · level held at 2026` : `year ${years}: ${(gal / 1e9).toFixed(0)} billion gallons of clean water added`}</text>
+          {op > 0 && <path d={`M60,${top + 14} L60,${top - 6} M60,${top - 6} l-6,8 M60,${top - 6} l6,8`} stroke="#1f5f3a" strokeWidth={3} fill="none" />}
         </>
       )}
       <text x={160} y={124} textAnchor="middle" fontSize={8} fontWeight={800} fill={down ? "#8e3b2f" : "#1f5f3a"}>

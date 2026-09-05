@@ -5,6 +5,9 @@ export type Topic = {
   id: string;
   icon: string;
   title: string;
+  /** two lines every adult reader sees first: what is wrong as filed, and the engineering fix */
+  problem: string;
+  fix: string;
   little: string;
   kid: string;
   expert: { line: string; sources: string[] }[];
@@ -16,6 +19,8 @@ export const topics: Topic[] = [
     id: "money",
     icon: "💰",
     title: "Money and jobs",
+    problem: "The signed agreement binds the company to 750 jobs and about $12 million a year, for a project valued at up to $165 billion.",
+    fix: "Tie the bond benefit to jobs verified each year and fund a training institute on site: about 3,000 jobs and about $1 billion over 30 years, for about 1.5% more.",
     little: "The upgrade makes more jobs and more money for schools.",
     kid: "The company promised the county 750 jobs and $360 million for schools over 30 years. Our plan makes about 3,000 jobs and about $1 billion for schools, and it only costs about 1.5% more to build.",
     expert: [
@@ -30,6 +35,8 @@ export const topics: Topic[] = [
     id: "heat",
     icon: "🔥",
     title: "Heat",
+    problem: "About 2,400 MW of warmth, roughly 90,000 home furnaces' worth, is blown into the desert by fans.",
+    fix: "One plate heat exchanger before the dry coolers sends it to 150 acres of greenhouses in winter and to absorption chillers and the water plant in summer.",
     little: "The computers make heat. We use it to grow tomatoes.",
     kid: "Computers get hot, and this place will have millions of them. Their plan blows all the heat into the sky with giant fans. Our plan adds one metal box that lets warm water heat greenhouses on cold nights, and in summer the same heat runs special chillers that make cold air. Heat is used all year, then the fans do the rest.",
     expert: [
@@ -44,6 +51,8 @@ export const topics: Topic[] = [
   {
     id: "carbon",
     icon: "🌫️",
+    problem: "About 10 million tons of CO₂ a year, with each smog gas kept just under the strict-review line, over a valley that already fails the ozone standard.",
+    fix: "The dried exhaust is about 95% CO₂, so capture skids catch it for use in greenhouses and concrete, under one permit with a public meter on every stack.",
     title: "Carbon and smog",
     little: "The power plant breathes out gas. We catch it, turn it into rock, and burn less gas every year.",
     kid: "The power plant does not burn with a flame, so its breath is almost all carbon dioxide. That makes it easy to catch in a box, dry it, squeeze it, and pump it deep under the ground below a lid of solid rock. It is not fracking: the pressure is kept low so the rock never cracks.",
@@ -61,6 +70,8 @@ export const topics: Topic[] = [
   {
     id: "water",
     icon: "💧",
+    problem: "Drinking water taken from the local utility and more pumped from the fresh aquifer; 103 million gallons went to construction in five months.",
+    fix: "NMSU's 5 MGD brackish plant, designed and priced in 2023, turns salty groundwater into clean water for the towns, as El Paso has done since 2007.",
     title: "Water",
     little: "Salty water goes in. Clean water comes out for 16,700 homes.",
     kid: "Deep under the desert is a huge lake of salty water nobody can drink. Pumps bring it up, server heat warms it, and a super-fine filter lets water through but not salt. Three cups out of four come out clean. The salty cup is pumped very deep, below the good water, so it never mixes back.",
@@ -75,6 +86,8 @@ export const topics: Topic[] = [
   {
     id: "solar",
     icon: "☀️",
+    problem: "Every hour of power is a gas hour. Rooftop solar alone covers about 1% of the load.",
+    fix: "Geothermal test wells in Phase 1 and a delivered-wind contract cut gas hours every year, on a schedule toward the state's 2045 zero.",
     title: "Retire the gas",
     little: "Hot rock and wind make clean power, so the gas machines run less.",
     kid: "The sun goes on every roof, but that is a tiny slice. The big slices are hot rock deep under this valley, which makes power day and night, and the giant wind farm New Mexico switched on in 2026, whose power comes here by wire. Every year the gas machines run less.",
@@ -90,6 +103,8 @@ export const topics: Topic[] = [
   {
     id: "food",
     icon: "🍅",
+    problem: "The acres beside the fans stay bare desert, and the region imports the produce it eats.",
+    fix: "Growers lease 150 acres with heat and CO₂ piped in: about 60 million pounds of food a year and about 1,000 jobs, on grower money.",
     title: "Food and jobs",
     little: "Warm greenhouses grow food all winter.",
     kid: "Plants love warm roots and extra carbon dioxide, and the data center has both to spare. Farmers rent the land next to the fans, pipe in the warm water and the captured gas, and grow tomatoes and lettuce all year with no bug spray: warm roots on cold nights, and in summer the same heat runs chillers that keep the glass cool. Every 50 acres is one block of glass and about 300 people.",
