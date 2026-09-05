@@ -6,7 +6,7 @@ export type Audience = "overall" | "homeowner" | "legislator" | "business" | "ki
 export const AUDIENCES: Audience[] = ["overall", "homeowner", "legislator", "business", "kid", "expert"];
 
 export const audienceMeta: Record<Audience, { label: string; icon: string; short: string }> = {
-  overall: { label: "Everyone", icon: "🌐", short: "the plain version" },
+  overall: { label: "Earth", icon: "🌍", short: "our air, water, land and people" },
   homeowner: { label: "Homeowner or neighbor", icon: "🏠", short: "water, air, traffic, food" },
   legislator: { label: "Legislator or official", icon: "🏛️", short: "jobs, revenue, the record" },
   business: { label: "Business owner or investor", icon: "💼", short: "leases, water, heat, workforce" },
@@ -48,7 +48,7 @@ function subscribe(l: () => void) {
   };
 }
 
-/** Site-wide audience choice, persisted per browser. Server renders "overall"; the client switches after hydration. */
+/** Site-wide audience choice, persisted per browser. "overall" is the Earth voice, the default every first-time reader sees; the client switches after hydration. */
 export function useAudience(): [Audience, (a: Audience) => void] {
   const a = useSyncExternalStore(subscribe, read, () => "overall" as Audience);
   return [a, write];

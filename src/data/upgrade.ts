@@ -9,10 +9,20 @@ import type { TabPanel } from "@/data/jupiter";
 export const siteName = "Force Upgrade Project Jupiter";
 export const author = "Sebastian, an NMSU AI student";
 
-export const LAST_UPDATED = "Sept. 2, 2026";
+export const LAST_UPDATED = "Sept. 5, 2026";
 
 export const banner =
-  "This is an upgrade proposal built on Project Jupiter's own plan, land, and timeline. Not affiliated with Oracle, STACK Infrastructure, or Project Jupiter Together. Every section keeps their original text one click away.";
+  "Independent upgrade proposal built on Project Jupiter's own plan. Not affiliated with Oracle, STACK Infrastructure, or Project Jupiter Together. Their original text is one click away.";
+
+/** The mission, one sentence, shown under the header on every page. The same words for every reader. */
+export const mission = "Keep the data center. Make it catch its carbon, reuse its heat, make new water and hire here. Same land, same timeline, about 1.5% more.";
+
+/** How the upgrade actually happens. Step 3 is the only one a reader controls. */
+export const steps = [
+  { n: 1, who: "The county", what: "writes the five conditions into the bond lease before the fuel cells arrive.", why: "The county holds title during the 30-year bond, so the lease is the one contract that reaches the developer.", href: "/legislators#commission", cta: "Who signs the lease" },
+  { n: 2, who: "Santa Fe", what: "passes the three bills so the same rules apply to the next data center.", why: "The Microgrid Oversight Act already passed the Senate in 2026. The other two are drafted.", href: "/legislators#bills", cta: "The three bills" },
+  { n: 3, who: "You", what: "sign, call your commissioner, and show up on a second or fourth Tuesday.", why: "None of the five conditions is in the lease yet. Concrete is being poured now.", href: "/petition", cta: "Sign the petition" },
+] as const;
 
 export const nav = [
   { label: "HOME", href: "/" },
@@ -26,7 +36,7 @@ export const nav = [
 ];
 
 export const heroSubhead =
-  "$6.6 billion in economic benefits, 3,000 permanent jobs, 5 million gallons of new water a day, fresh local food, and zero excuses for New Mexico.";
+  "This is about our air, our water, our land and the people who live here, not only our economy. Keep the data center. Make it earn its place.";
 
 export const heroQuestion = "WHAT SHOULD PROJECT JUPITER MEAN FOR NEW MEXICO?";
 
@@ -39,7 +49,7 @@ export const heroBullets = [
   { strong: "", rest: "Project Jupiter can be the right, responsible data center for New Mexico. Right now it is not. Force the upgrade." },
 ];
 
-export const ctaText = { before: "Click ", link: "HERE", after: " To Force The Upgrade of Project Jupiter" };
+export const ctaText = { before: "Click ", link: "HERE", after: " to force the upgrade of Project Jupiter" };
 
 export const whatIsParagraphs = [
   "Project Jupiter is a data center campus in Santa Teresa, Doña Ana County, backed by $165 billion in county industrial revenue bonds. The signed Community Benefits Agreement describes a site of about 819 acres with a 400-acre first phase; news reports say 1,400. NMED's draft permit puts the fuel-cell plant's greenhouse gas at 10,144,115 tons a year, more than Albuquerque and Las Cruces combined, with each smog pollutant capped just under the 250-ton line that would trigger full review. The website promises 1,500 permanent jobs; the signed agreement requires 750. That is one binding job for roughly every 13,500 tons of carbon.",
@@ -352,7 +362,7 @@ export const bills = [
 ];
 
 export const talkingPoints = [
-  "I study artificial intelligence at NMSU. I want this data center in New Mexico. I want it built right.",
+  "My name is ____ and I live in ____. I want this data center in New Mexico. I want it built right.",
   "Their own permit filings say 10 to 14 million tons of carbon a year and 500 tons of smog, for 1,500 permanent jobs.",
   "The exhaust from their fuel cells is about half pure CO₂. Bloom already sells capture for it. Require it before power-on.",
   "Their servers make hot water. In Sweden and the Netherlands that heat grows food. Require them to offer it to growers on the 150 empty acres beside the dry coolers. That is 1,000 more jobs.",

@@ -8,7 +8,12 @@ import { SourceList } from "@/components/Cite";
 
 /** Photo cards per audience: a picture and one line each, so the panel is visual first. */
 const visuals: Record<Audience, { src: string; title: string; line: string; href: string }[]> = {
-  overall: [],
+  overall: [
+    { src: asset("/images/refs/filter-backwash.jpg"), title: "Air you can check", line: "the CO₂ caught and used; every stack on a public meter", href: "/blueprint#p2" },
+    { src: asset("/images/refs/reverse-osmosis-bedok.jpg"), title: "Water given back", line: "5 million gallons a day made from salty groundwater", href: "/blueprint#p3" },
+    { src: asset("/images/refs/hydroponic-tomato-greenhouse.jpg"), title: "Heat that feeds people", line: "~60 million lbs of food a year on the computers' warmth", href: "/blueprint#p5" },
+    { src: asset("/images/refs/el-cabo-wind-nm.jpg"), title: "Less gas every year", line: "hot rock and New Mexico wind take over the hours", href: "/blueprint#p4" },
+  ],
   expert: [],
   legislator: [
     { src: asset("/images/refs/reverse-osmosis-bedok.jpg"), title: "Water plant, already designed", line: "5 MGD to CRRUA · $269M, NMSU 2023", href: "/blueprint#p3" },
@@ -48,19 +53,19 @@ export function WhoAreYou() {
         <div className="mx-auto max-w-[1000px]">
           <div className="text-center">
             <div className="text-[14px] font-black uppercase tracking-wide" style={{ color: "#2e8b57" }}>Who are you?</div>
-            <h2 className="mt-1 font-black" style={{ fontSize: 26, color: "#003047" }}>Pick one and the whole page rewrites itself for you</h2>
+            <h2 className="mt-1 font-black" style={{ fontSize: 26, color: "#003047" }}>Pick who you are and every page rewrites itself for you</h2>
             <p className="mx-auto mt-2 max-w-[760px]" style={{ fontSize: 16, lineHeight: 1.6, color: "#6b6b6b" }}>
-              Same facts, same sources. Every section on every page changes its wording and order for you. &ldquo;Everyone&rdquo; is the plain version; &ldquo;Expert&rdquo; shows every number, unit and source.
+              Same facts, same sources, different words. &ldquo;Earth&rdquo; is where everyone starts: what this does to our air, water, land and people. &ldquo;Expert&rdquo; shows every number, unit and source.
             </p>
           </div>
           <div className="mt-6">
             <AudiencePicker revealSelector="#who-result" />
           </div>
           <p id="who-result" className="pj-fade mt-3 scroll-mt-32 text-center font-bold" key={`result-${audience}`} style={{ fontSize: 17, color: "#1f5f3a" }}>
-            ✓ The whole site is now written for: {audienceMeta[audience].label}. {audience === "overall" ? "" : "Scroll down; every section has changed."}
+            ✓ The whole site is now written for: {audienceMeta[audience].label}. Scroll down; every section speaks to you.
           </p>
 
-          {audience !== "overall" && audience !== "expert" && (
+          {audience !== "expert" && (
             <div key={`panel-${audience}`} className="pj-fade mt-5 rounded bg-white p-5 shadow-sm" style={{ borderTop: "6px solid #2e8b57" }} role="region" aria-live="polite">
               <h3 className="font-black" style={{ fontSize: simple ? 26 : 22, color: "#003047" }}>{panel.title}</h3>
               <p className="mt-2" style={{ fontSize: simple ? 17 : 15, lineHeight: 1.65, color: "#3c3c3c" }}>{panel.intro}</p>

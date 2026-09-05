@@ -18,8 +18,11 @@ export const metadata: Metadata = {
   description:
     "Same land, same timeline, about 1% more money: carbon captured, heat reused, water produced, 5,200 permanent jobs. Their original claims one click away.",
   icons: {
-    icon: asset("/seo/jupiter/favicon.svg"),
-    apple: asset("/seo/jupiter/favicon.svg"),
+    icon: [
+      { url: asset("/seo/jupiter/favicon.svg"), type: "image/svg+xml" },
+      { url: asset("/seo/jupiter/favicon.png"), type: "image/png", sizes: "512x512" },
+    ],
+    apple: asset("/seo/jupiter/apple-touch-icon.png"),
   },
   openGraph: {
     locale: "en_US",
