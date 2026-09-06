@@ -3,7 +3,13 @@
 import type { Audience } from "@/components/jupiter/Audience";
 import { heroBullets, heroQuestion, whatIsParagraphs, pitches, willList, willNotList, updatesLead, ctaText } from "./upgrade";
 
+export type HeroStat = { icon: "datacenter" | "water" | "school" | "community" | "helmet" | "emissions" | "energy" | "household"; value: string; label: string; color: string };
+
 export type Copy = {
+  /** one sentence under the title: what this site is, in this reader's words */
+  heroLine: string;
+  /** the three numbers on the first screen: air, water, food (or this reader's three) */
+  heroStats: [HeroStat, HeroStat, HeroStat];
   heroQuestion: string;
   heroBullets: { strong: string; rest: string }[];
   whatIsParagraphs: string[];
@@ -21,6 +27,8 @@ export type Copy = {
 };
 
 export const expertCopy: Copy = {
+  heroLine: "A 2,462 MW fuel-cell campus in Santa Teresa, financed by $165 billion in county bonds. Five lease conditions make it capture, reuse, produce and hire. Every figure below is cited.",
+  heroStats: [{ icon: "emissions", value: "10.1 Mt", label: "CO₂e a year, captured", color: "#2e8b57" }, { icon: "water", value: "5 MGD", label: "brackish RO to CRRUA", color: "#1f7ae0" }, { icon: "community", value: "~60M lbs", label: "produce a year", color: "#2e8b57" }],
   heroQuestion,
   heroBullets,
   whatIsParagraphs,
@@ -39,6 +47,8 @@ export const expertCopy: Copy = {
 
 /** Earth: the default voice. Air, water, land and people first; the numbers second, as proof. Plain words, no jargon. */
 export const overallCopy: Copy = {
+  heroLine: "A giant data center with its own gas power plant is coming to Sunland Park. We say build it, but make it clean up.",
+  heroStats: [{ icon: "emissions", value: "10M tons", label: "of CO₂ caught", color: "#2e8b57" }, { icon: "water", value: "5M gallons", label: "of clean water a day", color: "#1f7ae0" }, { icon: "community", value: "60M lbs", label: "of food a year", color: "#2e8b57" }],
   heroQuestion: "WHAT SHOULD PROJECT JUPITER MEAN FOR THE EARTH, AND FOR US?",
   heroBullets: [
     { strong: "Cleaner air.", rest: " The plant's exhaust is caught at the stack and used, instead of about 10 million tons of CO₂ a year going into a sky that already fails the smog standard." },
@@ -70,6 +80,8 @@ export const overallCopy: Copy = {
 };
 
 const legislator: Copy = {
+  heroLine: "The county holds the lease on a $165 billion data center and none of the five conditions is in it yet. This is what to write in before the fuel cells arrive.",
+  heroStats: [{ icon: "helmet", value: "3,000", label: "enforceable jobs", color: "#2e8b57" }, { icon: "water", value: "$269M", label: "water plant, designed", color: "#1f7ae0" }, { icon: "energy", value: "1.5%", label: "added to the bond", color: "#d99a00" }],
   heroQuestion: "WHAT SHOULD THE LEASE REQUIRE BEFORE THE FUEL CELLS ARRIVE?",
   heroBullets: [
     { strong: "Enforceable jobs.", rest: " About 3,000 permanent positions in Phase 1 written into the IRB lease, against the 750 the signed agreement requires today." },
@@ -114,6 +126,8 @@ const legislator: Copy = {
 };
 
 const homeowner: Copy = {
+  heroLine: "A giant data center with its own gas plant is being built near your home. It can take your water and dirty your air, or it can add water and clean up. We are asking for the second one.",
+  heroStats: [{ icon: "water", value: "5M gallons", label: "a day into your pipes", color: "#1f7ae0" }, { icon: "emissions", value: "Every stack", label: "on a public meter", color: "#2e8b57" }, { icon: "community", value: "60M lbs", label: "of local food a year", color: "#2e8b57" }],
   heroQuestion: "WHAT DOES THIS MEAN FOR YOUR WATER, YOUR AIR AND YOUR STREET?",
   heroBullets: [
     { strong: "Water added, not taken.", rest: " Their plan takes drinking water from CRRUA and pumps more from a farm well. Ours adds 5 million gallons a day of clean water to the same pipes, enough for about 16,700 homes." },
@@ -158,6 +172,8 @@ const homeowner: Copy = {
 };
 
 const business: Copy = {
+  heroLine: "A closed box as filed: one tenant, one product, a permit stuck in court. Five conditions open leases, water, heat and clean power on the same land, for about 1.5% more.",
+  heroStats: [{ icon: "datacenter", value: "150 acres", label: "to lease, heat included", color: "#2e8b57" }, { icon: "household", value: "$130k", label: "per acre a year", color: "#d99a00" }, { icon: "water", value: "6 → 15 MGD", label: "utility demand by 2042", color: "#1f7ae0" }],
   heroQuestion: "WHERE IS THE MONEY IN THE UPGRADE?",
   heroBullets: [
     { strong: "The most sophisticated campus in the country.", rest: " To our knowledge no U.S. hyperscale site yet combines stack capture, heat reuse, water production and a public emissions meter. The first one owns that headline." },
@@ -201,6 +217,8 @@ const business: Copy = {
 };
 
 const kid: Copy = {
+  heroLine: "A company is building a giant computer building near Sunland Park with a power plant that breathes out gas. We want it built, but built right: catch the gas, use the heat, clean the water.",
+  heroStats: [{ icon: "community", value: "60 million", label: "pounds of tomatoes a year", color: "#2e8b57" }, { icon: "water", value: "16,700", label: "homes of clean water a day", color: "#1f7ae0" }, { icon: "helmet", value: "3,000", label: "jobs for grown-ups", color: "#d99a00" }],
   heroQuestion: "WHAT WILL YOUR TOWN BE LIKE WHEN YOU ARE GROWN UP?",
   heroBullets: [
     { strong: "Your air.", rest: " A giant power plant is going up near your house. It breathes out gas every hour. On hot days that helps make smog, and your town already has too much. We want the gas caught in a box instead." },

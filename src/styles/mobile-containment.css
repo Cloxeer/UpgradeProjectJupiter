@@ -6,9 +6,12 @@
 */
 
 /* 1. Text never escapes its container. Long words wrap; boxes grow to fit. */
-main :where(p, li, div, span, figcaption, td, th, h1, h2, h3, h4, button, a) {
+main :where(p, li, td, th, figcaption) {
   overflow-wrap: break-word;
-  hyphens: auto;
+}
+/* No automatic hyphenation anywhere: a word split with "-" at a line end reads as a typo. */
+main :where(h1, h2, h3, h4, p, li, button, summary, a, span, div) {
+  hyphens: manual;
 }
 /* Headline stamps get their own line instead of leaning over the words beside them. */
 h1 .pj-stamp {
