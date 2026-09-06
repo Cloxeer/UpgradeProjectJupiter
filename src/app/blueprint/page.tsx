@@ -13,7 +13,7 @@ import { pctOfBond } from "@/lib/units";
 import { PlanModeProvider, PlanSwitch } from "@/components/blueprint/PlanMode";
 import { Glossary } from "@/components/jupiter/Term";
 import { JupiterStorm } from "@/components/jupiter/JupiterStorm";
-import { AudiencePicker } from "@/components/jupiter/Audience";
+import { AudienceChip } from "@/components/jupiter/Audience";
 import { VoiceText, HideFor, OnlyFor } from "@/components/blueprint/Voice";
 
 export const metadata: Metadata = {
@@ -42,34 +42,19 @@ export default function BlueprintPage() {
       <SiteHeader />
       <PlanModeProvider>
       <main>
-        <section style={{ backgroundColor: "#003047" }}>
-          <div className="pj-container py-14 text-center">
-            <h1 className="font-black text-white" style={{ fontSize: "clamp(36px,6vw,56px)", lineHeight: 1.05 }}>
+        {/* A different page, at a glance: graph paper, navy type, one control. */}
+        <section style={{ backgroundColor: "#f6f9fb", backgroundImage: "repeating-linear-gradient(0deg, rgba(0,48,71,0.08) 0 1px, transparent 1px 24px), repeating-linear-gradient(90deg, rgba(0,48,71,0.08) 0 1px, transparent 1px 24px)" }}>
+          <div className="pj-container py-10 text-center">
+            <p className="mb-2 text-[13px] font-black uppercase tracking-wide" style={{ color: "#2e8b57" }}>The blueprint · tap any building</p>
+            <h1 className="font-black" style={{ fontSize: "clamp(36px,6vw,56px)", lineHeight: 1.05, color: "#003047" }}>
               <Stamp kind="force">PROJECT JUPITER</Stamp> BLUEPRINT
             </h1>
-            <p className="mx-auto mt-5 max-w-[820px] text-gold" style={{ fontSize: 20, lineHeight: 1.4, fontWeight: 600 }}>
+            <p className="mx-auto mt-4 max-w-[760px] font-semibold" style={{ fontSize: "clamp(17px,2vw,21px)", lineHeight: 1.4, color: "#003047" }}>
               <VoiceText field="heroSub" />
             </p>
-            <p className="mx-auto mt-4 max-w-[760px]" style={{ fontSize: 16, lineHeight: 1.6, color: "rgba(255,255,255,0.85)" }}>
-              <VoiceText field="heroGuide" />
-            </p>
-            <div id="questions" className="mx-auto mt-6 grid max-w-[1000px] scroll-mt-32 grid-cols-1 gap-4 md:grid-cols-2">
-              <div className="rounded bg-white p-5 text-left shadow-md">
-                <div className="text-[13px] font-black uppercase tracking-wide" style={{ color: "#2e8b57" }}>Question 1</div>
-                <div className="mt-1 font-black" style={{ fontSize: 18, color: "#003047" }}>What do you want to see first?</div>
-                <div className="mt-3">
-                  <PlanSwitch labelTheirs="Their plan, as filed" labelOurs="The upgraded plan" big hint scrollTo="#site" />
-                </div>
-                <p className="mt-2" style={{ fontSize: 14, color: "#6b6b6b" }}>Do not worry: you can switch at any time, on any card, and the whole page follows.</p>
-              </div>
-              <div className="rounded bg-white p-5 text-left shadow-md">
-                <div className="text-[13px] font-black uppercase tracking-wide" style={{ color: "#2e8b57" }}>Question 2</div>
-                <div className="mt-1 font-black" style={{ fontSize: 18, color: "#003047" }}>Who are you viewing as?</div>
-                <div className="mt-3">
-                  <AudiencePicker compact revealSelector="#site" />
-                </div>
-                <p className="mt-2" style={{ fontSize: 14, color: "#6b6b6b" }}>The words under every drawing change for you. Little kid keeps only the pictures and sliders.</p>
-              </div>
+            <div className="mt-6 flex flex-col items-center gap-4">
+              <PlanSwitch labelTheirs="Their plan, as filed" labelOurs="The upgraded plan" big hint scrollTo="#site" />
+              <AudienceChip />
             </div>
           </div>
         </section>

@@ -12,7 +12,7 @@ export const author = "Sebastian, an NMSU AI student";
 export const LAST_UPDATED = "Sept. 5, 2026";
 
 export const banner =
-  "Independent upgrade proposal built on Project Jupiter's own plan. Not affiliated with Oracle, STACK Infrastructure, or Project Jupiter Together. Their original text is one click away.";
+  "Independent proposal. Not affiliated with Oracle, STACK Infrastructure, or Project Jupiter Together. Their original text is one tap away.";
 
 /** The mission, one sentence, shown under the header on every page. The same words for every reader. */
 export const mission = "Keep the data center. Make it catch its carbon, reuse its heat, make new water and hire here. Same land, same timeline, about 1.5% more.";
@@ -24,13 +24,11 @@ export const steps = [
   { n: 3, who: "You", what: "sign, call your commissioner, and show up on a second or fourth Tuesday.", why: "None of the five conditions is in the lease yet. Concrete is being poured now.", href: "/petition", cta: "Sign the petition" },
 ] as const;
 
+/** Five tabs. Petition is the button, not a tab; the Science page is linked from the Blueprint and the footer. */
 export const nav = [
   { label: "HOME", href: "/" },
-  { label: "THE UPGRADE", href: "/#highlights" },
   { label: "BLUEPRINT", href: "/blueprint" },
-  { label: "THE SCIENCE", href: "/science" },
   { label: "LEGISLATORS", href: "/legislators" },
-  { label: "PETITION", href: "/petition" },
   { label: "FAQ", href: "/faq" },
   { label: "SOURCES", href: "/sources" },
 ];
