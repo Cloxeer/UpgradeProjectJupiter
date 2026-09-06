@@ -164,30 +164,8 @@ export function PartInfo({ id, onClose }: { id: string | null; onClose: () => vo
       )}
       {!isKid && (
       <div className="mt-3 grid grid-cols-1 gap-4 md:grid-cols-5">
-        <div className={doc.photo ? "md:col-span-3" : "md:col-span-5"}>
-          {!isKid && (
-          <p style={{ fontSize: 16, lineHeight: 1.6, color: "#3c3c3c" }}>
-            <strong>What it is.</strong> {doc.what}
-          </p>
-          )}
-          {!isKid && (
-          <p className="mt-2" style={{ fontSize: 16, lineHeight: 1.6, color: "#3c3c3c" }}>
-            <strong>{isNew ? "Why we add it." : "Why it is there."}</strong> {doc.why}
-          </p>
-          )}
-          {!isKid && doc.theyDo && (
-            <p className="mt-2" style={{ fontSize: 16, lineHeight: 1.6, color: "#3c3c3c" }}>
-              <strong>What their plan does.</strong> {doc.theyDo}
-            </p>
-          )}
-          {!isKid && audience !== "expert" && doc.kid && (
-            <p className="mt-2 rounded p-2" style={{ fontSize: 15, lineHeight: 1.55, backgroundColor: "#fff8e6", color: "#3c3c3c" }}>
-              <strong>If you are ten:</strong> {doc.kid}
-            </p>
-          )}
-        </div>
         {doc.photo && (
-          <figure className="md:col-span-2">
+          <figure className="md:order-last md:col-span-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={doc.photo.src} alt={doc.photo.alt} className="w-full rounded" loading="lazy" decoding="async" />
             <figcaption className="mt-1 text-[13px]" style={{ color: "#6b6b6b", lineHeight: 1.4 }}>
@@ -202,6 +180,24 @@ export function PartInfo({ id, onClose }: { id: string | null; onClose: () => vo
             </figcaption>
           </figure>
         )}
+        <div className={doc.photo ? "md:col-span-3" : "md:col-span-5"}>
+          {audience !== "expert" && doc.kid && (
+            <p className="rounded p-2" style={{ fontSize: 16, lineHeight: 1.55, backgroundColor: "#fff8e6", color: "#3c3c3c" }}>
+              <strong>If you are ten:</strong> {doc.kid}
+            </p>
+          )}
+          <p className="mt-2" style={{ fontSize: 16, lineHeight: 1.6, color: "#3c3c3c" }}>
+            <strong>What it is.</strong> {doc.what}
+          </p>
+          <p className="mt-2" style={{ fontSize: 16, lineHeight: 1.6, color: "#3c3c3c" }}>
+            <strong>{isNew ? "Why we add it." : "Why it is there."}</strong> {doc.why}
+          </p>
+          {doc.theyDo && (
+            <p className="mt-2" style={{ fontSize: 16, lineHeight: 1.6, color: "#3c3c3c" }}>
+              <strong>What their plan does.</strong> {doc.theyDo}
+            </p>
+          )}
+        </div>
       </div>
       )}
       {!isKid && <SourceList ids={doc.sources} />}
