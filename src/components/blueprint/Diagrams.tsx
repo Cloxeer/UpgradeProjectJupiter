@@ -783,8 +783,8 @@ export function CarbonDiagram() {
       </svg></div>
       <PartInfo id={part} onClose={() => setPart(null)} />
 
-      <Slider label="Capture efficiency (how much of the CO₂ the box catches)" value={ours ? rate : 0} min={0} max={95} step={5} unit="%" onChange={setRate} disabled={!ours} />
-      <div className="mt-3">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        <Slider label="Capture efficiency (how much of the CO₂ the box catches)" value={ours ? rate : 0} min={0} max={95} step={5} unit="%" onChange={setRate} disabled={!ours} />
         <Slider label="Share of captured CO₂ used (greenhouses, concrete, aggregate) instead of stored" value={ours ? useShare : 0} min={0} max={100} step={5} unit="%" onChange={setUseShare} disabled={!ours} />
       </div>
       <div className="mt-4">
@@ -916,11 +916,12 @@ export function WaterDiagram() {
             <Flow d="M75,154 V60 H140" color="#7a9bb5" width={Math.max(4, 3 + feed)} dur={2.6} />
             <Tag x={100} y={54} text={`${feed.toFixed(1)} MGD salty`} anchor="middle" size={8.5} color="#4a6a80" />
 
+            {/* Same plate heat exchanger as Process 1, drawn the same way so readers recognize it. */}
             <Clickable id="preheat" selected={part} onSelect={setPart}>
               <rect x={140} y={35} width={95} height={50} rx={4} fill="#c0392b" />
-              <text className="pj-num " x={187} y={54} textAnchor="middle" fontSize={10} fontWeight={800} fill="#fff" pointerEvents="none">2 · PREHEAT</text>
-              <text className="pj-num " x={187} y={68} textAnchor="middle" fontSize={7.5} fill="#ffe0da" pointerEvents="none">server heat +15 °C / +27 °F</text>
+              {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => <rect key={i} x={149 + i * 10.5} y={42} width={5} height={36} fill="#ffffff" fillOpacity={0.75} pointerEvents="none" />)}
             </Clickable>
+            <Tag x={187} y={96} text="2 · PREHEAT · HEAT EXCHANGER · +15 °C / +27 °F" anchor="middle" bold color="#c0392b" size={7.5} />
             <NewMarker box={{ x: 140, y: 35, w: 95, h: 50 }} side="top" />
             <Flow d="M235,60 H250" color="#7a9bb5" width={7} dur={1.2} />
 
@@ -1323,7 +1324,7 @@ export function GreenhouseDiagram() {
             <Flow d={`M178,108 H${180 + Math.ceil(nBays / 2) * bayW}`} color="#1f7ae0" width={3} dur={2} r={2.2} active={!winter} />
             <NewMarker box={{ x: 178, y: 26, w: nBays * bayW + 4, h: 96 }} side="left" align="start" />
             <Tag x={180 + (nBays * bayW) / 2} y={20} text={`${acres} acres · ${nBays} block${nBays > 1 ? "s" : ""} of ~50 acres · sealed, no pesticides`} anchor="middle" bold size={9} color="#1f5f3a" />
-            <Tag x={180 + (nBays * bayW) / 2} y={134} text={winter ? `winter blocks: roots at ${tempRange(20, 22)} · summer blocks: chiller cools the glass` : "summer blocks: the chiller makes cold from the same heat · winter blocks idle"} anchor="middle" size={7.5} />
+            <Tag x={182} y={134} text={winter ? `winter blocks: roots at ${tempRange(20, 22)} · summer blocks: chiller cools the glass` : "summer blocks: the chiller makes cold from the same heat · winter blocks idle"} anchor="start" size={7.5} />
             {Array.from({ length: nPeople }).map((_, i) => <Person key={i} x={190 + i * 18} y={160} />)}
             <Tag x={190 + (nPeople * 18) / 2} y={196} text={`~${Math.round(jobs).toLocaleString()} jobs · ${GH_JOBS_PER_ACRE} per acre incl. packing (industry average)`} anchor="middle" size={8} color="#003047" />
             <Flow d={`M${180 + nBays * bayW},75 H540`} color="#2e8b57" width={5} dur={2.2} />
