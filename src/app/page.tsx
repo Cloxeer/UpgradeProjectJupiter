@@ -11,6 +11,12 @@ import { UpdatesSection } from "@/components/jupiter/UpdatesSection";
 import { ResourcesSection } from "@/components/jupiter/ResourcesSection";
 import { DisclaimerSection } from "@/components/jupiter/DisclaimerSection";
 import { SiteFooter } from "@/components/jupiter/SiteFooter";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: { absolute: "Force Upgrade Project Jupiter | A citizen plan for the Santa Teresa data center" },
+  alternates: { canonical: "/" },
+};
 
 /**
  * Home: one sentence, one button, three numbers; then their number beside ours;
