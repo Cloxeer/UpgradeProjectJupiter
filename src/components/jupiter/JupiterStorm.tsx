@@ -29,7 +29,7 @@ export function JupiterStorm() {
           <div className="grid grid-cols-2 gap-3">
             <figure className="overflow-hidden rounded" style={{ border: "2px solid #c0392b" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={asset("/images/refs/jupiter-great-red-spot.jpg")} alt="Jupiter's Great Red Spot, a storm larger than Earth, photographed by NASA's Juno spacecraft" className="aspect-[4/3] w-full object-cover" loading="lazy" decoding="async" />
+              <img src={asset("/images/refs/jupiter-great-red-spot.jpg")} alt="Jupiter's Great Red Spot, a storm larger than Earth, photographed by NASA's Juno spacecraft" className="aspect-[4/3] w-full object-cover" style={{ objectPosition: "74% 50%" }} loading="lazy" decoding="async" />
               <figcaption className="px-2 py-1.5 text-center text-[13px] font-black uppercase" style={{ backgroundColor: "#c0392b", color: "#fff" }}>As filed</figcaption>
             </figure>
             <figure className="overflow-hidden rounded" style={{ border: "2px solid #2e8b57" }}>
