@@ -360,7 +360,7 @@ export const bills = [
 ];
 
 export const talkingPoints = [
-  "My name is ____ and I live in ____. I want this data center in New Mexico. I want it built right.",
+  "My name is ____ and I live in ____. I do not want Project Jupiter as it is filed. I want it only if it is upgraded: no conditions in the lease, no data center. Here is what to write in.",
   "Their own permit filings say 10 to 14 million tons of carbon a year and 500 tons of smog, for 1,500 permanent jobs.",
   "The exhaust from their fuel cells is about half pure CO₂. Bloom already sells capture for it. Require it before power-on.",
   "Their servers make hot water. In Sweden and the Netherlands that heat grows food. Require them to offer it to growers on the 150 empty acres beside the dry coolers. That is 1,000 more jobs.",
@@ -375,10 +375,31 @@ export const petitionText = [
   "We do not ask you to cancel Project Jupiter. We ask you to force its upgrade. Before the first fuel cell turns on in Santa Teresa, make the following conditions binding on the air permit, the water permits, and the $165 billion in Industrial Revenue Bonds:",
 ];
 
-export const petitionDemands = [
-  "Point-source carbon capture installed and operating on all fuel-cell exhaust before power-on, removing at least 90% of CO₂, with a sequestration plan and deadline.",
-  "One major-source air permit for the whole campus, with continuous stack monitoring published on a public dashboard. No permit splitting.",
-  "Server waste heat offered to commercial greenhouse operators on the undeveloped acres beside the dry coolers, with local growers given first refusal.",
-  "The NMSU-designed 5 million gallon a day brackish desalination system fully funded and delivered to CRRUA.",
-  "Bond tax abatements tied to permanent jobs verified each year, and a funded NMSU and Doña Ana Community College institute so the jobs go to people who already live here.",
+/** The five conditions. Each says what we ask, what their filed plan does today, and why it matters, in plain words. */
+export const petitionDemands: { ask: string; theirs: string; why: string }[] = [
+  {
+    ask: "Carbon capture installed on the fuel-cell stacks from the first day of operation, catching at least 90% of the CO₂.",
+    theirs: "About 10 million tons of CO₂ a year go straight into the sky. No capture is planned.",
+    why: "The exhaust is about 95% CO₂ once dried, the easiest kind to catch, and the maker of the fuel cells already sells the equipment.",
+  },
+  {
+    ask: "One air permit for the whole campus that accepts the strict federal review, with a public air monitor on every stack.",
+    theirs: "The filing keeps each smog gas just under 250 tons a year, the amount that would trigger the strict review and the best pollution controls.",
+    why: "Sunland Park has failed the federal ozone standard since 2018. Public meters let anyone check the air the same day.",
+  },
+  {
+    ask: "The computers' waste heat offered to greenhouse growers on the empty acres beside the cooling fans, local growers first.",
+    theirs: "All the heat, about 2,400 megawatts, is blown into the desert by fans. The land beside them stays bare.",
+    why: "About 150 acres of greenhouses would grow about 60 million pounds of food a year and add about 1,000 jobs. Gothenburg does this today.",
+  },
+  {
+    ask: "The NMSU-designed water plant built and handed to the local utility: 5 million gallons a day of clean water from salty groundwater.",
+    theirs: "Drinking water is taken from the local utility and more is pumped from the fresh aquifer. The signed deal funds only a $250,000 study of the plant.",
+    why: "The plant is already designed and priced at $269 million, about 0.16% of the bond. It gives back more water than the campus takes.",
+  },
+  {
+    ask: "The county tax break paid only as permanent jobs are verified each year, and a $50 million training institute on site so the jobs go to people who live here.",
+    theirs: "The signed agreement binds the company to 750 jobs and $4 million for workforce programs, with the tax break paid regardless.",
+    why: "With greenhouses, the water plant and capture, about 3,000 permanent jobs are possible. Verification makes the number real instead of advertised.",
+  },
 ];

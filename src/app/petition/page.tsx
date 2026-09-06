@@ -42,9 +42,22 @@ export default function PetitionPage() {
                       {p}
                     </p>
                   ))}
-                  <ol className="mt-5 space-y-3 pl-6" style={{ listStyle: "decimal" }}>
-                    {petitionDemands.map((d) => (
-                      <li key={d}>{d}</li>
+                  <ol className="mt-5 space-y-4">
+                    {petitionDemands.map((d, i) => (
+                      <li key={d.ask} className="rounded p-4" style={{ backgroundColor: "#f7faf8", borderLeft: "5px solid #2e8b57" }}>
+                        <div className="flex gap-3">
+                          <span className="font-black" style={{ fontSize: 22, lineHeight: 1.2, color: "#2e8b57" }}>{i + 1}</span>
+                          <div>
+                            <p className="font-bold" style={{ fontSize: 17, lineHeight: 1.5, color: "#003047" }}>{d.ask}</p>
+                            <p className="mt-2" style={{ fontSize: 15, lineHeight: 1.55, color: "#8e3b2f" }}>
+                              <strong>Their plan today:</strong> {d.theirs}
+                            </p>
+                            <p className="mt-1" style={{ fontSize: 15, lineHeight: 1.55, color: "#3c3c3c" }}>
+                              <strong>Why it matters:</strong> {d.why}
+                            </p>
+                          </div>
+                        </div>
+                      </li>
                     ))}
                   </ol>
                   <p className="mt-5">
