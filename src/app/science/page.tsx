@@ -10,8 +10,9 @@ import { Stamp } from "@/components/jupiter/Stamp";
 import { WhatItMeansSection } from "@/components/jupiter/WhatItMeansSection";
 
 export const metadata: Metadata = {
-  title: "The Science | Force Upgrade Project Jupiter",
-  description: "The engineering behind the upgrade: economic impact, key components, and the bond conditions, each with sources and their original text one click away.",
+  title: "The science behind the upgrade",
+  description: "Why carbon capture works on Bloom fuel cells, why the NMSU desalination plant is real, how server heat grows food, and what each condition costs, with vendor data, operating plants and sources.",
+  alternates: { canonical: "/science/" },
 };
 
 export default function SciencePage() {

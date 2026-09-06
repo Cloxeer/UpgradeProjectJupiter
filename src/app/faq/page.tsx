@@ -27,8 +27,9 @@ function rank(q: string): number {
 }
 
 export const metadata: Metadata = {
-  title: "FAQ | Force Upgrade Project Jupiter",
-  description: "Every question on Project Jupiter Together's FAQ, their answer, and the sourced answer.",
+  title: "FAQ: their questions, answered with sources",
+  description: "Every question from Project Jupiter Together’s FAQ, their answer in one line, and the answer the signed agreement, permit filings and independent reports support.",
+  alternates: { canonical: "/faq/" },
 };
 
 export default function FaqPage() {

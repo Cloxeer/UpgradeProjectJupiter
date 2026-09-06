@@ -17,8 +17,9 @@ import { AudienceChip } from "@/components/jupiter/Audience";
 import { VoiceText, HideFor, OnlyFor } from "@/components/blueprint/Voice";
 
 export const metadata: Metadata = {
-  title: "Blueprint | Force Upgrade Project Jupiter",
-  description: "An interactive, sourced blueprint for upgrading Project Jupiter on its own 819-acre site: site plan, five processes, costs, and timeline.",
+  title: "Blueprint: the upgraded site plan, drawn",
+  description: "Interactive site plan and five process drawings for upgrading Project Jupiter on its own 819 acres: waste heat to greenhouses, carbon capture on the fuel cells, a 5 MGD desalination plant, geothermal and wind, costs as a share of the $165B bond, and a 30-year timeline.",
+  alternates: { canonical: "/blueprint/" },
 };
 
 function parseCost(v: string): number {

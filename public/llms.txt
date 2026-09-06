@@ -1,0 +1,42 @@
+# Force Upgrade Project Jupiter
+
+> An independent, sourced counter-proposal for Project Jupiter, the $165 billion Oracle / STACK Infrastructure data-center campus with its own 2,462 MW gas fuel-cell power plant being built in Santa Teresa, Doña Ana County, New Mexico. The site does not ask for the project to be cancelled. It asks Doña Ana County to write five conditions into the bond lease before the first fuel cell turns on: carbon capture from day one, one air permit with public monitors on every stack, waste heat offered to greenhouse growers, the NMSU-designed 5 million gallon a day desalination plant built and handed to the local utility, and the tax break tied to jobs verified each year. Same buildings, same fence, same schedule, about 1.5% more cost.
+
+Published by Sebastian, a New Mexico State University computer-science student. Not affiliated with Oracle, STACK Infrastructure, BorderPlex Digital Assets, or the developers' site projectjupitertogether.com. Every figure is cited to a primary document, a vendor specification, an operating plant, university research, or a named news report; the developers' own text is kept one tap away in every section.
+
+Site: https://upgradeprojectjupiter.com
+Contact and corrections: UpgradeProjectJupiter@gmail.com
+Last updated: September 2026
+
+## Key facts (as filed, from the developers' own documents)
+
+- Community Benefits Agreement signed Nov. 12, 2025: about 819 acres, a 400-acre first phase due Q3 2028, a binding minimum of 750 full-time jobs, a 20,000 gallon a day potable-water cap, and $11.4 million in programs. The county's only remedy is the lease.
+- New Mexico Environment Department draft air permit (July 29, 2026): 2,462 MW of Bloom fuel cells, 10,144,115 tons of CO₂e a year, each smog pollutant held just under the 250-ton threshold that triggers strict federal review. The dried anode exhaust is about 95% CO₂.
+- More than 103 million gallons of fresh groundwater were pumped for construction between April and August 2026 before the New Mexico Supreme Court stayed the emergency well authorization and the air-permit hearing (Aug. 24, 2026; stay upheld Sept. 1, 2026).
+- Sunland Park has been a federal ozone nonattainment area since 2018.
+
+## The five conditions (the upgrade)
+
+1. Carbon capture on the fuel-cell stacks from the first day of operation, at least 90% of CO₂ caught, used first (greenhouses, concrete, aggregate), stored as fallback.
+2. One air permit for the whole campus that accepts the strict federal review, with continuous public monitoring on every stack.
+3. Server waste heat (about 2,400 MW) offered to greenhouse growers on about 150 acres beside the dry coolers: about 60 million pounds of food a year and about 1,000 jobs, on grower capital.
+4. The NMSU-designed 5 MGD brackish desalination system ($269 million, 2023 design) built and delivered to the Camino Real Regional Utility Authority.
+5. Bond payments tied to permanent jobs verified each year (about 3,000 possible), with a $50 million NMSU / Doña Ana Community College training institute on site.
+
+## Pages
+
+- [Home](https://upgradeprojectjupiter.com/): one sentence, three numbers (air, water, food), their filed number beside ours for six comparisons, the year-by-year pictures, the five demands with a feasibility rubric, and what a reader can do.
+- [Blueprint](https://upgradeprojectjupiter.com/blueprint/): interactive site plan traced from the developers' Aug. 27, 2026 render, five process drawings with sliders (heat, carbon, water, retiring the gas, greenhouses), the cost table as a share of the $165B bond, and a 30-year timeline.
+- [The Science](https://upgradeprojectjupiter.com/science/): the engineering behind each condition, with vendor data and operating precedents, at several reading levels.
+- [Legislators](https://upgradeprojectjupiter.com/legislators/): the five Doña Ana County commissioners with phone and prefilled email, meeting times, a two-minute public-comment script, the eleven state legislators, and the three related bills.
+- [Petition](https://upgradeprojectjupiter.com/petition/): the petition text and the five conditions, each with what the filed plan does today and why it matters.
+- [FAQ](https://upgradeprojectjupiter.com/faq/): every question from the developers' FAQ, their answer in one line, and the answer the documents support.
+- [Sources](https://upgradeprojectjupiter.com/sources/): every document cited, grouped by page and section.
+
+## Reading levels
+
+Readers can view the whole site as Earth (default: air, water, land and people), Homeowner or neighbor, Legislator or official, Business owner or investor, Little kid, or Expert. The numbers never change; only the wording does.
+
+## Reuse
+
+Text on this site may be quoted with attribution to upgradeprojectjupiter.com. Photographs carry their own Wikimedia Commons or public-domain credits, shown beside each image.
