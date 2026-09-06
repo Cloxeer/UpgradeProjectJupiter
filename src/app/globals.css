@@ -409,6 +409,7 @@
   .pj-fold .pj-stats, .pj-fold .pj-cost, .pj-fold .pj-fine, .pj-fold .pj-more, .pj-fold .pj-list, .pj-fold .pj-units, .pj-fold .pj-late { display: none !important; }
   /* The card body is a column; everything that folds is ordered after the "Read more" button so opening it reveals content below, never above. */
   .pj-scroll { display: flex; flex-direction: column; }
+  .pj-scroll > .pj-foldanchor { order: 4; height: 0; }
   .pj-scroll > .pj-foldbtn { order: 5; }
   .pj-scroll > .pj-stats, .pj-scroll > .pj-cost, .pj-scroll > .pj-fine, .pj-scroll > .pj-more, .pj-scroll > .pj-list, .pj-scroll > .pj-units, .pj-scroll > .pj-late { order: 10; }
   @media (min-width: 768px) { .pj-sheet { border-radius: 16px; } }
