@@ -519,6 +519,16 @@ export function SitePlan() {
             <div className="mt-1 font-black" style={{ fontSize: 28, color: missing ? "#c0392b" : sel.color }}>
               ~{sel.acres} acres
             </div>
+            {sel.stats && sel.stats.length > 0 && (
+              <div className={`mt-3 grid gap-2 ${sel.stats.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}>
+                {sel.stats.map((st) => (
+                  <div key={st.label} className="rounded px-2 py-3 text-center" style={{ backgroundColor: "#f7f7f7", borderTop: `4px solid ${st.color}` }}>
+                    <div className="font-black" style={{ fontSize: "clamp(18px,2vw,26px)", lineHeight: 1.05, color: st.color }}>{st.value}</div>
+                    <div className="mt-1 font-semibold" style={{ fontSize: 13, lineHeight: 1.25, color: "#3c3c3c" }}>{st.label}</div>
+                  </div>
+                ))}
+              </div>
+            )}
             {missing && (
               <div className="mt-3 rounded p-3" style={{ backgroundColor: "#fff0ed", border: "1px dashed #c0392b" }}>
                 <p style={{ fontSize: 15, lineHeight: 1.55, color: "#8e3b2f" }}>
@@ -539,24 +549,22 @@ export function SitePlan() {
                 </figcaption>
               </figure>
             )}
-            <div className="mt-4">
-              {isKid ? (
+            {isKid ? (
+              <div className="mt-4">
                 <TobyMoby chat={zoneTM[sel.id]} fallback={zoneKid[sel.id] ?? sel.theirs} />
-              ) : (
-                <>
-                  <div className="text-[13px] font-bold uppercase" style={{ color: "#6b6b6b" }}>How they are doing it (render + filings)</div>
-                  <p style={{ fontSize: 16, lineHeight: 1.6, color: "#3c3c3c" }}>{sel.theirs}</p>
-                </>
-              )}
-            </div>
-            <div className="mt-3 rounded p-3" style={{ backgroundColor: "#eaf6ee" }}>
-              {!isKid && (
-                <>
-                  <div className="text-[13px] font-bold uppercase" style={{ color: "#1f5f3a" }}>{missing ? "What the upgrade would put here" : "How it should be done"}</div>
-                  <p style={{ fontSize: 16, lineHeight: 1.6, color: "#1f5f3a" }}>{sel.ours}</p>
-                </>
-              )}
-            </div>
+              </div>
+            ) : (
+              <>
+                <details name="pj-zone" className="mt-4 rounded p-3" style={{ backgroundColor: "#eaf6ee" }} open={!sel.stats}>
+                  <summary className="cursor-pointer text-[14px] font-bold uppercase" style={{ color: "#1f5f3a" }}>{missing ? "What the upgrade would put here ▾" : "How it should be done ▾"}</summary>
+                  <p className="mt-2" style={{ fontSize: 16, lineHeight: 1.6, color: "#1f5f3a" }}>{sel.ours}</p>
+                </details>
+                <details name="pj-zone" className="mt-2 rounded p-3" style={{ backgroundColor: "#f7f7f7" }}>
+                  <summary className="cursor-pointer text-[14px] font-bold uppercase" style={{ color: "#6b6b6b" }}>Their plan for this land ▾</summary>
+                  <p className="mt-2" style={{ fontSize: 16, lineHeight: 1.6, color: "#3c3c3c" }}>{sel.theirs}</p>
+                </details>
+              </>
+            )}
           </>
         )}
 

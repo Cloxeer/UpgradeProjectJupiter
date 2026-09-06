@@ -19,7 +19,14 @@ export type Zone = {
   ours: string;
   /** short label drawn on the map */
   short: string;
+  /** two or three numbers shown before any prose when the zone is tapped */
+  stats?: ZoneStat[];
 };
+
+export type ZoneStat = { value: string; label: string; color: string };
+
+/** Phase-1 greenhouse acreage. One number for the map zone and the diagram slider. */
+export const GH_ACRES_PHASE1 = 150;
 
 export const TOTAL_ACRES = 819; // per the executed Community Benefits Agreement
 
@@ -148,7 +155,7 @@ export const zones: Zone[] = [
   {
     id: "greenhouse",
     name: "Greenhouses, Phase 1 (proposed)",
-    acres: 150,
+    acres: GH_ACRES_PHASE1,
     color: "#2e8b57",
     rects: [{ x: 530, y: 520, w: 420, h: 180 }],
     plan: "ours",
@@ -230,6 +237,53 @@ export const GH_LBS_PER_ACRE = 400_000;
 export const GH_WATER_SAVED_GAL_PER_LB = 22;
 export const GH_CO2_TONS_PER_ACRE = 60;
 export const GH_LEASE_PER_ACRE_M = 0.13;
+
+// ─── Numbers a reader sees first when a zone is tapped ────────────────────────
+const GREEN = "#2e8b57", BLUE = "#1f7ae0", GOLD = "#d99a00", RED = "#c0392b";
+const M = (n: number) => `${Math.round(n)}M`;
+export const zoneStats: Record<string, ZoneStat[]> = {
+  greenhouse: [
+    { value: `~${M((GH_ACRES_PHASE1 * GH_LBS_PER_ACRE) / 1e6)} lbs`, label: "of food a year", color: GREEN },
+    { value: `~${(Math.round((GH_ACRES_PHASE1 * GH_JOBS_PER_ACRE) / 100) * 100).toLocaleString()}`, label: "jobs", color: GOLD },
+    { value: `~$${Math.round(GH_ACRES_PHASE1 * GH_LEASE_PER_ACRE_M)}M/yr`, label: "lease and heat revenue", color: GOLD },
+  ],
+  water: [
+    { value: "5M gal", label: "a day, clean", color: BLUE },
+    { value: `~${Math.round((5e6 / GAL_PER_HOUSEHOLD_DAY) / 100) * 100}`.replace(/\B(?=(\d{3})+(?!\d))/g, ","), label: "homes' worth", color: BLUE },
+    { value: "$269M", label: "priced by NMSU, 2023", color: GOLD },
+  ],
+  capture: [
+    { value: "~95%", label: "CO₂ in the dried exhaust", color: GREEN },
+    { value: "90–95%", label: "caught", color: GREEN },
+    { value: "~10M tons", label: "a year kept out of the sky", color: GREEN },
+  ],
+  fuel: [
+    { value: "2,462 MW", label: "fuel cells", color: RED },
+    { value: `~${CO2_LOW_MT}M tons`, label: "CO₂ a year as filed", color: RED },
+    { value: "Stayed", label: "air permit, in court", color: RED },
+  ],
+  halls: [
+    { value: `${IT_LOAD_MW.toLocaleString()} MW`, label: "of computers", color: RED },
+    { value: `${HEAT_MW.toLocaleString()} MW`, label: "of heat to use", color: GOLD },
+  ],
+  dry: [
+    { value: `${HEAT_MW.toLocaleString()} MW`, label: "blown into the air as filed", color: RED },
+    { value: "0 MW", label: "wasted first in ours: heat goes to greenhouses before the fans", color: GREEN },
+  ],
+  solar: [
+    { value: `~${ROOF_AND_CANOPY_ACRES} acres`, label: "of roof and canopy", color: GOLD },
+    { value: "~1%", label: "of the load, honestly", color: GOLD },
+  ],
+  institute: [
+    { value: "$50M", label: "NMSU / DACC institute", color: GOLD },
+    { value: "~3,000", label: "jobs it trains for", color: GREEN },
+  ],
+  power: [
+    { value: `${IT_LOAD_MW.toLocaleString()} MW`, label: "fed by gas, as filed", color: RED },
+    { value: "Falling", label: "gas hours each year, in ours", color: GREEN },
+  ],
+};
+for (const z of zones) if (zoneStats[z.id]) z.stats = zoneStats[z.id];
 
 // ─── Costs ──────────────────────────────────────────────────────────────────
 

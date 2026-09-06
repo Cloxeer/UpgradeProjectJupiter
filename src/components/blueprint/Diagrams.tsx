@@ -30,6 +30,7 @@ import { usePlanMode, PlanSwitch, OURS } from "@/components/blueprint/PlanMode";
 import { Term } from "@/components/jupiter/Term";
 import { useAudience, type Audience } from "@/components/jupiter/Audience";
 import { kidSteps, takeaways, takeawayNotes } from "@/data/blueprintVoices";
+import { GH_ACRES_PHASE1 } from "@/data/blueprint";
 import { FeasibilityChip } from "@/components/jupiter/Feasibility";
 import { processTM } from "@/data/tobyMoby";
 import { TobyMoby } from "@/components/blueprint/TobyMoby";
@@ -482,7 +483,7 @@ function Underground({ x, y, w, h, fill, label, sub }: { x: number; y: number; w
 export function HeatDiagram() {
   const [mode, setMode] = usePlanMode();
   const [season, setSeason] = useState<"winter" | "summer">("winter");
-  const [acres, setAcres] = useState(150);
+  const [acres, setAcres] = useState(GH_ACRES_PHASE1);
   const [part, setPart] = useState<string | null>(null);
   const ours = mode === "ours";
   const winter = season === "winter";
@@ -1241,7 +1242,7 @@ export function SolarDiagram() {
 
 export function GreenhouseDiagram() {
   const [mode, setMode] = usePlanMode();
-  const [acres, setAcres] = useState(150);
+  const [acres, setAcres] = useState(GH_ACRES_PHASE1);
   const [season, setSeason] = useState<"winter" | "summer">("winter");
   const [part, setPart] = useState<string | null>(null);
   const ours = mode === "ours";

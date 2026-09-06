@@ -5,36 +5,12 @@ import { asset } from "@/lib/base";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, useSyncExternalStore } from "react";
-import { nav, banner, mission, LAST_UPDATED } from "@/data/upgrade";
+import { useEffect, useState } from "react";
+import { nav } from "@/data/upgrade";
 import { MenuIcon } from "./icons";
 
 /** The two pages the nav keeps underlined so readers know where to look. */
 const KEY_PAGES = new Set(["/blueprint", "/petition"]);
-
-const BANNER_KEY = "pj-banner-hidden";
-const bannerListeners = new Set<() => void>();
-function readBannerHidden(): boolean {
-  try {
-    return sessionStorage.getItem(BANNER_KEY) === "1";
-  } catch {
-    return false;
-  }
-}
-function subscribeBanner(l: () => void) {
-  bannerListeners.add(l);
-  return () => {
-    bannerListeners.delete(l);
-  };
-}
-function hideBanner() {
-  try {
-    sessionStorage.setItem(BANNER_KEY, "1");
-  } catch {
-    /* storage unavailable */
-  }
-  bannerListeners.forEach((l) => l());
-}
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
@@ -42,8 +18,6 @@ export function SiteHeader() {
   // The page you are on keeps its yellow line in place (no hover needed).
   const pathname = usePathname() ?? "/";
   const isCurrent = (href: string) => (href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/"));
-  // The banner can be dismissed for the rest of the visit (remembered per tab, so it returns on the next visit).
-  const bannerHidden = useSyncExternalStore(subscribeBanner, readBannerHidden, () => false);
 
   // Full-screen menu: lock the page behind it and close on Escape.
   useEffect(() => {
@@ -72,24 +46,6 @@ export function SiteHeader() {
       className="sticky top-0 z-50 w-full bg-white transition-all duration-300"
       style={{ boxShadow: scrolled ? "0 2px 8px rgba(0,0,0,0.08)" : "none" }}
     >
-      {/* Parody / not-affiliated banner; dismissible on phones */}
-      {!bannerHidden && (
-        <div className="relative" style={{ backgroundColor: "#c0392b" }}>
-          <p className="pj-container py-1 pr-12 text-center text-[11.5px] leading-[1.3] text-white sm:py-1.5 sm:text-[13px] sm:leading-[1.4]">
-            {banner} <span style={{ whiteSpace: "nowrap", fontWeight: 800 }}>Last updated {LAST_UPDATED}.</span>
-          </p>
-          <button
-            type="button"
-            onClick={hideBanner}
-            aria-label="Dismiss this notice"
-            className="absolute right-1 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full text-white hover:bg-white/15"
-            style={{ fontSize: 22, lineHeight: 1 }}
-          >
-            ×
-          </button>
-        </div>
-      )}
-
       <div className="pj-container flex items-center justify-between">
         <Link
           href="/"
@@ -137,11 +93,6 @@ export function SiteHeader() {
           {mobileOpen ? <span style={{ fontSize: 28, lineHeight: 1 }}>×</span> : <MenuIcon className="h-7 w-7" />}
         </button>
       </div>
-
-      {/* The mission, one sentence, the same for every reader. This is what the site wants. */}
-      <p className={`pj-container py-1.5 text-center font-semibold text-[13px] leading-[1.35] sm:text-[14px] ${scrolled ? "hidden lg:block" : ""}`} style={{ backgroundColor: "#003047", color: "#fdb715" }}>
-        {mission}
-      </p>
 
       {/* Mobile menu: the whole page goes white, and the options arrive one after another. */}
       {mobileOpen && (

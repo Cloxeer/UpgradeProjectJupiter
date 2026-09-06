@@ -41,11 +41,13 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-roboto), Roboto, sans-serif;
-    font-size: 14px;
-    line-height: 1.65;
+    font-size: 17px;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+  h1, h2, h3 { text-wrap: balance; }
+  p, li { text-wrap: pretty; }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-roboto), Roboto, sans-serif;
     color: #3c3c3c;
@@ -461,13 +463,13 @@
     main nav a,
     main a.pj-btn { min-height: 44px; }
     main summary { display: flex; align-items: center; }
-    main .text-\[13px\], main .text-\[12px\] { font-size: 14px !important; }
-    main .text-\[14px\] { font-size: 15px !important; }
-    main p, main li { font-size: max(1em, 15px); }
+    main .text-\[13px\], main .text-\[12px\] { font-size: 15px !important; }
+    main .text-\[14px\] { font-size: 16px !important; }
+    main p, main li { font-size: max(1em, 17px); }
     /* Components that set small sizes inline (React style props) get the same floor. Sizes only; no text changes. */
     main [style*="font-size: 11px"], main [style*="font-size: 12px"], main [style*="font-size: 13px"],
-    main [style*="font-size:11px"], main [style*="font-size:12px"], main [style*="font-size:13px"] { font-size: 14px !important; }
-    main [style*="font-size: 14px"], main [style*="font-size:14px"] { font-size: 15px !important; }
+    main [style*="font-size:11px"], main [style*="font-size:12px"], main [style*="font-size:13px"] { font-size: 15px !important; }
+    main [style*="font-size: 14px"], main [style*="font-size:14px"] { font-size: 16px !important; }
     main li > a, main details a, main figcaption a { display: inline-flex; align-items: center; min-height: 44px; }
     .pj-container { padding-inline: 16px; }
   }
