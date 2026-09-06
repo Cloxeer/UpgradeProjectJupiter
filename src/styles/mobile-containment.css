@@ -69,7 +69,6 @@ main [role="tablist"][aria-label="Who are you viewing as"] > button {
   height: 2px;
   border-radius: 1px;
 }
-.pj-nav__link--key::before { width: 100%; background: #003047; }
 .pj-nav__link::after {
   width: 75%;
   background: #fdb715;
@@ -78,7 +77,6 @@ main [role="tablist"][aria-label="Who are you viewing as"] > button {
   transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .pj-nav__link:hover::after, .pj-nav__link:focus-visible::after, .pj-nav__link--current::after { transform: scaleX(1); }
-.pj-nav .pj-menu__item.pj-nav__link--key::before { height: 3px; }
 @media (prefers-reduced-motion: reduce) { .pj-nav__link::after { transition: none; } }
 
 /* Section-heading stamps sit on their own line on phones instead of leaning over a wrapped word. */
@@ -130,3 +128,16 @@ main [role="tablist"][aria-label="Who are you viewing as"] > button {
 /* 5. While a sheet, a full-screen panel or an enlarged drawing is open, the sticky header steps aside so its close button is reachable. */
 body:has(.pj-sheet, .pj-fs, .pj-bigwrap, .pj-backdrop) > header.sticky,
 body:has(.pj-sheet, .pj-fs, .pj-bigwrap, .pj-backdrop) header.sticky { display: none; }
+
+/* 6. The one nav item we point at: a small red "!" tilted 35 degrees, top-right of the word. Gone once the page has been opened. */
+.pj-alert {
+  position: absolute; top: -10px; right: -16px;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border-radius: 9999px;
+  background: #c0392b; color: #fff; font-size: 13px; font-weight: 900; line-height: 1;
+  transform: rotate(35deg); box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+.pj-alert--big { top: 2px; right: -26px; width: 24px; height: 24px; font-size: 16px; }
+/* Quiet in-text links: the site's link blue, underline only on hover. */
+.pj-quietlink { text-decoration: none; border-bottom: 1px solid rgba(21,118,140,0.35); }
+.pj-quietlink:hover { text-decoration: none; border-bottom-color: #15768c; }

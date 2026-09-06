@@ -42,7 +42,7 @@ export default function FaqPage() {
               THEIR QUESTIONS, ANSWERED WITH SOURCES
             </h1>
             <p className="mx-auto mt-4 max-w-[800px] text-gold" style={{ fontSize: 18, lineHeight: 1.5 }}>
-              Every question below is quoted from Project Jupiter Together&apos;s own FAQ page. Their answer is summarized first, then the
+              Every question is quoted from Project Jupiter Together&apos;s own FAQ page, with their answer in one line. Tap a question for the
               answer the documents support. Water and air first, then jobs, then money.
             </p>
           </div>
@@ -51,29 +51,31 @@ export default function FaqPage() {
         <div className="pj-container pb-16">
           <ol className="mx-auto max-w-[1000px] space-y-6">
             {ordered.map((item, i) => (
-              <li key={item.q} id={slug(item.q)} className="scroll-mt-32 rounded bg-white p-6 shadow-sm" style={{ borderLeft: "6px solid #c0392b" }}>
-                <div className="text-[13px] font-bold uppercase tracking-wide" style={{ color: "#6b6b6b" }}>
-                  Question {i + 1} · quoted from their FAQ
-                </div>
-                <h2 className="mt-1 font-bold" style={{ fontSize: 20, color: "#003047" }}>
-                  <a href={`#${slug(item.q)}`} className="hover:underline" title="Link to this question">
-                    &ldquo;{item.q}&rdquo;
-                  </a>
-                </h2>
-                <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <div className="rounded p-4" style={{ backgroundColor: "#fff8f6", border: "1px dashed #c0392b" }}>
-                    <div className="text-[13px] font-bold uppercase" style={{ color: "#c0392b" }}>What they say</div>
-                    <p className="mt-1" style={{ fontSize: 16, lineHeight: 1.6, color: "#3c3c3c" }}>{item.theirs}</p>
-                    <a href="https://projectjupitertogether.com/faqs/" target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-[14px] font-bold underline" style={{ color: "#15768c" }}>
-                      Read their full answer ↗
+              <li key={item.q} id={slug(item.q)} className="scroll-mt-32">
+                <details className="rounded bg-white shadow-sm" style={{ borderLeft: "6px solid #c0392b" }}>
+                  <summary className="cursor-pointer list-none p-5">
+                    <div className="text-[13px] font-bold uppercase tracking-wide" style={{ color: "#6b6b6b" }}>
+                      Question {i + 1} · from their FAQ
+                    </div>
+                    <h2 className="mt-1 font-bold" style={{ fontSize: 19, lineHeight: 1.3, color: "#003047" }}>
+                      &ldquo;{item.q}&rdquo;
+                    </h2>
+                    <p className="mt-2" style={{ fontSize: 15, lineHeight: 1.5, color: "#8e3b2f" }}>
+                      <strong>They say:</strong> {item.theirs}
+                    </p>
+                    <div className="mt-2 text-[14px] font-bold" style={{ color: "#2e8b57" }}>What the documents support ▾</div>
+                  </summary>
+                  <div className="px-5 pb-5">
+                    <div className="rounded p-4" style={{ backgroundColor: "#eaf6ee" }}>
+                      <p style={{ fontSize: 16, lineHeight: 1.6, color: "#1f5f3a" }}>{item.ours}</p>
+                    </div>
+                    <a href={`#${slug(item.q)}`} className="mt-2 inline-block text-[13px] underline" style={{ color: "#6b6b6b" }} title="Link to this question">Link to this question</a>
+                    <a href="https://projectjupitertogether.com/faqs/" target="_blank" rel="noopener noreferrer" className="ml-4 mt-2 inline-block text-[13px] font-bold underline" style={{ color: "#15768c" }}>
+                      Their full answer ↗
                     </a>
+                    <SourceList ids={item.sources} />
                   </div>
-                  <div className="rounded p-4" style={{ backgroundColor: "#eaf6ee" }}>
-                    <div className="text-[13px] font-bold uppercase" style={{ color: "#1f5f3a" }}>What the documents support</div>
-                    <p className="mt-1" style={{ fontSize: 16, lineHeight: 1.6, color: "#1f5f3a" }}>{item.ours}</p>
-                  </div>
-                </div>
-                <SourceList ids={item.sources} />
+                </details>
               </li>
             ))}
           </ol>

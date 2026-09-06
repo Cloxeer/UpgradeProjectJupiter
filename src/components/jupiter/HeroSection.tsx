@@ -9,6 +9,7 @@ import { useAudience } from "./Audience";
 import { statIcons } from "./icons";
 import { Notice } from "./Notice";
 import { useOpenOne } from "./OpenOne";
+import { Emph } from "./Rich";
 
 function Bullets({ items }: { items: { strong: string; rest: string }[] }) {
   return (
@@ -47,7 +48,7 @@ export function HeroSection() {
             <Stamp kind="force">PROJECT JUPITER</Stamp>
           </h1>
           <p key={audience} className="pj-fade mx-auto mt-5 max-w-[720px] font-semibold text-white" style={{ fontSize: "clamp(19px,2.2vw,24px)", lineHeight: 1.35 }}>
-            {copy.heroLine}
+            <Emph text={copy.heroLine} />
           </p>
           <a href="/petition" className="mt-6 inline-flex min-h-[56px] items-center justify-center rounded px-10 text-[18px] font-black uppercase tracking-wide text-white" style={{ backgroundColor: "#2e8b57" }}>
             Sign the petition

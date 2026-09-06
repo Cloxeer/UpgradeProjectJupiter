@@ -5,16 +5,41 @@ import { asset } from "@/lib/base";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { nav } from "@/data/upgrade";
 import { MenuIcon } from "./icons";
 
-/** The two pages the nav keeps underlined so readers know where to look. */
-const KEY_PAGES = new Set(["/blueprint", "/petition"]);
+/** The one page we point at with a small tilted "!" until the reader has opened it once. */
+const ALERT_PAGE = "/blueprint";
+const SEEN_KEY = "pj-seen-blueprint";
+const seenListeners = new Set<() => void>();
+function readSeen(): boolean {
+  try {
+    return localStorage.getItem(SEEN_KEY) === "1";
+  } catch {
+    return true;
+  }
+}
+function subscribeSeen(l: () => void) {
+  seenListeners.add(l);
+  return () => {
+    seenListeners.delete(l);
+  };
+}
+function markSeen() {
+  try {
+    localStorage.setItem(SEEN_KEY, "1");
+  } catch {
+    /* storage unavailable */
+  }
+  seenListeners.forEach((l) => l());
+}
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  // The "!" on Blueprint retires once the reader has opened that page. Server renders it hidden.
+  const seenAlert = useSyncExternalStore(subscribeSeen, readSeen, () => true);
   // The page you are on keeps its yellow line in place (no hover needed).
   const pathname = usePathname() ?? "/";
   const isCurrent = (href: string) => (href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/"));
@@ -33,6 +58,10 @@ export function SiteHeader() {
       document.body.style.overflow = prev;
     };
   }, [mobileOpen]);
+
+  useEffect(() => {
+    if (pathname === ALERT_PAGE || pathname.startsWith(ALERT_PAGE + "/")) markSeen();
+  }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -74,10 +103,11 @@ export function SiteHeader() {
             <a
               key={item.label}
               href={item.href}
-              className={`pj-nav__link text-[15px] font-semibold uppercase tracking-wide text-navy ${KEY_PAGES.has(item.href) ? "pj-nav__link--key" : ""} ${isCurrent(item.href) ? "pj-nav__link--current" : ""}`}
+              className={`pj-nav__link text-[15px] font-semibold uppercase tracking-wide text-navy ${isCurrent(item.href) ? "pj-nav__link--current" : ""}`}
               aria-current={isCurrent(item.href) ? "page" : undefined}
             >
               {item.label}
+              {item.href === ALERT_PAGE && !seenAlert && <span className="pj-alert" aria-label="New: open the blueprint">!</span>}
             </a>
           ))}
         </nav>
@@ -110,12 +140,13 @@ export function SiteHeader() {
               <a
                 key={item.label}
                 href={item.href}
-                className={`pj-menu__item pj-nav__link flex min-h-[52px] items-center justify-center text-[22px] font-black uppercase tracking-wide text-navy ${KEY_PAGES.has(item.href) ? "pj-nav__link--key" : ""} ${isCurrent(item.href) ? "pj-nav__link--current" : ""}`}
+                className={`pj-menu__item pj-nav__link flex min-h-[52px] items-center justify-center text-[22px] font-black uppercase tracking-wide text-navy ${isCurrent(item.href) ? "pj-nav__link--current" : ""}`}
                 aria-current={isCurrent(item.href) ? "page" : undefined}
                 style={{ animationDelay: `${0.2 * i}s` }}
                 onClick={() => setMobileOpen(false)}
               >
                 {item.label}
+                {item.href === ALERT_PAGE && !seenAlert && <span className="pj-alert pj-alert--big" aria-label="New: open the blueprint">!</span>}
               </a>
             ))}
           </div>
