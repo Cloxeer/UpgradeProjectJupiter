@@ -279,7 +279,7 @@ export const partDocs: Record<string, PartDoc> = {
     why: "It is the cheapest clean power available on the site and it runs the community side: greenhouses, water plant and offices. Installed cost is about $1.34–$1.51 per watt for commercial arrays (DOE Q1 2024 benchmark), so the whole roof program is on the order of $45 million, about 0.03% of the $165 billion bond.",
     theyDo: "No solar appears anywhere in their render or filings. The CBA says only that the microgrid is 'actively exploring renewable energy integration', and HB93 gives them until 2045. Fuel cells are already sized to carry 100% of the load, so nothing pushes them to add panels.",
     kid: "Sunshine is free in the desert. Panels on every roof run the farms and the water plant.",
-    photo: { src: `${refs}/rooftop-solar-nist.jpg`, alt: "Solar panels on a flat commercial roof", caption: "Panels on a flat commercial roof at NIST. Data-hall roofs are flat, large and unshaded.", credit: "Photo: National Institute of Standards and Technology, public domain.", href: "https://commons.wikimedia.org/wiki/File:NIST_1027_(6390546727).jpg" },
+    photo: { src: `${refs}/rooftop-solar-albuquerque.jpg`, alt: "Solar panels on the roof of the Indian Pueblo Cultural Center in Albuquerque, New Mexico", caption: "Rooftop panels at the Indian Pueblo Cultural Center, Albuquerque. Data-hall roofs are flat, large and unshaded, under the same New Mexico sun.", credit: "Photo: Chris English, Panoramio via Wikimedia Commons, CC BY-SA 3.0.", href: "https://commons.wikimedia.org/wiki/File:Solar_Power,_Indian_Pueblo_Cultural_Center_-_panoramio.jpg" },
     sources: ["ktsm-sqft", "doe-pv-cost", "cba", "render"],
   },
   solarAlternatives: {
@@ -301,7 +301,7 @@ export const partDocs: Record<string, PartDoc> = {
     what: "A packing and cold-storage building at the west end of the greenhouse block with truck docks, its own public gate off the existing entry road, and a road that never touches the secure server entrance.",
     why: "Produce leaves by truck every day. Farm traffic must stay out of the data center's security perimeter, so the community side gets its own gate.",
     kid: "Where the tomatoes get boxed and put on trucks, with its own driveway.",
-    photo: { src: `${refs}/packing-house-covina.jpg`, alt: "Workers in a citrus packing house in Covina, California, early 1900s", caption: "A produce packing house, Covina, California, early 1900s. Same job today: wash, grade, box, ship.", credit: "Photo: California Historical Society collection, public domain.", href: "https://commons.wikimedia.org/wiki/File:Interior_of_packing_house,_probably_Covina,_California_(CHS-1344).jpg" },
+    photo: { src: `${refs}/hatch-chile-sacks.jpg`, alt: "Ristras and sacks of chile for sale in Hatch, New Mexico", caption: "Sacks of chile in Hatch, Doña Ana County. The valley already grows, packs and ships produce; the packing house does the same job for the greenhouses: wash, grade, box, ship.", credit: "Photo: Christopher Holden, Wikimedia Commons, CC BY-SA 2.0.", href: "https://commons.wikimedia.org/wiki/File:Ristras_and_sacks,_Hatch_NM.jpg" },
     sources: ["render"],
   },
   useCo2: {
@@ -312,7 +312,7 @@ export const partDocs: Record<string, PartDoc> = {
     why: "Every ton used is a ton that never needs a pipeline, a well or a seismic study, and it is sold instead of paid for. The campus itself will pour concrete for 30 years, and El Paso and Las Cruces are aggregate markets. The honest limit is scale: today's plants take thousands of tonnes a year against 10 million from this site, so the use slider starts at 10% and grows only as buyers sign. It is the direction, not the whole answer.",
     theyDo: "Nothing. All CO₂ is released.",
     kid: "The gas the machines breathe out can be turned into rock inside concrete. Then it can never float away.",
-    photo: { src: `${refs}/concrete-pump-truck.jpg`, alt: "A concrete pump truck pouring at a construction site", caption: "Concrete being poured. CO₂ injected during mixing turns to calcium carbonate inside the concrete and stays there. Reference photo.", credit: "Photo: Steve Pivnick, U.S. Air Force, public domain.", href: "https://commons.wikimedia.org/wiki/File:Construction_site_with_concrete_pump_truck.JPG" },
+    photo: { src: `${refs}/santa-teresa-construction-yard.jpg`, alt: "A construction staging yard with materials and equipment in Santa Teresa, New Mexico", caption: "A construction staging yard in Santa Teresa, 2018. Concrete and aggregate are already poured here by the ton; CO₂ mixed into concrete turns to calcium carbonate and stays there.", credit: "Photo: U.S. Customs and Border Protection, public domain.", href: "https://commons.wikimedia.org/wiki/File:Construction_Staging_Area_for_the_Santa_Teresa_Border_Wall_Replacement_project_(26466111217).jpg" },
     sources: ["sob", "carboncure", "blue-planet", "bloom-chart"],
   },
   geothermal: {
