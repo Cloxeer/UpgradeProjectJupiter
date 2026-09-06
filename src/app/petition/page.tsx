@@ -6,8 +6,9 @@ import { petitionText, petitionDemands } from "@/data/upgrade";
 import { PetitionForm } from "./PetitionForm";
 
 export const metadata: Metadata = {
-  title: "Petition | Force Upgrade Project Jupiter",
-  description: "Add your name: do not cancel Project Jupiter, force its upgrade before the first fuel cell turns on.",
+  title: "Sign the petition",
+  description: "Do not cancel Project Jupiter; upgrade it. Five conditions for the county lease, each beside what the filed plan does today, and a one-minute petition to the Doña Ana County commissioners and New Mexico legislators.",
+  alternates: { canonical: "/petition/" },
 };
 
 export default function PetitionPage() {

@@ -16,8 +16,9 @@ import {
 } from "@/data/upgrade";
 
 export const metadata: Metadata = {
-  title: "Legislators | Force Upgrade Project Jupiter",
-  description: "Who decides Project Jupiter's permits and bonds, how to reach them, and what to say.",
+  title: "Who to call and what to say",
+  description: "Doña Ana County commissioners with phone and prefilled email, meeting times, a two-minute public-comment script, the state legislators, and the three bills that would make the Project Jupiter upgrade the rule.",
+  alternates: { canonical: "/legislators/" },
 };
 
 const sponsors = [...stateSenators, ...stateReps].filter((m) => "note" in m && m.note);

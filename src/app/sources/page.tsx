@@ -8,8 +8,9 @@ import { HelpImprove } from "@/components/jupiter/HelpImprove";
 import { SourceBrowser } from "./SourceBrowser";
 
 export const metadata: Metadata = {
-  title: "Sources | Force Upgrade Project Jupiter",
-  description: "Every document, permit filing, study, and news report cited on this site, page by page and section by section.",
+  title: "Sources: every document, by page",
+  description: "Every document behind the Force Upgrade Project Jupiter site, grouped by page and section: the signed Community Benefits Agreement, NMED permit filings, NMSU research, vendor specifications and news reports.",
+  alternates: { canonical: "/sources/" },
 };
 
 const groups: { key: Source["group"]; title: string; blurb: string }[] = [
