@@ -47,7 +47,7 @@ export const expertCopy: Copy = {
 
 /** Earth: the default voice. Air, water, land and people first; the numbers second, as proof. Plain words, no jargon. */
 export const overallCopy: Copy = {
-  heroLine: "A giant data center with its own gas power plant is coming to Sunland Park. We say build it, but make it clean up.",
+  heroLine: "A giant data center with its own gas power plant is coming to Sunland Park. We say build it **only if** it is force-upgraded and becomes a net gain for humanity.",
   heroStats: [{ icon: "emissions", value: "10M tons", label: "of CO₂ caught", color: "#2e8b57" }, { icon: "water", value: "5M gallons", label: "of clean water a day", color: "#1f7ae0" }, { icon: "community", value: "60M lbs", label: "of food a year", color: "#2e8b57" }],
   heroQuestion: "WHAT SHOULD PROJECT JUPITER MEAN FOR THE EARTH, AND FOR US?",
   heroBullets: [
@@ -126,7 +126,7 @@ const legislator: Copy = {
 };
 
 const homeowner: Copy = {
-  heroLine: "A giant data center with its own gas plant is being built near your home. It can take your water and dirty your air, or it can add water and clean up. We are asking for the second one.",
+  heroLine: "A giant data center with its own gas plant is being built near your home. We say build it **only if** it adds water instead of taking it and cleans its air instead of dirtying yours.",
   heroStats: [{ icon: "water", value: "5M gallons", label: "a day into your pipes", color: "#1f7ae0" }, { icon: "emissions", value: "Every stack", label: "on a public meter", color: "#2e8b57" }, { icon: "community", value: "60M lbs", label: "of local food a year", color: "#2e8b57" }],
   heroQuestion: "WHAT DOES THIS MEAN FOR YOUR WATER, YOUR AIR AND YOUR STREET?",
   heroBullets: [
@@ -217,7 +217,7 @@ const business: Copy = {
 };
 
 const kid: Copy = {
-  heroLine: "A company is building a giant computer building near Sunland Park with a power plant that breathes out gas. We want it built, but built right: catch the gas, use the heat, clean the water.",
+  heroLine: "A company is building a giant computer building near Sunland Park with a power plant that breathes out gas. We want it **only if** it is built right: catch the gas, use the heat, clean the water.",
   heroStats: [{ icon: "community", value: "60 million", label: "pounds of tomatoes a year", color: "#2e8b57" }, { icon: "water", value: "16,700", label: "homes of clean water a day", color: "#1f7ae0" }, { icon: "helmet", value: "3,000", label: "jobs for grown-ups", color: "#d99a00" }],
   heroQuestion: "WHAT WILL YOUR TOWN BE LIKE WHEN YOU ARE GROWN UP?",
   heroBullets: [

@@ -30,7 +30,7 @@ const visuals: Record<Audience, { src: string; title: string; line: string; href
   business: [
     { src: asset("/images/refs/hydroponic-tomato-greenhouse.jpg"), title: "150 acres to lease", line: "~$130k/acre/yr lease + heat (estimate)", href: "/blueprint#p5" },
     { src: asset("/images/refs/reverse-osmosis-bedok.jpg"), title: "Water to sell", line: "utility demand 6 → 15 MGD by 2042", href: "/blueprint#p3" },
-    { src: asset("/images/refs/concrete-pump-truck.jpg"), title: "CO₂ to sell", line: "concrete and aggregate buyers, not a well", href: "/blueprint#p2" },
+    { src: asset("/images/refs/santa-teresa-construction-yard.jpg"), title: "CO₂ to sell", line: "concrete and aggregate buyers, not a well", href: "/blueprint#p2" },
     { src: asset("/images/refs/lightning-dock-geothermal.jpg"), title: "Gas to buy less of", line: "geothermal + wind under contract", href: "/blueprint#p4" },
   ],
   kid: [

@@ -315,7 +315,7 @@ export function NetLossSection() {
           ))}
         </div>
         <div className="text-center font-black" style={{ fontSize: 17, color: "#003047" }}>
-          After {year} {year === 1 ? "year" : "years"} {operating(year) === 0 ? "· still under construction" : `· ${operating(year)} ${operating(year) === 1 ? "year" : "years"} of operation`}
+          After {year} {year === 1 ? "year" : "years"} · {2026 + year} {operating(year) === 0 ? "· still under construction" : `· ${operating(year)} ${operating(year) === 1 ? "year" : "years"} of operation`}
         </div>
 
         </div>
@@ -326,7 +326,7 @@ export function NetLossSection() {
             return (
               <div key={side} className="rounded bg-white p-2 shadow-sm sm:p-3" style={{ borderTop: `4px solid ${theirs ? "#c0392b" : "#2e8b57"}` }}>
                 <div className="mb-2 flex items-center justify-between text-[12px] font-black uppercase sm:text-[14px]" style={{ color: theirs ? "#c0392b" : "#1f5f3a" }}>
-                  <span>{theirs ? (kid ? "Their plan" : "As filed") : kid ? "Our plan" : "Force-upgraded"} · year {year}</span>
+                  <span>{theirs ? (kid ? "Their plan" : "As filed") : kid ? "Our plan" : "Force-upgraded"} · year {year} · {2026 + year}</span>
                   <button type="button" onClick={() => setZoom(side)} aria-label={`Open the ${theirs ? "as-filed" : "upgraded"} year ${year} pictures full-screen`} className="flex h-8 w-8 items-center justify-center rounded" style={{ fontSize: 15, color: "#003047" }}>
                     ⤢
                   </button>
@@ -355,7 +355,7 @@ export function NetLossSection() {
                         {zoom === "ours" ? (kid ? "Our plan" : "Force-upgraded") : kid ? "Their plan" : "As filed"}
                       </div>
                       <h4 className="mt-0.5 font-bold" style={{ fontSize: 22, color: "#003047" }}>
-                        After {year} {year === 1 ? "year" : "years"}
+                        After {year} {year === 1 ? "year" : "years"} · {2026 + year}
                       </h4>
                     </div>
                     <button type="button" onClick={() => setZoom(null)} className="rounded-full px-3 py-1.5 text-[15px] font-black" style={{ color: "#6b6b6b", border: "1px solid #d9d9d9" }} aria-label="Close">

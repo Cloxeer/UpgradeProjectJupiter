@@ -10,7 +10,8 @@ export function PetitionForm() {
         <h2 className="mt-1 font-black text-white" style={{ fontSize: 28, lineHeight: 1.1 }}>Sign the petition</h2>
         <p className="mx-auto mt-4 max-w-[520px]" style={{ fontSize: 16, lineHeight: 1.6, color: "rgba(255,255,255,0.85)" }}>
           It takes about a minute. Your name and ZIP code make it count. The petition goes to the Doña Ana County commissioners and New
-          Mexico legislators.
+          Mexico legislators. Then spread the word: tell your friends and family, go to your local representatives and council meetings,
+          learn, understand and teach others.
         </p>
         <a href={FORM_LINK} target="_blank" rel="noopener noreferrer" className="mt-6 inline-block rounded px-10 py-4 text-[17px] font-black uppercase tracking-wide" style={{ backgroundColor: "#2e8b57", color: "#ffffff" }}>
           Sign the petition ↗
