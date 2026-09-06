@@ -126,3 +126,7 @@ main [role="tablist"][aria-label="Who are you viewing as"] > button {
     transform: translate(-50%, 0) rotate(-7deg);
   }
 }
+
+/* 5. While a sheet, a full-screen panel or an enlarged drawing is open, the sticky header steps aside so its close button is reachable. */
+body:has(.pj-sheet, .pj-fs, .pj-bigwrap, .pj-backdrop) > header.sticky,
+body:has(.pj-sheet, .pj-fs, .pj-bigwrap, .pj-backdrop) header.sticky { display: none; }

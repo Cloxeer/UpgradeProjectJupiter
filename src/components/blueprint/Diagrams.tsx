@@ -196,9 +196,21 @@ function Card({ title, kicker, children, intro, kid, sources, mode, onMode, voic
   );
   // The fold lives inside the same flex column as the drawing; CSS `order` sends the numbers, costs and
   // fine print below the "Read more" button, so opening it never shifts what is already on screen.
+  // The anchor sits where the "Read more" button is; opening scrolls to it (so the stats appear below it, in place)
+  // and closing returns to it, instead of dropping the reader onto the next process.
+  const closeMore = () => {
+    setMore(false);
+    setTimeout(() => {
+      const el = moreRef.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const headerH = document.querySelector("header")?.getBoundingClientRect().height ?? 0;
+      if (r.top < headerH || r.top > window.innerHeight * 0.7) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 40);
+  };
   const fold = !isKid && (
     audience === "expert" || more ? (
-      <div ref={moreRef} className="pj-late pj-reveal mt-3 scroll-mt-32 rounded border px-4 py-3" style={{ borderColor: "#e0e0e0" }}>
+      <div className="pj-late pj-reveal mt-3 rounded border px-4 py-3" style={{ borderColor: "#e0e0e0" }}>
         {voice && audience !== "expert" && audience !== "overall" && (
           <p className="mb-3" style={{ fontSize: 16, lineHeight: 1.65, color: "#1f3a2a" }}>{voice}</p>
         )}
@@ -209,7 +221,7 @@ function Card({ title, kicker, children, intro, kid, sources, mode, onMode, voic
           </p>
         )}
         {audience !== "expert" && (
-          <button type="button" onClick={() => setMore(false)} className="mt-2 min-h-[44px] text-[14px] font-bold underline" style={{ color: "#6b6b6b" }}>
+          <button type="button" onClick={closeMore} className="mt-2 min-h-[44px] text-[14px] font-bold underline" style={{ color: "#6b6b6b" }}>
             Show less ▲
           </button>
         )}
@@ -225,6 +237,7 @@ function Card({ title, kicker, children, intro, kid, sources, mode, onMode, voic
       <ClickHint />
       <div className="pj-scroll">
         {children}
+        <div ref={moreRef} className="pj-foldanchor scroll-mt-32" aria-hidden />
         {fold}
       </div>
     </>
