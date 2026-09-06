@@ -303,14 +303,22 @@ export function NetLossSection() {
         <p className="mx-auto mb-3 max-w-[900px] text-center font-semibold" style={{ fontSize: kid ? 20 : 18, lineHeight: 1.5, color: "#003047" }}>
           {copy.netlossLead}
         </p>
-        {!kid && (
-          <p className="mx-auto mb-6 max-w-[900px] text-center" style={{ fontSize: 15, lineHeight: 1.6, color: "#6b6b6b" }}>
-            Nothing here is an opinion. Each line is a cited figure multiplied by the number of years. Tap a year, watch the pictures change, and tap
-            any line for the arithmetic and the documents behind it.
-          </p>
-        )}
 
-        <div className="mb-2 text-center text-[14px] font-bold uppercase" style={{ color: "#6b6b6b" }}>Year {year} · pick another year below the pictures</div>
+        {/* Year bar: above the pictures; sticks under the header while an expert scrolls the rows */}
+        <div className="sticky z-20 mx-auto mb-4 max-w-[1000px] rounded bg-white px-3 py-2 shadow-md" style={{ top: 96, border: "1px solid #e0e0e0" }}>
+        <div className="mb-1 text-center text-[13px] font-bold uppercase" style={{ color: "#3c3c3c" }}>{kid ? "How many years from now?" : "After how many years?"}</div>
+        <div className="mb-1 flex flex-wrap items-center justify-center gap-1.5">
+          {YEARS.map((y) => (
+            <button key={y} type="button" onClick={() => setYear(y)} className="rounded px-2.5 py-1.5 text-[15px] font-black sm:px-3" style={{ minWidth: 44, backgroundColor: year === y ? "#003047" : "#fff", color: year === y ? "#fff" : "#003047", border: "1px solid #003047" }} aria-pressed={year === y}>
+              {y}
+            </button>
+          ))}
+        </div>
+        <div className="text-center font-black" style={{ fontSize: 17, color: "#003047" }}>
+          After {year} {year === 1 ? "year" : "years"} {operating(year) === 0 ? "· still under construction" : `· ${operating(year)} ${operating(year) === 1 ? "year" : "years"} of operation`}
+        </div>
+
+        </div>
         {/* Pictures: ours first, side by side */}
         <div className="mx-auto mb-8 grid max-w-[1000px] grid-cols-2 gap-2 sm:gap-4">
           {(["ours", "theirs"] as const).map((side) => {
@@ -389,27 +397,13 @@ export function NetLossSection() {
             document.body,
           )}
 
-        {year >= 30 && (
+        {expert && year >= 30 && (
           <p className="pj-adult mx-auto mb-6 max-w-[1000px] rounded px-4 py-3 text-[14px]" style={{ backgroundColor: "#fff8e6", lineHeight: 1.55, color: "#3c3c3c" }}>
             <strong>What the long views assume, and where it comes from.</strong> CO₂ is a running total because cumulative emissions drive warming almost linearly and the effects last for centuries<Cite ids={["ipcc-ar6-spm"]} />. HB93 requires net-zero by 2045 (year 19); their route is credits, so exhaust after that assumes the fuel cells still burn gas, while the upgrade retires gas hours to zero by then<Cite ids={["cba", "bocc"]} />. Stacks are swapped about every five years<Cite ids={["bloom-stack-life"]} />. The 30-year lease ends at year 30 and the land returns to the tax rolls<Cite ids={["cba"]} />. New Mexico is projected 5–7 °F warmer within 50 years with groundwater recharge down at least 25%<Cite ids={["nmbg-164"]} />, and Mesilla groundwater already fell from 2000 to 2020<Cite ids={["usgs-mesilla-taap"]} />, so the water table keeps dropping under their plan. Beyond 2070 the state projection ends; the drawings hold at its endpoint rather than extrapolate.
           </p>
         )}
-        {/* Year bar: sticks under the header while you scroll the rows */}
-        <div className="sticky z-20 mx-auto mb-4 max-w-[1000px] rounded bg-white px-3 py-2 shadow-md" style={{ top: 96, border: "1px solid #e0e0e0" }}>
-        <div className="mb-1 text-center text-[13px] font-bold uppercase" style={{ color: "#3c3c3c" }}>{kid ? "How many years from now?" : "After how many years?"}</div>
-        <div className="mb-1 flex flex-wrap items-center justify-center gap-1.5">
-          {YEARS.map((y) => (
-            <button key={y} type="button" onClick={() => setYear(y)} className="rounded px-2.5 py-1.5 text-[15px] font-black sm:px-3" style={{ minWidth: 44, backgroundColor: year === y ? "#003047" : "#fff", color: year === y ? "#fff" : "#003047", border: "1px solid #003047" }} aria-pressed={year === y}>
-              {y}
-            </button>
-          ))}
-        </div>
-        <div className="text-center font-black" style={{ fontSize: 17, color: "#003047" }}>
-          After {year} {year === 1 ? "year" : "years"} {operating(year) === 0 ? "· still under construction" : `· ${operating(year)} ${operating(year) === 1 ? "year" : "years"} of operation`}
-        </div>
-
-        </div>
-        {/* Rows: the label sits in the middle because it applies to both sides; ours left, theirs right */}
+        {/* Rows: the label sits in the middle because it applies to both sides; ours left, theirs right. Expert only; the home page comparison carries the six headline lines. */}
+        {expert && (
         <div className="mx-auto max-w-[1000px]">
           <div className="mb-2 hidden grid-cols-[1fr_auto_1fr] items-center gap-3 px-2 md:grid">
             <div className="text-[13px] font-black uppercase" style={{ color: "#1f5f3a" }}>{kid ? "Our plan" : "Force-upgraded"}</div>
@@ -454,6 +448,7 @@ export function NetLossSection() {
             })}
           </div>
         </div>
+        )}
 
         {expert && (
           <>

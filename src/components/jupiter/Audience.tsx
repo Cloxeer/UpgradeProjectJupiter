@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useState, useSyncExternalStore } from "react";
 
 export type Audience = "overall" | "homeowner" | "legislator" | "business" | "kid" | "expert";
 export const AUDIENCES: Audience[] = ["overall", "homeowner", "legislator", "business", "kid", "expert"];
@@ -76,12 +76,38 @@ export function AudiencePicker({ compact = false, revealSelector }: { compact?: 
         const m = audienceMeta[a];
         return (
           <button key={a} type="button" role="tab" aria-selected={on} onClick={() => pickIt(a)} className={`flex flex-col items-center justify-center rounded text-center shadow-sm transition-transform hover:-translate-y-0.5 ${compact ? "p-2" : "aspect-square p-3"}`} style={{ backgroundColor: on ? "#2e8b57" : "#fff", color: on ? "#fff" : "#003047", border: `2px solid ${on ? "#003047" : "#e0e0e0"}` }}>
-            <div style={{ fontSize: compact ? 24 : 34 }} aria-hidden>{m.icon}</div>
-            <div className="mt-1 font-black" style={{ fontSize: compact ? 13 : 15, lineHeight: 1.15 }}>{m.label}</div>
+            <div style={{ fontSize: compact ? 40 : 56 }} aria-hidden>{m.icon}</div>
+            <div className="mt-1 font-black" style={{ fontSize: compact ? 15 : 17, lineHeight: 1.15 }}>{m.label}</div>
             {!compact && <div className="mt-1 text-[13px]" style={{ opacity: 0.85 }}>{m.short}</div>}
           </button>
         );
       })}
+    </div>
+  );
+}
+
+/**
+ * One small control instead of six tiles: "Explain this for: Earth". Opens the compact picker underneath.
+ * Hick's law: one choice on screen, six behind it.
+ */
+export function AudienceChip({ align = "center" }: { align?: "center" | "start" }) {
+  const [audience] = useAudience();
+  const [open, setOpen] = useState(false);
+  const m = audienceMeta[audience];
+  return (
+    <div className={`flex flex-col ${align === "center" ? "items-center" : "items-start"}`}>
+      <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} className="inline-flex min-h-[44px] items-center gap-2 whitespace-nowrap rounded-full px-4 text-[15px] font-bold" style={{ backgroundColor: "#fff", color: "#003047", border: "2px solid #2e8b57" }}>
+        <span style={{ color: "#6b6b6b", fontWeight: 600 }}>Explain this for:</span>
+        <span aria-hidden style={{ fontSize: 20 }}>{m.icon}</span>
+        <span>{m.label}</span>
+        <span aria-hidden style={{ color: "#2e8b57" }}>{open ? "▲" : "▾"}</span>
+      </button>
+      {open && (
+        <div className="pj-reveal mt-2 w-full max-w-[720px] rounded bg-white p-3 shadow-md" style={{ border: "1px solid #e0e0e0" }} role="region" aria-label="Choose who this is explained for">
+          <AudiencePicker compact />
+          <p className="mt-2 text-center text-[13px]" style={{ color: "#6b6b6b" }}>Same facts and sources; only the words change. Your choice follows you to every page.</p>
+        </div>
+      )}
     </div>
   );
 }

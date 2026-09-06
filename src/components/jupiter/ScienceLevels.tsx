@@ -1,6 +1,6 @@
 "use client";
 
-import { AudiencePicker, useAudience, audienceMeta } from "./Audience";
+import { AudienceChip, useAudience } from "./Audience";
 import { topics } from "@/data/science-levels";
 import { Cite, SourceList } from "@/components/Cite";
 import { TheySay } from "./TheySay";
@@ -43,14 +43,8 @@ export function ScienceLevels({ children }: { children: React.ReactNode }) {
   const level: "little" | "adult" | "expert" = audience === "kid" ? "little" : audience === "expert" ? "expert" : "adult";
   return (
     <>
-      <div className="pj-container py-8" id="science-who">
-        <div className="mb-3 text-center text-[14px] font-black uppercase tracking-wide" style={{ color: "#2e8b57" }}>Who are you viewing as?</div>
-        <div className="mx-auto max-w-[1000px]">
-          <AudiencePicker compact revealSelector="#science-body" />
-        </div>
-        <p className="mt-3 text-center" style={{ fontSize: 15, color: "#6b6b6b" }}>
-          Now showing: <strong>{audienceMeta[audience].label}</strong> · {audienceMeta[audience].short}. Their original sections stay one click below ours for every reader.
-        </p>
+      <div className="pj-container py-6" id="science-who">
+        <AudienceChip />
       </div>
       <div id="science-body" className="scroll-mt-32" />
       {level !== "little" && <ExecutiveCards />}
