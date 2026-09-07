@@ -9,6 +9,10 @@ export const BINDING_JOBS = 750;
 export const OUR_RELEASED_TPY_LOW = GHG_PERMIT_TPY * 0.05;
 export const OUR_RELEASED_TPY_HIGH = GHG_PERMIT_TPY * 0.1;
 export const OUR_WATER_GPD = 5_000_000;
+/** Water put back into the fresh aquifer from year 5: CRRUA's reclaimed flow today (~1.8 MGD across its two plants, NMSU) rounded, plus the plant's surplus while it is ahead of demand. Low end. */
+export const OUR_RECHARGE_GPD = 2_000_000;
+export const RECHARGE_START_YEAR = 5;
+export const recharged = (y: number) => OUR_RECHARGE_GPD * 365 * Math.max(0, Math.min(y, 80) - RECHARGE_START_YEAR);
 export const OUR_JOBS = 3_000;
 export const OUR_FOOD_LBS_YR = 60_000_000;
 
@@ -44,9 +48,9 @@ export const rows: Row[] = [
     kidLabel: "Water: taken from our pipes, or added to them",
     kidHow: "Their signed deal lets them take 20,000 gallons a day of drinking water, and they already pumped 103 million gallons to build. Our plant makes 5 million gallons a day of clean water from salty water. Multiply by the years.",
     theirs: (y) => (far(y) ? "Fresh water pumped is gone from the basin. How fast the deep aquifer refills is 'unknown' (NMSU), and no filed plan or monitoring duty reaches this far." : y === 0 ? bgal(CONSTRUCTION_PUMPED_GAL) + " already pumped for construction" : bgal(CONSTRUCTION_PUMPED_GAL + POTABLE_CAP_GPD * 365 * y) + " (plus undisclosed non-potable use)"),
-    ours: (y) => (far(y) ? "The treated water went into homes; the brine sits below the confining layers. Whether the deep aquifer held up is exactly what the lease's monitoring wells and annual public report exist to answer, paid for by the closure bond." : operating(y) === 0 ? "Same construction water, then the plant opens" : "Same offices, same cap, but " + bgal(OUR_WATER_GPD * 365 * operating(y)) + " of new clean water put into those pipes"),
-    how: "Theirs: 103 million gallons pumped April–August 2026, plus the CBA's 20,000 gal/day average drinking-water cap × 365 × years; their non-potable operating volume has not been disclosed. Ours: 5 MGD produced × 365 × operating years.",
-    sources: ["cbd-well", "cba", "haussamen-water", "nmsu"],
+    ours: (y) => (far(y) ? "The treated water went into homes, the towns' reclaimed water and the plant's surplus went back into the fresh aquifer for as long as the plant ran, and the brine sits below the confining layers. Whether the aquifer held up is exactly what the lease's monitoring wells and annual public report exist to answer, paid for by the closure bond." : operating(y) === 0 ? "Same construction water, then the plant opens" : "Same offices, same cap, but " + bgal(OUR_WATER_GPD * 365 * operating(y)) + " of new clean water put into those pipes" + (y >= RECHARGE_START_YEAR ? ", and " + bgal(recharged(y)) + " put back into the fresh aquifer (low estimate)" : "")),
+    how: "Theirs: 103 million gallons pumped April–August 2026, plus the CBA's 20,000 gal/day average drinking-water cap × 365 × years; their non-potable operating volume has not been disclosed. Ours: 5 MGD produced × 365 × operating years; recharge from year 5 at 2 MGD (CRRUA's reclaimed flow today, rounded down; the plant's surplus while it is ahead of demand comes on top) × 365 × years, as El Paso has recharged its aquifer with reclaimed water since 1985 and Albuquerque under New Mexico's Ground Water Storage and Recovery Act.",
+    sources: ["cbd-well", "cba", "haussamen-water", "nmsu", "epwater-recharge", "nm-asr-act", "abcwua-bear-canyon"],
   },
   {
     label: "Smog where people live",
