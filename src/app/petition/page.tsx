@@ -7,7 +7,7 @@ import { PetitionForm } from "./PetitionForm";
 
 export const metadata: Metadata = {
   title: "Sign the petition",
-  description: "Do not cancel Project Jupiter; upgrade it. Five conditions for the county lease, each beside what the filed plan does today, and a one-minute petition to the Doña Ana County commissioners and New Mexico legislators.",
+  description: "Do not cancel Project Jupiter; upgrade it. Six conditions for the county lease, each beside what the filed plan does today, and a one-minute petition to the Doña Ana County commissioners and New Mexico legislators.",
   alternates: { canonical: "/petition/" },
 };
 
@@ -22,7 +22,7 @@ export default function PetitionPage() {
               <Stamp kind="force">PROJECT JUPITER</Stamp>
             </h1>
             <p className="mx-auto mt-5 max-w-[760px] text-gold" style={{ fontSize: 20, lineHeight: 1.4, fontWeight: 600 }}>
-              Do not cancel it. Force the upgrade. Five conditions, one signature.
+              Do not cancel it. Force the upgrade. Six conditions, one signature.
             </p>
           </div>
         </section>

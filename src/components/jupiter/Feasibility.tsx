@@ -45,7 +45,7 @@ function Checklist({ d, dark = false }: { d: Demand; dark?: boolean }) {
 }
 
 /**
- * The five demands with a feasibility verdict on each. Replaces a plain numbered list of demands:
+ * The six demands with a feasibility verdict on each. Replaces a plain numbered list of demands:
  * the same five lines, each with a tap-to-open checklist. One open at a time.
  */
 export function FeasibilityList({ dark = false }: { dark?: boolean }) {
