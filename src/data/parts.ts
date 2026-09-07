@@ -357,35 +357,125 @@ export const partDocs: Record<string, PartDoc> = {
 
 /** Two or three short pluses and minuses per part. Kept apart from the prose so the panels stay short; merged into partDocs below. */
 const partProsCons: Record<string, { pros: string[]; cons: string[] }> = {
-  dataHall: { pros: ["Closed-loop liquid cooling: no evaporative water", "The same halls in both plans"], cons: ["Nearly all 2,462 MW leaves as heat", "1,500 jobs advertised, 750 signed for"] },
-  heatExchanger: { pros: ["Ordinary district-heating hardware, about $60M", "Every kilowatt taken is fan and chiller power saved"], cons: ["Low-grade heat (45–65 °C): good for greenhouses and chillers, not turbines", "Needs a grower or buyer next door"] },
-  dryCoolers: { pros: ["Zero water: the right choice in a desert"], cons: ["Blow about 2,400 MW into the air", "Cannot cool below air temperature on hot days, so chillers run"] },
-  chillerPlants: { pros: ["Backup that keeps the chips safe on 40 °C days"], cons: ["Burn electricity in the hottest hours", "Heat still ends up in the air"] },
-  greenhouses: { pros: ["About 60 million lbs of food and 1,000 jobs a year, on grower capital", "Use heat and CO₂ the campus already makes"], cons: ["Yields and staffing are industry averages, not a Santa Teresa study", "Need water, a produce market and summer cooling"] },
-  waterPlantHeat: { pros: ["Warmer feed means more water per membrane"], cons: ["About 15 MW of 2,400: a helper, not the engine"] },
-  naturalGas: { pros: ["Firm power that ships fast"], cons: ["The 400 MMcf/day pipeline has been denied twice on state land", "Fossil CO₂ for every hour it runs"] },
-  fuelCell: { pros: ["No flame: smog gases far below a turbine's", "Recycles its own water after a one-time fill"], cons: ["Still fossil gas: about 10 million tons of CO₂ a year", "Stacks replaced about every five years"] },
-  exhaust: { pros: ["About 95% CO₂ once dried: the easy case for capture"], cons: ["Vented to the sky as filed"] },
-  dryer: { pros: ["Turns the exhaust into a near-pure CO₂ stream"], cons: ["Energy and equipment on every cluster"] },
-  captureSkid: { pros: ["Bloom and Chart already sell it for this exact stream", "Containerized: arrives on the same trucks as the stacks"], cons: ["A 10–20% energy penalty means more gas burned", "No single site captures 10 million tons a year yet"] },
-  released: { pros: ["Nothing to build"], cons: ["More CO₂ than Albuquerque and Las Cruces combined"] },
-  storage: { pros: ["Permanent under cap rock, with 50 years of federal post-injection care", "Decatur stored a million tons with no felt quakes"], cons: ["No permitted Class VI well in New Mexico yet: a pipeline to Texas", "Any deep injection carries a small quake risk that needs fault maps and monitors"] },
-  nearZero: { pros: ["An honest route to 100%: cleaner gas, hydrogen, then removals"], cons: ["Regional biogas is nowhere near 400 MMcf a day"] },
-  brackishWell: { pros: ["About 65 million acre-feet of water nobody drinks", "Lets the fresh wells rest"], cons: ["Recharge of the deep layer is 'unknown': monitoring wells are a must"] },
-  preheat: { pros: ["More water per membrane from heat that was being thrown away"], cons: ["A small share of the heat, and one more pipe from the header"] },
-  filters: { pros: ["Cheap protection for costly membranes"], cons: ["Backwash water and upkeep"] },
-  reverseOsmosis: { pros: ["Proven 30 miles away since 2007", "$269.5M all-in, 0.16% of the bond"], cons: ["Energy-hungry compared with conventional treatment", "A quarter of the water leaves as brine"] },
-  storageTank: { pros: ["Smooths steady supply to peaky demand"], cons: ["Land and pumping"] },
-  crruaMains: { pros: ["5 MGD to homes, and 2–5 MGD put back underground", "El Paso has recharged reclaimed water since 1985"], cons: ["The storage-and-recovery permit and water-rights accounting take years", "CRRUA's arsenic record means the utility itself needs fixing"] },
-  brineWell: { pros: ["Below the aquifer and monitored; El Paso has done it since 2007", "Recovering water first shrinks what is injected"], cons: ["Minerals are worth little on brine this dilute", "Any injection carries a small quake risk"] },
-  closedLoop: { pros: ["The right choice in a desert: about 11 million gallons once"], cons: ["Leaves out drinking water, undisclosed non-potable use and 103 million gallons for construction"] },
-  sodFarmWell: { pros: ["A lawful, existing water right"], cons: ["Fresh Mesilla water in a basin that is falling", "Emergency pumping stayed by the Supreme Court"] },
-  solarRoof: { pros: ["The cheapest clean power on the site; runs the community side"], cons: ["Under 1% of the campus load"] },
-  solarAlternatives: { pros: ["Canopies add shade and about 1 MW"], cons: ["Roofs cannot carry greenhouses"] },
-  packing: { pros: ["Farm trucks never touch the secure gate"], cons: ["One more building and one more road"] },
-  useCo2: { pros: ["Sold instead of stored, and permanent as carbonate"], cons: ["Thousands of tons a year today, against 10 million"] },
-  geothermal: { pros: ["Around the clock with zero exhaust, on the rift heat under this county"], cons: ["Test wells first: the megawatts are unknown until drilled", "Deep injection rules apply"] },
-  deliveredRenewables: { pros: ["The fastest, cheapest way to cut gas hours; nothing built on site"], cons: ["Wind and sun are intermittent, so the fuel cells stay"] },
-  absorptionChiller: { pros: ["Gives the heat a summer job"], cons: ["Low efficiency (COP about 0.86) and needs 65–100 °C water"] },
+  dataHall: {
+    pros: ["The cooling water stays sealed in pipes, so the halls do not evaporate water.", "Our plan keeps these buildings exactly as drawn."],
+    cons: ["Almost all the electricity the computers use turns into heat that has to go somewhere.", "The company advertises 1,500 jobs but only signed a contract for 750."],
+  },
+  heatExchanger: {
+    pros: ["It is standard equipment that district-heating systems use every day, about $60 million here.", "Every bit of heat it takes is heat the fans and chillers no longer have to get rid of, which saves electricity."],
+    cons: ["The water is only warm, not hot, so it can heat greenhouses and run chillers but cannot make electricity.", "It only pays off if someone next door, like a grower, is there to use the heat."],
+  },
+  dryCoolers: {
+    pros: ["They use no water at all, which is the right choice in a desert."],
+    cons: ["They blow the heat of about 90,000 home furnaces into the air, all day, every day.", "On very hot afternoons they cannot cool the water enough, so power-hungry chillers have to switch on."],
+  },
+  chillerPlants: {
+    pros: ["They keep the computers safe on the hottest days when the fans alone cannot."],
+    cons: ["They use the most electricity at exactly the hottest hours of the year.", "The heat they remove still ends up in the outside air."],
+  },
+  greenhouses: {
+    pros: ["About 60 million pounds of food and about 1,000 jobs a year, paid for by the growers, not the county.", "They run on heat and plant-feeding gas the campus already makes and would otherwise waste."],
+    cons: ["The harvest and job numbers are industry averages; nobody has studied this exact spot yet.", "They still need water, buyers for the produce, and cooling in summer."],
+  },
+  waterPlantHeat: {
+    pros: ["Warming the salty water before it hits the filters means more clean water comes out of the same filters."],
+    cons: ["It uses only a sliver of the campus heat, about 15 megawatts out of 2,400, so it is a helper, not the main use."],
+  },
+  naturalGas: {
+    pros: ["Gas power is steady and can be built quickly."],
+    cons: ["The pipeline that has to bring the gas has been turned down twice by the State Land Office.", "Every hour it runs, it makes carbon dioxide from fossil fuel."],
+  },
+  fuelCell: {
+    pros: ["Nothing burns in a flame, so the smog gases are far lower than a gas turbine's.", "After one fill of water it recycles its own, so it uses no water while running."],
+    cons: ["It still runs on fossil gas and makes about 10 million tons of carbon dioxide a year.", "The insides wear out and have to be replaced about every five years."],
+  },
+  exhaust: {
+    pros: ["Once dried, the exhaust is about 95% carbon dioxide, which makes it unusually easy to catch."],
+    cons: ["In the filed plan it all goes straight into the sky."],
+  },
+  dryer: {
+    pros: ["Taking the water vapor out leaves nearly pure carbon dioxide, ready to catch."],
+    cons: ["It is one more machine, using some energy, on every group of fuel cells."],
+  },
+  captureSkid: {
+    pros: ["The fuel-cell maker, Bloom, already sells this capture unit with a partner for this exact exhaust.", "It comes in shipping containers and arrives with the fuel cells, so nothing about the schedule changes."],
+    cons: ["Running the capture uses 10 to 20% of the power, so a bit more gas has to be burned.", "No single site anywhere catches 10 million tons a year yet, so this would be the biggest."],
+  },
+  released: {
+    pros: ["It costs nothing and needs nothing built."],
+    cons: ["It puts more carbon dioxide into the air each year than Albuquerque and Las Cruces combined."],
+  },
+  storage: {
+    pros: ["Deep under a lid of solid rock, the gas stays put, and federal rules make the operator watch it for 50 years after it stops.", "A project in Illinois stored a million tons this way with no earthquakes anyone could feel."],
+    cons: ["New Mexico has not yet approved a well of this type, so at first the gas would go by pipeline to Texas.", "Pumping anything deep underground carries a small earthquake risk, which is why faults are mapped and sensors run."],
+  },
+  nearZero: {
+    pros: ["It is an honest way to reach truly zero: cleaner gas first, then hydrogen, then paying to pull the last bit back out of the air."],
+    cons: ["There is nowhere near enough cleaner gas in the region to replace all 400 million cubic feet a day, so it starts small."],
+  },
+  brackishWell: {
+    pros: ["There is a huge amount of salty water down there that nobody can drink, about 65 million acre-feet.", "Using it lets the towns' fresh-water wells rest."],
+    cons: ["Nobody knows how fast that deep salty layer refills, so it has to be measured with monitoring wells."],
+  },
+  preheat: {
+    pros: ["It gets more clean water out of each filter using heat that was being thrown away."],
+    cons: ["It uses only a small share of the heat and needs one more pipe from the computers."],
+  },
+  filters: {
+    pros: ["Cheap screens that keep grit off the expensive membranes so they last longer."],
+    cons: ["They need rinsing and upkeep."],
+  },
+  reverseOsmosis: {
+    pros: ["The same method El Paso has used since 2007, 30 miles away.", "The whole system costs $269.5 million, about one sixth of one percent of the $165 billion bond."],
+    cons: ["It uses much more energy than treating ordinary water.", "About a quarter of the water comes out as concentrated salty brine that has to go somewhere."],
+  },
+  storageTank: {
+    pros: ["The plant makes water at a steady pace while homes use it in bursts; the tank evens that out."],
+    cons: ["It takes up land and needs pumps."],
+  },
+  crruaMains: {
+    pros: ["Five million gallons a day of clean water go to homes, and 2 to 5 million more go back into the ground to refill the aquifer.", "El Paso has been putting cleaned water back into its aquifer since 1985, so this is not an experiment."],
+    cons: ["The state permit to put water underground, and the water-rights paperwork, take years to get.", "The local utility has a record of arsenic problems and needs fixing itself."],
+  },
+  brineWell: {
+    pros: ["The brine goes far below the drinking water and is monitored; El Paso has done this since 2007.", "Squeezing more clean water out of the brine first means less has to be pumped down."],
+    cons: ["The minerals in the brine are not worth much because this brine is very dilute.", "Pumping anything deep underground carries a small earthquake risk."],
+  },
+  closedLoop: {
+    pros: ["It is the right choice in a desert: about 11 million gallons once, then the same water circulates for years."],
+    cons: ["That figure leaves out the drinking water for offices, an undisclosed amount of other water, and the 103 million gallons already pumped to build the site."],
+  },
+  sodFarmWell: {
+    pros: ["The company bought an existing, legal water right rather than asking for a new one."],
+    cons: ["It is fresh water from the same aquifer homes and farms use, and that aquifer is already falling.", "The Supreme Court stopped the emergency pumping in August 2026."],
+  },
+  solarRoof: {
+    pros: ["It is the cheapest clean power the site can have, and it can run the greenhouses, water plant and offices."],
+    cons: ["Even covering every roof gives less than 1% of what the computers need."],
+  },
+  solarAlternatives: {
+    pros: ["Panels over the parking lot give shade and about a megawatt of power."],
+    cons: ["The hall roofs are light steel and cannot hold heavy greenhouses."],
+  },
+  packing: {
+    pros: ["Produce trucks get their own gate and road, so farm traffic never goes near the secure computer entrance."],
+    cons: ["It is one more building and one more road to build."],
+  },
+  useCo2: {
+    pros: ["Selling the caught gas to concrete and gravel makers earns money instead of costing it, and once it is in concrete it is rock forever."],
+    cons: ["Today's concrete and gravel plants can only take a few thousand tons a year, while the fuel cells make 10 million tons a year, so this can only handle a small share for now."],
+  },
+  geothermal: {
+    pros: ["Hot rock under this county can make power all day and all night with no exhaust."],
+    cons: ["Nobody knows how many megawatts it can give until test wells are drilled.", "It also pumps water deep underground, so the same earthquake-safety rules apply."],
+  },
+  deliveredRenewables: {
+    pros: ["Buying wind and solar power over the grid is the fastest and cheapest way to cut gas hours, with nothing new built on site."],
+    cons: ["Wind and sun come and go, so the fuel cells still have to be there for the gaps."],
+  },
+  absorptionChiller: {
+    pros: ["It gives the computers' heat a job in summer by turning it into cooling for the greenhouses."],
+    cons: ["It is not very efficient and only works with water that is at least 65 \u00b0C."],
+  },
 };
 for (const [id, pc] of Object.entries(partProsCons)) if (partDocs[id]) Object.assign(partDocs[id], pc);
