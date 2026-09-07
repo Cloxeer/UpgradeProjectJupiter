@@ -19,7 +19,7 @@ const visuals: Record<Audience, { src: string; title: string; line: string; href
     { src: asset("/images/refs/reverse-osmosis-bedok.jpg"), title: "Water plant, already designed", line: "5 MGD to CRRUA · $269.5M, NMSU 2023", href: "/blueprint#p3" },
     { src: asset("/images/refs/lightning-dock-geothermal.jpg"), title: "Geothermal, already in New Mexico", line: "Lightning Dock, 11 MW · rift heat under this county", href: "/blueprint#p4" },
     { src: asset("/images/refs/hydroponic-tomato-greenhouse.jpg"), title: "Jobs that stay", line: "~3,000 permanent, written into the lease", href: "/blueprint#p5" },
-    { src: asset("/images/refs/co2-compressor-boundary-dam.jpg"), title: "Capture on day one", line: "exhaust is ~95% CO₂ per NMED", href: "/blueprint#p2" },
+    { src: asset("/images/refs/co2-compressor-boundary-dam.jpg"), title: "Capture-ready on day one", line: "exhaust is ~95% CO₂ per NMED", href: "/blueprint#p2" },
   ],
   homeowner: [
     { src: asset("/images/refs/water-main-trench.jpg"), title: "More water in your pipes", line: "5 million gallons a day added to CRRUA", href: "/blueprint#p3" },

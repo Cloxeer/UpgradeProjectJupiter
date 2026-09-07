@@ -43,7 +43,7 @@ export const heroBullets = [
   { strong: "About $6.4 billion in economic benefits (estimate).", rest: " Same site, same buildings, about 2.5% more capital, most of it repayable by the federal 45Q capture credit." },
   { strong: "More good jobs.", rest: " About 7,500 construction jobs and about 3,000 permanent jobs in Phase 1: the same 1,500 tech roles plus about 1,500 in greenhouses, water, capture and training (industry-average staffing). About 4,800 at full build." },
   { strong: "More water, not less.", rest: " Fund the 5 million gallon a day desalination plant NMSU already designed for Santa Teresa. Server heat preheats the feed." },
-  { strong: "Clean air, not cleaner air.", rest: " NMED says the fuel-cell exhaust is about 95% CO₂ once dried. Capture-ready stacks from day one, capture metered against a 90 to 95% target, and continuous smog monitors on every cluster." },
+  { strong: "Clean air, not cleaner air.", rest: " NMED says the fuel-cell exhaust is about 95% CO₂ once dried. Capture-ready stacks from day one, capture metered against a 90 to 95% target once the storage line is connected (about year 5), and continuous smog monitors on every cluster." },
   { strong: "Fresh local food.", rest: " About 150 acres of heated greenhouses on unbuilt land next to the dry coolers, growing up to about 60 million pounds a year at industry yields, with far fewer pesticides than field farming." },
   { strong: "", rest: "Project Jupiter can be the right, responsible data center for New Mexico. Right now it is not. Force the upgrade." },
 ];
@@ -379,7 +379,7 @@ export const petitionText = [
 /** The six conditions. Each says what we ask, what their filed plan does today, and why it matters, in plain words. */
 export const petitionDemands: { ask: string; theirs: string; why: string }[] = [
   {
-    ask: "Capture-ready fuel-cell stacks from the first day of operation, with capture metered against a 90% target and the results public.",
+    ask: "Capture-ready fuel-cell stacks from the first day of operation, with capture metered against a 90% target once the storage line is connected (about year 5) and the results public.",
     theirs: "8.8 million tons of CO₂ a year are permitted to go straight into the sky. No capture is planned.",
     why: "The exhaust is about 95% CO₂ once dried, the easiest kind to catch; the maker of the fuel cells has announced the equipment, no plant runs it yet, and the federal 45Q credit pays $85 a ton toward it.",
   },
@@ -394,9 +394,9 @@ export const petitionDemands: { ask: string; theirs: string; why: string }[] = [
     why: "About 150 acres of greenhouses would grow up to about 60 million pounds of food a year and add 600 to 1,000 jobs. Dutch data centers already sit beside greenhouse growers, and Germany requires data centers to reuse a share of their heat.",
   },
   {
-    ask: "The NMSU-designed water plant built and handed to the towns' utility: 5 million gallons a day of clean water from salty groundwater, with the towns' reclaimed water put back into the fresh aquifer under a state storage-and-recovery permit.",
+    ask: "The NMSU-designed water plant built and handed to the towns' utility: 5 million gallons a day of clean water from salty groundwater, the towns' reclaimed water put back into the fresh aquifer under a state storage-and-recovery permit, and the unused part of the old farm's water right left in the aquifer in a State Engineer conservation program instead of pumped.",
     theirs: "Drinking water is taken from the local utility and more is pumped from the fresh aquifer. The signed deal has the companies fund a $250,000 study; the county is now designing a smaller plant with its own Jupiter tax money.",
-    why: "The plant is already designed and priced at $269.5 million, about 0.16% of the bond. With the towns' fresh wells pumping far less and about 2 million gallons a day of reclaimed water going back underground, as El Paso has done since 1985 and Rio Rancho since 2017, the local decline slows.",
+    why: "The plant is already designed and priced at $269.5 million, about 0.16% of the bond. With the towns' fresh wells pumping far less and about 2 million gallons a day of reclaimed water going back underground, as El Paso has done since 1985 and Rio Rancho since 2017, the local decline slows. Leaving the farm right in a conservation program costs a filing, and state law protects an enrolled right from forfeiture.",
   },
   {
     ask: "The county tax break paid only as permanent jobs are verified each year, and a $50 million training institute on site so the jobs go to people who live here.",

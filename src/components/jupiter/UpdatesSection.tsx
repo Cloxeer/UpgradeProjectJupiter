@@ -12,6 +12,7 @@ const tracker = [
   { label: "Air permit 10883", value: "Stayed", state: "bad" as const, note: "The New Mexico Supreme Court stayed the proceeding on Aug. 24, 2026 and on Sept. 1 unanimously refused to partially lift the stay. The Sept. 14 hearing is off.", sources: ["nmpr-stay", "abq-stay", "notice"] },
   { label: "Construction water well", value: "Stayed", state: "bad" as const, note: "Emergency authorization halted by the Supreme Court after more than 103 million gallons were pumped between April and August 2026.", sources: ["cbd-well", "nmpr-stay"] },
   { label: "Gas pipeline route", value: "Denied twice", state: "bad" as const, note: "State Land Office denied the state-land segment in March and again on July 14, 2026; a federal-land route is now being sought.", sources: ["slo", "energyconnects"] },
+  { label: "Public comments on the air permit", value: "Under investigation", state: "bad" as const, note: "Source NM reported on June 30, 2026 that residents' names appeared on comments supporting the permit that they say they never wrote. The New Mexico Department of Justice opened an investigation on July 9; NMED says about 42 of some 17,500 comments may be fraudulent and has changed its comment portal. No findings yet.", sources: ["sourcenm-comments", "nmdoj-comments"] },
   { label: "Quarterly job reports to the county", value: "Missed", state: "bad" as const, note: "The county reported the developers missed required employment-report deadlines under the tax-rebate agreement.", sources: ["abq-reports"] },
   { label: "Construction progress (their figure)", value: "9%", state: "neutral" as const, note: "2,755 workers to date, 2.1 million hours, as of their July 28, 2026 presentation to the county.", sources: ["bocc"] },
 ];
@@ -55,7 +56,7 @@ export function UpdatesSection() {
         {/* Our tracker */}
         <div ref={ref} className="mx-auto max-w-[1000px]">
           <div className="mb-3 text-center text-[14px] font-bold uppercase tracking-wide" style={{ color: "#fdb715" }}>
-            Upgrade status, as of Sept. 2, 2026 · click a row for the source
+            Upgrade status, as of Sept. 7, 2026 · click a row for the source
           </div>
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
             {tracker.map((t, i) => (

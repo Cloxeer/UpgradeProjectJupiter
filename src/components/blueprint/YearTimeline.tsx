@@ -18,7 +18,7 @@ export function YearTimeline() {
   return (
     <div className="mx-auto max-w-[1000px]">
       <p className="mb-4 text-center" style={{ fontSize: isKid ? 19 : 16, lineHeight: 1.6, color: "rgba(255,255,255,0.85)" }}>
-        {isKid ? "Tap a year and see what your town is like by then." : "The same year marks as the net-gain section on the home page. Tap a year to see what is built, what is running, and what the county has in hand by then under the upgraded plan."}
+        {isKid ? "Tap a year and see what your town is like by then." : "The same early years as the net-gain section on the home page, which also runs to years 40, 50 and 80. Tap a year to see what is built, what is running, and what the county has in hand by then under the upgraded plan."}
       </p>
       <div className="mb-2 text-center text-[14px] font-bold uppercase" style={{ color: "#fdb715" }}>Year</div>
       <div className="mb-5 flex flex-wrap items-center justify-center gap-2">
@@ -89,7 +89,7 @@ export function YearTimeline() {
         </div>
       </div>
       <p className="pj-adult mt-3 text-center text-[14px]" style={{ color: "rgba(255,255,255,0.6)" }}>
-        Cumulative water and payment figures are the plan&apos;s own targets multiplied by years, labeled &ldquo;about&rdquo;. Their dates (Q4 2026 first
+        Cumulative water, food and payment figures are the plan&apos;s own targets multiplied by years, labeled &ldquo;about&rdquo;; water, food and metered capture count from year 5, when the plant, the storage line and the first greenhouses can be permitted and built. Their dates (Q4 2026 first
         operations, Q3 2028 first phase, 2031 matching, 2045 HB93 net-zero) are from their filings.
       </p>
     </div>
