@@ -149,3 +149,5 @@ After inspection, create these files in `docs/research/`:
 3. `LAYOUT_ARCHITECTURE.md` — Page layouts, grid system, responsive behavior
 4. `INTERACTION_PATTERNS.md` — Animations, transitions, hover states
 5. `TECH_STACK_ANALYSIS.md` — What the site uses and our chosen equivalents
+
+- Before any work on the Project Jupiter site content, read `docs/research/KNOWLEDGE.md` (baselines, law, milestone years, wording rules). Do not re-derive the numbers.

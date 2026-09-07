@@ -14,7 +14,7 @@ const roboto = Roboto({
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://upgradeprojectjupiter.com";
 const DESCRIPTION =
-  "An independent, sourced plan to make the $165 billion Project Jupiter data center in Santa Teresa, New Mexico a net gain: capture metered from day one, public monitors on every stack, waste heat growing food, 5 million gallons a day of new water, and about 3,000 verified jobs. Same land, same buildings, about 2.5% more, most of it repayable by the federal capture credit.";
+  "An independent, sourced plan to make the $165 billion Project Jupiter data center in Santa Teresa, New Mexico a net gain: capture-ready stacks from day one with capture metered once the storage line exists, public monitors on every stack, waste heat growing food, 5 million gallons a day of new water, and about 3,000 verified jobs. Same land, same buildings, about 2.5% more, most of it repayable by the federal capture credit.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),

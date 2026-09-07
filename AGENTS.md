@@ -63,3 +63,4 @@ scripts/            # Asset download scripts
 - After editing `.claude/skills/clone-website/SKILL.md`, run `node scripts/sync-skills.mjs` to regenerate the skill for all platforms.
 
 @docs/research/INSPECTION_GUIDE.md
+- Before any work on the Project Jupiter site content, read `docs/research/KNOWLEDGE.md` (baselines, law, milestone years, wording rules). Do not re-derive the numbers.
