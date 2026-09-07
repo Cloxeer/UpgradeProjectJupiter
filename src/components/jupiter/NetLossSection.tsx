@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { SectionHeading } from "./SectionHeading";
 import { Cite, SourceList } from "@/components/Cite";
-import { rows, YEARS, operating, far, LAST_COUNTED_YEAR, RECHARGE_START_YEAR, recharged, allSources, GHG_PERMIT_TPY, OUR_WATER_GPD, type Year } from "@/data/netloss";
+import { rows, YEARS, operating, far, ourGasOp, RECHARGE_START_YEAR, recharged, allSources, GHG_PERMIT_TPY, OUR_WATER_GPD, type Year } from "@/data/netloss";
 import { Cloud, Neighborhood } from "@/components/blueprint/Parts";
 import { useCopy } from "./AudienceText";
 import { useAudience } from "./Audience";
@@ -25,14 +25,14 @@ const WARM_YEAR = 44; // ~2070, the end of the state's 50-year projection window
 const STACK_LIFE = 5;
 /** How fast the local table is drawn climbing once recharge runs, as a share of the regional decline slope. An illustration of direction, not a measurement. */
 const RISE = 0.4;
-/** Operating years the drawings count. No filing says when the plant closes, so totals freeze at the year-80 view. */
-const countedOp = (years: number) => Math.min(operating(years), operating(LAST_COUNTED_YEAR));
+/** Their CO₂ runs as filed for the whole period; ours stops growing at 2045 when gas hours reach zero. */
+const tonsFor = (smog: boolean, years: number) => (smog ? GHG_PERMIT_TPY * operating(years) : GHG_PERMIT_TPY * 0.075 * ourGasOp(years));
 
 /** Smog (or clean air) over the neighborhood. Clouds and haze scale with the running CO2 total, uncapped. */
 function SmogScene({ smog, years }: { smog: boolean; years: number }) {
-  const op = countedOp(years);
+  const op = operating(years);
   const isFar = far(years);
-  const tons = smog ? GHG_PERMIT_TPY * op : GHG_PERMIT_TPY * 0.075 * op;
+  const tons = tonsFor(smog, years);
   const gasOff = !smog && op >= HB93_YEAR; // our plan: no gas hours after 2045
   // Haze: 0 at start, 1 at about 800 million tons (their 80-year total). Clouds: one more per ~120 million tons.
   const k = Math.min(1, tons / 8e8);
@@ -42,8 +42,8 @@ function SmogScene({ smog, years }: { smog: boolean; years: number }) {
   const sky = smog ? `rgb(${217 - k * 90},${211 - k * 105},${199 - k * 120})` : warm ? "#f6efe0" : "#eaf4fb";
   const topLabel = isFar
     ? smog
-      ? `Year ${years}: the plant's lifetime CO₂ is still in the air`
-      : `Year ${years}: captured CO₂ is rock, or under cap rock`
+      ? `Year ${years}: ${(tons / 1e6).toFixed(0)} M tons CO₂ if run as filed (estimate)`
+      : `Year ${years}: ${(tons / 1e6).toFixed(0)} M tons total; the rest is rock (estimate)`
     : op === 0
       ? `Year ${years}: still building`
       : `Year ${years}: ${(tons / 1e6).toFixed(0)} M tons CO₂, running total`;
@@ -72,14 +72,14 @@ function SmogScene({ smog, years }: { smog: boolean; years: number }) {
       <text x={160} y={124} textAnchor="middle" fontSize={8} fontWeight={800} fill={smog ? "#8e3b2f" : "#1f5f3a"}>
         {smog
           ? isFar
-            ? "NO FILING SAYS WHEN THE PLANT CLOSES · DRAWN AT ITS YEAR-80 TOTAL"
+            ? "ESTIMATE · RUN AS FILED 250 YEARS · CO₂ STAYS FOR CENTURIES"
             : op === 0
               ? "CONSTRUCTION DUST · SUNLAND PARK ALREADY FAILS THE OZONE STANDARD"
               : op >= HB93_YEAR
                 ? "SHOWN ASSUMING THE FUEL CELLS STILL BURN GAS AFTER 2045"
                 : "SMOG FORMS DOWNWIND ON HOT DAYS · SUNLAND PARK, SANTA TERESA"
           : isFar
-            ? "50-YEAR FEDERAL CARE ENDED · THE BOND PAYS WHOEVER STILL WATCHES"
+            ? "ESTIMATE · ZERO GAS SINCE 2045 · CAPTURED CO₂ IS ROCK"
             : op === 0
               ? "CAPTURE SKIDS INSTALLED BEFORE POWER-ON"
               : gasOff
@@ -97,9 +97,17 @@ function SmogScene({ smog, years }: { smog: boolean; years: number }) {
  * from year 5 the towns' reclaimed water and the plant's surplus are put back underground (2 to 5 MGD, about what
  * CRRUA pumped from the fresh aquifer in 2020) and the local table is drawn climbing slowly, as El Paso's did once it
  * cut pumping and recharged reclaimed water. The climb is an illustration of direction and order of magnitude, not a
- * measurement; the chips and the expert note say so. Beyond year 80 it holds.
+ * measurement; the chips and the expert note say so. In the 250-year view the trends are continued and every figure is
+ * labelled an estimate: theirs keeps falling until the gauge bottoms out; ours climbs until it reaches the 1980 level
+ * (about 2150), the level before heavy pumping, and holds there, because recharge cannot lift a table above where it was.
  */
 const SLOPE = 62 / 80; // svg units per year, the regional decline both sides share
+/** Where the table stood in earlier years, on the same decline slope the model uses forward (USGS: the Mesilla table has been falling for decades). */
+const HISTORY_MARKS: { year: number; y: number }[] = [
+  { year: 1980, y: 50 - ((2026 - 1980) / 80) * 62 },
+  { year: 2005, y: 50 - ((2026 - 2005) / 80) * 62 },
+];
+const LEVEL_1980 = HISTORY_MARKS[0].y;
 function waterTop(down: boolean, years: number): number {
   if (down) {
     // Their plan: the table keeps falling for the whole horizon (USGS decline 2000-2020; recharge down 25%+ in the state projection).
@@ -108,13 +116,8 @@ function waterTop(down: boolean, years: number): number {
   if (years <= 2) return 50 + years * SLOPE; // same construction pumping until the plant opens
   const atOpen = 50 + 2 * SLOPE;
   if (years < RECHARGE_START_YEAR) return atOpen; // fresh wells rest: held
-  return atOpen - (Math.min(LAST_COUNTED_YEAR, years) - RECHARGE_START_YEAR) * SLOPE * RISE; // recharge: climbing
+  return Math.max(LEVEL_1980, atOpen - (years - RECHARGE_START_YEAR) * SLOPE * RISE); // recharge: climbing, capped at the 1980 level
 }
-/** Where the table stood in earlier years, on the same decline slope the model uses forward (USGS: the Mesilla table has been falling for decades). */
-const HISTORY_MARKS: { year: number; y: number }[] = [
-  { year: 1980, y: 50 - ((2026 - 1980) / 80) * 62 },
-  { year: 2005, y: 50 - ((2026 - 2005) / 80) * 62 },
-];
 
 function WaterGauge({ down, years }: { down: boolean; years: number }) {
   const op = operating(years);
@@ -122,12 +125,12 @@ function WaterGauge({ down, years }: { down: boolean; years: number }) {
   const gal = OUR_WATER_GPD * 365 * op;
   const isFar = far(years);
   const held = !down && op > 0 && years < RECHARGE_START_YEAR;
-  const rising = !down && years >= RECHARGE_START_YEAR && !isFar;
+  const rising = !down && years >= RECHARGE_START_YEAR;
   const downLabelY = Math.min(112, Math.max(63, top - 5));
   const ourLabelY = Math.min(112, Math.max(63, top + 12));
   const warm = years >= WARM_YEAR;
   const ourLabel = isFar
-    ? `year ${years}: no projection reaches this far · held at the year-80 level`
+    ? `year ${years}: back near the 1980 level by ~2150, held (estimate)`
     : op === 0
       ? `year ${years}: same construction pumping · plant being built`
       : held
@@ -155,7 +158,7 @@ function WaterGauge({ down, years }: { down: boolean; years: number }) {
           <path d={`M60,${top - 4} l-6,-8 M60,${top - 4} l6,-8`} stroke="#c0392b" strokeWidth={3} fill="none" />
           <rect x={68} y={downLabelY - 9} width={190} height={12} rx={2} fill="#e3cfa8" fillOpacity={0.9} />
           <text x={72} y={downLabelY} fontSize={9} fontWeight={800} fill="#8e3b2f">
-            {isFar ? `year ${years}: no projection reaches this far` : `year ${years}: water table pulled down${warm ? " · recharge falling" : ""}`}
+            {isFar ? `year ${years}: decline continued for 250 years (estimate)` : `year ${years}: water table pulled down${warm ? " · recharge falling" : ""}`}
           </text>
         </>
       ) : (
@@ -174,22 +177,22 @@ function WaterGauge({ down, years }: { down: boolean; years: number }) {
           <text x={72} y={ourLabelY} fontSize={9} fontWeight={800} fill={rising || held ? "#ffffff" : "#1f5f3a"}>
             {ourLabel}
           </text>
-          {op > 0 && !isFar && (
+          {op > 0 && (
             <text x={6} y={120} fontSize={7.5} fontWeight={800} fill="#ffffff">
-              {(gal / 1e9).toFixed(0)} billion gallons made from the salty layer{rising ? ` · ${(recharged(years) / 1e9).toFixed(0)} billion put back underground` : ""}
+              {(gal / 1e9).toFixed(0)} B gal made from the salty layer{rising ? ` · ${(recharged(years) / 1e9).toFixed(0)} B gal put back${isFar ? " (est.)" : ""}` : ""}
             </text>
           )}
         </>
       )}
-      <text x={160} y={down || isFar || op === 0 ? 124 : 112} textAnchor="middle" fontSize={8} fontWeight={800} fill={down ? "#8e3b2f" : rising || held ? "#ffffff" : "#1f5f3a"}>
+      <text x={160} y={down || op === 0 ? 124 : 112} textAnchor="middle" fontSize={8} fontWeight={800} fill={down ? "#8e3b2f" : rising || held ? "#ffffff" : "#1f5f3a"}>
         {down
           ? isFar
-            ? "NO PROJECTION REACHES 2276 · DRAWN AT THE 2070 ENDPOINT"
+            ? "ESTIMATE · 2000–2020 DECLINE CONTINUED · TOWN WELLS DRY"
             : warm
               ? "FRESH WATER STILL TAKEN · STATE PROJECTS RECHARGE DOWN 25%+ BY 2070"
               : "FRESH WATER TAKEN FOR FILLS, BUILDING AND OPERATIONS"
           : isFar
-            ? "WHAT IS KNOWABLE IS WHAT IS MEASURED · MONITORING WELLS, BOND-FUNDED"
+            ? "ESTIMATE · RECHARGE CONTINUED · WELLS STILL READ YEARLY"
             : op === 0
               ? "PLANT UNDER CONSTRUCTION"
               : held
@@ -204,27 +207,29 @@ type Fact = { id: string; chip: string; color: string; info: string; sources: st
 
 /** The facts behind a picture at this year, for this side. Each is a chip; tap or hover for the explanation and source. */
 function factsFor(side: "ours" | "theirs", years: number, kid: boolean): Fact[] {
-  const op = countedOp(years);
+  const op = operating(years);
   const isFar = far(years);
   const theirs = side === "theirs";
-  const tons = theirs ? GHG_PERMIT_TPY * op : GHG_PERMIT_TPY * 0.075 * op;
+  const tons = tonsFor(theirs, years);
   const out: Fact[] = [];
   if (op > 0) {
     out.push({
       id: "co2",
-      chip: isFar ? `${(tons / 1e6).toFixed(0)} M tons CO₂ still in the air` : `${(tons / 1e6).toFixed(0)} M tons CO₂ so far`,
+      chip: isFar ? `${(tons / 1e6).toFixed(0)} M tons CO₂ (estimate)` : `${(tons / 1e6).toFixed(0)} M tons CO₂ so far`,
       color: theirs ? "#c0392b" : "#2e8b57",
       info: kid
         ? "This is all the planet-warming gas let out since the plant turned on, added up. It does not go away on its own for hundreds of years."
-        : `Running total since operations began (year 2): ${theirs ? "the permitted 10,144,115 tons a year" : "the 5–10% not captured"} × ${op} operating years${isFar ? ", frozen at the year-80 view because no filing says when the plant closes" : ""}. Counted cumulatively because warming tracks cumulative CO₂ almost linearly and the effects persist for centuries.`,
+        : theirs
+          ? `Running total since operations began (year 2): the permitted 10,144,115 tons a year × ${op} operating years${isFar ? ", an estimate that assumes the plant ran as filed for the whole period" : ""}. Counted cumulatively because warming tracks cumulative CO₂ almost linearly and the effects persist for centuries.`
+          : `Running total since operations began (year 2): the 5–10% not captured × ${ourGasOp(years)} operating years, stopping in 2045 when Process 4 brings gas hours to zero${isFar ? " (estimate: nothing added after that)" : ""}. Counted cumulatively because warming tracks cumulative CO₂ almost linearly and the effects persist for centuries.`,
       sources: ["sob", "ipcc-ar6-spm"],
     });
   }
-  if (!theirs && op > 0 && !isFar) {
+  if (!theirs && op > 0) {
     const held = years < RECHARGE_START_YEAR;
     out.push({
       id: held ? "held" : "recharge",
-      chip: held ? "table held: fresh wells rest" : "2–5 MGD put back underground",
+      chip: held ? "table held: fresh wells rest" : isFar ? "table near its 1980 level (estimate)" : "2–5 MGD put back underground",
       color: "#1f7ae0",
       info: kid
         ? held
@@ -232,22 +237,22 @@ function factsFor(side: "ours" | "theirs", years: number, kid: boolean): Fact[] 
           : "The town's used water is cleaned all the way to drinking quality and soaked back into the ground, along with extra water from the plant. El Paso has done this since 1985. The water underground slowly climbs back."
         : held
           ? "The plant makes water from the deep brackish layer and lets CRRUA's fresh wells rest, so the local table stops falling. Putting water back needs a permit under New Mexico's Ground Water Storage and Recovery Act; Albuquerque's took from 2008 tests to a 2014 permit, so the drawing starts recharge in year 5."
-          : "CRRUA's two treatment plants already handle about 1.8 MGD of wastewater, growing with the towns. Treated to drinking standard and put into infiltration basins, plus the plant's surplus while it is ahead of demand, that is 2 to 5 million gallons a day back into the fresh aquifer, about what CRRUA pumped from it in 2020 (3.1 MGD). El Paso has recharged reclaimed water since 1985, over 30 billion gallons, and its aquifer stopped falling once pumping was cut. Drawn as a slow climb: direction and order of magnitude, not a measurement. NMSU flags a water-rights accounting question for reuse near the river; the storage-and-recovery permit is where it is settled.",
+          : `CRRUA's two treatment plants already handle about 1.8 MGD of wastewater, growing with the towns. Treated to drinking standard and put into infiltration basins, plus the plant's surplus while it is ahead of demand, that is 2 to 5 million gallons a day back into the fresh aquifer, about what CRRUA pumped from it in 2020 (3.1 MGD). El Paso has recharged reclaimed water since 1985, over 30 billion gallons, and its aquifer stopped falling once pumping was cut. Drawn as a slow climb at 40% of the historic decline rate: direction and order of magnitude, not a measurement.${isFar ? " Continued for 250 years, the climb reaches the level of 1980, before heavy pumping, around 2150 and holds there: recharge cannot lift a table above where it stood." : ""} NMSU flags a water-rights accounting question for reuse near the river; the storage-and-recovery permit is where it is settled.`,
       sources: ["nmsu", "epwater-recharge", "epwater-aquifers", "nm-asr-act", "abcwua-bear-canyon", "usgs-mesilla-taap"],
     });
   }
   if (isFar) {
     out.push({
       id: "far",
-      chip: "eight generations on",
+      chip: "how this 250-year estimate is made",
       color: theirs ? "#8e3b2f" : "#003047",
       info: theirs
         ? kid
-          ? "Nobody wrote down who takes care of the land and the deep wells this far ahead. The deal ends when the last payment is made."
-          : "No filing, lease or state projection reaches 2276. The signed agreement ends when its listed payments end and has no closure, restoration or bond clause; who owns the wells and the land by then is unknown."
+          ? "Nobody has written a plan this far ahead, so we kept their plan running exactly as filed the whole time. The deal itself ended when the last payment was made, and nobody wrote down who takes care of the land and the deep wells after that."
+          : "No filing, lease or state projection reaches 2276, so this view continues the documented trends: the permitted emissions run as filed, the 2000–2020 decline of the water table continues, and the signed agreement, which ends when its listed payments end and has no closure, restoration or bond clause, leaves no one named to care for the wells or the land. Every number here is an estimate on those assumptions."
         : kid
-          ? "Our plan makes the company put money aside now, so someone is still paid to check the wells and the land long after the company is gone."
-          : "The lease's closure and monitoring bond, sized by an engineer's estimate and revised every five years the way Doña Ana County already requires of solar farms, is the one instrument written to outlive the companies.",
+          ? "We kept our plan running the whole time too: the gas machines off since 2045, the water going back into the ground, and money set aside in 2026 so someone is still paid to check the wells and the land."
+          : "This view continues the upgraded plan's trends: zero gas hours from 2045 under HB93, recharge at 2 MGD until the table reaches its 1980 level and holds, and the closure and monitoring bond, sized by an engineer's estimate and revised every five years the way Doña Ana County already requires of solar farms, paying for the wells to be watched. Every number here is an estimate on those assumptions.",
       sources: theirs ? ["cba"] : ["cba", "dac-solar-decom"],
     });
     if (!theirs) {
@@ -417,7 +422,7 @@ export function NetLossSection() {
           ))}
         </div>
         <div className="text-center font-black" style={{ fontSize: 17, color: "#003047" }}>
-          After {year} {year === 1 ? "year" : "years"} · {2026 + year} {far(year) ? "· beyond every filing and projection: what remains" : operating(year) === 0 ? "· still under construction" : `· ${operating(year)} ${operating(year) === 1 ? "year" : "years"} of operation`}
+          After {year} {year === 1 ? "year" : "years"} · {2026 + year} {far(year) ? `· ${operating(year)} years of operation · estimate: trends continued past every filing` : operating(year) === 0 ? "· still under construction" : `· ${operating(year)} ${operating(year) === 1 ? "year" : "years"} of operation`}
         </div>
 
         </div>
@@ -501,7 +506,7 @@ export function NetLossSection() {
 
         {expert && year >= 30 && (
           <p className="pj-adult mx-auto mb-6 max-w-[1000px] rounded px-4 py-3 text-[14px]" style={{ backgroundColor: "#fff8e6", lineHeight: 1.55, color: "#3c3c3c" }}>
-            <strong>What the long views assume, and where it comes from.</strong> CO₂ is a running total because cumulative emissions drive warming almost linearly and the effects last for centuries<Cite ids={["ipcc-ar6-spm"]} />. HB93 requires net-zero by 2045 (year 19); their route is credits, so exhaust after that assumes the fuel cells still burn gas, while the upgrade retires gas hours to zero by then<Cite ids={["cba", "bocc"]} />. Stacks are swapped about every five years<Cite ids={["bloom-stack-life"]} />. The 30-year lease ends at year 30 and the land returns to the tax rolls<Cite ids={["cba"]} />. New Mexico is projected 5–7 °F warmer within 50 years with groundwater recharge down at least 25%<Cite ids={["nmbg-164"]} />, and Mesilla groundwater already fell from 2000 to 2020<Cite ids={["usgs-mesilla-taap"]} />, so the water table keeps dropping under their plan. Beyond 2070 the state projection ends; the drawings hold at its endpoint rather than extrapolate. Both water gauges show the same fresh table CRRUA&apos;s wells draw from. Ours is held from year 2, when the plant&apos;s water lets the fresh wells rest, and drawn climbing from year 5, when the towns&apos; reclaimed water (about 1.8 MGD today across CRRUA&apos;s two plants) and the plant&apos;s surplus go back underground under a Ground Water Storage and Recovery permit: 2 to 5 MGD against the 3.1 MGD CRRUA pumped in 2020<Cite ids={["nmsu", "nm-asr-act"]} />. El Paso has recharged reclaimed water since 1985, over 30 billion gallons, and its aquifer stopped falling once pumping was cut; Albuquerque holds New Mexico&apos;s first storage-and-recovery permit<Cite ids={["epwater-recharge", "epwater-aquifers", "abcwua-bear-canyon"]} />. The climb is drawn at 40% of the regional decline slope as an illustration of direction, not a measurement; farms, El Paso and Juárez keep pumping the basin and the deep layer&apos;s recharge is &quot;unknown&quot;<Cite ids={["nmsu"]} />. The year-250 view stops counting at year 80, because no document says when the plant closes, and states only what physically remains: CO₂ in the air or in rock, brine below the confining layers, and whether anyone is still measuring<Cite ids={["ipcc-ar6-spm", "epa-class-vi", "cba"]} />.
+            <strong>What the long views assume, and where it comes from.</strong> CO₂ is a running total because cumulative emissions drive warming almost linearly and the effects last for centuries<Cite ids={["ipcc-ar6-spm"]} />. HB93 requires net-zero by 2045 (year 19); their route is credits, so exhaust after that assumes the fuel cells still burn gas, while the upgrade retires gas hours to zero by then<Cite ids={["cba", "bocc"]} />. Stacks are swapped about every five years<Cite ids={["bloom-stack-life"]} />. The 30-year lease ends at year 30 and the land returns to the tax rolls<Cite ids={["cba"]} />. New Mexico is projected 5–7 °F warmer within 50 years with groundwater recharge down at least 25%<Cite ids={["nmbg-164"]} />, and Mesilla groundwater already fell from 2000 to 2020<Cite ids={["usgs-mesilla-taap"]} />, so the water table keeps dropping under their plan. Beyond 2070 the state projection ends; the drawings hold at its endpoint rather than extrapolate. Both water gauges show the same fresh table CRRUA&apos;s wells draw from. Ours is held from year 2, when the plant&apos;s water lets the fresh wells rest, and drawn climbing from year 5, when the towns&apos; reclaimed water (about 1.8 MGD today across CRRUA&apos;s two plants) and the plant&apos;s surplus go back underground under a Ground Water Storage and Recovery permit: 2 to 5 MGD against the 3.1 MGD CRRUA pumped in 2020<Cite ids={["nmsu", "nm-asr-act"]} />. El Paso has recharged reclaimed water since 1985, over 30 billion gallons, and its aquifer stopped falling once pumping was cut; Albuquerque holds New Mexico&apos;s first storage-and-recovery permit<Cite ids={["epwater-recharge", "epwater-aquifers", "abcwua-bear-canyon"]} />. The climb is drawn at 40% of the regional decline slope as an illustration of direction, not a measurement; farms, El Paso and Juárez keep pumping the basin and the deep layer&apos;s recharge is &quot;unknown&quot;<Cite ids={["nmsu"]} />. The year-250 view is an estimate that continues each documented trend past every filing and projection: their plant run as filed for the whole period, the water table&apos;s 2000–2020 decline continued until the gauge bottoms out, the lease ended in 2056 with no closure clause; ours with zero gas hours from 2045, recharge at 2 MGD until the table returns to its 1980 level around 2150 and holds, and the closure bond paying for monitoring. Every figure on that view carries the word estimate<Cite ids={["ipcc-ar6-spm", "epa-class-vi", "cba", "nmsu"]} />.
           </p>
         )}
         {/* Rows: the label sits in the middle because it applies to both sides; ours left, theirs right. Expert only; the home page comparison carries the six headline lines. */}
