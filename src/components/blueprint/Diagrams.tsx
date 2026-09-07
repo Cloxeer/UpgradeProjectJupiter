@@ -881,7 +881,7 @@ export function WaterDiagram() {
     <Card voices={{ homeowner: "This is your tap. CRRUA needs 6 million gallons a day next year and 15 by 2042. The plant makes 5 million a day from water nobody could drink, so your supply goes up instead of down.", legislator: "The CBA already funds a $250,000 study of exactly this plant. NMSU designed and priced it in 2023. A lease condition that funds construction instead of a study delivers 5 MGD to CRRUA for about 0.16% of the bond.", business: "A designed, priced plant with a utility customer whose demand more than doubles by 2042, plus El Paso's precedent of recovering water and minerals from the brine. Water is a product here, not a cost.", overall: "Deep under the desert is salty water nobody can drink. A filter takes the salt out and gives 16,700 homes' worth of clean water a day to the town." }} kicker="Process 3 · Water" title="Salty groundwater in, clean water out" mode={mode} onMode={setMode} kid="Deep under the desert there is a huge lake of salty water nobody can drink. In their plan the campus takes drinking water from the town pipe and pumps an old farm's water for its fills. In ours, pumps bring the salty water up, server heat warms it, and a super-fine filter lets water through but not salt. Three cups out of four come out clean and go to homes. The salty cup is pumped very deep, below the good water, so it can never mix back in." sources={["nmsu", "epwater", "twdb", "cduaws", "cba", "faq", "haussamen-water", "cbd-well", "epa-watersense", "usgs-mesilla"]} intro={(<p>
         {ours ? (
           <>
-            NMSU has already designed a 5 MGD brackish reverse-osmosis plant for Santa Teresa: 75% recovery, 1 MGD skids, $115.5M plant, $269.4M system, brine to deep injection wells
+            NMSU has already designed a 5 MGD brackish reverse-osmosis plant for Santa Teresa: 75% recovery, 1 MGD skids, $115.5M plant, $269.5M system, brine to deep injection wells
             <Cite ids={["nmsu"]} />. The Mesilla Basin holds roughly 65 million acre-feet of recoverable water<Cite ids={["nmsu", "cduaws"]} />. El Paso&apos;s Kay Bailey Hutchison plant has run
             this way since 2007 at 27.5 MGD<Cite ids={["epwater", "twdb"]} />. <strong>Not a loop:</strong> the brine goes 3,700–4,000 ft down, below the aquifer, exactly so it cannot come
             back and re-salt the water being treated.
@@ -1050,15 +1050,15 @@ export function WaterDiagram() {
             <Stat label="Non-potable taken" value="undisclosed" sub={<>Oracle declined to state a volume<Cite ids={["haussamen-water"]} /></>} color="#8e3b2f" />
             <Stat label="One-time fills" value="~11M gal" sub={<>2.5M × 4 halls + 960k fuel cells<Cite ids={["faq"]} /></>} />
             <Stat label="Construction pumped" value="103M+ gal" sub={<>Apr–Aug 2026<Cite ids={["cbd-well"]} /></>} color="#8e3b2f" />
-            <Stat label="Money instead" value="$50M" sub={<>to CRRUA pipes, almost fully paid<Cite ids={["bocc"]} /></>} />
+            <Stat label="Money instead" value="$50M" sub={<>to CRRUA pipes; ~$25M collected, flows in 2027<Cite ids={["bocc", "epm-water-fund"]} /></>} />
           </>
         )}
       </div>
       {ours && <CostStrip millions={system} label={`for the whole ${mgd} MGD system: wells, plant, storage, brine wells, lines (NMSU 2023 figures)`} who="the developer, delivered to CRRUA and the county" />}
       <p className="pj-fine mt-3 text-[14px]" style={{ color: "#6b6b6b" }}>
-        Brine does not have to be the end of the line: El Paso&apos;s board approved recovering about 3 MGD of drinking water and minerals from its KBH brine in 2026<Cite ids={["epwater-brine-recovery"]} />, and a brine concentrator run on summer server heat would cut the injected volume by half or more (an estimate with a real energy cost)<Cite ids={["zld-nature-water", "reclamation-zld"]} />. Costs interpolate NMSU&apos;s 2023 figures for 1, 5 and 10 MGD plants and scale to the whole system using the study&apos;s 5 MGD ratio. Well count and home count are
-        illustrative. Reverse osmosis is the proven method; server heat is a helper, not the engine. The county is already paying $250,000 to study a desalination plant
-        <Cite ids={["cba"]} />; the plan asks them to fund the one NMSU designed.
+        Brine does not have to be the end of the line: El Paso&apos;s board approved recovering about 3 MGD of drinking water and minerals from its KBH brine in 2026<Cite ids={["epwater-brine-recovery"]} /> (the first mineral-recovery attempt there failed during commissioning, so we count the water and not the minerals<Cite ids={["ewm-elpaso"]} />), and a brine concentrator run on summer server heat would cut the injected volume by half or more (an estimate with a real energy cost)<Cite ids={["zld-nature-water", "reclamation-zld"]} />. Costs interpolate NMSU&apos;s 2023 figures for 1, 5 and 10 MGD plants and scale to the whole system using the study&apos;s 5 MGD ratio. Well count and home count are
+        illustrative. Reverse osmosis is the proven method; server heat is a helper, not the engine. The county is already designing a 4 MGD plant with $15 million of Jupiter tax money
+        <Cite ids={["star-plant"]} />; the plan asks the developer to fund the full NMSU system instead.
       </p>
     </Card>
   );

@@ -1,6 +1,6 @@
 import { talkingPoints } from "@/data/upgrade";
 
-export const SCRIPT_SUBJECT = "Project Jupiter: put the five conditions in the lease";
+export const SCRIPT_SUBJECT = "Project Jupiter: put the six conditions in the lease";
 
 /** The talking points as one plain-text message, for the clipboard and for mailto bodies. */
 export function scriptText(): string {

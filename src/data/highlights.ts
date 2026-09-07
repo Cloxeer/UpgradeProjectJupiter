@@ -31,11 +31,11 @@ export const highlightPairs: HighlightPair[] = [
   {
     icon: "water",
     color: "#1f7ae0",
-    ours: { num: "$269M", label: "A 5-MILLION-GALLON-A-DAY DESALINATION PLANT, ALREADY DESIGNED BY NMSU, BUILT AND HANDED TO CRRUA" },
+    ours: { num: "$269.5M", label: "A 5-MILLION-GALLON-A-DAY DESALINATION PLANT, ALREADY DESIGNED BY NMSU, BUILT AND HANDED TO CRRUA" },
     theirs: { num: "$50M", label: "WATER SYSTEM IMPROVEMENTS" },
-    explain: "Their $50 million is a cheque to CRRUA for pipes, almost fully paid. NMSU priced a complete 5 MGD brackish reverse-osmosis system for Santa Teresa at $269.4 million in 2023: wells, plant, storage, brine injection wells and lines. The county is already spending $250,000 under the CBA to study exactly this. Fund the plant instead of the study.",
-    math: "$269.4M ÷ $165,000M bond = 0.16% of the project.",
-    sources: ["nmsu", "bocc", "cba"],
+    explain: "Their $50 million is a cheque to CRRUA for pipes: about $25 million collected so far, held by the state and expected to reach the county in early 2027. NMSU priced a complete 5 MGD brackish reverse-osmosis system for Santa Teresa at $269.5 million in 2023: wells, plant, storage, brine injection wells and lines. The county is already designing a smaller 4 MGD plant with $15 million of Jupiter tax money. Have the developer fund the full plant instead, and keep the tax money.",
+    math: "$269.5M ÷ $165,000M bond = 0.16% of the project.",
+    sources: ["nmsu", "bocc", "cba", "epm-water-fund", "star-plant"],
     voices: {
       legislator: { label: "THE NMSU-DESIGNED 5 MGD BRACKISH DESALINATION SYSTEM, DELIVERED TO CRRUA UNDER THE LEASE" },
       business: { label: "A 5 MGD WATER PLANT WITH A UTILITY CUSTOMER, PRICED AND DESIGNED BY NMSU" },

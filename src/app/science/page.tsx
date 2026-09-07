@@ -8,6 +8,7 @@ import { HelpImprove } from "@/components/jupiter/HelpImprove";
 import { ScienceLevels } from "@/components/jupiter/ScienceLevels";
 import { Stamp } from "@/components/jupiter/Stamp";
 import { WhatItMeansSection } from "@/components/jupiter/WhatItMeansSection";
+import { OpenQuestions } from "@/components/jupiter/OpenQuestions";
 
 export const metadata: Metadata = {
   title: "The science behind the upgrade",
@@ -40,6 +41,7 @@ export default function SciencePage() {
             <KeyComponentsSection />
             <IrbSection />
           </ScienceLevels>
+          <OpenQuestions />
         </div>
         <WhatItMeansSection />
         <HelpImprove />

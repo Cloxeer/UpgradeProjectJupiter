@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 /**
  * Home: one sentence, one button, three numbers; then their number beside ours;
- * then the year pictures; then the five demands and the one thing to do. Everything else folds.
+ * then the year pictures; then the six demands and the one thing to do. Everything else folds.
  */
 export default function Home() {
   return (

@@ -150,7 +150,7 @@ export const zones: Zone[] = [
     plan: "ours",
     short: "WATER PLANT",
     theirs: "They pledge $50 million to CRRUA for water upgrades and describe cooling water as about 9 households' worth. Reporting shows the campus overall needs nearly 1 million gallons a day (Santa Fe New Mexican) and more than first disclosed (Haussamen, April 2026). The Supreme Court also stayed an emergency well authorization in Aug. 2026.",
-    ours: "The 5 MGD reverse-osmosis plant NMSU designed for Santa Teresa in 2023, built inside the extended fence south of the dry coolers, delivering water to CRRUA. $269 million for the whole system, 0.16% of the bond.",
+    ours: "The 5 MGD reverse-osmosis plant NMSU designed for Santa Teresa in 2023, built inside the extended fence south of the dry coolers, delivering water to CRRUA. $269.5 million for the whole system, 0.16% of the bond.",
   },
   {
     id: "greenhouse",
@@ -250,7 +250,7 @@ export const zoneStats: Record<string, ZoneStat[]> = {
   water: [
     { value: "5M gal", label: "a day, clean", color: BLUE },
     { value: `~${Math.round((5e6 / GAL_PER_HOUSEHOLD_DAY) / 100) * 100}`.replace(/\B(?=(\d{3})+(?!\d))/g, ","), label: "homes' worth", color: BLUE },
-    { value: "$269M", label: "priced by NMSU, 2023", color: GOLD },
+    { value: "$269.5M", label: "priced by NMSU, 2023", color: GOLD },
   ],
   capture: [
     { value: "~95%", label: "CO₂ in the dried exhaust", color: GREEN },
@@ -289,7 +289,7 @@ for (const z of zones) if (zoneStats[z.id]) z.stats = zoneStats[z.id];
 
 export const costItems = [
   { item: "Carbon-capture on 2,462 MW of fuel cells (2,275 stacks, manifolded by cluster)", cost: "$1.5B", who: "Developer (Oracle / STACK / BorderPlex)", note: "Order-of-magnitude estimate for concentrated-stream capture; exhaust is ~95% CO₂ per NMED [3]. Includes compression. No vendor quote exists." },
-  { item: "NMSU-designed 5 MGD desalination system", cost: "$269M", who: "Developer, delivered to CRRUA / county", note: "2023 NMSU figure for the whole system: wells, plant, storage, brine injection wells, lines [9]. The CBA already funds a $250,000 desalination study [1]." },
+  { item: "NMSU-designed 5 MGD desalination system", cost: "$269.5M", who: "Developer, delivered to CRRUA / county", note: "2023 NMSU figure for the whole system: wells, plant, storage, brine injection wells, lines [9]. The CBA already funds a $250,000 desalination study [1]." },
   { item: "Plate heat exchanger, pumps, insulated header to greenhouses", cost: "$60M", who: "Developer", note: "Standard district-heating hardware. Pays back in avoided fan and chiller electricity." },
   { item: "~150 acres of glass greenhouses (proposed)", cost: "$450M", who: "Commercial growers (leaseholders)", note: "About $3M per acre for high-tech Venlo glass, industry average. Off the developer's balance sheet. Acreage depends on the unpublished site plan." },
   { item: "Roof and canopy solar (~25–35 MW peak)", cost: "$45M", who: "Developer", note: "Scaled from the reported 3 million sq ft of halls [33]. Runs the community side of the campus." },
@@ -325,7 +325,7 @@ export const receipts = [
   },
   {
     claim: "The water plant is already designed and priced",
-    proof: "Dr. Pei Xu, NMSU Civil Engineering, to the Legislature's Science, Technology and Telecommunications Committee, Oct. 31, 2023: 5 MGD brackish RO for Santa Teresa, 75% recovery, $115.5M plant, $269M system, brine to deep injection wells. Mesilla Basin holds ~65 million acre-feet of recoverable water.",
+    proof: "Dr. Pei Xu, NMSU Civil Engineering, to the Legislature's Science, Technology and Telecommunications Committee, Oct. 31, 2023: 5 MGD brackish RO for Santa Teresa, 75% recovery, $115.5M plant, $269.5M system, brine to deep injection wells. Mesilla Basin holds ~65 million acre-feet of recoverable water.",
     href: "https://www.nmlegis.gov/handouts/STTC%20103023%20Item%208%20Santa%20Teresa%20Brackish%20water%20desalination.pdf",
     label: "NMSU study (PDF)",
   },
@@ -469,5 +469,6 @@ export const timelineYears: { year: number; when: string; facts: string; built: 
   { year: 15, when: "2041", facts: "Their plan: unchanged operation. CRRUA demand projected at 15 MGD by 2042 with no new supply from the campus [9].", built: "Greenhouse acreage set by demand, up to the unbuilt acres.", running: "Fuel cells begin aging out; replacement plan filed under HB93.", delivered: "About 24 billion gallons; about 780 million lbs of food; about $500 million in bond payments." },
   { year: 20, when: "2046 · HB93 net-zero deadline (2045)", facts: "HB93 requires qualified microgrids to run on net-zero carbon resources by 2045 [1]; the filed plan has not said how.", built: "Gas fuel cells replaced by geothermal or clean grid supply as they retire.", running: "Zero at the stack, required by state law by 2045.", delivered: "The only path to actual zero, stated as such." },
   { year: 25, when: "2051", facts: "Their plan: no filed milestones. IRB term continues.", built: "Campus at full 819-acre build-out.", running: "Water, food, power and training on one site.", delivered: "About 42 billion gallons; about $830 million in bond payments." },
-  { year: 30, when: "2056 · end of the 30-year IRB term", facts: "2055–56: the 30-year IRB term ends and the property returns to the tax rolls; their payments total about $360M [1].", built: "Bonds retire; property returns to the tax rolls.", running: "Everything above, owned and operated locally where the leases allow.", delivered: "About $1 billion to schools and services, against their $360 million." },
+  { year: 30, when: "2056 · end of the 30-year IRB term", facts: "2055–56: the 30-year IRB term ends, the property returns to the tax rolls and ownership passes to the shareholders; their payments total about $360M [1]. The signed CBA has no decommissioning, restoration or closure-bond clause, only a $1M habitat fund [1]; the upgrade's lease clause adds the bond, so the wells and the land are cared for after the companies are gone.", built: "Bonds retire; property returns to the tax rolls.", running: "Everything above, owned and operated locally where the leases allow.", delivered: "About $1 billion to schools and services, against their $360 million." },
+  { year: 250, when: "2276 · eight generations on", facts: "No filing, lease or state projection reaches this far. What is knowable is physical: CO₂ released stays in the air for centuries; fresh water pumped is gone from the basin and how fast the deep aquifer refills is 'unknown' (NMSU) [9]; the signed agreement ended when its payments ended and left no closure, restoration or bond clause [1]. Who owns the wells and the land by then is not written anywhere.", built: "Glass and servers are long gone. What lasts is what was put in rock or in writing: carbonate in concrete and aggregate, CO₂ under cap rock, brine below the confining layers, monitoring wells, and a bond.", running: "Nothing burns. The public meters' archive is the record of what the valley breathed; the monitoring wells' annual report is the record of what the aquifer did.", delivered: "The closure and monitoring bond, posted in 2026 and revised every five years, is the only money written to reach this year. It pays whoever is still measuring." },
 ];
