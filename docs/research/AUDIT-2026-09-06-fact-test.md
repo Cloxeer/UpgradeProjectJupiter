@@ -1,5 +1,7 @@
 # The Jupiter Fact Test — audit of every claim on the site (Sept. 6, 2026)
 
+> **Status, Sept. 7, 2026:** every P0 and P1 correction below was applied to the site text (no UI change) and deployed. Remaining P2 hygiene items were folded in where found. The 250-year view keeps its estimate framing per the site owner, with every figure labelled an estimate and our CO₂ residual now accruing for as long as gas runs.
+
 Method: six parallel reviews (heat & food; carbon & air; water; power; money & law; logic & long views), each putting every claim through four trials: (T1) does the cited document say it, (T2) does the arithmetic hold, (T3) has it been done at scale, (T4) is it a net gain over now, 30 and 250 years once its cons are counted. The two most consequential findings were then re-checked against the primary documents by hand (NMED draft Statement of Basis and draft Permit Part A for NSR 10883, both saved in `docs/research/primary/`).
 
 ## Verdict
