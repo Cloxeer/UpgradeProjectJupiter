@@ -500,7 +500,7 @@ export function HeatDiagram() {
   const [part, setPart] = useState<string | null>(null);
   const ours = mode === "ours";
   const winter = season === "winter";
-  const gh = ours ? (winter ? acres * GH_PEAK_MW_PER_ACRE : acres * GH_PEAK_MW_PER_ACRE * 0.5) : 0; // summer: the same heat drives absorption chillers for the glass (estimate)
+  const gh = ours && winter ? acres * GH_PEAK_MW_PER_ACRE : 0; // summer: no greenhouse heat use; absorption chillers need ~90 °C water and this loop is 45–65 °C
   const desal = ours ? DESAL_PREHEAT_MW : 0;
   const brine = ours && !winter ? BRINE_CONCENTRATOR_MW : 0;
   const reused = gh + desal + brine;
@@ -513,12 +513,12 @@ export function HeatDiagram() {
   const reusedH = humanHeat(reused);
 
   return (
-    <Card tools={ours ? <SeasonToggle season={season} onChange={setSeason} /> : null} voices={{ homeowner: "This is the heat that would otherwise blow across the desert toward your street. Used, it grows tomatoes in winter and makes cold for the greenhouses in summer.", legislator: "A waste-heat reuse condition in the lease is the cheapest item on the list: about $60 million of standard district-heating hardware, paid by the developer and recovered in fan and chiller electricity. The Waste-Heat Reuse bill makes it standard practice statewide.", business: "About 2,400 MW of heat is rejected for free today. Sold to growers in winter and turned into absorption cooling in summer, it becomes a revenue line and a lower electricity bill on the same fans you already pay for.", overall: "The computers' heat is free. Their plan throws it away. Ours sells it to greenhouses in winter and turns it into cooling in summer." }} kicker="Process 1 · Heat" title="Where the heat goes" mode={mode} onMode={setMode} kid="Computers get hot, like a laptop on your lap. This place cools millions of them with water. In their plan the warm water goes to big fans that blow all the heat into the sky. In ours, one extra box lets greenhouses and the water plant use the warmth first. The fans still handle the rest." sources={["render", "waterpdf", "faq", "sob", "sweden", "carrier-furnace"]} intro={(<p>
+    <Card tools={ours ? <SeasonToggle season={season} onChange={setSeason} /> : null} voices={{ homeowner: "This is the heat that would otherwise blow across the desert toward your street. Used, it grows tomatoes in winter and makes cold for the greenhouses in summer.", legislator: "A waste-heat reuse condition in the lease is the cheapest item on the list: about $60 million of standard district-heating hardware, paid by the developer and recovered by selling heat to growers; Germany already requires data centers to reuse a share of their heat. The Waste-Heat Reuse bill makes it standard practice statewide.", business: "About 2,400 MW of heat is rejected for free today. Sold to growers in winter and to the water plant year-round, a small slice of it becomes a revenue line on the same fans you already pay for.", overall: "The computers' heat is free. Their plan throws it away. Ours sells it to greenhouses in winter and turns it into cooling in summer." }} kicker="Process 1 · Heat" title="Where the heat goes" mode={mode} onMode={setMode} kid="Computers get hot, like a laptop on your lap. This place cools millions of them with water. In their plan the warm water goes to big fans that blow all the heat into the sky. In ours, one extra box lets greenhouses and the water plant use the warmth first. The fans still handle the rest." sources={["render", "waterpdf", "faq", "sob", "sweden", "carrier-furnace"]} intro={(<p>
         {ours ? (
           <>
             Nearly all the electricity a chip uses turns into heat. Their halls run closed-loop liquid cooling with a one-time fill<Cite ids={["waterpdf", "faq"]} />, and their render
             shows the heat leaving through rows of dry coolers, fans blowing desert air over finned coils<Cite ids={["render"]} />. We add one plate heat exchanger ahead of
-            those fans. Gothenburg, Sweden already heats a greenhouse this way<Cite ids={["sweden"]} />. <strong>Heat is not smog.</strong> The fans move warm air; the smog and
+            those fans. Dutch data centers already sit beside greenhouse growers at Agriport A7, Germany requires data centers to reuse a share of their heat, and Gothenburg runs a small pilot<Cite ids={["agriport", "enefg", "goteborg-energi"]} />. <strong>Heat is not smog.</strong> The fans move warm air; the smog and
             CO₂ come from the fuel-cell stacks in Process 2.
           </>
         ) : (
@@ -555,7 +555,7 @@ export function HeatDiagram() {
               {Array.from({ length: nGh }).map((_, i) => <GreenhouseIcon key={i} x={428 + i * ghW} y={14} w={ghW - 3} h={50} warm={winter} />)}
             </Clickable>
             <Tag x={535} y={8} text={`3 · GREENHOUSES · ${acres} acres`} anchor="middle" bold color="#1f5f3a" size={9} />
-            <Tag x={535} y={80} text={winter ? `warm water heats roots · ${Math.round(gh)} MW ≈ ${humanHeat(gh).furnaces.toLocaleString()} furnaces` : "summer: the heat runs absorption chillers that cool the glass"} anchor="middle" size={8} color={winter ? "#1f5f3a" : "#1f7ae0"} />
+            <Tag x={535} y={80} text={winter ? `warm water heats roots · ${Math.round(gh)} MW ≈ ${humanHeat(gh).furnaces.toLocaleString()} furnaces` : "summer: greenhouses cool with wet pads; only the water plant takes heat"} anchor="middle" size={8} color={winter ? "#1f5f3a" : "#1f7ae0"} />
             <NewMarker box={{ x: 428, y: 14, w: nGh * ghW, h: 50 }} side="left" />
 
             <Flow d="M290,165 H428" color="#1f7ae0" width={5} dur={2.6} />
@@ -608,13 +608,13 @@ export function HeatDiagram() {
         <Bar what="all the heat the computers make, and where it goes" total={HEAT_MW} parts={[{ label: "Greenhouses MW", value: gh, color: "#2e8b57" }, { label: "Water plant MW", value: desal + brine, color: "#1f7ae0" }, { label: "Dry coolers MW", value: dry, color: "#6f8f9a" }]} />
       </div>
       <div className="pj-stats mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-        <Stat label="Heat put to work" value={`${Math.round(reused)} MW`} sub={<>≈ {reusedH.furnaces.toLocaleString()} home furnaces&apos; worth<Cite ids={["carrier-furnace"]} /> · {((reused / HEAT_MW) * 100).toFixed(1)}% of the total · {winter ? "winter: greenhouse root heat" : "summer: absorption cooling + brine drying"}</>} color={ours ? "#2e8b57" : "#c0392b"} />
+        <Stat label="Heat put to work" value={`${Math.round(reused)} MW`} sub={<>≈ {reusedH.furnaces.toLocaleString()} home furnaces&apos; worth<Cite ids={["carrier-furnace"]} /> · {((reused / HEAT_MW) * 100).toFixed(1)}% of the total · {winter ? "winter: greenhouse root heat + desal preheat" : "summer: desal preheat only"}</>} color={ours ? "#2e8b57" : "#c0392b"} />
         <Stat label="Heat blown into the air" value={`${Math.round(dry).toLocaleString()} MW`} sub={<>≈ {dryH.furnaces.toLocaleString()} furnaces running flat out, every hour</>} color="#c0392b" />
-        <Stat label="Fan & chiller electricity saved" value={`~${Math.round(fansSaved)} MW`} sub={ours ? "their bill, lower (estimate)" : "nothing saved"} color="#d99a00" />
+        <Stat label="Fan & chiller electricity saved" value={`~${Math.round(fansSaved)} MW`} sub={ours ? "a few percent of the heat moved (estimate)" : "nothing saved"} color="#d99a00" />
       </div>
-      {ours && <CostStrip millions={60} label="for the heat exchanger, pumps and insulated header (standard district-heating hardware, estimate)" who="the developer; it pays back in fan and chiller electricity" />}
+      {ours && <CostStrip millions={60} label="for the heat exchanger, pumps and insulated header (standard district-heating hardware, estimate)" who="the developer; it pays back through heat sold to growers, not fan savings" />}
       <p className="pj-fine mt-3 text-[14px]" style={{ color: "#6b6b6b" }}>
-        In summer the same heat can drive absorption chillers, standard hardware that makes cold from 65–100 °C water at a coefficient of performance near 0.86, cutting the electric chiller load<Cite ids={["absorption-review", "absorption-multistage"]} />; that is an estimate for this site, not a design. A megawatt (MW) is a rate of energy, like miles per hour is a rate of distance. To make it concrete we translate every MW into home furnaces: a typical furnace is
+        In summer the heat is not used for cooling: heat-driven absorption chillers want water near 90 °C and this loop is 45–65 °C, so the greenhouses cool with evaporative pads, which use water<Cite ids={["absorption-review"]} />. Greenhouses take about 1% of the heat stream on average and about 4% on the coldest night; the fans reject the rest. A megawatt (MW) is a rate of energy, like miles per hour is a rate of distance. To make it concrete we translate every MW into home furnaces: a typical furnace is
         rated about 90,000 BTU per hour, so 1 MW ≈ 38 furnaces<Cite ids={["carrier-furnace"]} />. Rough equivalences, labeled as such. Heat ≈ IT load is thermodynamics, not a
         measured figure. Greenhouse acreage is a proposal; the site is about 819 acres with 400 in the first phase<Cite ids={["cba"]} />.
       </p>
@@ -629,12 +629,12 @@ const GHG_APPLICANT_TPY = 8_820_970; // applicant's figure with 15% safety facto
 const STACKS = 2275;
 
 const pollutants = [
-  { name: "Carbon dioxide (CO₂)", amount: "10,144,115 tons/yr permitted", does: "Warms the climate. Not a smog gas; it is the climate gas.", standard: "No ambient health standard; it is regulated as a greenhouse gas.", future: "20 years as filed: about 200 million tons in the air, where CO₂ stays for centuries. Warming is cumulative, so every year adds to the last. Upgraded: 10 to 20 million tons over the same 20 years, falling as gas hours fall.", sources: ["sob"] },
-  { name: "Nitrogen oxides (NOx)", amount: "held under 250 tons/yr", does: "Reacts with VOCs in sunlight to make ground-level ozone, the main ingredient of smog. Irritates lungs, triggers asthma.", standard: "Ozone health standard: 70 ppb over 8 hours. Sunland Park has failed it since 2018.", future: "20 years as filed: up to 5,000 tons of NOx over a town that already fails the ozone standard, twenty summers of smog days for children now in elementary school. Upgraded: the same fuel cells, but every ton measured and posted, under controls set at the strict-review level.", sources: ["sob", "epa-ozone-naaqs", "sunland-park-ozone"] },
-  { name: "Carbon monoxide (CO)", amount: "≈161 tons/yr (application)", does: "Reduces the blood's ability to carry oxygen at high concentrations.", standard: "Held under the 250-ton line that would trigger full PSD review.", future: "20 years as filed: about 3,200 tons, released and estimated rather than measured. Upgraded: continuous monitors, so a bad day is known the day it happens.", sources: ["nmelc", "sob"] },
-  { name: "Volatile organic compounds (VOC)", amount: "≈124 tons/yr (application)", does: "The other half of the smog recipe with NOx.", standard: "Held under 250 tons/yr.", future: "20 years as filed: about 2,500 tons feeding summer ozone. Upgraded: measured, posted, and falling with gas hours.", sources: ["nmelc", "sob"] },
-  { name: "Fine particles (PM2.5)", amount: "held under 250 tons/yr", does: "Reach deep into the lungs; linked to heart attacks, asthma attacks and premature death.", standard: "Health standard: 9 µg/m³ annual average (2024).", future: "20 years as filed: chronic exposure is what the health studies count, and a child born the year the plant opens turns 20 under it. Upgraded: monitored, with the count falling as gas hours fall.", sources: ["sob", "epa-pm-naaqs"] },
-  { name: "Hazardous air pollutants (HAPs)", amount: "under 25 tons/yr", does: "Toxic compounds regulated individually.", standard: "25 tons/yr is the major-source line; the earlier split permits sat just under it.", future: "20 years as filed: up to 500 tons of listed toxics, each kept under its own line. Upgraded: one permit, one total, measured.", sources: ["nmelc"] },
+  { name: "Carbon dioxide (CO₂)", amount: "8,820,970 tons/yr permitted (10.1 million applied for)", does: "Warms the climate. Not a smog gas; it is the climate gas.", standard: "No ambient health standard; it is regulated as a greenhouse gas and reported.", future: "20 years as filed: about 160 million tons in the air at the permitted rate, where CO₂ stays for centuries. Warming is cumulative, so every year adds to the last. Upgraded: 8 to 16 million tons over the same 20 years if capture meets its target, falling as the gas share falls.", sources: ["sob", "sob-part-a"] },
+  { name: "Nitrogen oxides (NOx)", amount: "37.2 tons/yr (draft permit)", does: "Reacts with VOCs in sunlight to make ground-level ozone, the main ingredient of smog. Irritates lungs, triggers asthma.", standard: "Ozone health standard: 70 ppb over 8 hours. Sunland Park, next door, has failed it since 2018; the campus sits just outside the boundary.", future: "20 years as filed: about 750 tons of NOx estimated from four tests of one 65 kW unit and never measured at the real stacks, beside a town that already fails the ozone standard. Upgraded: the same fuel cells, but every ton measured and posted, with limits set for the capture configuration.", sources: ["sob-part-a", "epa-ozone-naaqs", "sunland-park-ozone"] },
+  { name: "Carbon monoxide (CO)", amount: "161.2 tons/yr (draft permit)", does: "Reduces the blood's ability to carry oxygen at high concentrations.", standard: "Above 100 tons/yr, which is what makes the plant a Title V major source.", future: "20 years as filed: about 3,200 tons, released and estimated rather than measured. Upgraded: continuous monitors, so a bad day is known the day it happens.", sources: ["sob-part-a", "sob"] },
+  { name: "Volatile organic compounds (VOC)", amount: "124.0 tons/yr (draft permit)", does: "The other half of the smog recipe with NOx.", standard: "Above 100 tons/yr, a second reason the plant is a Title V major source.", future: "20 years as filed: about 2,500 tons feeding summer ozone. Upgraded: measured, posted, and falling with the gas share.", sources: ["sob-part-a", "sob"] },
+  { name: "Fine particles (PM2.5)", amount: "75.4 tons/yr (draft permit)", does: "Reach deep into the lungs; linked to heart attacks, asthma attacks and premature death.", standard: "Health standard: 9 µg/m³ annual average (2024).", future: "20 years as filed: chronic exposure is what the health studies count, and a child born the year the plant opens turns 20 under it. Upgraded: monitored, with the count falling as the gas share falls.", sources: ["sob-part-a", "epa-pm-naaqs"] },
+  { name: "Hazardous air pollutants (HAPs)", amount: "1.4 tons/yr (draft permit)", does: "Toxic compounds regulated individually.", standard: "25 tons/yr is the major-source line; the fuel-cell plant is far below it (the withdrawn turbine plan sat just under).", future: "20 years as filed: about 30 tons of listed toxics, estimated, not measured. Upgraded: measured.", sources: ["sob-part-a", "nmelc"] },
 ];
 
 export function CarbonDiagram() {
@@ -642,7 +642,7 @@ export function CarbonDiagram() {
   const [rate, setRate] = useState(90);
   const [part, setPart] = useState<string | null>(null);
   const [showPollutants, setShowPollutants] = useState(false);
-  const [useShare, setUseShare] = useState(10);
+  const [useShare, setUseShare] = useState(1);
   const ours = mode === "ours";
   const r = ours ? rate / 100 : 0;
   const captured = GHG_PERMIT_TPY * r;
@@ -654,7 +654,7 @@ export function CarbonDiagram() {
   const plume = 8 + (1 - r) * 30;
 
   return (
-    <Card voices={{ homeowner: "This is the exhaust that drifts toward Sunland Park on hot days. Captured, used and monitored, it stops being a smog ingredient you cannot see and becomes a number you can check.", legislator: "One Title V permit with PSD-level controls and continuous monitoring is a lease condition the county can set today, and it is the difference between a permit that survives review and the one currently stayed by the Supreme Court.", business: "A 95%-pure CO₂ stream is a feedstock: greenhouse enrichment, concrete curing, carbonate aggregate. Selling it beats paying for a pipeline and a well, and a monitored, capture-first permit is the one that stays out of court, ends the moratorium talk, and takes the legislators off your back. For Oracle, Meta, STACK or BorderPlex it is also the environmental line for the earnings call.", overall: "The power plant's exhaust is almost pure CO₂, which is exactly why it can be caught, used, and counted instead of released." }} kicker="Process 2 · Carbon" title="Capture it, use it, and cut it" mode={mode} onMode={setMode} kid="Their power machines breathe out a gas that warms the planet. In their plan it all floats into the sky, and on hot days part of what comes out turns into smog over the houses next door. Because the machines do not burn with a flame, their breath is almost pure fizz-gas, so in our plan it is dried and caught in a box. Some of it feeds the tomatoes and gets locked into concrete and gravel, which is the best use. What nobody can use yet is pumped deep underground under a lid of solid rock, and every year the machines run less because cleaner power takes over (see Process 4)." sources={["sob", "notice", "bloom-co2", "bloom-chart", "bocc", "abq-lc", "cba", "epa-ozone-naaqs", "sunland-park-ozone", "epa-class-vi-saline", "bloom-fuels", "boundary-dam-2024", "ieefa-bd3", "carboncure", "blue-planet", "usgs-induced", "decatur"]} intro={(<p>
+    <Card voices={{ homeowner: "This is the exhaust that drifts toward Sunland Park on hot days. Captured, used and monitored, it stops being a smog ingredient you cannot see and becomes a number you can check.", legislator: "Continuous monitors on every cluster with public data is a lease condition the county can negotiate, and it answers the permit's weakest point: emissions estimated from four tests of one 65 kW unit with no monitor required. A monitored, metered-capture permit is the one that survives review.", business: "A 95%-pure CO₂ stream is a feedstock: greenhouse enrichment, concrete curing, carbonate aggregate, and the federal 45Q credit pays $85 a ton stored or used. A monitored, capture-first permit is the one that stays out of court and answers the moratorium talk. For Oracle, STACK or BorderPlex it is also the environmental line for the earnings call.", overall: "The power plant's exhaust is almost pure CO₂, which is exactly why it can be caught, used, and counted instead of released." }} kicker="Process 2 · Carbon" title="Capture it, use it, and cut it" mode={mode} onMode={setMode} kid="Their power machines breathe out a gas that warms the planet. In their plan it all floats into the sky, and on hot days part of what comes out turns into smog over the houses next door. Because the machines do not burn with a flame, their breath is almost pure fizz-gas, so in our plan it is dried and caught in a box. Some of it feeds the tomatoes and gets locked into concrete and gravel, which is the best use. What nobody can use yet is pumped deep underground under a lid of solid rock, and every year the machines run less because cleaner power takes over (see Process 4)." sources={["sob", "notice", "bloom-co2", "bloom-chart", "bocc", "abq-lc", "cba", "epa-ozone-naaqs", "sunland-park-ozone", "epa-class-vi-saline", "bloom-fuels", "boundary-dam-2024", "ieefa-bd3", "carboncure", "blue-planet", "usgs-induced", "decatur"]} intro={(<p>
         {ours ? (
           <>
             NMED&apos;s own words: the depleted anode exhaust is &quot;approximately 95 percent carbon dioxide once dried&quot;<Cite ids={["sob"]} />. A gas turbine&apos;s exhaust is a few
@@ -777,7 +777,7 @@ export function CarbonDiagram() {
             <text x={527} y={282} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">bought elsewhere; the stacks are unchanged</text>
             <text x={527} y={302} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">Sunland Park: ozone nonattainment since 2018</text>
             <text x={527} y={316} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">Doña Ana County: F for ozone, 15 bad-air days/yr</text>
-            <text x={527} y={336} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">HB93: net-zero required only by 2045</text>
+            <text x={527} y={336} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">HB93: net-zero by 2045, methane offsets allowed</text>
           </>
         )}
       </svg></div>
@@ -830,15 +830,14 @@ export function CarbonDiagram() {
             </tbody>
           </table>
           <p className="mt-2 text-[14px]" style={{ color: "#6b6b6b" }}>
-            &quot;Held under 250 tons&quot; is the line above which a plant faces Prevention of Significant Deterioration review with best available controls; the permit keeps each
-            gas just below it<Cite ids={["sob", "nmelc"]} />. Good or bad in plain terms: the area next to the site already fails the national smog standard
-            <Cite ids={["sunland-park-ozone", "ala-sota-2025"]} />, so any addition lands on people already breathing unhealthy air on about 15 days a year.
+            The draft permit&apos;s smog figures are small (NOx 37 tons a year) and far below the 250-ton line for the strictest federal review, but they are scaled from four four-hour tests of one 65 kW unit and the permit requires no continuous stack monitor<Cite ids={["sob", "sob-part-a"]} />. Good or bad in plain terms: the area next to the site already fails the national smog standard
+            <Cite ids={["sunland-park-ozone", "ala-sota-2025"]} />, so the ask is to measure what 2,275 stacks actually emit rather than estimate it.
           </p>
         </div>
       )}
       <p className="pj-fine mt-3 text-[14px]" style={{ color: "#6b6b6b" }}>
-        Zero is not on the slider on purpose. Capture designs top out around 90 to 95%; the longest-running power-plant unit, Boundary Dam, captured 848,388 tonnes in 2024 at 85% availability against a 1-million-tonne design, so the slider starts at 90, not 95<Cite ids={["boundary-dam-2024", "ieefa-bd3"]} />. Use before storage: curing concrete with CO₂ and making carbonate aggregate are commercial (690,000 tonnes mineralized worldwide to date; one aggregate plant takes 5,000 tonnes a year)<Cite ids={["carboncure", "blue-planet"]} />, so the use slider starts at 10% and grows only as buyers sign; the pipeline to storage is the fallback, not the plan, and Process 4 shrinks the whole stream every year. The rest reaches zero by blending renewable gas and hydrogen, which Bloom hardware runs on
-        <Cite ids={["bloom-fuels"]} />, plus verified removals; HB93 already requires net-zero by 2045<Cite ids={["cba"]} />. Storage depth: CO₂ stays a dense fluid below about 800 m
+        Zero is not on the slider on purpose. Capture designs top out around 90 to 95%; the longest-running power-plant unit, Boundary Dam, captured 848,388 tonnes in 2024 at 85% availability against a 1-million-tonne design, so the slider starts at 90, not 95<Cite ids={["boundary-dam-2024", "ieefa-bd3"]} />. Use before storage: curing concrete with CO₂ and making carbonate aggregate are commercial (690,000 tonnes mineralized worldwide to date; one aggregate plant takes 5,000 tonnes a year)<Cite ids={["carboncure", "blue-planet"]} />, so the use slider starts at 1% and grows only as buyers sign; the pipeline to storage is where most of it goes, Process 4 shrinks the whole stream as the gas share falls, and the federal 45Q credit pays $85 a ton stored or used<Cite ids={["irs-45q"]} />. The rest is closed over time by blending renewable gas and hydrogen, which Bloom hardware runs on
+        <Cite ids={["bloom-fuels"]} />, plus verified removals; HB93&apos;s 2045 net-zero definition allows methane offsets, so the physical route is a choice<Cite ids={["cba", "nmsa-62-17-12"]} />. Storage depth: CO₂ stays a dense fluid below about 800 m
         / 2,625 ft under impermeable cap rock<Cite ids={["epa-class-vi-saline"]} />. New Mexico has no permitted Class VI wells yet, so the realistic path is a pipeline to Permian
         Basin storage<Cite ids={["epa-class-vi"]} />.
       </p>
@@ -1119,22 +1118,22 @@ export function SolarDiagram() {
   const stacksIdle = Math.round(STACKS * (1 - gasShare));
 
   return (
-    <Card voices={{ homeowner: "Every hour the fuel cells rest is an hour with no exhaust over your neighborhood. Hot rock under this valley and New Mexico's own wind can take those hours, more of them every year.", legislator: "HB93 requires net-zero by 2045 but sets no path. A lease condition for geothermal test wells in Phase 1 and a delivered-renewables contract gives the 2045 zero a schedule, with Google's 396 MW geothermal purchase as the market precedent.", business: "Gas is the plant's largest operating cost. Geothermal at about 90% capacity factor and contracted wind at 40% cut gas hours directly, and both are bought at fixed prices while gas is not.", overall: "The best way to make less smoke is to burn less gas. Hot rock under the valley and the biggest wind farm in America can take over more of the work every year." }} kicker="Process 4 · Retire the gas" title="Solar on the roofs, geothermal in the ground, wind on the wire" mode={mode} onMode={setMode} kid="The best way to make less smoke is to burn less gas. The sun goes on every roof, but that is a tiny slice. The big slices are hot rock deep under this valley, which can make power day and night, and the giant wind farm New Mexico just switched on, whose power can come here by wire. Every year more clean power arrives and the gas machines run less, until the law says zero in 2045." sources={["ktsm-sqft", "notice", "render", "cba", "doe-pv-cost", "lightning-dock", "dona-ana-geothermal", "nm-geothermal-handout", "fervo-cape", "fervo-google", "sunzia-eia", "sob"]} intro={(<p>
+    <Card voices={{ homeowner: "Every hour the fuel cells rest is an hour with no exhaust over your neighborhood. Hot rock under this valley and New Mexico's own wind can take those hours, more of them every year.", legislator: "HB93's net-zero definition lets a gas plant qualify through methane offsets, so 2045 forces nothing at the stacks. A lease condition for geothermal test wells in Phase 1 and a delivered-renewables contract gives the date a physical schedule, with Google's 396 MW geothermal purchase as the market precedent; how far it goes depends on the wells and on transmission that does not yet exist.", business: "Gas is the plant's largest operating cost. Geothermal at about 90% capacity factor and contracted wind at about 39% cut the gas share directly, and both are bought at fixed prices while gas is not.", overall: "The best way to make less smoke is to burn less gas. Hot rock under the valley and New Mexico's wind can take over more of the work every year, once wells are drilled and wires are built." }} kicker="Process 4 · Retire the gas" title="Solar on the roofs, geothermal in the ground, wind on the wire" mode={mode} onMode={setMode} kid="The best way to make less smoke is to burn less gas. The sun goes on every roof, but that is a tiny slice. The big slices are hot rock deep under this valley, which can make power day and night, and the giant wind farm New Mexico just switched on, whose power can come here by wire. Every year more clean power arrives and the gas machines run less, until the law says zero in 2045." sources={["ktsm-sqft", "notice", "render", "cba", "doe-pv-cost", "lightning-dock", "dona-ana-geothermal", "nm-geothermal-handout", "fervo-cape", "fervo-google", "sunzia-eia", "sob"]} intro={(<p>
         {ours ? (
           <>
             Cleaning the exhaust is the second-best answer; the best is fewer hours of gas. Three clean sources, in order of size. <strong>Geothermal:</strong> this
             county sits on the Rio Grande rift, where 150 °C rock is 1 to 5.5 km down<Cite ids={["dona-ana-geothermal"]} />; New Mexico already runs an 11 MW geothermal
             plant at Lightning Dock<Cite ids={["lightning-dock"]} />, and enhanced geothermal is now sold at data-center scale: Fervo&apos;s Cape Station delivers 100 MW in
-            2026 and 500 MW by 2028, with Google buying 396 MW<Cite ids={["fervo-cape", "fervo-google"]} />. <strong>Wind on the wire:</strong> SunZia, 3,650 MW of New
-            Mexico wind, was commissioned in 2026<Cite ids={["sunzia-eia"]} />; a delivered power-purchase agreement throttles the fuel cells when it blows.{" "}
+            2026 and 500 MW by 2028, with Google buying 396 MW<Cite ids={["fervo-cape", "fervo-google"]} />. <strong>Wind under contract:</strong> SunZia, 3,650 MW of New
+            Mexico wind, was commissioned in 2026, but its 3,021 MW line runs to Arizona and its output is sold west<Cite ids={["sunzia-eia"]} />; a delivered contract here needs new transmission, and then it throttles the fuel cells when the wind blows.{" "}
             <strong>Rooftop solar:</strong> the halls total about 3 million square feet<Cite ids={["ktsm-sqft"]} />; drag the roof slider to add panels. It is the smallest
-            slice and the card says so. Their &quot;100% matching by 2031&quot; is the same idea done as paperwork; this is done as delivered megawatts.
+            slice and the card says so. Their &quot;100% matching by 2031&quot; is the same idea done as paperwork; this is done as delivered megawatts, and even with every slider at maximum about half the year&apos;s energy is still gas.
           </>
         ) : (
           <>
             <strong>Their plan, as filed.</strong> All 2,462 MW come from natural-gas fuel cells running 8,760 hours a year<Cite ids={["notice", "sob"]} />, with battery storage
             for smoothing<Cite ids={["cba"]} />. No solar, geothermal or delivered wind appears on the render or in any filing<Cite ids={["render"]} />; the CBA says only that the
-            microgrid is &quot;actively exploring renewable energy integration in accordance with HB93&quot;<Cite ids={["cba"]} />, and HB93 does not require zero until 2045.
+            microgrid is &quot;actively exploring renewable energy integration in accordance with HB93&quot;<Cite ids={["cba"]} />, and HB93&apos;s 2045 net-zero definition can be met with methane offsets<Cite ids={["nmsa-62-17-12"]} />.
           </>
         )}
       </p>)}>
@@ -1174,7 +1173,7 @@ export function SolarDiagram() {
           <g transform={`translate(0 ${(640) - 560 + 12})`}>
             <rect x={250} y={560} width={700} height={60} rx={6} fill="#ffffff" fillOpacity={0.92} />
             <text x={600} y={585} textAnchor="middle" fontSize={16} fontWeight={900} fill="#c0392b">GAS FUEL CELLS 8,760 HOURS A YEAR · 0 MW CLEAN</text>
-            <text x={600} y={606} textAnchor="middle" fontSize={11} fill="#3c3c3c">no solar, no geothermal, no delivered wind · nothing retires before 2045</text>
+            <text x={600} y={606} textAnchor="middle" fontSize={11} fill="#3c3c3c">no solar, no geothermal, no delivered wind in any filing</text>
           </g>
         )}
         {ours && (
@@ -1188,7 +1187,7 @@ export function SolarDiagram() {
             <Clickable id="deliveredRenewables" selected={part} onSelect={setPart}>
               <rect x={490} y={566} width={220} height={50} rx={4} fill={G} />
               <text x={600} y={586} textAnchor="middle" fontSize={11} fontWeight={900} fill="#fff" pointerEvents="none">WIND + SOLAR ON THE WIRE</text>
-              <text className="pj-num " x={600} y={603} textAnchor="middle" fontSize={9} fill="#e8f8ee" pointerEvents="none">{`${ours ? ppaMW : 0} MW contracted · SunZia and El Paso grid`}</text>
+              <text className="pj-num " x={600} y={603} textAnchor="middle" fontSize={9} fill="#e8f8ee" pointerEvents="none">{`${ours ? ppaMW : 0} MW contracted · needs new transmission`}</text>
             </Clickable>
             <Clickable id="solarRoof" selected={part} onSelect={setPart}>
               <rect x={728} y={566} width={210} height={50} rx={4} fill="#1d3557" />
@@ -1211,7 +1210,7 @@ export function SolarDiagram() {
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
         <Slider label="Geothermal built by 2032 (MW)" value={ours ? geoMW : 0} min={0} max={500} step={25} unit="MW" onChange={setGeoMW} disabled={!ours} />
-        <Slider label="Wind + solar delivered by wire (MW contracted)" value={ours ? ppaMW : 0} min={0} max={2000} step={100} unit="MW" onChange={setPpaMW} disabled={!ours} />
+        <Slider label="Wind + solar under a delivered contract (MW; needs new transmission)" value={ours ? ppaMW : 0} min={0} max={2000} step={100} unit="MW" onChange={setPpaMW} disabled={!ours} />
         <Slider label="Roofs with solar" value={ours ? step : 0} min={0} max={solarSteps.length} step={1} unit={`of ${solarSteps.length}`} onChange={setStep} disabled={!ours} />
       </div>
       <div className="mt-4">
@@ -1234,19 +1233,19 @@ export function SolarDiagram() {
         })}
       </ol>
       <div className="pj-stats mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-        <Stat label="Gas hours a year, equivalent" value={`${gasHours.toLocaleString()} of 8,760`} sub={ours ? `${Math.round((1 - gasShare) * 100)}% of the load is clean on average (estimate)` : "every hour, every stack"} color={gasShare < 0.8 ? "#2e8b57" : "#c0392b"} />
+        <Stat label="Gas full-load hours a year (share of energy from gas)" value={`${gasHours.toLocaleString()} of 8,760`} sub={ours ? `${Math.round((1 - gasShare) * 100)}% of the year's energy is clean on average (estimate); zero is not reachable on these sliders` : "every hour, every stack"} color={gasShare < 0.8 ? "#2e8b57" : "#c0392b"} />
         <Stat label="CO₂ avoided before any capture" value={`${(co2Avoided / 1e6).toFixed(1)} Mt/yr`} sub={<>of the {(GHG_PERMIT_TPY / 1e6).toFixed(1)} Mt permitted<Cite ids={["sob"]} /></>} color="#2e8b57" />
-        <Stat label="Stacks that can sit idle" value={`~${stacksIdle.toLocaleString()} of ${STACKS.toLocaleString()}`} sub="on an average hour (estimate)" color="#2e8b57" />
+        <Stat label="Stacks that can throttle down" value={`~${stacksIdle.toLocaleString()} of ${STACKS.toLocaleString()}`} sub="on an average hour (illustrative; stacks stay hot and load-follow above ~40%)" color="#2e8b57" />
         <Stat label="Rooftop peak" value={`${peakMW.toFixed(1)} MW`} sub={`${Math.round(active.reduce((s, x) => s + x.sqft, 0) / 1000).toLocaleString()}k sq ft of roof`} color="#e07b00" />
         <Stat label="Share of campus load" value={`${pct.toFixed(2)}%`} sub={<>of 2,462 MW<Cite ids={["notice"]} />. This is the honest number</>} color="#c0392b" />
         <Stat label="Average output" value={`${avgMW.toFixed(1)} MW`} sub={ours ? "enough for greenhouses, water plant, offices" : "no solar in their plan"} color="#2e8b57" />
       </div>
-      {ours && <CostStrip millions={costM + geoMW * 3} label={`for ${geoMW} MW of enhanced geothermal at about $3M per MW (Fervo has raised about $1.5B for 500 MW; estimate) plus all ${solarSteps.length} roofs at $1.50 per watt; the delivered wind and solar is bought by contract, not built`} who="the developer, offset by lower gas purchases" />}
+      {ours && <CostStrip millions={costM + geoMW * 5} label={`for ${geoMW} MW of enhanced geothermal at about $5M per MW (midpoint of Fervo's $7,000 per kW today and $3,000 goal; estimate) plus all ${solarSteps.length} roofs at $1.50 per watt; the delivered wind and solar is bought by contract, and its transmission is not priced here`} who="the developer, offset by lower gas purchases" />}
       <p className="pj-fine mt-3 text-[14px]" style={{ color: "#6b6b6b" }}>
-        Geothermal is counted at a 90% capacity factor and delivered wind and solar at 40%, both typical, and the fuel cells are assumed to throttle in proportion; the
-        &quot;gas hours&quot; figure is that average expressed as full-load hours, an estimate. Enhanced geothermal is itself deep injection of water and carries the same
+        Geothermal is counted at a 90% capacity factor and delivered wind and solar at 40% (New Mexico wind averaged about 39% in 2023; solar is lower), and the fuel cells are assumed to throttle in proportion; the
+        &quot;gas full-load hours&quot; figure is the year&apos;s energy share expressed as hours, an estimate, not a claim about any particular hour: a 24/7 load runs gas every night the wind is down. Even with every slider at maximum about half the year&apos;s energy is still gas; true zero for 2,462 MW would need about 2.7 GW of firm geothermal or about 6 GW of wind and solar plus tens of gigawatt-hours of storage, none of which is identified<Cite ids={["fervo-cape", "sunzia-eia"]} />. Enhanced geothermal is itself deep injection of water and carries the same
         induced-seismicity rules as any injection well<Cite ids={["usgs-induced"]} />; the difference is zero exhaust and power around the clock. Roof areas other than the
-        halls are scaled from the render. Rooftop solar alone is about 1% of the load, and this card says so instead of hiding it.
+        halls are scaled from the render. Rooftop solar alone is about a quarter of one percent of the load, and this card says so instead of hiding it.
       </p>
     </Card>
   );
@@ -1273,14 +1272,13 @@ export function GreenhouseDiagram() {
   const nTrucks = Math.max(1, Math.min(6, Math.round(lbs / 12_000_000)));
 
   return (
-    <Card tools={ours ? <SeasonToggle season={season} onChange={setSeason} labels={["Winter", "Summer"]} /> : null} voices={{ homeowner: "These are jobs you can drive to and food you can buy in town: about 1,500 greenhouse, water and training jobs on top of the tech jobs, and about 60 million pounds of local produce a year.", legislator: "Greenhouse staffing is what lifts the enforceable job count from 750 to about 3,000, and the land lease is revenue the county can condition. The Data Center Standards bill makes heat-to-agriculture a statewide expectation.", business: "About 150 acres of leasable land with heat and CO₂ supplied, at about $130,000 an acre a year in lease and heat revenue, with a packing house at the border crossing. Grower capital, off the developer's balance sheet.", overall: "Plants love warm roots and extra CO₂, and the data center has both to spare. Farmers rent the land next to the fans and grow food all year." }} kicker="Process 5 · Food & jobs" title="Greenhouses next to the dry coolers" mode={mode} onMode={setMode} kid="Plants love warm roots and extra CO₂, and the data center has both to spare. In their plan the land next to the fans stays empty desert and the promise is 750 jobs. In ours, farmers rent that land, pipe in the warm water and the captured gas, and grow tomatoes and lettuce all winter with no bug spray. Every 50 acres is one block of glass and about 300 people." sources={["cba", "epm-jobs", "sob", "sweden", "waterpdf"]} intro={(<p>
+    <Card tools={ours ? <SeasonToggle season={season} onChange={setSeason} labels={["Winter", "Summer"]} /> : null} voices={{ homeowner: "These are jobs you can drive to and food you can buy in town: about 1,500 greenhouse, water and training jobs on top of the tech jobs, and about 60 million pounds of local produce a year.", legislator: "Greenhouse staffing is what lifts the enforceable job count from 750 to about 3,000, and the land lease is revenue the county can condition. The Data Center Standards bill makes heat-to-agriculture a statewide expectation.", business: "About 150 acres of leasable land with heat and CO₂ supplied, at about $40,000 to $60,000 an acre a year in lease and heat revenue (estimate), with a packing house at the border crossing. Grower capital, off the developer's balance sheet.", overall: "Plants love warm roots and extra CO₂, and the data center has both to spare. Farmers rent the land next to the fans and grow food all year." }} kicker="Process 5 · Food & jobs" title="Greenhouses next to the dry coolers" mode={mode} onMode={setMode} kid="Plants love warm roots and extra CO₂, and the data center has both to spare. In their plan the land next to the fans stays empty desert and the promise is 750 jobs. In ours, farmers rent that land, pipe in the warm water and the captured gas, and grow tomatoes and lettuce all winter with hardly any bug spray. Every 50 acres is one block of glass and about 300 people." sources={["cba", "epm-jobs", "sob", "sweden", "waterpdf"]} intro={(<p>
         {ours ? (
           <>
             Heat comes from the dry-cooler loop and CO₂ from the capture skids, whose exhaust is about 95% CO₂<Cite ids={["sob"]} />. Santa Teresa winters are short
             but real: December to February nights drop into the 20s and 30s °F, and a greenhouse needs root heat on every cold night from November to March. The rest of the
-            year the same heat is not idle: it runs absorption chillers, standard hardware that makes cold from 65–100 °C water, to cool the glass in summer and to run
-            cold storage in the packing house<Cite ids={["absorption-review", "absorption-multistage"]} />. Heat is used twelve months a year, for warmth in winter and for
-            cold in summer. Gothenburg already runs a greenhouse on data-center heat<Cite ids={["sweden"]} />. Slide the acres:
+            year the glass is cooled with evaporative pads, as Arizona greenhouses do, which uses about 1 to 1.6 million gallons of water a day across 150 acres; heat-driven chillers
+            need water near 90 °C and this loop is 45–65 °C, so the summer heat still goes to the fans<Cite ids={["absorption-review"]} />. Dutch data centers already sit beside greenhouse growers at Agriport A7, and Germany requires data centers to reuse a share of their heat<Cite ids={["agriport", "enefg"]} />. Slide the acres:
             more blocks, more workers, more trucks.
           </>
         ) : (
@@ -1323,8 +1321,8 @@ export function GreenhouseDiagram() {
             </Clickable>
             <Flow d={`M178,108 H${180 + Math.ceil(nBays / 2) * bayW}`} color="#1f7ae0" width={3} dur={2} r={2.2} active={!winter} />
             <NewMarker box={{ x: 178, y: 26, w: nBays * bayW + 4, h: 96 }} side="left" align="start" />
-            <Tag x={180 + (nBays * bayW) / 2} y={20} text={`${acres} acres · ${nBays} block${nBays > 1 ? "s" : ""} of ~50 acres · sealed, no pesticides`} anchor="middle" bold size={9} color="#1f5f3a" />
-            <Tag x={182} y={134} text={winter ? `winter blocks: roots at ${tempRange(20, 22)} · summer blocks: chiller cools the glass` : "summer blocks: the chiller makes cold from the same heat · winter blocks idle"} anchor="start" size={7.5} />
+            <Tag x={180 + (nBays * bayW) / 2} y={20} text={`${acres} acres · ${nBays} block${nBays > 1 ? "s" : ""} of ~50 acres · sealed, few pesticides`} anchor="middle" bold size={9} color="#1f5f3a" />
+            <Tag x={182} y={134} text={winter ? `winter blocks: roots at ${tempRange(20, 22)} · summer: wet-pad cooling` : "summer: wet pads and shade cool the glass (uses water) · root heat off"} anchor="start" size={7.5} />
             {Array.from({ length: nPeople }).map((_, i) => <Person key={i} x={190 + i * 18} y={160} />)}
             <Tag x={190 + (nPeople * 18) / 2} y={196} text={`~${Math.round(jobs).toLocaleString()} jobs · ${GH_JOBS_PER_ACRE} per acre incl. packing (industry average)`} anchor="middle" size={8} color="#003047" />
             <Flow d={`M${180 + nBays * bayW},75 H540`} color="#2e8b57" width={5} dur={2.2} />
@@ -1436,11 +1434,11 @@ export function GreenhouseDiagram() {
                 <tbody>
                   {[
                     ["Food per acre", "~400,000 lb/yr, industry average", "Roughly 10× a greenhouse per acre of floor (stacked layers); ~1% of field land for the same crop"],
-                    ["Money for business owners", "Lease + heat revenue ~$130k/acre/yr (estimate); grower capital ~$3M/acre", "Higher output per acre; higher capital and power bills per kg; cost-competitive only with cheap clean power"],
-                    ["Money for the county", "~6.5 jobs/acre incl. packing → ~1,000 jobs on 150 acres; taxable leases", "Far fewer jobs per pound (robots); more output tax base per acre; fewer wages"],
+                    ["Money for business owners", "Lease + heat revenue ~$40–60k/acre/yr (estimate); grower capital ~$3M/acre", "Higher output per acre; higher capital and power bills per kg; cost-competitive only with cheap clean power"],
+                    ["Money for the county", "~4–6.5 jobs/acre incl. packing → 600–1,000 jobs on 150 acres; taxable leases", "Far fewer jobs per pound (robots); more output tax base per acre; fewer wages"],
                     ["Time to first harvest", "Blocks of ~50 acres, about a year each (estimate)", "Modular; a factory unit in under a year (Chengdu built in months)"],
-                    ["Net gain to humanity now", "Free heat used, CO₂ used, ~60M lb local food, jobs", "More food per acre, but paid for in gas-fired electricity on this site today"],
-                    ["In 50 years", "Heat and CO₂ supplied as long as the campus runs; greenhouses re-glazed every 20–30 years", "If power is clean by then (HB93 says 2045), the higher-output path; energy per kg is the deciding number"],
+                    ["Net gain to humanity now", "Waste heat used, CO₂ used, up to ~60M lb local food, jobs", "More food per acre, but paid for in gas-fired electricity on this site today"],
+                    ["In 50 years", "Heat and CO₂ supplied as long as the campus runs; greenhouses re-glazed every 20–30 years", "If power is clean by then, the higher-output path; energy per kg is the deciding number"],
                     ["In 100 years", "Land stays farmable; the campus lease has ended and returned to the tax rolls", "Same land, more food per acre, fewer hands; both paths leave the aquifer and the air better than the plan as filed"],
                   ].map(([m, a, b]) => (
                     <tr key={m}>
