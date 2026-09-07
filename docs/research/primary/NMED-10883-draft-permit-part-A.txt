@@ -1,0 +1,822 @@
+SCIENCE | INNOVATION | COLLABORATION | COMPLIANCE    
+Air Quality Bureau | 525 Camino de los Marquez, Suite 1A, Santa Fe, New Mexico 87505-1816 | (505) 476-4300 | www.env.nm.gov 
+MICHELLE LUJAN GRISHAM JAMES C. KENNEY 
+GOVERNOR CABINET SECRETARY 
+DRAFT AS OF 7/29/2026 
+AI
+R QUALITY BUREAU 
+NEW SOURCE REVIEW PERMIT 
+Issued under 20.2.72 NMAC 
+C
+ertified Mail No:  
+Return Receipt Requested 
+NS
+R Permit No: 10883 
+Facility Name:  Yucca Growth Microgrid 
+F
+acility Owner: Yucca Growth Infrastructure, LLC. 
+Facility Operator: Bloom Energy Corp 
+Ma
+iling Address: 600 Congress Ave, Suite 15041 
+A
+ustin, TX 78701 
+T
+EMPO/IDEA ID No: 41351 - PRN20260001 
+AIRS No:  350134104 
+P
+ermitting Action:  Regular – New Construction Permit 
+Source Classification: TV Major  
+F
+acility Location: 341,070 m E by 3,521,500 m N, Zone 13 ; Datum 
+WGS84 
+County: Doña Ana 
+A
+ir Quality Bureau Contact Julia Kuhn 
+Main AQB Phone No. (505) 476-4300
+Cindy Hollenberg  Date 
+Bureau Chief 
+Air Quality Bureau 
+Template version: 12/10/2025 
+[Delete all below at time final permit submitted for signature.] 
+File Name: NSR_Permit_Parta_Master   
+Save Date: 6/18/2019 
+Print Date: 7/30/2026 8:36:00 AM 
+NSR Permit No. 10883 Page 2 of 19 
+TABLE
+ OF CONTENTS 
+Part A FACILITY SPECIFIC REQUIREMENTS ................................................................. A3 
+A100 Introduction .............................................................................................................. A3 
+A101 Permit Duration (expiration) .................................................................................... A3 
+A102 Facility: Description................................................................................................. A3 
+A103 Facility: Applicable Regulations.............................................................................. A4 
+A104 Facility: Regulated Sources ..................................................................................... A5 
+A105 Facility: Control Equipment .................................................................................... A6 
+A106 Facility: Allowable Emissions ................................................................................. A6 
+A107 Facility: Startup, Shutdown, & Maintenance (SSM) Requirements ........................ A6 
+A108 Facility: Allowable Operations ...............................................................................  A10 
+A109 Facility: Reporting Schedules ..................................................................................A11 
+A110
+ Facility: Fuel and Fuel Sulfur Requirements ...........................................................A11 
+A111
+ Facility: 20.2.61 NMAC Opacity............................................................................. A12 
+A112
+ Facility: Haul Roads – Not Required .......................................................................A12 
+A113
+ Facility: Location Requirements ..............................................................................A12 
+A114
+ Facility: Relocation ..................................................................................................A13 
+A115
+ Alternative Operating Scenario – Not Required ................................................... A13 
+A116
+ Compliance Plan – Not Required .......................................................................... A13 
+A117
+ Pursuant to this Permit: ........................................................................................... A13 
+A200
+ Oil and Gas Industry – Not Required ..................................................................... A13 
+A300
+ Construction Industry – Aggregate – Not Required ............................................... A13 
+A400
+ Construction Industry – Asphalt – Not Required ................................................... A13 
+A500
+ Construction Industry – Concrete – Not Required ................................................. A13 
+Power Generation Industry ......................................................................................................... A13 
+A600
+ Power Generation Industry ..................................................................................... A13 
+A601
+ SOFC Clusters - 260 kW and 325 kW Units .......................................................... A14 
+PART
+ B GENERAL CONDITIONS (Attached)  
+PART C MISCELLANEOUS: Supporting On-Line Documents; Definitions; 
+Acronyms (Attached) 
+NSR Permit No. 10883   Page 3 of 19 
+ 
+PART A FACILITY SPECIFIC REQUIREMENTS 
+A100 Introduction 
+A. This is a new permit. 
+A101 Permit Duration (expiration) 
+A. The term of this permit is permanent unless withdrawn or cancelled by the 
+Department pursuant to Section B113 and/or NMSA 1978, Section 74-2-12.B. 
+B. Except for the equipment identified in Table 104.A, the construction, installation 
+and/or operation of any stationary sources or portable stationary sources of regulated 
+air pollutants  is not authorized by this by permit and explicitly prohibited.  This 
+prohibition includes temporary, portable, and/or  exempt sources pursuant to 
+20.2.72.202 NMAC. 
+A102 Facility: Description 
+A. The function of the facility is to generate power to operate a data center using Bloom 
+Energy Server System fuel cells. This system is a type of solid oxide fuel cell system 
+(SOFC) which electrochemically converts natural gas into electricity  using an 
+electrochemical reaction.  
+B. This facility is located approximately 3.6 miles South of Santa Teresa in New 
+Mexico, Doña Ana County.  
+C. This permit application is for a N ew Source Review (NSR)  construction permit 
+issued pursuant to 20.2.72.200.A(1) NMAC.  The facility will be a microgrid power 
+generation facility  that will consist  of a maximum of  2,275 solid oxide fuel cell 
+(SOFC) clusters with a total electric generating capacity of 2,462 MW. The electric 
+generating capacity of each module is either  260 kW or 325 kW . Fuel cells are 
+arranged in cell  stack -> power module - > energy server  -> cluster -> inverter 
+group/platform. The description of this modification is for informational purposes 
+only and is not enforceable.  
+D. Tables 102.A and Table 102.B show the total potential emission rates (PER)  from 
+this facility for information only. This is not an enforceable condition and excludes 
+emissions from Minor NSR exempt activities per 20.2.72.202 NMAC. 
+ 
+Table 102.A: Total Potential Emission Rate (PER) from Entire Facility 
+Pollutant Emissions (tons per year) 
+Nitrogen Oxides (NOx) 37.2 
+NSR Permit No. 10883   Page 4 of 19 
+ 
+Table 102.A: Total Potential Emission Rate (PER) from Entire Facility 
+Pollutant Emissions (tons per year) 
+Carbon Monoxide (CO) 161.21 
+Volatile Organic Compounds (VOC) 1 124.0 
+Sulfur Dioxide (SO2) 0.08 
+Particulate Matter (PM)2 75.4 
+Particulate Matter 10 microns or less (PM10) 75.4 
+Particulate Matter 2.5 microns or less (PM2.5) 75.4 
+Greenhouse Gas (GHG) as CO2e3 8,820,970 
+1. VOC includes emissions from Fugitives and SSM.  
+2. PM is a regulated new source review pollutant per 20.2.74 NMAC Prevention of Significant Deterioration . No 
+ambient air quality standards apply to PM. 
+3. For reporting purposes only under 20.2.73.300 NMAC. 
+ 
+ 
+Table 102.B: Total Potential Emissions Rate (PER) for *Hazardous Air Pollutants 
+(HAPs)  
+Pollutant  Emissions (tons per year) 
+Benzene 0.2 
+Methanol 1.2 
+Xylenes 0.7 
+Total HAPs** 1.4 
+* HAP emissions are already included in the VOC emission total. 
+** The total HAP emissions may not agree with the sum of individual HAPs because only individual HAPs greater 
+than 1.0 tons per year are listed here. 
+A103 Facility: Applicable Regulations 
+A. The permittee shall comply with terms, conditions and requirements specified in this 
+permit. A list of all applicable sections of the requirements presented in Table 103.A.  
+  
+Table 103.A: Applicable Requirements 
+Applicable Requirements Federally 
+Enforceable 
+Unit 
+No. 
+20.2.1 NMAC General Provisions X Entire Facility 
+20.2.7 NMAC Excess Emissions  
+X (Except for 
+Sections 6(b); 
+110(b)(15); 111; 
+112; 113; 115; 
+and 116 that are 
+State 
+Enforceable 
+Only) 
+Entire Facility 
+NSR Permit No. 10883   Page 5 of 19 
+ 
+Table 103.A: Applicable Requirements 
+Applicable Requirements Federally 
+Enforceable 
+Unit 
+No. 
+20.2.23 NMAC Fugitive Dust Control X All Construction Activities 
+at or for the Facility 
+20.2.61 NMAC Smoke and Visible Emissions X Entire Facility 
+20.2.70 NMAC Operating Permits X Entire Facility 
+20.2.71 NMAC Operating Permit Emission Fees X Entire Facility 
+20.2.72 NMAC Construction Permit X Entire Facility 
+20.2.73 NMAC Notice of Intent and Emissions 
+Inventory Requirements X Entire Facility 
+20.2.75 NMAC Construction Permit Fees X Entire Facility 
+20.2.80 NMAC Stack Heights State Only All Stacks 
+A104 Facility: Regulated Sources  
+A. Table 104.A lists the emission units authorized for this facility.  
+ 
+Table 104.A: Regulated Sources List 
+Unit No. 
+ 
+Source Description 
+ 
+Make Model Serial 
+No. 
+Construction 
+Date 
+Manufacture 
+Date 
+Manufacturer Rated 
+Capacity /Permitted 
+Capacity 
+SOFC-1 
+through 
+SOFC-
+2275 
+1SOFC Clusters – 260 
+kW and 325 kW Units Bloom 
+Energy 
+Server 
+6.5 
+TBD TBD TBD 2,462 MW2 
+SSM 
+Startup, Shutdown, and 
+Maintenance – Venting 
+natural gas during 
+Centralized Desulfurization 
+System (CDS) Filter 
+Replacement 
+N/A N/A N/A TBD N/A N/A 
+1. A group of 260 kW and/or 325 kW Bloom Energy Server “units”  that share a stack are  referred to as an “cluster” for the 
+purpose of this permit.  
+2. “MW” refers to megawatts of electricity. 
+A105 Facility: Control Equipment 
+A. There is no air pollution control equipment for this facility.  
+A106 Facility: Allowable Emissions 
+A. The following Section lists the emission units  and their allowable emission limits .  
+(20.2.72.210.A and B.1 NMAC). 
+ 
+NSR Permit No. 10883   Page 6 of 19 
+ 
+ Table 106.A: Allowable Emissions 
+Unit No. 
+ 
+NOx1 
+pph 
+NOx1
+tpy 
+CO 
+pph 
+CO 
+tpy 
+VOC 
+pph 
+VOC 
+tpy 
+SO2 
+pph 
+SO2 
+tpy 
+PM / 
+PM10 
+pph 
+PM / 
+PM10 
+tpy 
+PM2.5 
+pph 
+PM2.5 
+tpy 
+SOFC-1 
+through 
+SOFC-2275 
+8.5 37.2 36.8 161.2 28.3 124.0 0.02 0.1 17.2 75.4 17.2 75.4 
+1 Nitrogen dioxide emissions include all oxides of nitrogen expressed as NO2 
+2 Excess emissions shall be reported in accordance with 20.2.7 NMAC and Conditions B107 and B109.C.  
+A107 Facility: Startup, Shutdown, & Maintenance (SSM) Requirements 
+A. The allowable startup, shutdown, or maintenance (SSM) activities and maximum 
+allowable emission limits for those activities facility are listed in Section A107 and 
+were relied upon by the Department to determine compliance with applicable 
+regulations. 
+Table 107.A: Authorized SSM Units and Activities 
+Unit No. Description Make Model Serial 
+No. 
+Construction/
+Modification 
+Date 
+SSM 
+Natural gas venting during 
+desulfurization bed media 
+and desulfurization filter 
+replacement for initial start-
+ups, maintenance and 
+shutdown 
+N/A N/A N/A TBD 
+B. The permittee shall limit VOC emissions from all activities related to routine or 
+predictable startup, shutdown, and scheduled maintenance (SSM) to no more than 
+0.34 tons per year.  
+C. The authorization of emission limits for routine or predictable startup, shutdown, or 
+scheduled maintenance does not supersede the requirements to minimize emissions 
+according to General Conditions B101.F and B107.A. 
+SSM condition option 1: 
+D. Method for Determining Compliance with the Startup, Shutdown and Maintenance 
+Natural Gas Venting Emission Limit in Section 107.B – (Unit SSM)  
+Requirement: The permittee shall comply with the monitoring, recordkeeping, and reporting 
+of this condition to demonstrate compliance with the limits from SSM emissions.  
+ 
+(1) The permittee shall calculate the emissions from each event using Equations 1 and 2, the 
+maximum volume of natural gas (Vmax) in cubic feet vented per activity, and the VOC 
+emission factors for each activity. The permittee shall use the maximum volume of natural 
+NSR Permit No. 10883   Page 7 of 19 
+ 
+gas (Vmax) in this condition when determining emissions from SSM events, even if the 
+actual volume of gas vented was less.   
+ 
+Note: The maximum volume of natural gas Vmax is the maximum amount of natural gas 
+that can be vented from the  specific activity, for example venting during one 
+desulfurization startup event based on its physical limitations. Furthermore, the V max of 
+natural gas applies per unit of that activity and is not the sum of all natural gas vented 
+during the event.  
+ 
+Equation 1:  ([Maximum standard cubic feet (scf)/startup] x [Startup/month]) + 
+([Maximum scf/maintenance event] x [Maintenance events/month ]) x [VOC emission 
+factor lb/scf] / [2,000 lb/ton] = VOC tons of emissions per month 
+ 
+Where:  
+ 
+Maximum scf/startup = 780,900 Vmax vented from one startup event at one CDS unit.  
+ 
+Maximum scf/ maintenance = 520,600 Vmax vented from one maintenance event at one 
+CDS.  
+ 
+Startup/month = The number of total startup events that occur at all CDS units each month. 
+ 
+Maintenance events/month = The number of total maintenance events that occur at all 
+CDS units each month. 
+ 
+ 
+VOC emission factor (lb/scf) = The sum of the emission factors for each VOC constituent 
+in the current inlet analysis of the natural gas calculated using Equation 2. 
+ 
+Equation 2:  [Mole Fraction of VOC Constituent] x [Molecular Weight of VOC 
+Constituent (lb/lb-mol)] / [379.4 scf/lb-mol] 
+ 
+(2) Each month, the permittee shall calculate the monthly rolling 12 -month tpy VOC 
+emissions.  
+ 
+(3) Emissions Due to Preventable Events: Emission limits are 0.0 lb/hr and tons/yr for 
+emissions due to preventable events. Emissions that are due entirely or in part to poor 
+maintenance, careless operation, or any other preventable equipment breakdown shall be 
+reported as excess emissions in accordance with 20.2.7 NMAC.  
+ 
+(4) Emission Limits for Unpermitted Activities:  Emission limits are 0.0  lb/hr and tons/yr 
+for emissions for venting from equipment that have no limits in Table 107.A. Emissions 
+due to SSM other than those represented in S ection 107.B shall be reported as excess 
+emissions in accordance with 20.2.7 NMAC. 
+NSR Permit No. 10883   Page 8 of 19 
+ 
+Monitoring:  
+(1) The permittee shall perform an extended gas analysis at the facility inlet at least once per 
+year.  
+ 
+(2) The permittee shall monitor each venting event, the equipment that was vented, and the 
+cause of the event.    
+ 
+(3) Each month, the permittee shall continuously monitor:  
+(a) the number of venting events during the month,  
+(b) the total calculated volume of vented gas during the month using V max for the 
+equipment that was vented as defined in the requirements of this condition,  
+(c) the total tons of VOC emissions vented during the month, and  
+(d) the monthly rolling 12-month total volume of gas and ton per year VOC emissions. 
+ 
+(4) The permittee shall monitor in accordance with Condition B108 of this permit. 
+Recordkeeping:  
+(1) For each natural gas venting event, the permittee shall keep records of: 
+(a) the gas tariff sheet documenting the %VOC,  
+(b) the total calculated volume of gas vented in scf or MMscf using the maximum volume 
+capacity of the equipment that was vented, as defined in the requirements of this 
+condition 
+(c) the calculations used to determine emissions   
+(d) the identification of all equipment that was vented during an event, and  
+(e) the cause or causes of the event.  
+(2) Each month, the permittee shall record the tons per month VOC emissions, and the 
+monthly rolling 12-month tons per year (tpy) VOC emissions from SSM events. 
+The permittee shall keep records in accordance with Condition B109 of this permit. 
+Reporting: The permittee shall report in accordance with Section B110  
+SSM condition option 2: 
+E. Method for Determining Compliance with the Startup, Shutdown and Maintenance 
+Venting Emission Limit in Section 107.B – (Unit SSM)  
+Requirement: The permittee shall limit emissions from routine or predictable startup, 
+shutdown, or maintenance to the limits in Condition A107.B.  
+ 
+(1) The permittee shall process only natural gas fuel required by Condition A110.A in the 
+Central Desulfurization System (CDS).   
+(2) The permittee shall limit startup activities of all CDS units to no more than 570 vessel 
+purges per year.  
+(3) The permittee shall limit shutdown and maintenance activities of the CDS units to no 
+more than 380 vessel purges per year.  
+(4) Emissions Due to Preventable Events: Emission limits are 0.0 for emissions due to 
+preventable events. Emissions that are due entirely or in part to poor maintenance, careless 
+NSR Permit No. 10883   Page 9 of 19 
+ 
+operation, or any other preventable equipment breakdown shall be reported as excess 
+emissions in accordance with 20.2.7 NMAC.  
+(5) Emission Limits for Unpermitted Activities: Emission limits are 0.0 for emissions for 
+venting from equipment that have no limits in Table 107.A. Emissions due to SSM other 
+than those represented in Section 107.B shall be reported as excess emissions in 
+accordance with 20.2.7 NMAC. 
+Monitoring:  
+(1) The permittee shall monitor each SSM event, the equipment that was the source of 
+emissions, associated equipment that contributed to the SSM event, and the cause of the 
+event.    
+ 
+(2) Each month, the permittee shall continuously monitor:  
+(a) the number of CDS startups and the number of CDS shutdowns and maintenance 
+events 
+(b) the number of purge cycles per startup or shutdown and maintenance venting event , 
+and   
+(c) the number of startup or shutdown and maintenance venting events,  
+Recordkeeping:  
+(1) For each SSM event, the permittee shall keep records of: 
+(a) the natural gas fuel records required by condition A110.A,  
+(b) a unique identifier for the CDS at which the SSM event occurred 
+(c) the cause of the SSM event 
+(d) the equipment associated with the SSM event 
+(e) the number of CDS startups and the number of CDS shutdowns and maintenance 
+events, 
+(f) the number of purge cycles per startup or shutdown and maintenance event, 
+(g) and the monthly rolling 12- month total number of CDS startups and the number of 
+CDS shutdowns and maintenance. 
+Reporting: The permittee shall report in accordance with Section B110  
+F. The permittee shall report excess emissions above the authorized emission limits in 
+Table 106.A. For equipment without emission limits, report excess emissions 
+pursuant to Condition B110.E. 
+1. Initial report: the owner or operator shall file an initial report, no later than 
+the end of the next regular business day after the time of discovery of an 
+excess emission that includes all available information for each item in 
+Subsection B of 20.2.7.110 NMAC.                       
+2. Final report: the owner or operator shall file a final report that contains 
+specific and detailed information for each item in Subsection B of 20.2.7.110 
+NMAC, no later than ten (10) days after the end of the excess emission. 
+NSR Permit No. 10883   Page 10 of 19 
+ 
+A108 Facility: Allowable Operations 
+A. This facility is authorized for continuous operation.  Monitoring, recordkeeping, and 
+reporting are not required to demonstrate compliance with continuous hours of 
+operation. 
+B. Facility Throughput - Fuel Limitations 
+Requirement: The permittee shall limit the inlet fuel flowrate to the facility to 136,782 MMscf 
+of natural gas per calendar year.  
+ 
+Pursuant to 20.2.74.300.D NMAC, any increase of the 136,782 MMscf/y of natural gas  limit 
+resulting in an emissions increase that would cause the facility to operate as or have a potential 
+to emit of a Prevention of Significant Deterioration (PSD) major source, will result in  the units 
+approved in construction permit 10883 to be unpermitted and subject to a permit pursuant to 
+20.2.74.300 NMAC as if construction has not yet commenced.  
+Monitoring: The permittee shall continuously monitor the inlet natural gas fuel flowrate to the 
+facility in real time using a monitoring instrument that directly measures the inlet fuel flowrate 
+with an accuracy of ± 2% or better as certified by the device manufacturer. The permittee shall 
+maintain the device according to manufacturer specifications. 
+ 
+The permittee shall meet the General Monitoring Requirements in Section B108. 
+Recordkeeping: The permittee shall keep records of the monthly rolling 12-month total inlet 
+gas flowrate, records of monitoring instrument maintenance, and records of monitoring 
+instrument calibration and according to Section B109.  
+Reporting: The permittee shall report according to Section B110. 
+C. Facility Output - MW limitations 
+Requirement: The permittee shall limit the annual power output generated from natural gas from 
+the facility to 21,567,164 MW-hr per year. 
+(1) The permittee shall generate electric power only by fuel cells arranged in modules Energy 
+Servers of 260 kW and 325 kW. This permit does not authorize any other equipment at the 
+facility to provide power; thus, only fuel cells/modules can generate and provide power. 
+(2) Fuel Cells Modules shall provide all base load and all backup power. 
+Pursuant to 20.2.74.300.D NMAC, any increase of the  annual power output limit of  21,567,164 
+MW-hr per year limit resulting in an emissions increase that would cause the facility to operate as 
+or have a potential to emit of a Prevention of Significant Deterioration (PSD) major source, will 
+result in the units approved in construction permit 10883 to be unpermitted and subject to a permit 
+pursuant to 20.2.74.300 NMAC as if construction has not yet commenced. 
+Monitoring: The Permittee shall continuously monitor  and record  the amount of electricity 
+generated by the facility in units of kilowatt-hours (kWh) for the SOFC system.   
+The permittee shall meet the General Monitoring Requirements in Section B108 
+NSR Permit No. 10883   Page 11 of 19 
+ 
+Recordkeeping: The Permittee shall keep the following records of the amount of electricity 
+generated by the SOFC systems a on monthly rolling 12-month total.  Records shall be kept 
+according to Condition B109. 
+Reporting: The permittee shall report according to Section B110. 
+A109 Facility: Reporting Schedules  
+A. The permittee shall report according to the Specific Conditions and General 
+Conditions of this permit. 
+A110 Facility: Fuel and Fuel Sulfur Requirements  
+A. Fuel and Fuel Sulfur Requirements 
+Requirement:  
+The permittee shall ensure that all fuel used by the SOFC 260 kW and 325 kW Units shall:  
+(1) use only natural gas containing no more than 0.75 grains of total sulfur per 100 dry standard 
+cubic, which meets the gas specifications required by the manufacturer, 
+(2) process all-natural gas used by the SOFC units and clusters  with the  Central 
+Desulfurization System (CDS).  
+Monitoring: The permittee shall continuously monitor the flowrate in real time using a 
+monitoring instrument that directly measures the actual flowrate with an accuracy of ± 2% or 
+better as certified by the device manufacturer: 
+(1) the actual sulfur concentration in the natural gas exiting the Central Desulfurization System 
+(CDS). Such measurements shall be made annually on at least 5%  of installed CDS by 
+obtaining an extended gas analysis on a representative grab sample, 
+(2) the CDS shall be sampled on a rotating basis such that all CDS are sampled during each 
+rotation prior to any CDS being re-sampled. 
+Recordkeeping:  
+The permittee shall keep the following records: 
+(1) a current purchase contract  or tariff sheet  listing the type of fuel and its quality 
+specifications,  
+(2) total measured sulfur content in the natural gas fuel exiting the CDS.   
+Reporting: The permittee shall report in accordance with Section B110. 
+A111 Facility: 20.2.61 NMAC Opacity  
+A. 20.2.61 NMAC Opacity Limit (SOFC 260 kW and 325 kW Units) 
+NSR Permit No. 10883   Page 12 of 19 
+ 
+Requirement: Visible emissions from all Units SOFC-1 through SOFC-2275 shall not equal or 
+exceed an opacity of 20 percent over any 10-minute period.  
+Monitoring: Use of natural gas fuel constitutes compliance with 20.2.61 NMAC unless opacity 
+equals or exceeds 20% averaged over a 10-minute period. At such time as fuel other than natural 
+gas, or when any visible emissions are observed during steady state operation, opacity shall be 
+measured over a 10-minute period in accordance with the procedures at 40 CFR 60, Appendix 
+A, Method 9 as required by 20.2.61.114 NMAC. Opacity measurements shall conti nue on a 
+quarterly basis per calendar year for each affected unit until such time as natural gas are used. 
+Recordkeeping: The opacity measures and readings shall be recorded in accordance with 
+Method 9 in 40 CFR 60, Appendix A.   
+Reporting: The permittee shall report in accordance with Section B110.  
+A112 Facility: Haul Roads – Not Required 
+A113 Facility: Location Requirements 
+A. The permittee shall construct the facility according to the representations in the 
+permit application  and air dispersion modeling  pursuant to Section B101. The 
+Universal Transverse Mercator (UTM) coordinates per Datum WGS84, listed in 
+Table 113.A identify the boundaries in which the facility shall be constructed. Units 
+SOFC-1 through SOFC-2275 must be within this area and as specified in Appendix 
+B – Fuel Cell Stack Housing of the modeling report. 
+Table 113.A Facility Boundary Coordinates 
+Corner Easting (m) Northing (m) 
+Northwest (NW) 340,560.3 3,522,076 
+Northeast (NE) 341,510.2 3,522,199 
+Southeast (SE) 341,537.7 3,520,739 
+Southwest (SW) 340,570.8 3,520,974 
+A114 Facility: Relocation  
+A. This facility or any emissions sources at this facility shall  not be relocated  or 
+repositioned without permit approval pursuant to Conditions B101.A, B, C, and D 
+and 20.2.72.202.B(4) NMAC.  
+NSR Permit No. 10883   Page 13 of 19 
+ 
+A115 Alternative Operating Scenario – Not Required 
+A116 Compliance Plan – Not Required 
+A117 Pursuant to this Permit: 
+A. Pursuant to Condition B110.A “Any term or condition imposed by the department 
+on a permit or permit revision is enforceable to the same extent as a regulation of the 
+board.” 20.2.72.210.D  NMAC The permittee shall comply with the terms and 
+conditions of this permit, including all requirements monitoring, recordkeeping, and 
+reporting. Failure to do so is a violation of this permit and applicable regulations. 
+B. If credible evidence or information obtained by the department or provided to the 
+department by a third party indicates that a source is not in compliance with the 
+provisions of this permit that evidence or information may be used by the department 
+for purposes of establishing whether a person has violated or is in violation of this 
+permit and applicable regulations. 
+A200 Oil and Gas Industry – Not Required 
+A300 Construction Industry – Aggregate – Not Required  
+A400 Construction Industry – Asphalt – Not Required  
+A500 Construction Industry – Concrete – Not Required  
+POWER GENERATION INDUSTRY 
+A600 Power Generation Industry 
+A. This section has common equipment related to most Electric Service Operations 
+(SIC-4911). 
+A601 SOFC Clusters - 260 kW and 325 kW Units  
+A. SOFC Clusters – Remote Monitoring 
+Requirement: The permittee shall continuously monitor gas pressure and temperature within 
+each SOFC Unit.  
+ 
+Each SOFC Unit shall be equipped with automated controls that  initiate immediate shutdown 
+and isolation of the affected unit  following detection of out -of-range parameters. All excess 
+emissions or emissions due to malfunction shall be calculated and reported in accordance with 
+NSR Permit No. 10883   Page 14 of 19 
+ 
+20.2.7 NMAC. 
+ 
+Within 90 days of the issue date of permit 10883, the permittee shall submit to the Department 
+Permit Program Manager for approval a comprehensive monitoring plan which will establish 
+pressure and temperature ranges which indicate that atmospheric venting may be occurring. For 
+purposes of determining compliance with the monitoring requirements of this Condition, prior 
+to approval the permittee shall comply with the submitted monitoring plan (Condition A601.H). 
+ 
+The sensors shall be maintained in accordance with manufacturer specifications.   
+Monitoring: The permittee shall continuously monitor pressure and temperature within each 
+SOFC Unit using sensors according to the approved monitoring plan. Any abnormal operational 
+condition identified by the monitoring system shall be investigated by the permittee, reported 
+and corrected in accordance with the General Reporting Requirements Section B100, and 
+20.2.72 NMAC Sections 210 and 212. 
+ 
+The permittee is subject to General Monitoring Requirements in Condition B108. 
+Recordkeeping: The permittee shall maintain output readings of the temperature and pressure 
+from the sensors recorded at least once per hour.  
+ 
+For each out-of-range parameter, the permittee shall record: 
+(1) Dates and times of onset and resolution, 
+(2) Duration, 
+(3) Affected unit numbers, 
+(4) Cause of the temperature and/or pressure excursion, 
+(5) Corrective actions taken, 
+(6) Excess emissions estimated in accordance with the requirements in 20.2.7 NMAC. 
+ 
+The permittee shall also record the unit numbers that were shut down and shall make the 
+monitoring plan available to Department personnel upon request.  
+ 
+The permittee shall maintain records in accordance with the applicable Sections in B109, B110, and 
+B111. 
+Reporting: The permittee shall report in accordance with the applicable Sections B109, B110, and 
+B111. All excess emissions or emissions due to malfunctions shall be reported in accordance with 
+20.2.7 NMAC. 
+B. 20.2.80 NMAC – Stack Heights (SOFC Cluster)  
+Requirement: The permittee shall ensure that each stack height of each SOFC cluster shall be 
+at least 30 feet above ground.  
+Monitoring:  
+The permittee shall demonstrate compliance by measuring and verifying the height of each stack 
+following installation. 
+NSR Permit No. 10883   Page 15 of 19 
+ 
+ 
+The permittee shall meet the General Monitoring Requirements in Section B108 
+Recordkeeping: The permittee shall maintain records of the stack heigh t measurements and in 
+accordance with the applicable Sections in B109, B110, and B111.  
+Reporting: The permittee shall report in accordance with Section B110. 
+C. Maintenance and repair monitoring –SOFC Units and SOFC Clusters 
+Requirement: At all times, t he permittee shall demonstrate compliance with the allowable 
+emission limits in Table 106.A by operating and maintaining each SOFC Unit and SOFC cluster 
+in a manner consistent with manufacturer guidelines and procedures to minimize emissions  to 
+the extent practicable.  
+Monitoring:  
+(1) The Permittee shall  install, calibrate, operate and maintain a monitoring system that 
+produces sufficient data to ensure that manufacturer guidelines and procedures are properly 
+followed. 
+(2) At a minimum, the monitoring system shall  determine when a SOFC Energy Server or 
+SOFC cluster must be shut down for maintenance or repairs; and notify facility personnel 
+that maintenance or repairs are needed. 
+  
+The permittee shall meet the General Monitoring Requirements in Section B108 
+Recordkeeping:   
+The permittee shall maintain records in accordance with Section B109, including records of 
+maintenance and repair activities and a copy of the manufacturer’s  or permittee’s recommended 
+maintenance schedule and in accordance with the applicable Sections in B109, B110, and B111. 
+Reporting:   
+The permittee shall report in accordance with Section B110.  
+D. Initial Compliance Testing SOFC Clusters 
+Requirement: The permittee shall demonstrate compliance with the allowable emission limits in 
+Table 106.A by performing initial compliance tests for a representative number of SOFC clusters as 
+specified under this Condition. The number of SOFC clusters subject to testing during a calendar 
+quarter equals 1% of SOFC clusters meeting either of the following “ initial stack test vesting” 
+criteria:  
+(1) the SOFC clusters have achieved their maximum normal production date at 
+least (60) days prior to the end of such calendar quarter; OR  
+(2) the SOFC clusters have started up at least (180) days prior to the end of such 
+calendar quarter and are not part of the group of clusters that met initial stack 
+test vesting criteria in a prior calendar quarter.  
+(3) If fewer than 600 clusters meet the stack test vesting criteria above, then at least 
+6, or the total number of clusters meeting such criteria (whichever is lesser) 
+shall be tested. 
+Monitoring: The permittee shall perform an initial compliance test in accordance with the General 
+Testing Requirements of Section B111. Emission testing is required for NOx, CO, VOC, PM10, and 
+NSR Permit No. 10883   Page 16 of 19 
+ 
+PM2.5.  
+ 
+The permittee shall meet the General Monitoring Requirements in Section B108, except the 
+monitoring exemptions in Condition B108.D do not apply to this condition.  
+Recordkeeping: The permittee shall include in each test notification and report submittal the total 
+number of clusters satisfying the initial stack test vesting criteria of paragraph D of this 
+Condition for that calendar quarter , and the total number of clusters to be tested  during the 
+calendar quarter, unit ID numbers, and the unit ID number and size (260 or 325 kW) of each 
+cluster tested 
+ 
+The permittee shall maintain records in accordance with the applicable Sections in B109, B110, and 
+B111.  
+Reporting: The permittee shall report in accordance with the applicable Sections B109, B110, 
+and B111. 
+E. Periodic Testing SOFC Clusters 
+Requirement:  
+ 
+1) The permittee shall demonstrate compliance with the allowable emission limits in 
+Table 106.A by completing periodic emissions tests for SOFC clusters. The permittee 
+shall test 1% of the SOFC clusters that meet "initial stack test vesting" in each calendar 
+year within each subsequent calendar year. The testing requirement for each “initial 
+stack test vesting” year shall continue to apply in all subsequent years and shall not be 
+superseded by the installation of additional clusters. The clusters that met “initial stack 
+test vesting” year shall be tested on a rotating basis such that all clusters are sampled 
+during each rotation prior to any cluster being retested. 
+ 
+            The permittee shall test the lowest performing (in terms of efficiency) clusters that have        
+not yet been tested. 
+2) If all results of initial compliance tests and the first year of periodic testing are less than 
+75% of the values in Table A601.E(2), or below the relevant limit of detection for the 
+reference test method, the permittee may reduce testing to a total of 2 SOFC clusters per 
+stack test vesting year: 
+Table A601.E(2)  
+Pollutant Value (lb/MW-hr) 
+NOx 3.00E-03 
+CO 1.30E-02 
+VOC 1.00E-02 
+PM10 6.08E-03 
+PM2.5 6.08E-03 
+ 
+3) The permittee shall resume periodic annual testing of 1% of all SOFC clusters per year if a 
+test result exceeds the relevant limit of detection for the reference test method and exceeds 
+the values in Table A601.E(3): 
+NSR Permit No. 10883   Page 17 of 19 
+ 
+Table A601.E(3)  
+Pollutant Value (lb/MW-hr) 
+NOx 3.00E-02 
+CO 1.30E-01 
+VOC 1.00E-01 
+PM10 6.08E-02 
+PM2.5 6.08E-02 
+ 
+Monitoring: The permittee shall test using EPA Reference Methods subject to the requirements 
+and limitations of Section B108, General Monitoring Requirements. Emission testing is required 
+for NOx, CO, VOC, PM10, and PM2.5 and shall be carried out as described below:  
+ 
+(1) The testing shall be conducted as follows: 
+(a) Testing frequency shall be at least once per year.  
+(b) The monitoring period is defined as a calendar year. 
+(2) The first periodic test shall occur for each initial stack test vesting year  after completion of 
+the last initial compliance test. 
+(3) All subsequent monitoring shall occur in each succeeding monitoring period. No two 
+monitoring events shall occur closer together in time than 25% of a monitoring period. 
+(4) The permittee shall follow the General Testing Procedures of Section B111.  
+The permittee is subject to General Monitoring Requirements in Condition B108. 
+Recordkeeping: The permittee shall maintain records in accordance with the applicable Sections 
+in B109, B110, and B111.  
+Reporting: The permittee shall report in accordance with the applicable Sections in B109, B110, 
+and B111.  
+ 
+F. Operation and Emission Calculation  
+Requirement: 
+The permittee shall demonstrate compliance with the allowable emission limits in Table 106.A by 
+performing the following monitoring, recordkeeping, and reporting for the facility.  
+ 
+Each Energy Server shall be equipped with a load meter, which shall continuously record the 
+electrical output of each Energy Server.  
+Monitoring:   
+The Permittee shall continuously monitor the total hourly electrical output of each Energy 
+Server. 
+ 
+The Permittee shall meet the General Monitoring Requirements in Condition B108. 
+Recordkeeping:   
+NSR Permit No. 10883   Page 18 of 19 
+ 
+The Permittee shall keep records of the total hourly electrical output of each Energy Server and 
+the total for the entire facility. 
+ 
+The Permittee shall use the records of the maximum electrical output per month and monthly hours 
+of operation of each Energy Server and the emission rates from stack tests required by Conditions 
+A601.D and E to calculate the monthly total ton per year NOx, CO, VOC, PM10, and PM2.5 emissions 
+from the entire facility using the following equation:  
+E = (EF × H) / 2,000  
+Where:  
+E = Monthly NOX (or CO, VOC, PM10, and PM2.5) emissions (tons/month)  
+EF = NOX (or CO, VOC, PM10, and PM2.5) emission factor ( lb/MW-hr), based on the maximum 
+results from the most recent stack tests. 
+H = total monthly electrical output (MWhr/mo) 
+ 
+The Permittee shall use the monthly records to calculate the monthly rolling 12-month total ton per 
+year NOX, CO, VOC, PM10, and PM2.5 emissions from the entire facility.  
+ 
+Compliance with SO2 emissions will be calculated based on the extended gas analysis results 
+obtained annually using the following equations: 
+ 
+SO2 emission rate (lb/MWhr) = F / P / S * MSO2/MS * Y 
+ 
+F = fuel consumption in standard cubic feet per hour 
+P = electrical capacity in operation in MW 
+S = standard molar volume of natural gas in ft3/lb-mol natural gas, 359 ft3/lb-mol natural gas 
+MSO2 = molar mass of sulfur dioxide, 64 lb SO2/lb-mol SO2 
+MS = molar mass of sulfur, 32 lb S/lb-mol S 
+Y = measured lb-mol S/lb-mol natural gas 
+ 
+SO2 emissions (tons) = SO2 emission rate (lb/MWhr) * H / 2000-lb/ton 
+ 
+H = total monthly electrical output (MWhr/mo) 
+ 
+The Permittee shall maintain records of all required calculations.  
+ 
+The permittee shall maintain records in accordance with the applicable Sections in B109, B110, and 
+B111.  
+Reporting:   
+The permittee shall report in accordance with the applicable Sections in B109, B110, and B111.  
+G. Natural Gas Leaks 
+Requirement: The sum of the natural gas flow rates to all SOFC Units shall not be less than 
+98% of total natural gas at the inlet of the facility as measured in Condition A.108B. 
+Monitoring:  
+The permittee shall continuously monitor the sum of the natural gas flow rates to all 
+SOFC Units using a monitoring instrument that directly measures the inlet flowrate with 
+NSR Permit No. 10883   Page 19 of 19 
+ 
+an accuracy of ± 2% or better. The permittee shall calculate the difference between the 
+sum of natural gas flow rates to all SOFC Units and the total natural gas at the inlet of 
+the facility as measured in Condition A.108B. The difference between these values shall 
+be the volume of natural gas vented.  
+ 
+The permittee is subject to General Monitoring Requirements in Condition B108. 
+Recordkeeping:   
+1. The permittee shall keep the following records: The monthly 12-month rolling sum of 
+flowrates to all SOFC Units. 
+2. The monthly 12-month rolling difference between the sum of natural gas flow rates to all 
+SOFC Units and the total natural gas at the inlet of the facility as measured in Condition 
+A.108B. 
+Reporting:   
+The permittee shall report in accordance with Section B110.  
+H. Continuous Monitoring System (CMS) 
+Within 90 days of the issue date of permit 10883, the permittee is required to submit to the 
+Department a comprehensive monitoring plan to include at minimum continuous 
+monitoring of the facility’s CDS SSM events  (A107.D and A107.E);  gas flowrate 
+(A108.B); electrical output measurements  (MW) (A108.C); exiting sulfur concentration 
+measurements (A110.A); temperature and pressure readings, (A601.A), and natural gas 
+leaks flowrates at the SOFC Units (A601.H). 
+For the purpose of this condition 40 CFR 63 defines a Continuous Monitoring System 
+(CMS) as a comprehensive term that may include, but is not limited to, continuous 
+emission monitoring systems , continuous opacity monitoring systems , continuous 
+parameter monitoring systems , or other manual or automatic monitoring that is used for 
+demonstrating compliance with an applicable regulation on a continuous basis  as defined 
+by the regulation.  
+ 
+PART B  GENERAL CONDITIONS (Attached) 
+PART C  MISCELLANEOUS: Supporting On-Line Documents; Definitions; 
+Acronyms (Attached) 

@@ -14,7 +14,7 @@ export type AudiencePanel = {
   ctaLabel: string;
 };
 
-// highlightPairs indices: 0 $4.7B+1.9B · 1 $269.5M water · 2 $1B schools · 3 $50M institute · 4 jobs · 5 NOx monitored · 6 capture · 7 water for homes
+// highlightPairs indices: 0 $4.7B+1.7B · 1 $269.5M water · 2 $1B schools · 3 $50M institute · 4 jobs · 5 NOx monitored · 6 capture · 7 water for homes
 export const audiencePanels: Record<Audience, AudiencePanel> = {
   expert: {
     title: "The full record",
@@ -36,9 +36,9 @@ export const audiencePanels: Record<Audience, AudiencePanel> = {
     title: "What this means for the air, the water, the land and the people here",
     intro: "A data center is not only an economy question. It is a question about the sky over Sunland Park, the aquifer under everyone's wells, and the people who will live beside it for the next hundred years. Here is what the plan as filed does to them, and what the upgrade gives back.",
     bullets: [
-      { text: "Air: as filed, about 10 million tons of CO₂ a year and each smog gas kept just under the strict-review line, over a valley that has failed the federal ozone standard since 2018. Upgraded: the CO₂ is caught and used, and every stack has a public meter.", sources: ["sob", "sunland-park-ozone", "ala-sota-2025"] },
+      { text: "Air: as filed, 8.8 million tons of CO₂ a year permitted, with smog gases estimated from one small test unit and never measured, beside a valley that has failed the federal ozone standard since 2018. Upgraded: the CO₂ is caught, metered and used, and every stack has a public meter.", sources: ["sob", "sob-part-a", "sunland-park-ozone", "ala-sota-2025"] },
       { text: "Water: as filed, drinking water taken from the local utility and more pumped from the fresh aquifer; 103 million gallons went to construction in five months. Upgraded: 5 million gallons a day of clean water made from salty groundwater nobody could drink, and given to the towns.", sources: ["cba", "haussamen-water", "cbd-well", "nmsu"] },
-      { text: "Land and food: as filed, the acres beside the fans stay bare desert and about 2,400 MW of heat is blown into the sky. Upgraded: 150 acres of greenhouses grow about 60 million pounds of food a year on that heat, without pesticides.", sources: ["render", "sweden", "notice"] },
+      { text: "Land and food: as filed, the acres beside the fans stay bare desert and about 2,400 MW of heat is blown into the sky. Upgraded: 150 acres of greenhouses grow up to about 60 million pounds of food a year on that heat, with far fewer pesticides than field farming.", sources: ["render", "agriport", "notice"] },
       { text: "People: as filed, 750 binding jobs. Upgraded: about 3,000, with a training school on site so the work goes to people who already live here, and gas hours that fall every year as geothermal and wind take over.", sources: ["cba", "epm-jobs", "fervo-google"] },
     ],
     links: [
@@ -60,9 +60,9 @@ export const audiencePanels: Record<Audience, AudiencePanel> = {
       { text: "About 3,000 permanent jobs in Phase 1 against the 750 the signed agreement requires, with staffing tied to the lease so the number is enforceable, not advertised.", sources: ["cba", "epm-jobs"] },
       { text: "A conditioned bond schedule of about $1 billion over 30 years for schools, infrastructure and services, against $360 million today, paid as jobs and emissions targets are verified.", sources: ["cba", "county-qa"] },
       { text: "Five million gallons a day of new drinking water delivered to CRRUA from the plant NMSU already designed and priced at $269.5 million, instead of a $250,000 study of the same idea.", sources: ["nmsu", "cba"] },
-      { text: "Day-one carbon capture on the fuel-cell stacks, with every ton of smog measured continuously and published, in a county that already fails the ozone standard.", sources: ["sob", "sunland-park-ozone", "ala-sota-2025"] },
-      { text: "Three bills are drafted and ready to sponsor: Microgrid Oversight, Waste-Heat Reuse, and Data Center Standards. The Microgrid Oversight Act (SB 235) passed the Senate in 2026.", sources: ["dailylobo"] },
-      { text: "Cost to the developer is about 1.5% of the $165 billion bond; the county's only enforcement tool is the IRB lease, so the conditions have to be written in before the fuel cells arrive.", sources: ["cba"] },
+      { text: "Capture-ready stacks from day one with metered capture, and every ton of smog measured continuously and published, in a county that already fails the ozone standard; the draft permit requires no continuous monitor.", sources: ["sob", "sob-part-a", "sunland-park-ozone", "ala-sota-2025"] },
+      { text: "Bills in play: the Microgrid Oversight Act (SB 235) passed the Senate in 2026 and died in the House, with sponsors planning to reintroduce it; a statewide data-center moratorium is proposed for 2027 with no text yet; a waste-heat reuse rule is this site's proposal.", sources: ["dailylobo", "krwg-reintro", "sourcenm-moratorium"] },
+      { text: "Cost to the developer is about 2.5% of the $165 billion bond cap before the federal capture credit; the county's only enforcement tool is the IRB lease, which can be amended only by agreement, so the conditions have to be negotiated in at the next consent the companies need.", sources: ["cba", "sandoval-intel"] },
     ],
     links: [
       { label: "The three bills and who to call", href: "/legislators" },
@@ -71,9 +71,9 @@ export const audiencePanels: Record<Audience, AudiencePanel> = {
     ],
     highlightsOrder: [4, 2, 0, 1, 5, 6, 3, 7],
     heroSubhead: "3,000 enforceable jobs, $1 billion for schools over 30 years, 5 million gallons of new water a day, and a permit the courts will let stand.",
-    whatIsIntro: "For an elected official the question is simple: the county's leverage is the lease, and the lease is being finalized now. Here is what the documents say the project is, and what six conditions would change.",
+    whatIsIntro: "For an elected official the question is simple: the county's leverage is the lease, and the lease can be changed only by agreement, at the consents the companies still need. Here is what the documents say the project is, and what six conditions would change.",
     netlossIntro: "On the developers' own filed numbers, here is what each year of the plan as filed costs the county, and what the same years deliver under the upgrade.",
-    speedIntro: "Same site, same timeline, same builder. The upgrade adds about 1.5% to the bill and changes the outcome from a net loss to a net gain.",
+    speedIntro: "Same site, same builder. The upgrade adds about 2.5% of the bond cap up front, most of it repayable by the federal capture credit, and changes what the county gets out of it.",
     ctaLabel: "See the bills and the conditions",
   },
   homeowner: {
@@ -81,9 +81,9 @@ export const audiencePanels: Record<Audience, AudiencePanel> = {
     intro: "You live next to it, drink the same water and breathe the same air. Here is what the plan as filed takes, and what the upgrade gives back.",
     bullets: [
       { text: "Water: the filed plan takes up to 20,000 gallons a day of drinking water from CRRUA and pumps an undisclosed amount more from a fresh-aquifer farm right; 103 million gallons went to construction in five months. The upgrade adds 5 million gallons a day of clean water to CRRUA's pipes, enough for about 16,700 homes.", sources: ["cba", "haussamen-water", "cbd-well", "nmsu", "epa-watersense"] },
-      { text: "Air: Sunland Park has failed the federal ozone standard since 2018 and the county gets an F grade. The filed permit adds up to 250 tons a year of each smog gas. The upgrade keeps the same fuel cells but captures the CO₂ and puts continuous monitors on the stacks with the data public.", sources: ["sunland-park-ozone", "ala-sota-2025", "sob"] },
+      { text: "Air: Sunland Park has failed the federal ozone standard since 2018 and the county gets an F grade. The draft permit puts the plant's NOx at 37 tons a year, estimated from four tests of one small unit, with no continuous monitor required. The upgrade keeps the same fuel cells but meters the CO₂ capture and puts continuous monitors on the stacks with the data public.", sources: ["sunland-park-ozone", "ala-sota-2025", "sob", "sob-part-a"] },
       { text: "Traffic: produce trucks use their own gate on the public road, so farm traffic never mixes with the secure entrance.", sources: ["render"] },
-      { text: "Food and prices: about 60 million pounds a year of local, pesticide-free produce from 150 acres of greenhouses next to the halls (industry-average estimate).", sources: ["sweden"] },
+      { text: "Food and prices: up to about 60 million pounds a year of local produce from 150 acres of greenhouses next to the halls, grown with far fewer pesticides than field farming (industry estimate).", sources: ["agriport"] },
       { text: "Jobs within driving distance: about 1,500 greenhouse, water, capture and training jobs on top of the 1,500 tech jobs they advertise, with an NMSU / DACC institute on site.", sources: ["cba", "epm-jobs"] },
       { text: "What to ask your commissioner: are the six conditions in the lease yet? Today the answer is no.", sources: ["cba"] },
     ],
@@ -103,13 +103,13 @@ export const audiencePanels: Record<Audience, AudiencePanel> = {
     title: "What this means if you want to invest, lease, sell or build here",
     intro: "The upgrade creates businesses that do not exist in the filed plan: greenhouse leases, water sales, heat sales, packing and logistics, and a trained workforce. Here is the money side, with every figure labeled.",
     bullets: [
-      { text: "Greenhouse land: about 150 acres inside the fence, leased to commercial growers, with warm water and CO₂ piped in. Lease plus heat revenue to the developer is estimated at about $130,000 per acre a year; growers get winter heat at a fraction of gas cost (estimate).", sources: ["sweden", "cba"] },
+      { text: "Greenhouse land: about 150 acres inside the fence, leased to commercial growers, with warm water and CO₂ piped in. Lease plus heat revenue to the developer is estimated at about $40,000 to $60,000 per acre a year with heat priced near propane parity (estimate).", sources: ["agriport", "cba"] },
       { text: "Water: a 5 MGD plant priced by NMSU at $269.5 million for the whole system, selling to CRRUA whose demand is projected at 6 MGD by 2027 and 15 by 2042.", sources: ["nmsu"] },
       { text: "Packing and logistics: a packing house on the public road at the Santa Teresa border crossing, with its own gate, feeding the produce trade that already runs through the port of entry.", sources: ["render"] },
       { text: "Workforce: a $50 million NMSU / DACC institute on site training for power, water, greenhouse and hardware jobs, against $4 million for workforce education in the signed agreement.", sources: ["cba"] },
-      { text: "For the developer: lower fan and chiller electricity (the heat is sold instead of blown away), lease and water revenue, and a permit that survives review. The signed CBA already offsets $4.5 million in permit fees; the county could put similar certainty on the table for a plan that meets the conditions (our proposal, not a promise).", sources: ["cba", "nmpr-stay"] },
-      { text: "Total added cost is about 1.5% of the $165 billion bond, with the greenhouses off the developer's balance sheet.", sources: ["cba"] },
-      { text: "For Oracle, Meta, STACK or BorderPlex: a capture-first, monitored, geothermal-backed campus is the version that ends the court stays and the 2027 moratorium talk. To our knowledge it would be the first hyperscale campus in the country to combine capture, heat reuse, water production and a public emissions meter, and it hands investor relations five auditable numbers a quarter: tons captured, gas hours avoided, gallons delivered, jobs verified, lease revenue per acre. That is the line for the earnings call, and it is what takes the legislators off your back.", sources: ["nmpr-stay", "sourcenm-moratorium", "dailylobo", "fervo-google"] },
+      { text: "For the developer: heat sold instead of blown away, lease and water revenue, the federal 45Q credit on captured CO₂, and a permit that survives review. The signed CBA already offsets $4.5 million in permit fees; the county could put similar certainty on the table for a plan that meets the conditions (our proposal, not a promise).", sources: ["cba", "nmpr-stay"] },
+      { text: "Total added capital is about $3.4 to 3.9 billion, about 2.5% of the $165 billion bond cap or 8% of the $50 billion first phase, before the 45Q credit, with the greenhouses off the developer's balance sheet.", sources: ["cba", "irs-45q"] },
+      { text: "For Oracle, STACK or BorderPlex: a capture-first, monitored, geothermal-backed campus is the version that ends the court stays and the 2027 moratorium talk. To our knowledge it would be the first hyperscale campus in the country to combine capture, heat reuse, water production and a public emissions meter, and it hands investor relations five auditable numbers a quarter: tons captured, gas hours avoided, gallons delivered, jobs verified, lease revenue per acre. That is the line for the earnings call, and it is what takes the legislators off your back.", sources: ["nmpr-stay", "sourcenm-moratorium", "dailylobo", "fervo-google"] },
     ],
     links: [
       { label: "The cost table and who pays", href: "/blueprint#cost" },
@@ -117,10 +117,10 @@ export const audiencePanels: Record<Audience, AudiencePanel> = {
       { label: "Help improve the plan", href: "/#help" },
     ],
     highlightsOrder: [0, 1, 3, 4, 6, 7, 2, 5],
-    heroSubhead: "New leases, new water to sell, heat that is sold instead of thrown away, and a trained workforce on site, for about 1.5% more cost.",
+    heroSubhead: "New leases, new water to sell, heat that is sold instead of thrown away, and a trained workforce on site, for about 2.5% of the bond cap before the federal credit.",
     whatIsIntro: "For an investor or an operator, the filed plan is a closed box: one tenant, one product, no side businesses. Here is what it is, and what six conditions would open up on the same land.",
     netlossIntro: "The as-filed column is what the site produces for anyone but the tenant: nothing. The upgraded column is the new revenue, year by year.",
-    speedIntro: "How fast and how cheap: same schedule, same builder, about 1.5% more capital, most of it from growers, not the developer.",
+    speedIntro: "How fast and how cheap: same builder, about 2.5% of the bond cap in added capital, most of the capture line repayable by 45Q, and the greenhouses on grower capital.",
     ctaLabel: "See what it costs and who pays",
   },
   kid: {

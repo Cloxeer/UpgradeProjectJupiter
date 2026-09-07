@@ -62,7 +62,7 @@ export default function PetitionPage() {
                     ))}
                   </ol>
                   <p className="mt-5">
-                    Same land. Same timeline. About 1.5% more money. Clean air, new water, local food, and about 3,000 permanent jobs instead of the
+                    Same land. Same buildings. About 2.5% more up front, most of it repayable by the federal capture credit. Clean air, new water, local food, and about 3,000 permanent jobs instead of the
                     750 they signed for. Their own plan, finished properly.
                   </p>
                 </div>
