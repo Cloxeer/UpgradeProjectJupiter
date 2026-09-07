@@ -1,0 +1,907 @@
+Date: 7/29/2026  Page 1 of 14 
+DRAFT AS OF 7/29/2026 
+ 
+Statement of Basis - Narrative 
+NSR Permit  
+Type of Permit Action:   Regular-New   
+Facility: YGI Microgrid 
+Company: Yucca Growth Infrastructure, LLC 
+Permit No(s).: 10883 
+Tempo/IDEA ID No.: 41351 - PRN20260001 
+Permit Writer: Julia Kuhn 
+ 
+Fee Tracking (Complete Table for NSR. Not required for Title V) 
+Tracking 
+NSR tracking entries completed: [X] Yes [] No 
+NSR tracking page attached to front cover of permit folder: [X] Yes [] No 
+Paid Invoice Attached: [X] Yes [] No 
+Balance Due Invoice Attached: [] Yes [] No N/A 
+Invoice Comments: $16,170.00 paid in full 
+ 
+Permit 
+Review 
+Date to Enforcement: 7/14/2026 Date of Enforcement Reply: 7/21/2026 
+Date to Applicant: 7/13/2026 Date of Applicant Reply: 7/16/2026 
+Date to EPA: N/A Date of EPA Reply: N/A 
+Date to Supervisor: 7/14/2026, 7/28/2026 
+ 
+ 
+1.0 Facility Process Description:  
+The facility will generate electricity using fuel cells. Fuel cells emit NOx, CO, VOC, SO2, PM, PM10, 
+and PM2.5 emissions as a byproduct of chemical and electrical (chemoelectrical) reactions. Other 
+byproducts from power generation include heat and steam.   
+ 
+The facility will use a Bloom Energy Server System, which is a type of solid oxide fuel cell system 
+(SOFC). The SOFC system converts natural gas into electricity through an electrochemical 
+reaction. Each individual fuel cell is composed of three layers: a solid ceramic electrolyte 
+sandwiched between a cathode and an anode, where the anode and cathode are made from 
+inks that coat the electrolyte. No precious metals, corrosive acids, or molten materials are 
+required. Natural gas enters the anode side, where it is mixed with steam to produce reformed 
+fuel through Direct Internal Reforming (DIR). As the reformed fuel crosses the anode, it attracts 
+oxygen ions from the air on the cathode side. The oxygen ions combine with the reformed fuel 
+to produce electricity, water, heat, and carbon dioxide. The water and heat are recycled to 
+produce the steam needed to reform the fuel, enabling a highly efficient electrochemical 
+reaction occurring at 700–900 degrees Celsius.  
+ 
+Individual cells are combined into stacks, then into power modules containing hundreds of 
+individual fuel cells that produce direct current power. The modules are packaged into Energy 
+Servers, which combine the power modules with a fuel processing module and an AC module 
+containing DC-to-AC converters and transformers to produce 325 kW of net AC power. A 
+minority of smaller units produce 260 kW of net AC power.  
+Date: 7/29/2026  Page 2 of 14 
+ 
+The fuel cells are organized/arranged as follows: cell and stack -> power module -> energy server 
+-> cluster -> inverter group/platform. The proposed Bloom Energy Server System deploys co-
+functioning Energy Servers to create an integrated system capable of sustaining the target 
+output represented for each applicable scenario (260 kW or 325 kW). Depleted anode exhaust, 
+which is approximately 95 percent carbon dioxide once dried, is discharged to the atmosphere 
+as greenhouse gas (GHG). The air emissions from the Energy Servers consist of depleted anode 
+exhaust, which contains criteria air pollutants consisting of NOx, CO, VOC, SO2, PM, PM10, PM2.5, 
+and HAPs. The applicant seeks authorization to operate the Bloom Energy Server System at its 
+maximum rated load for 8,760 hours per year. 
+ 
+Startup, Shutdown, and Maintenance (SSM) routine or predictable emissions: Maintenance 
+activities include hot swap of power modules approximately once per five years, replacement of 
+desulfurization bed media once per two years, and as-needed individual component (e.g., 
+blower) replacements. Air emissions (natural gas venting) will occur during desulfurization bed 
+media replacements and during desulfurization unit initial start-ups. Approximately ninety-five 
+Central Desulfurization System (CDS) skids/blocks will be installed, consisting of two vessels in a 
+lead/lag configuration for desulfurization. Each vessel has a volume of 1,370 standard cubic feet.  
+ 
+2.0 Description of this Modification:  
+This permit application is for a new source review (NSR) construction permit submitted pursuant 
+to 20.2.72.200.A(1) NMAC for a microgrid power generation facility to generate power for a 
+nearby (potentially adjacent) data center. The facility will generate power using fuel cells which 
+are solid oxide fuel cell (SOCF) Bloom Energy Server System 260 kW and 325 kW. Energy Server 
+“clusters” are routed to a total of 2,275 exhaust stacks as emission sources. The site will be a 
+major source for Title V (20.2.70 NMAC). 
+ 
+3.0 Source Determination from Section 11 of the permit application:   
+1. The emission sources evaluated include the Units listed in Tables 2-A and 2-B of permit 
+application corresponding to Permit # 10883. NMED has undertaken a preliminary analysis 
+(below) of whether the data center and/or any nearby future facility (for which there is no 
+submitted application(s)) may be aggregated.                                                                                                                                                                                                                                                                                                                                               
+ 
+2. Single Source Analysis (including preliminary analysis):  
+ 
+A. SIC Code: Do the facilities belong to the same industrial grouping (i.e., same two-digit 
+SIC code grouping, or support activity)? N/A, if an aggregation analysis is conducted in the 
+future, the microgrid and any future associated entities, such as the data center, may have 
+different SIC Codes. 
+B. Common Control: Are the facilities under common ownership or control? N/A. 
+Currently, the microgrid and data center are owned and operated by separate entities, and 
+data center has no pollutant emitting activities.  If an aggregation analysis is conducted in 
+the future to include any associated nearby facility, NMED would need to evaluate the 
+relationship between the microgrid and any future associated facility under relevant 
+guidance and historical interpretations.   
+C. Contiguous or Adjacent: Are the facilities located on one or more contiguous or adjacent 
+properties? N/A If an aggregation analysis is conducted in the future, the microgrid and the 
+data center, or any future associated facility will need to be evaluated.  
+Date: 7/29/2026  Page 3 of 14 
+ 
+3. Is the source, as described in the application, the entire source for 20.2.70, 20.2.72, 20.2.73, 
+or 20.2.74 NMAC applicability purposes?  Yes. At this time only the microgrid has applied for an 
+air permit and it is not expected that the data center, or any other associated entity, will require 
+an air permit in the future.  As noted above, if an aggregation analysis is conducted in the future, 
+NMED will determine whether the microgrid and data center, or any other associated entity 
+requesting an air permit should be considered as a single source for the purpose of determining 
+construction permit and Title V permit requirements. Even if the facilities are considered as a 
+single source for purposes of air permitting, the facilities may be able to operate under separate 
+construction and Title V permits; however, the total emissions of regulated air pollutants for all 
+such pollutants will then be combined to determine permit requirements.  
+ 
+4.0 Prevention of Significant Deterioration (PSD) Applicability:  
+ 
+A. Emissions from the microgrid will be considered a single source unless a future aggregation 
+analysis indicates that the data center (which currently has no air emissions) should be 
+combined together as a single source. If the data center had pollutant emitting activities and 
+the two locations were aggregated, the combined emissions from both facilities could 
+potentially be a PSD minor or major source if this permit is issued.  
+ 
+The following is a statement from the applicant in response to AQB’s request for 
+information regarding the source determination for the two facilities.  
+ 
+“The Companies maintain the position that this information is not relevant to the issuance of its air 
+permit application under the New Mexico Air Quality Control Act. The YGI Microgrid will provide 
+power to the proposed data center. To clarify the statement in the cover letter, the application 
+does not specifically cover the data center. Rather, the power generation equipment necessary to 
+provide both primary and backup power supply for the data center are the Energy Servers included 
+in the application. So, both the primary and emergency backup power needs for the data center 
+are reflected in the application. In other words, the Companies expect that no additional 
+backup generation will be required for the data center and that instead, this air permit 
+application would authorize sufficient power supply for the data center such that no separate, 
+additional backup power that could not be served by connection to the electrical power grid would 
+be needed at or for the data center. The Companies further expect that the data center will not 
+operate any pollutant-emitting activities subject to permitting under the New Mexico Air Quality 
+Control Act and implementing regulations.” 
+ 
+ 
+Date: 7/29/2026  Page 4 of 14 
+5.0 History (In descending chronological order, showing NSR and TV):  *The asterisk denotes the 
+current active NSR and Title V permits that have not been superseded. 
+Permit 
+Number 
+Issue 
+Date Action Type Description of Action (Changes) 
+* 10883 TBD NSR – New 
+Permit  
+This permit application is for a new source review (NSR) 
+construction permit submitted pursuant to 20.2.72.200.A(1) 
+NMAC for a microgrid power generation facility to generate 
+power for a nearby (potentially adjacent) data center. The 
+facility will generate power using fuel cells which are solid 
+oxide fuel cell (SOCF)  Bloom Energy Server System 260 kW 
+and 325 kW. Energy Server “clusters” are routed to a total of 
+2,275 exhaust stacks as emission sources. The sit e will be a 
+major source for Title V (20.2.70 NMAC). 
+ 
+NMED has undertaken a preliminary analysis of whether the 
+data center and/or any nearby future facility may be 
+aggregated. 
+ 
+6.0 Public Response/Concerns: As of 7/6/2026, the NMED Air Quality Bureau (AQB) has received 
+approximately 22,500 public comments or concerns. The AQB notes that we have received 
+reports of some comments being entered without the named commenter’s knowledge and/or 
+consent; this will be part of the administrative record.  
+ 
+7.0 Compliance Testing History: There is no compliance testing to report for this facility since this is a 
+new source and has not yet been constructed. 
+ 
+ 
+8.0 Startup and Shutdown from Section 14 of the Application: 
+A. If applicable, did the applicant indicate that a startup, shutdown, and emergency 
+operational plan was developed in accordance with 20.2.70.300.D(5)(g) NMAC? No. The 
+facility does not currently have a Title V permit, and this section applies to facilities with 
+Title V permits.  
+B. If applicable, did the applicant indicate that a malfunction, startup, or shutdown operational 
+plan was developed in accordance with 20.2.72.203.A.5 NMAC? Yes 
+C. Did the applicant indicate that a startup, shutdown, and scheduled maintenance plan was 
+developed and implemented in accordance with 20.2.7.14.A and B NMAC? Yes  
+D. Does the facility have emissions due to routine or predictable startup, shutdown, and 
+maintenance?  If so, have all emissions from startup, shutdown, and scheduled maintenance 
+operations been permitted? Yes, due to the magnitude of the project in regard to the 
+technology, NMED-AQB will require the applicant to comply to the conditions of the permit 
+to determine if SSM emissions, based on actual operations, will be exempt per 
+20.2.72.202.B(5) NMAC since emissions from SSM activities are projected to be less than ½ 
+tons per year.  
+ 
+9.0 Compliance and Enforcement Status: Per C&E email Verification of Compliance dated May 22, 
+2026 “We don’t have any enforcement actions for them”. In addition, the Compliance and 
+Enforcement Division was unable to find any enforcement actions from AQB against the parent 
+company BorderPlex Digital Assets LLC.  
+Date: 7/29/2026  Page 5 of 14 
+Additionally, on 7/29/2026 C&E verified compliance for the following associated companies: 
+Company NMED Air 
+permits 
+(TEMPO) 
+NMED Air enforcement history 
+1. Forge Growth 
+Infrastructure, LLC 
+no None 
+2. Stack Infrastructure no None 
+3. El Paso Electric 
+Company 
+AI# 122 2009 CD - $250k ﬁne + order to tune up boilers. 2010 
+SASFCO & 2012 NOD - both matters for late reporting 
+4. Orion Digital 
+Infrastructure, LLC 
+no None 
+5. Santa Theresa Land 
+LLC 
+no None 
+6. STACK 
+Infrastructure 
+duplicate 
+ 
+7. BorderPlex Digital 
+Assets 
+no None 
+8. Oracle America, 
+Inc. (OAI) 
+AI# 41338 None (application withdrawn 3/19/2026) 
+9. Yucca Growth 
+Infrastructure, LLC 
+AI# 41351 None  
+10. Red Chiles A, LLC no None 
+11. Red Chiles B, LLC no None 
+12. Red Chiles C, LLC no None 
+13. Red Chiles D, LLC no None 
+ 
+10.0 Modeling:    
+Modeling Assumptions: The facility operates continuously, 8,760 hours per year. 
+Permit Conditions: The facility may operate 8,760 hours per year. 
+Conclusion: 
+This modeling analysis demonstrates that operation of the facility described in this report 
+neither causes nor contributes to any exceedances of applicable air quality standards. The 
+standards relevant at this facility are NAAQS for CO, NO2, PM10, PM2.5, and SO2; NMAAQS for 
+CO, NO2, and SO2; and Class II PSD increments for NO2 and PM10. 
+ 
+Action: The permit can be issued based on this modeling analysis. 
+ 
+The modeling report was submitted by Trinity Consultants and dated April 27, 2026. 
+The air quality analysis demonstrates compliance with applicable regulatory requirements. 
+Model(s) Used: AERMOD version 24142 was used to run the modeling analysis. 
+Note: Complete modeling input and output files can be made available and are located in the 
+Modeling Archives in the folder, "10883_Yucca Growth Infrastructure YGI Microgrid". 
+Description of model input files: NMED’s AERMOD-ready meteorological data was used for this 
+analysis. This data is available on AQB’s website. GeoTIFF files were acquired through the USGS. 
+ 
+ 
+Date: 7/29/2026  Page 6 of 14 
+ 
+11.0 State Regulatory Analysis (NMAC/AQCR):  
+Citation  
+20 NMAC  
+Title Applies  
+(Y/N) 
+Unit(s) or 
+Facility 
+Justification: 
+2.1 General Provisions Yes Entire 
+Facility 
+The facility is subject to Title 20 Environmental Protection 
+Chapter 2 Air Quality of the New Mexico Administrative Code 
+so is subject to Part 1 General Provisions, Update to Section 
+116 of regulation for Significant figures & rounding. Applicable 
+with no permitting requirements. 
+ 
+Applies sitewide. Yucca will comply with procedural 
+requirements indicated in 20.1.114 NMAC, 20.1.115 NMAC, 
+20.1.116 NMAC, and 20.1.117 NMAC (concerning variance 
+hearings, confidential information, significant digits, and 
+electronic reporting) to the extent applicable 
+2.3 Ambient Air 
+Quality Standards 
+No for 
+both 
+NSR 
+and TV 
+N/A NSR: 20.2.3 NMAC is a SIP approved regulation that 
+establishes State standards.  The NMAAQS themselves are not 
+an “applicable requirement” with which a source must directly 
+comply. The promulgation of a NMAAQS does not, in and of 
+itself automatically result in actionable measures to a source. 
+Instead, the specific measures contained in each individual 
+issued permit, other state promulgated rules, and NM’s EPA 
+approved SIP are the relevant applicable requirements (such 
+as NSPS and MACT). 
+ 
+Title V: 20.2.3.9 NMAC, LIMITATION OF APPLICABILITY TO 
+20.2.70 NMAC. The requirements of NMAAQS are not 
+applicable requirements under 20.2.70 NMAC, as defined by 
+20.2.3.9 NMAC, 20.2.3.9 NMAC does not limit the applicability 
+of this part to sources required to obtain a permit under the 
+minor NSR regulation, 20.2.72 NMAC, nor does it limit which 
+terms and conditions of NSR permits issued pursuant to 
+20.2.72 NMAC are applicable requirements in a Title V permit. 
+2.7 Excess Emissions Yes Entire 
+Facility 
+Applies to all facilities' sources. Federally enforceable except 
+for Sections 6(b); 110(b)(15); 111; 112; 113; 115; and 116 that 
+are State Enforceable Only. 
+ 
+Applies sitewide. Yucca will implement a maintenance plan as 
+required under 20.2.7.14 NMAC, and will comply with the 
+notification, affirmative defense, and root cause requirements 
+of 20.2.7.108–114 NMAC. 
+2.23  Fugitive Dust 
+Control Yes Construction 
+of Facility 
+The construction activities for the facility are subject to 
+20.2.23 NMAC.  
+Date: 7/29/2026  Page 7 of 14 
+Citation  
+20 NMAC  
+Title Applies  
+(Y/N) 
+Unit(s) or 
+Facility 
+Justification: 
+2.61 Smoke and Visible 
+Emissions 
+Yes SOFC-1 
+through 
+SOFC--2275 
+This regulation limits from opacity to 20% from Stationary 
+Combustion Equipment, such as engines, boilers, heaters, and 
+flares.  
+Each SOFC cluster is subject to this regulation because each 
+cluster exhausts to a stack and meets the definition of 
+“stationary combustion equipment” (subject to 20.2.80 
+NMAC).  
+"Stationary combustion equipment" means any stationary 
+device or system used to oxidize solid, liquid, or gaseous 
+materials, including fuels or wastes, and includes but is not 
+limited to incinerators, wood-fired boilers, air curtain 
+destructors, and stationary oil burning equipment (20.2.61.7 
+NMAC).  
+Facility is subject to the regulation.  
+2.70 Operating Permits Yes Entire 
+Facility 
+The facility will be a Title V Major Source as defined at 
+20.2.70.7 NMAC.  
+ 
+Yucca will submit a timely and complete operating permit 
+application as required under 20.2.70.200, 201, 300 NMAC. 
+2.71 Operating Permit 
+Fees 
+Yes Entire 
+Facility 
+Source will be subject to 20.2.70 NMAC annual fees as cited at 
+20.2.71.109 NMAC. 
+ 
+The department will provide an invoice for fees owed by April 
+1 of each year per 20.2.71.113.A NMAC. 
+2.72 Construction 
+Permits 
+Yes Entire 
+Facility 
+The current permit application was required by 20.2.72.200.A 
+NMAC and so the facility is subject to this regulation.  
+2.73 NOI & Emissions 
+Inventory 
+Requirements 
+Yes, 
+Always 
+Entire 
+Facility 
+Applicable to all facilities that require a permit. 
+ 
+Because a construction permit is required, the permit will 
+satisfy requirements of 20.2.73.200.A(4) NMAC.  
+2.74 Permits-
+Prevention of 
+Significant 
+Deterioration 
+No N/A If subject, this would normally apply to the entire facility. 
+ 
+PSD permitting does not apply because the proposed new 
+facility is not a major PSD stationary source. Specifically, the 
+facility is not listed in table 1 (20.2.74.501 NMAC) where the 
+emissions threshold is 100 tpy and the potential to emit will 
+be less than 250 tons per year for each regulated new source 
+review pollutant 
+2.75 Construction 
+Permit Fees 
+Yes Entire 
+Facility 
+This facility is subject to 20.2.72 NMAC. 
+ 
+This regulation applies and the application was submitted 
+pursuant to 20.2.72.200.A(1) NMAC. 
+Date: 7/29/2026  Page 8 of 14 
+Citation  
+20 NMAC  
+Title Applies  
+(Y/N) 
+Unit(s) or 
+Facility 
+Justification: 
+2.77 New Source 
+Performance 
+Standards 
+No See Sources 
+subject to 40 
+CFR 60 
+Applies to any stationary source constructing or modifying and 
+which is subject to the requirements of 40 CFR Part 60. 
+ 
+The facility is not subject to any standard under 40 CFR Part 
+60. 
+2.78 Emissions 
+Standards for 
+HAPs  
+No See Sources 
+subject to 40 
+CFR 61 
+This regulation applies to all sources emitting hazardous air 
+pollutants, which are subject to the requirements of 40 CFR 
+Part 61.   
+ 
+The facility is not subject to any standard under 40 CFR Part 
+61. See 20.2.78.9 NMAC. 
+2.79 Permits 
+Nonattainment 
+Areas 
+No N/A This facility is adjacent to a nonattainment area.   
+ 
+The facility is not located inside the nonattainment area. The 
+Sunland Park nonattainment area includes the “area bounded 
+on the New Mexico-Texas state line on the east, the New 
+Mexico-Mexico international line on the south, latitude 
+N31°49′30″ on the north, and longitude W106°36′36″ on the 
+west.” See 83 Fed. Reg. 25776, 25820 (Jun. 4, 2018). The YGI 
+Microgrid is not located within these boundaries.  
+ 
+A facility “affects” an adjacent nonattainment area if its radius 
+of impact, that is determined from air dispersion modeling, 
+overlaps an adjacent nonattainment area.  
+ 
+The site will not cause or contribute to any existing NAAQS 
+violation. As detailed more fully in Section 16 (relating to 
+modeling), emissions of NOX and VOC are less than the 
+applicable 8-hr O3 MERPs (Otero County). See 20.2.79.109.A. 
+See sec. 2.6.5.2, Air Quality Modeling Guidelines. 
+ 
+AQB modeling analysis states that although this facility will 
+emit less than 250 tons per year of NOx and less than 250 tons 
+per year of VOC, a project-specific MERPs screening 
+calculation was also performed using the MERPs tool and the 
+NM AQB Dispersion Modeling Guidelines to further 
+demonstrate that the project will not cause or contribute to 
+an exceedance of the ozone NAAQS. 
+ 
+The ozone significance level (SIL) is 1.96 µg/m³ and sources 
+with ozone impacts below the ozone SIL are not expected to 
+cause or contribute to ozone concentrations exceeding the 
+ozone NAAQS. Based on the proposed allowable emission 
+rates, the resulting concentration is 0.18 µg/m3. Therefore, 
+Date: 7/29/2026  Page 9 of 14 
+Citation  
+20 NMAC  
+Title Applies  
+(Y/N) 
+Unit(s) or 
+Facility 
+Justification: 
+the project will not cause or contribute to an exceedance of 
+the ozone NAAQS. 
+2.80  Stack Heights Yes 
+All SOFC-1 
+through 
+SOFC—2275 
+stacks 
+The facility is subject to this regulation. No stack will exceed 
+good engineering practice stack height. See 20.2.80.109. 
+2.82 MACT Standards 
+for Source 
+Categories of 
+HAPs 
+No N/A This regulation applies to all sources emitting hazardous air 
+pollutants, which are subject to the requirements of 40 CFR 
+Part 63. 
+ 
+ 
+12.0 Federal Regulatory Analysis: 
+Federal 
+Regulation 
+Title Applies 
+(Y/N) 
+Unit(s) or 
+Facility 
+Comments 
+Air 
+Programs 
+Subchapter 
+C 
+(40 CFR 50) 
+National Primary 
+and Secondary 
+Ambient Air 
+Quality 
+Standards 
+No N/A The modeling and conditions developed from the modeling 
+are the applicable requirements to demonstration compliance 
+with the NAAQs. 
+NSPS 
+Subpart A 
+(40 CFR 60) 
+General 
+Provisions 
+No See 
+sources 
+subject to 
+a Subpart 
+in 40 CFR 
+60 
+Applies if any other subpart applies.  
+ 
+The facility is not subject to any standard under 40 CFR Part 60. 
+40 CFR 
+60.330 
+Subpart GG 
+Stationary Gas 
+Turbines 
+No N/A There are no Stationary Gas Turbines at this facility. 
+40 CFR Part 
+60 Subpart 
+IIII (Quad-I) 
+Standards of 
+Performance for 
+Stationary 
+Compression 
+Ignition Internal 
+Combustion 
+Engines 
+No N/A There are no Stationary Compression Ignition Internal 
+Combustion Engines (Diesel Engines) at this facility. 
+40 CFR Part 
+60 Subpart 
+Standards of 
+Performance for 
+No N/A The provisions of this subpart are applicable to manufacturers, 
+owners, and operators of stationary spark ignition (SI) internal 
+Date: 7/29/2026  Page 10 of 14 
+Federal 
+Regulation 
+Title Applies 
+(Y/N) 
+Unit(s) or 
+Facility 
+Comments 
+JJJJ (Quad -J) Stationary Spark. 
+Ignition Internal 
+Combustion 
+Engines 
+combustion engines (ICE) as specified in paragraphs (a)(1) 
+through (5) of section 60.4230.  
+ 
+There are no stationary spark ignition (SI) internal combustion 
+engines (ICE) (gas or propane engines) at this facility. 
+ 
+40 CFR Part 
+60 Subpart 
+KKKK 
+Standards of 
+Performance for 
+Stationary 
+Combustion 
+Turbines after 
+February 18, 2005 
+and on or before 
+December 13, 
+2024 
+No N/A 
+There are no Stationary Gas Combustion Turbines at this 
+facility. 
+40 CFR 60 
+Subpart 
+KKKKa 
+Standards of 
+Performance for 
+Stationary 
+Combustion 
+Turbines who 
+commenced 
+construction, 
+modification, or 
+reconstruction 
+after December 
+13, 2024. 
+No N/A 
+There are no Stationary Gas Combustion Turbines at this 
+facility. 
+NSPS 40 CFR 
+60 Subpart 
+TTTT 
+Standards of 
+Performance for 
+Greenhouse Gas 
+Emissions for 
+Electric 
+Generating Units 
+No N/A 
+There are no Stationary Gas Combustion Turbines at this 
+facility. 
+NESHAP 
+Subpart A 
+(40 CFR 61) 
+General 
+Provisions 
+No See 
+sources 
+subject to 
+a Subpart 
+in 40 CFR 
+61 
+Applies if any other subpart applies.  
+ 
+40 CFR Part 61 does not apply. The facility does not belong to 
+any listed category or emit any listed pollutants that would 
+trigger applicability. 
+MACT 
+Subpart A 
+(40 CFR 63) 
+General 
+Provisions 
+No See 
+sources 
+subject to 
+a Subpart 
+in 40 CFR 
+63 
+Applies if any other subpart applies. 
+ 
+The facility will not be subject to any Part 63 standard requiring 
+compliance with Subpart A. 
+Date: 7/29/2026  Page 11 of 14 
+Federal 
+Regulation 
+Title Applies 
+(Y/N) 
+Unit(s) or 
+Facility 
+Comments 
+40 CFR 63 
+Subpart ZZZZ 
+(Quad Z) 
+National 
+Emissions 
+Standards for 
+Hazardous Air 
+Pollutants for 
+Stationary 
+Reciprocating 
+Internal 
+Combustion 
+Engines (RICE 
+MACT) 
+No N/A A facility is subject to this subpart if they own or operate a 
+stationary RICE at a major OR area source of HAP emissions, 
+except if the stationary RICE is being tested at a stationary RICE 
+test cell/stand.    
+ 
+This regulation does not apply since there will be no engines 
+authorized to operate at the facility.  
+  
+MACT 
+40 CFR 63 
+Subpart YYYY 
+National 
+Emissions 
+Standards for 
+Hazardous Air 
+Pollutants for 
+Stationary 
+Combustion 
+Turbines 
+No N/A There are no Stationary Gas Combustion Turbines at this 
+facility. 
+40 CFR 64 Compliance 
+Assurance 
+Monitoring 
+No N/A There are no units equipped with a control device and 
+uncontrolled emissions above the Title V major source 
+thresholds.     
+ 
+No sources at the facility are subject to Compliance Assurance 
+Monitoring pursuant to 40 CFR Part 64. 
+40 CFR 68 Chemical Accident 
+Prevention 
+No N/A According to the application, the permittee does not use or 
+store regulated substances in amounts or at thresholds that 
+would cause this regulation to apply.  
+ 
+The CAA §112 (r)(1) General Duty Clause directs owners and 
+operators of stationary sources to identify hazards that may 
+result from accidental releases, to design and maintain a safe 
+facility, and to minimize the consequences of releases when 
+they occur. The General Duty Clause may only be enforced by 
+the EPA under CAA section 113.  
+40 CFR 70  Title V- State 
+Operating Permit 
+Programs 
+No N/A Operating Permit Program – is not applicable – New Mexico 
+State has full delegated authority, and Title V is administered 
+under 20.2.70 NMAC. 
+CAA Title VI 
+and 
+40 CFR 82 
+Protection of 
+Stratospheric 
+Ozone  
+No N/A According to the application, 40 CFR 82 does not apply.  
+ 
+ 
+Date: 7/29/2026  Page 12 of 14 
+13.0 Exempt and/or Insignificant Equipment: The applicant reports SSM emissions as exempt 
+activities per 20.2.72.202.B(5) NMAC, in table 2B of the application since emissions from SSM 
+activities are less than ½ tons per year according to the theoretical number purges per events, 
+and number of events provided in the calculations. Based on the technical analysis of the SSM 
+calculations, the Department will require compliance with the SSM conditions in the permit. 
+Additional information is provided in Section 14 of this document. 
+ 
+14.0 New/Modified/Unique Conditions (Format: Condition#: Explanation):   
+A. All conditions are new. This is a new NSR permit. 
+B. Section A107: Based on information provided in the permit application and additional 
+submittals, the Department has determined that emissions during startup and maintenance 
+need to be regulated by the permit. The applicant provided calculations showing that 
+emissions from startup and maintenance activities are less than ½ ton per year per pollutant 
+and would qualify as minor NSR exempt pursuant to 20.2.72.202.B(5) NMAC. However, the 
+exemption applies to the potential emission rate (PER) and the AQB could not confirm that 
+the PER of SSM activities are less than ½ tpy. There is nothing inherently limiting the number 
+of maintenance activities nor the number of purges per event that may be required. AQB 
+cannot verify the technical information regarding the maintenance or operational 
+requirements of the units to verify the limits on SSM activities.  
+ 
+15.0 For Title V action: Cross Reference Table between NSR Permit 10883 and TV Permit N/A.  NSR 
+permit conditions cross-referenced to the TV permit are federally enforceable conditions, and 
+therefore brought forward into the TV permit: 
+ 
+This section does not apply to this permit application.  
+  
+NSR conditions identified as “NSR Unique” do not establish any applicable requirements or 
+federally enforceable conditions that require adoption in the TV operating permits. 
+ 
+16.0 Permit specialist’s notes to other NSR or Title V permitting staff concerning changes and 
+updates to permit conditions.   
+A. Per 20.2.72.210(D) NMAC: Any term or condition imposed by the department on a permit or 
+permit revision is enforceable to the same extent as a regulation of the board. 
+B. Fuel Cells Modules are the only equipment authorized at the facility to provide power, to 
+energize external sources; and to provide all backup power during load spikes. Temporary 
+and/or exempt equipment such as generators are not allowed per 20.2.72.202 B(3)(a) 
+NMAC and cannot be authorized to operate at the facility and to deliver power. 
+C. Portable and/or stationary turbines, heaters, and/or other emission emitting equipment are 
+not currently authorized and would be subject to 20.2.72 NMAC permitting. 
+D. A 15% safety factor has been removed from the applicant’s GHG emission calculations. The 
+requested GHG emissions reported in the application already reflect a significant value and 
+AQB will not accept/allow the addition of a safety factor in the calculation to increase the 
+GHG emissions by 1,323,145 tpy, from 8,820,970 tpy to 10,144,115 tpy. Additionally, the 
+Department would expect the applicant to revise and recalculate GHG emissions yearly, 
+based on future actual reporting emissions for purposes of requirements under the 
+Department’s Emissions Inventory pursuant 20.2.73.300 NMAC) rather than the theoretical 
+calculations provided in the application. 
+E. Technical Feasibility: Solid Oxide Fuel Cell (SOFC) technology is proven and commercially 
+Date: 7/29/2026  Page 13 of 14 
+operational. However, only one of the examples below has a capacity greater than 0.5 GW, 
+while YGI’s proposed electrical generation capacity is over 2.0 GW. The Department 
+reserves the right to re-evaluate operation capabilities of the current permit application 
+technology. Should the applicant modify the permit to include additional equipment such as 
+turbines and engines, scaling up operations, emissions increase and/or excess emissions, the 
+facility may be subject to a permit pursuant to 20.2.74.300 NMAC as if construction has not 
+yet commenced. Additionally, the permittee is subject to conditions A117.B, and B113.A 
+through C. 
+ 
+Facility Permitting 
+Authority 
+MFG Fuel Cell 
+Model 
+Capacity Purpose (if 
+available) 
+Source Permitting 
+Stage 
+Yucca Growth 
+Infrastructure, LLC 
+NMED Bloom 
+Energy 
+ES 6.5 2.4620 GW Provides power to 
+one data center 
+Application Application 
+Under 
+Review 
+Diamond State 
+Generating 
+Partners, LLC 
+(Bloom Red Lion) 
+DNREC Bloom 
+Energy 
+ES5 0.0249 GW Used with utility Construction 
+permit 
+application 
+Issued, 
+facility 
+operating 
+ 
+Diamond State 
+Generating 
+Partners, LLC 
+(Bloom Brookside) 
+DNREC Bloom 
+Energy 
+ES5 0.0026 GW Used with utility Construction 
+permit 
+Issued, 
+facility 
+operating 
+ 
+Yellow BOX 
+Partners, LLC 
+TCEQ Bloom 
+Energy 
+ES 6.5 0.5600 GW Provides power to 
+future, 
+unidentified data 
+centers 
+Standard 
+EGU permit 
+tech review 
+Permits 
+approved, 
+facility not 
+built yet 
+Intel Santa Clara BAAQMD 
+(did not 
+find a 
+permit) 
+Bloom 
+Energy 
+ES5 0.0200 GW1 Provides power to 
+Intel's data centers 
+Fuel Cells as 
+Energy 
+Source for 
+Data Centers 
+Permitted as 
+distributed 
+units rather 
+than a single 
+permit, 
+facility 
+operating 
+Amazon (AWS) ODEQ Bloom 
+Energy 
+Server 5 0.0024 GW Provides 
+supplemental 
+power to utility 
+AWS Data Center 
+BAER 
+Assessment 
+No, 
+withdrawn 
+AEP Ohio OEPA, 
+PUCO 
+Bloom 
+Energy 
+Unknown 0.007 GW Supply power to 2 
+large data centers 
+Permit to 
+Install & 
+Operate 
+Permits 
+approved, 
+construction 
+started in 
+2026 
+1. This is an estimate based on the values seen in the source (started at 1 MW, have multiple expansions 
+including 1 5 MW that could be come 10 MW) 
+ 
+F. Solid Oxide Fuel Cells (SOFC) require natural gas to generate pure hydrogen through the 
+Direct Internal Reforming (DIR) process integrated into the fuel cell. To ensure performance, 
+hydrogen formation, and steam generation; system optimization and operating conditions 
+ 
+ 
+Date: 7/29/2026  Page 14 of 14 
+include regulating temperatures, hydrogen mass flow, and humidity. 
+G. The high operating Temperatures of 700-900 degrees Celsius, and the volatile nature of 
+hydrogen and syngas require strict thermal management and ventilation to prevent 
+cracking/mechanical stress. 
+H. Gas handling and mass flow in the SOFC module requires precise delivery of fuels and air or 
+oxygen for flow distribution and performance. 
+I. Fuel Cell Auxiliary Equipment and System Optimization and Management includes Electronic 
+Loads; Cell Voltage Monitoring (CVM); Leak and Fluid Checks, and Air/Pressurization. 
+J. The comprehensive monitoring system (CMS) plan to be submitted by the applicant should 
+not be limited to temperature and pressure readings (A601.A). NMED requires the applicant 
+to expand the scope of a comprehensive monitoring to include at minimum continuous 
+monitoring of the facility’s CDS SSM events (A107.D and A107.E); gas flowrate (A108.B); 
+electrical output measurements (MW) (A108.C); exiting sulfur concentration measurements 
+(A110.A); temperature and pressure readings, (A601.A), and natural gas leaks flowrates at 
+the SOFC Units (A601.H). 
+K. To prevent uncontrolled venting of hydrocarbons and sulfur gases into the atmosphere, the 
+desulfurization canister replacement process system must be isolated and purged. The 
+permittee must meet permitting requirements, if any, for Hazardous Waste Disposal. 
+ 
+ 
+ 
+ 
+ 
+ 

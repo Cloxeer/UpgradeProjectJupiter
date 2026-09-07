@@ -17,15 +17,15 @@ export const highlightPairs: HighlightPair[] = [
   {
     icon: "datacenter",
     color: "#15768c",
-    ours: { num: "$4.7B + $1.9B", label: "THEIR ECONOMIC IMPACT, PLUS $1.9B MORE FROM FOOD, WATER AND LAND LEASES (PHASE 1, ESTIMATE†)" },
+    ours: { num: "$4.7B + $1.7B", label: "THEIR ECONOMIC IMPACT, PLUS ABOUT $1.7B MORE FROM FOOD, WATER, LEASES AND HIGHER PAYMENTS (PHASE 1, ESTIMATE†)" },
     theirs: { num: "$4.7B", label: "IN LONG TERM ECONOMIC IMPACT*" },
     explain: "We start from their own IMPLAN-based total and add only what the upgrade creates: 17 years of greenhouse produce, water sales and greenhouse land leases, a conditioned $1 billion bond payment schedule, and a $50 million institute. Their footnote applies to ours too: it assumes the air permit and pipeline are approved.",
-    math: "$4.7B (theirs) + $0.34B leases and heat sales + $0.64B higher bond payments + $0.68B added operating activity + $0.15B construction and workforce ≈ $1.9B more.",
+    math: "$4.7B (theirs) + $0.12B leases and heat sales (heat near propane parity) + $0.64B higher bond payments + $0.68B added operating activity + $0.19B construction and workforce ≈ $1.7B more ≈ $6.4B.",
     sources: ["bocc", "econpdf", "cba"],
     voices: {
-      legislator: { label: "THEIR FISCAL-IMPACT TOTAL, PLUS $1.9B IN LEASE, WATER AND CONDITIONED-PILT REVENUE (PHASE 1, ESTIMATE†)", explain: "Their $4.7 billion is the IMPLAN estimate in their county presentation and assumes permit and pipeline approval. The $1.9 billion is what the five lease conditions add: greenhouse leases and heat sales, water sales, a conditioned $1 billion PILT schedule, and the institute. Same basis, same caveat, both cited." },
-      business: { label: "THEIR ECONOMIC IMPACT, PLUS $1.9B OF NEW REVENUE LINES: LEASES, HEAT, WATER, PILT (PHASE 1, ESTIMATE†)" },
-      kid: { label: "MORE MONEY FOR THE TOWN THAN THEY PROMISED", explain: "They say the project brings $4.7 billion. Our plan adds about $1.9 billion more, from selling food, water and heat, and from paying more to schools." },
+      legislator: { label: "THEIR FISCAL-IMPACT TOTAL, PLUS ABOUT $1.7B IN LEASE, WATER AND CONDITIONED-PILT REVENUE (PHASE 1, ESTIMATE†)", explain: "Their $4.7 billion is the IMPLAN estimate in their county presentation and assumes permit and pipeline approval. The $1.7 billion is what the six lease conditions add: greenhouse leases and heat sales, water sales, a conditioned $1 billion PILT schedule, and the institute. Same basis, same caveat, both cited, and our additions are estimates built on their total, not an independent study." },
+      business: { label: "THEIR ECONOMIC IMPACT, PLUS ABOUT $1.7B OF NEW REVENUE LINES: LEASES, HEAT, WATER, PILT (PHASE 1, ESTIMATE†)" },
+      kid: { label: "MORE MONEY FOR THE TOWN THAN THEY PROMISED", explain: "They say the project brings $4.7 billion. Our plan adds about $1.7 billion more, from selling food, water and heat, and from paying more to schools." },
     },
   },
   {
@@ -74,12 +74,12 @@ export const highlightPairs: HighlightPair[] = [
     color: "#2e8b57",
     ours: { num: "~11,000", label: "CONSTRUCTION & PERMANENT JOBS · 3,000 PERMANENT IN PHASE 1 · THEY SIGNED FOR 750" },
     theirs: { num: "8,500+", label: "WELL PAYING CONSTRUCTION & OPERATIONS JOBS" },
-    explain: "Their 8,500 is 7,000 construction plus 1,500 operations, both website projections. The signed agreement requires 2,500 construction and 750 full-time jobs. The upgrade keeps their 1,500 tech roles and adds about 1,000 greenhouse jobs per 150 acres, 250 in water and capture, and 250 in refurbishment and training. Greenhouse staffing is an industry average.",
+    explain: "Their 8,500 is 7,000 construction plus 1,500 operations, both website projections. The signed agreement requires 2,500 construction and 750 full-time jobs. The upgrade keeps their 1,500 tech roles and adds up to about 1,000 greenhouse jobs per 150 acres (Southwest greenhouses run 4 to 6.5 an acre), 250 in water and capture, and 250 in refurbishment and training. All estimates.",
     sources: ["cba", "epm-jobs", "faq"],
     voices: {
       legislator: { label: "CONSTRUCTION AND PERMANENT POSITIONS · 3,000 PERMANENT IN PHASE 1, ENFORCEABLE UNDER THE IRB LEASE · 750 IN THE EXECUTED CBA" },
       business: { label: "CONSTRUCTION AND PERMANENT JOBS · 3,000 PERMANENT IN PHASE 1, ABOUT 1,500 OF THEM IN GROWER AND PLANT OPERATIONS" },
-      kid: { label: "JOBS: THEY PROMISED 750, WE MAKE ABOUT 3,000", explain: "Their website says 8,500 jobs, but they only signed for 750. Our plan makes about 3,000 jobs that last, plus about 8,000 building jobs." },
+      kid: { label: "JOBS: THEY PROMISED 750, WE MAKE ABOUT 3,000", explain: "Their website says 8,500 jobs, but they only signed for 750. Our plan makes about 3,000 jobs that last, plus about 7,500 building jobs." },
     },
   },
   {
@@ -87,10 +87,10 @@ export const highlightPairs: HighlightPair[] = [
     color: "#c0392b",
     ours: { num: "100%", label: "OF SMOG EMISSIONS MEASURED CONTINUOUSLY AND PUBLISHED LIVE, NOT ESTIMATED ONCE A YEAR" },
     theirs: { num: "92%", label: "LOWER NOX EMISSIONS WITH BLOOM ENERGY FUEL CELLS" },
-    explain: "Their 92% compares fuel cells with their own earlier gas-turbine plan. We keep the same fuel cells, so we do not invent a bigger percentage. What changes: one Title V permit with PSD-level controls instead of each pollutant parked just under 250 tons, and continuous stack monitors with the data public, in an area that already fails the ozone standard.",
-    sources: ["faq", "sob", "sunland-park-ozone", "ala-sota-2025"],
+    explain: "Their 92% compares fuel cells with their own earlier gas-turbine plan. We keep the same fuel cells, so we do not invent a bigger percentage. The draft permit puts NOx at 37 tons a year, estimated from four tests of one 65 kW unit and scaled to 2,275 stacks, with no continuous stack monitor required. What changes: continuous monitors on every cluster with the data public, and limits set for the capture configuration, beside an area that already fails the ozone standard.",
+    sources: ["faq", "sob", "sob-part-a", "sunland-park-ozone", "ala-sota-2025"],
     voices: {
-      legislator: { label: "OF CRITERIA-POLLUTANT EMISSIONS MEASURED CONTINUOUSLY AND REPORTED PUBLICLY UNDER ONE TITLE V PERMIT WITH PSD-LEVEL CONTROLS" },
+      legislator: { label: "OF CRITERIA-POLLUTANT EMISSIONS MEASURED CONTINUOUSLY AND REPORTED PUBLICLY, WITH PERMIT LIMITS SET FOR THE CAPTURE CONFIGURATION" },
       business: { label: "OF SMOG EMISSIONS ON A PUBLIC METER, WHICH IS WHAT KEEPS A PERMIT OUT OF COURT" },
       kid: { label: "EVERY BIT OF SMOG IS MEASURED AND SHOWN TO EVERYONE", explain: "They say their machines make 92% less smog than an older idea. Same machines in our plan, but we measure every bit of smog all the time and put the numbers online." },
     },
@@ -98,9 +98,9 @@ export const highlightPairs: HighlightPair[] = [
   {
     icon: "energy",
     color: "#2e8b57",
-    ours: { num: "90–95%", label: "OF STACK CO₂ PHYSICALLY CAPTURED FROM THE FIRST DAY · THE LAST 5–10% CLOSED BY 2031 WITH CLEANER GAS AND VERIFIED REMOVALS (TARGET)" },
+    ours: { num: "90–95%", label: "CAPTURE TARGET, METERED AT THE STACK FROM THE FIRST DAY · THE LAST 5–10% CLOSED OVER TIME WITH CLEANER GAS AND VERIFIED REMOVALS (TARGET)" },
     theirs: { num: "100%", label: "CARBON-FREE ENERGY MATCHING BY 2031" },
-    explain: "Matching means buying clean-energy credits somewhere else; the 10,144,115 permitted tons still leave the stacks in Santa Teresa. Capture is physical: NMED says the dried exhaust is about 95% CO₂, and Bloom and Chart already sell capture for it. The last 5–10% is covered by blending renewable gas and hydrogen, which Bloom hardware runs on, and verified removals for any remainder. Supply of renewable gas is the limit, so this is a target with its route shown, not a done deal. The captured CO₂ is used first (greenhouses, concrete, aggregate) and only the remainder is stored, and Process 4 retires gas hours with geothermal and delivered wind so the whole stream shrinks every year.",
+    explain: "Matching means buying clean-energy credits somewhere else; the 8,820,970 permitted tons still leave the stacks in Santa Teresa. Capture is physical: NMED says the dried exhaust is about 95% CO₂, and Bloom and Chart announced capture for it in 2025, though no plant runs it yet and the best operating plants sustain 50 to 75%. So the condition is metered tons against the target, with the federal 45Q credit paying $85 a ton. The last 5–10% is covered over time by blending renewable gas and hydrogen, which Bloom hardware runs on, and verified removals for any remainder; renewable-gas supply is the limit. Captured CO₂ is used first where buyers exist (greenhouses, concrete, aggregate, today about 1%) and the rest stored, and Process 4 asks for a falling share of energy from gas so the whole stream shrinks.",
     sources: ["bocc", "sob", "bloom-chart", "bloom-fuels", "cba"],
     voices: {
       legislator: { label: "OF STACK CO₂ CAPTURED FROM COMMENCEMENT OF OPERATIONS · USED FIRST, STORED AS FALLBACK · RESIDUAL CLOSED BY 2031 WITH CLEANER GAS AND VERIFIED REMOVALS (TARGET)" },

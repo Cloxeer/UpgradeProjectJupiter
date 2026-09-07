@@ -5,7 +5,7 @@ import { useAudience } from "./Audience";
 import { useCopy } from "./AudienceText";
 
 const G = "#2e8b57";
-const SHARE_TEXT = "Do not cancel Project Jupiter. Force the upgrade: catch the carbon, reuse the heat, make water, hire here. Same land, same timeline, about 1.5% more.";
+const SHARE_TEXT = "Do not cancel Project Jupiter. Force the upgrade: catch the carbon, reuse the heat, make water, hire here. Same land, same buildings, about 2.5% more, most of it repayable by the federal capture credit.";
 
 /**
  * Show Your Support, in the hero: the four things a reader can do, as four buttons.

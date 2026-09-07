@@ -23,12 +23,12 @@ const visuals: Record<Audience, { src: string; title: string; line: string; href
   ],
   homeowner: [
     { src: asset("/images/refs/water-main-trench.jpg"), title: "More water in your pipes", line: "5 million gallons a day added to CRRUA", href: "/blueprint#p3" },
-    { src: asset("/images/refs/hydroponic-tomato-greenhouse.jpg"), title: "Food grown next door", line: "~60 million lbs a year, pesticide-free", href: "/blueprint#p5" },
+    { src: asset("/images/refs/hydroponic-tomato-greenhouse.jpg"), title: "Food grown next door", line: "up to ~60 million lbs a year, far fewer pesticides", href: "/blueprint#p5" },
     { src: asset("/images/refs/el-cabo-wind-nm.jpg"), title: "Less gas, less smog", line: "wind and hot rock replace gas hours", href: "/blueprint#p4" },
     { src: asset("/images/refs/filter-backwash.jpg"), title: "Air you can check", line: "every stack monitored, readings public", href: "/blueprint#p2" },
   ],
   business: [
-    { src: asset("/images/refs/hydroponic-tomato-greenhouse.jpg"), title: "150 acres to lease", line: "~$130k/acre/yr lease + heat (estimate)", href: "/blueprint#p5" },
+    { src: asset("/images/refs/hydroponic-tomato-greenhouse.jpg"), title: "150 acres to lease", line: "~$40–60k/acre/yr lease + heat (estimate)", href: "/blueprint#p5" },
     { src: asset("/images/refs/reverse-osmosis-bedok.jpg"), title: "Water to sell", line: "utility demand 6 → 15 MGD by 2042", href: "/blueprint#p3" },
     { src: asset("/images/refs/santa-teresa-construction-yard.jpg"), title: "CO₂ to sell", line: "concrete and aggregate buyers, not a well", href: "/blueprint#p2" },
     { src: asset("/images/refs/lightning-dock-geothermal.jpg"), title: "Gas to buy less of", line: "geothermal + wind under contract", href: "/blueprint#p4" },
