@@ -30,7 +30,7 @@ export const faq: FaqItem[] = [
   {
     q: "Will Oracle and Project Jupiter comply with the Energy Transition Act?",
     theirs: "Oracle committed to 100% carbon-free energy matching by 2031, ahead of the ETA's 2045 goal.",
-    ours: "'Matching' means buying clean-energy credits somewhere else; it changes nothing at the stacks in Santa Teresa. The CBA says HB93 requires this microgrid to use net-zero carbon resources by 2045, and the statute counts a gas plant that offsets a tenth of its CO₂ in methane cuts as net-zero. The upgrade's route is physical: capture metered against a 90–95% target from day one, renewable-gas and hydrogen blending that Bloom hardware accepts, verified removals for the remainder, and a falling share of energy from gas on a public meter.",
+    ours: "'Matching' means buying clean-energy credits somewhere else; it changes nothing at the stacks in Santa Teresa. The CBA says HB93 requires this microgrid to use net-zero carbon resources by 2045, and the statute counts a gas plant that offsets a tenth of its CO₂ in methane cuts as net-zero. The upgrade's route is physical: capture-ready stacks from day one and capture metered against a 90–95% target once the storage line is connected (about year 5), renewable-gas and hydrogen blending that Bloom hardware accepts, verified removals for the remainder, and a falling share of energy from gas on a public meter.",
     sources: ["bocc", "cba", "nmsa-62-17-12", "bloom-fuels"],
   },
   {

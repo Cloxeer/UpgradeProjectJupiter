@@ -101,7 +101,7 @@ export const sources: Source[] = [
     date: "July 15, 2026",
     url: "https://www.nmstatelands.org/2026/07/15/commissioner-garcia-richard-again-denies-request-to-run-portion-of-project-jupiter-pipeline-through-state-lands/",
     group: "primary",
-    used: "Second denial of the 0.6-mile state-land segment of Energy Transfer's 17-mile 'Green Chile' pipeline (up to 400 MMcf/day).",
+    used: "Second denial (reconsideration refused, July 15, 2026) of the 0.63-mile state-trust-land segment of Energy Transfer's 17.7-mile, 24-inch 'Green Chile' lateral (up to 400 MMcf/day); the first denial was March 20, 2026. The developers say gas delivery slips to 2027. The same right-of-way politics apply to any CO₂ line leaving the site.",
   },
   {
     id: "nmelc",
@@ -493,7 +493,7 @@ export const sources: Source[] = [
     date: "accessed Sept. 2026",
     url: "https://www.epa.gov/uic/class-vi-wells-used-geologic-sequestration-carbon-dioxide",
     group: "primary",
-    used: "Permit class, siting, monitoring and post-injection care rules for CO₂ storage wells: the operator monitors the site for a default 50 years after injection stops (40 CFR 146.93) and must show the money for it up front. New Mexico has no permitted Class VI wells yet and sent its state-primacy rules to the Oil Conservation Commission in Dec. 2025; Texas has wells.",
+    used: "Permit class, siting, monitoring and post-injection care rules for CO₂ storage wells: the operator monitors the site for a default 50 years after injection stops (40 CFR 146.93) and must show the money for it up front. New Mexico has no permitted Class VI wells yet and sent its state-primacy rules to the Oil Conservation Commission in Dec. 2025; Texas has wells and, since Dec. 15, 2025, its Railroad Commission holds Class VI primacy with reviews of roughly a year once an application is complete. This is why the site starts metered capture in year 5, not year 2.",
   },
   {
     id: "doe-pv-cost",
@@ -953,6 +953,33 @@ export const sources: Source[] = [
     url: "https://www.jpl.nasa.gov/images/pia23606-the-great-red-spot/",
     group: "science",
     used: "Jupiter's Great Red Spot, used as the metaphor image for 'Project Jupiter as filed'. NASA image data; processing by Kevin M. Gill under CC BY.",
+  },
+  {
+    id: "sourcenm-comments",
+    title: "New Mexico AG to investigate 'alleged fraudulent' letters supporting Project Jupiter data center",
+    publisher: "Source New Mexico",
+    date: "July 9, 2026",
+    url: "https://sourcenm.com/2026/07/09/new-mexico-ag-to-investigate-alleged-fraudulent-letters-supporting-project-jupiter-data-center/",
+    group: "news",
+    used: "Source NM reported June 30, 2026 that residents in three cities, and several elected officials, found their names and email addresses on comments supporting the air permit that they say they never wrote, after canvassers in Project Jupiter shirts approached them. The New Mexico Department of Justice opened an investigation July 9. Stated on the site as an open investigation, not a finding.",
+  },
+  {
+    id: "nmdoj-comments",
+    title: "New Mexico DOJ investigating alleged fraudulent Project Jupiter public comments",
+    publisher: "Santa Fe New Mexican",
+    date: "July 9, 2026",
+    url: "https://www.santafenewmexican.com/news/local_news/new-mexico-doj-investigating-alleged-fraudulent-project-jupiter-public-comments/article_e6e320a5-8320-4320-9c7c-3980b261e938.html",
+    group: "news",
+    used: "The Department of Justice said it received multiple complaints that comments were submitted in people's names without their knowledge or consent; NMED later said about 42 of some 17,500 comments may be fraudulent and changed its comment portal. Used for the record only.",
+  },
+  {
+    id: "nmsa-72-12-8",
+    title: "NMSA 1978 § 72-12-8, Water right forfeiture (underground waters)",
+    publisher: "New Mexico Statutes (Justia)",
+    date: "current through 2025",
+    url: "https://law.justia.com/codes/new-mexico/chapter-72/article-12/section-72-12-8/",
+    group: "primary",
+    used: "Four years of nonuse forfeits a groundwater right after notice, except that periods when the right is placed in a State Engineer-approved water conservation program do not count toward the four years. The legal basis for leaving the unused sod-farm right in the aquifer instead of pumping it.",
   },
 ];
 

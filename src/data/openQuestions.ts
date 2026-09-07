@@ -57,9 +57,9 @@ export const openQuestions: OpenQuestion[] = [
   {
     q: "How much of this is a hardware problem, and how much is a trust problem?",
     thought:
-      "Every physical fix on this site is ordinary equipment: a heat exchanger, a capture skid, a reverse-osmosis train, a stack monitor. The fights of the past year have not been about equipment. They have been about information: a non-disclosure agreement that obliges a public university to help the company resist records requests, a non-potable water volume the developer declined to state, quarterly job reports the county says were missed. A public meter costs less than one hearing. Most of what needs to change here is not steel.",
+      "Every physical fix on this site is ordinary equipment: a heat exchanger, a capture skid, a reverse-osmosis train, a stack monitor. The fights of the past year have not been about equipment. They have been about information: a non-disclosure agreement that obliges a public university to help the company resist records requests, a non-potable water volume the developer declined to state, quarterly job reports the county says were missed, and now a Department of Justice investigation into comments filed in residents' names on the air permit, about 42 of some 17,500 by NMED's count. A public meter costs less than one hearing. Most of what needs to change here is not steel.",
     next: "Write disclosure into the lease alongside the hardware: live meters, well readings and job counts published on a schedule, so the argument moves from what is happening to what to do about it.",
-    sources: ["haussamen-nda", "haussamen-water", "abq-reports"],
+    sources: ["haussamen-nda", "haussamen-water", "abq-reports", "sourcenm-comments", "nmdoj-comments"],
   },
   {
     q: "Should the new water go to homes first, or to the greenhouses?",
@@ -95,6 +95,18 @@ export const parkedIdeas: ParkedIdea[] = [
     status: "candidate",
     why: "Columbia's Sabin Center recommends extending e-waste rules to data centers. The plan already funds a hardware-refurbishment institute; a lease line on where retired hardware goes would complete it.",
     sources: ["columbia-decom"],
+  },
+  {
+    idea: "A research compute share for NMSU and Doña Ana Community College: one or two percent of the campus's machine hours.",
+    status: "candidate",
+    why: "Cheap for the tenant and worth more to a university than any cash line in the deal. We found no data-center lease anywhere that grants it, and the county's lease is with the developer while the tenant controls the capacity, so it can only be asked for at the negotiating table, not required. Listed so the idea is not lost.",
+    sources: ["cba"],
+  },
+  {
+    idea: "A per-ton climate fee on what the stacks emit, paid to the county.",
+    status: "parked",
+    why: "No New Mexico county has imposed one and whether a county may tax emissions is unsettled state law. The lease can do the same work through payments conditioned on the capture meter, which is what demand 6 and the conditioned bond payments already do.",
+    sources: ["cba", "dac-irb-safeguards"],
   },
   {
     idea: "Night-air temperature sensors around the campus.",
