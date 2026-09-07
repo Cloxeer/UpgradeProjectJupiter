@@ -77,21 +77,15 @@ export const costVoice: V = {
 
 export const timelineKid: Record<number, string> = {
   0: "Right now they are pouring concrete. A judge paused their air permit and their water well. None of our ideas is in the deal yet.",
-  1: "Next year the first sheds close up. We want the heat box and the gas-catching box put in as they build.",
-  2: "The plant turns on. In our plan the gas box catches it from day one and the water machine starts making clean water.",
-  5: "When you are a few years older: greenhouses are growing, the water machine has made billions of gallons, and hot rock and wind start taking over from gas.",
-  10: "Ten years on: about 3,000 jobs, food from next door, and the gas machines resting more every year.",
+  1: "Next year the first sheds close up. We want the heat box and the gas-catching pipes put in as they build, and the paperwork for the big storage pipe and the water plant sent in.",
+  2: "The plant turns on. Our meters measure every chimney, but the big pipe that takes the gas to the storage rock is not built yet, so for now the sky looks the same as in their plan. The water machine is being built.",
+  5: "Five years on: the water machine turns on, the big pipe is connected and the gas catcher starts catching for real, the first greenhouses are growing, and the town's cleaned water starts going back into the ground.",
+  10: "Ten years on: the gas catcher is at its target, about 3,000 jobs, food from next door, and the gas machines resting more every year.",
   15: "Fifteen years on: the town has had clean water and local food for a whole childhood.",
   20: "Twenty years on: the law says the plant must count as clean by 2045, but it lets a gas plant count by cutting other pollution somewhere else. Our plan asks for the real thing: fewer gas hours every year, measured, as far as hot rock and wind can go.",
   25: "Twenty-five years on: the whole site is built out, with water, food, power and training on one piece of land.",
   30: "Thirty years on: the deal ends and the land goes back on the tax rolls. Our plan paid schools about $1 billion along the way; theirs paid $360 million.",
   250: "Two hundred and fifty years on, our best guess: the gas catcher has been measured the whole time and the gas machines rest more than they run, the water underground dropped much more slowly because the town's cleaned water went back into it, and the gas we caught is stone. The deep wells are still checked every year, because money was set aside at the start to pay for it. In their plan, run the same way the whole time, the sky got a lot more gas and nobody wrote down who checks the wells.",
-};
-
-export const jupiterKid = {
-  intro: "The real planet Jupiter has a giant storm on it. Left: their plan, and the storm gets bigger every year. Right: our plan, no storm. It is a joke, but the numbers are real.",
-  filed: (year: number) => `In ${year} years, if nothing changes: the power plant has breathed out about ${(10.144 * Math.max(0, year - 2)).toFixed(0)} million tons of gas.`,
-  upgraded: (year: number) => `In ${year} years, upgraded: the gas is caught, the heat grows food, and the water machine has made about ${(5 * 0.365 * Math.max(0, year - 2)).toFixed(0)} billion gallons of clean water.`,
 };
 
 /** A short plain-words note under the takeaway where readers get stuck. Facts here already appear, cited, in the card below. */
