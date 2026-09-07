@@ -40,13 +40,13 @@ export const compareRows: CompareRow[] = [
     kidLabel: "Water to drink",
     theirs: { num: "103M gal", tail: "already pumped, more taken" },
     ours: { num: "5M gal", tail: "a day, added" },
-    why: "More than 103 million gallons were pumped from the fresh aquifer for construction in five months before a court stopped it, and the signed agreement lets the campus draw up to 20,000 gallons a day of drinking water from the local utility. [NMSU](https://nmwrri.nmsu.edu/publications/miscellaneous-reports/m-documents/m36.pdf) designed a plant in 2023 that turns deep salty water into 5 million gallons a day of clean water. We ask that it be built and handed to the towns.",
+    why: "More than 103 million gallons were pumped from the fresh aquifer for construction in five months before a court stopped it, and the signed agreement lets the campus draw up to 20,000 gallons a day of drinking water from the local utility. [NMSU](https://nmwrri.nmsu.edu/publications/miscellaneous-reports/m-documents/m36.pdf) designed a plant in 2023 that turns deep salty water into 5 million gallons a day of clean water. The county is already designing a smaller 4 MGD plant with $15 million of Project Jupiter tax money and a state grant. We ask that the developer fund the full NMSU system instead, so the tax money stays with schools and roads, and that the brine be squeezed for more water before any is injected, as El Paso approved in 2026.",
     kidWhy: "They already used 103 million gallons of the town's water to build, and their plan keeps taking. Deep under the desert is salty water nobody drinks. A machine can clean it and give 16,700 homes water every day.",
     voices: {
       homeowner: "This is your tap. [CRRUA](https://www.crrua.org/) needs 6 million gallons a day next year and 15 by 2042. The plant makes 5 million a day from water nobody could drink, so your supply goes up instead of down.",
       business: "A designed, priced plant with a utility customer whose demand more than doubles by 2042. [El Paso Water](https://www.epwater.org/our_water/water_resources/desalination) has run a 27.5 MGD brackish plant since 2007. Water is a product here.",
     },
-    sources: ["cbd-well", "haussamen-water", "cba", "nmsu", "epwater"],
+    sources: ["cbd-well", "haussamen-water", "cba", "nmsu", "epwater", "star-plant", "epwater-brine-recovery"],
   },
   {
     id: "food",

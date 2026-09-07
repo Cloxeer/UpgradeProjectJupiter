@@ -7,11 +7,11 @@ export const sourceMap: SourcePage[] = [
     href: "/",
     blurb: "The upgrade, highlights, the net-loss timeline and status",
     sections: [
-      { title: "Hero, what it is, speed and cost", ids: ["render", "notice", "sob", "cba", "dcd-pipeline", "waterpdf", "faq", "sweden", "bloom-co2", "bloom-chart", "nmelc", "nmsu", "epwater", "twdb", "cduaws", "haussamen-water", "cbd-well", "epm-jobs"] },
+      { title: "Hero, what it is, speed and cost", ids: ["star-plant", "epwater-brine-recovery", "render", "notice", "sob", "cba", "dcd-pipeline", "waterpdf", "faq", "sweden", "bloom-co2", "bloom-chart", "nmelc", "nmsu", "epwater", "twdb", "cduaws", "haussamen-water", "cbd-well", "epm-jobs"] },
       { title: "Who are you (audience panels)", ids: ["cba", "epm-jobs", "county-qa", "nmsu", "sob", "sunland-park-ozone", "ala-sota-2025", "dailylobo", "haussamen-water", "cbd-well", "epa-watersense", "render", "sweden", "nmpr-stay", "bloom-chart", "doe-pv-cost"] },
-      { title: "Highlights", ids: ["bocc", "econpdf", "cba", "nmsu", "faq", "county-qa", "epm-jobs", "sob", "sunland-park-ozone", "ala-sota-2025", "bloom-chart", "bloom-fuels", "haussamen-water", "cbd-well", "epa-watersense"] },
+      { title: "Highlights", ids: ["epm-water-fund", "star-plant", "bocc", "econpdf", "cba", "nmsu", "faq", "county-qa", "epm-jobs", "sob", "sunland-park-ozone", "ala-sota-2025", "bloom-chart", "bloom-fuels", "haussamen-water", "cbd-well", "epa-watersense"] },
       { title: "Two Jupiters", ids: ["sob", "sunland-park-ozone", "photo-grs"] },
-      { title: "Net loss, year after year", ids: ["sob", "bocc", "cba", "cbd-well", "haussamen-water", "nmsu", "sunland-park-ozone", "ala-sota-2025", "epa-ozone-naaqs", "epm-jobs", "sweden", "notice", "carrier-furnace", "render", "nmbg-164", "ipcc-ar6-spm", "usgs-mesilla-taap", "bloom-stack-life"] },
+      { title: "Net loss, year after year", ids: ["dac-solar-decom", "carboncure", "blue-planet", "epa-class-vi", "sob", "bocc", "cba", "cbd-well", "haussamen-water", "nmsu", "sunland-park-ozone", "ala-sota-2025", "epa-ozone-naaqs", "epm-jobs", "sweden", "notice", "carrier-furnace", "render", "nmbg-164", "ipcc-ar6-spm", "usgs-mesilla-taap", "bloom-stack-life"] },
       { title: "Updates and status tracker", ids: ["cba", "nmpr-stay", "abq-stay", "notice", "cbd-well", "slo", "energyconnects", "abq-reports", "bocc"] },
     ],
   },
@@ -23,12 +23,12 @@ export const sourceMap: SourcePage[] = [
       { title: "The site plan", ids: [] },
       { title: "Process 1. Heat", ids: ["render", "waterpdf", "faq", "sob", "sweden", "carrier-furnace", "cba"] },
       { title: "Process 2. Carbon", ids: ["sob", "epa-ozone-naaqs", "sunland-park-ozone", "nmelc", "epa-pm-naaqs", "notice", "bloom-co2", "bloom-chart", "bocc", "abq-lc", "cba", "epa-class-vi-saline", "bloom-fuels", "faq", "ala-sota-2025", "epa-class-vi"] },
-      { title: "Process 3. Water", ids: ["nmsu", "epwater", "twdb", "cduaws", "cba", "faq", "haussamen-water", "cbd-well", "epa-watersense", "usgs-mesilla", "bocc"] },
+      { title: "Process 3. Water", ids: ["star-plant", "epm-water-fund", "ewm-elpaso", "epwater-brine-recovery", "nmsu", "epwater", "twdb", "cduaws", "cba", "faq", "haussamen-water", "cbd-well", "epa-watersense", "usgs-mesilla", "bocc"] },
       { title: "Process 4. Solar: roof by roof on the blueprint", ids: ["ktsm-sqft", "notice", "render", "cba", "doe-pv-cost"] },
       { title: "Process 5. Greenhouses", ids: ["cba", "epm-jobs", "sob", "sweden", "waterpdf", "render", "faq", "spread-keihanna", "chengdu-vertical", "vf-energy", "vf-econ"] },
-      { title: "Click-to-explain part panels", ids: ["render", "ktsm-sqft", "faq", "waterpdf", "notice", "photo-phe", "sweden", "carrier-furnace", "cba", "epm-jobs", "nmsu", "dcd-pipeline", "slo", "energyconnects", "bloom-fuels", "bocc", "sob", "sfnm-fuelcells", "bloom-co2", "bloom-chart", "nmelc", "sunland-park-ozone", "ala-sota-2025", "epa-ozone-naaqs", "epa-pm-naaqs", "epa-class-vi-saline", "epa-class-vi", "usgs-induced", "decatur", "cduaws", "cbd-well", "haussamen-water", "photo-bgndrf", "epwater", "twdb", "sfnm-water", "usgs-mesilla", "doe-pv-cost"] },
+      { title: "Click-to-explain part panels", ids: ["ewm-elpaso", "epwater-brine-recovery", "epa-class-vi", "render", "ktsm-sqft", "faq", "waterpdf", "notice", "photo-phe", "sweden", "carrier-furnace", "cba", "epm-jobs", "nmsu", "dcd-pipeline", "slo", "energyconnects", "bloom-fuels", "bocc", "sob", "sfnm-fuelcells", "bloom-co2", "bloom-chart", "nmelc", "sunland-park-ozone", "ala-sota-2025", "epa-ozone-naaqs", "epa-pm-naaqs", "epa-class-vi-saline", "epa-class-vi", "usgs-induced", "decatur", "cduaws", "cbd-well", "haussamen-water", "photo-bgndrf", "epwater", "twdb", "sfnm-water", "usgs-mesilla", "doe-pv-cost"] },
       { title: "Glossary", ids: ["carrier-furnace", "eia-homes", "notice", "epa-watersense", "epa-ozone-naaqs", "epa-pm-naaqs", "sob", "cduaws", "bloom-chart", "cba", "county-qa", "sunland-park-ozone"] },
-      { title: "Timeline", ids: ["cba", "bocc", "sob", "cbd-well", "slo", "sourcenm-moratorium", "dailylobo", "nmpr-stay", "abq-stay", "abq-reports", "nmsu", "bloom-fuels"] },
+      { title: "Timeline", ids: ["nmsu", "cba", "bocc", "sob", "cbd-well", "slo", "sourcenm-moratorium", "dailylobo", "nmpr-stay", "abq-stay", "abq-reports", "nmsu", "bloom-fuels"] },
     ],
   },
   {
@@ -37,7 +37,8 @@ export const sourceMap: SourcePage[] = [
     blurb: "The engineering, at four reading levels",
     sections: [
       { title: "Key components", ids: ["render", "notice", "sob", "cba", "dcd-pipeline", "waterpdf", "faq", "sweden", "bloom-co2", "bloom-chart", "nmelc", "nmsu", "epwater", "twdb", "cduaws", "haussamen-water", "cbd-well", "epm-jobs"] },
-      { title: "Reading levels: the numbers with sources", ids: ["cba", "epm-jobs", "faq", "county-qa", "econpdf", "bocc", "notice", "carrier-furnace", "waterpdf", "sweden", "nmsu", "sob", "nmelc", "bloom-co2", "bloom-chart", "bloom-fuels", "epa-class-vi-saline", "epa-class-vi", "usgs-induced", "epa-ozone-naaqs", "epa-pm-naaqs", "sunland-park-ozone", "ala-sota-2025", "cduaws", "epwater", "twdb", "haussamen-water", "cbd-well", "epa-watersense", "ktsm-sqft", "doe-pv-cost", "render"] },
+      { title: "Open questions and parked ideas (expert fold)", ids: ["nmsu", "usgs-mesilla", "carboncure", "blue-planet", "notice", "render", "epa-class-vi", "cba", "dac-solar-decom", "haussamen-nda", "haussamen-water", "abq-reports", "sweden", "bloom-stack-life", "ewm-elpaso", "epwater-brine-recovery", "columbia-decom"] },
+      { title: "Reading levels: the numbers with sources", ids: ["epa-tenorm", "ewm-elpaso", "star-plant", "epa-class-vi", "cba", "epm-jobs", "faq", "county-qa", "econpdf", "bocc", "notice", "carrier-furnace", "waterpdf", "sweden", "nmsu", "sob", "nmelc", "bloom-co2", "bloom-chart", "bloom-fuels", "epa-class-vi-saline", "epa-class-vi", "usgs-induced", "epa-ozone-naaqs", "epa-pm-naaqs", "sunland-park-ozone", "ala-sota-2025", "cduaws", "epwater", "twdb", "haussamen-water", "cbd-well", "epa-watersense", "ktsm-sqft", "doe-pv-cost", "render"] },
     ],
   },
   {
@@ -51,9 +52,9 @@ export const sourceMap: SourcePage[] = [
   {
     title: "Petition",
     href: "/petition",
-    blurb: "The five conditions",
+    blurb: "The six conditions",
     sections: [
-      { title: "The five conditions and what they rest on", ids: ["cba", "sob", "bloom-chart", "nmsu", "sweden", "sunland-park-ozone"] },
+      { title: "The six conditions and what they rest on", ids: ["dac-solar-decom", "columbia-decom", "cga-pa", "epa-class-vi", "star-plant", "cba", "sob", "bloom-chart", "nmsu", "sweden", "sunland-park-ozone"] },
     ],
   },
   {

@@ -14,7 +14,7 @@ export type AudiencePanel = {
   ctaLabel: string;
 };
 
-// highlightPairs indices: 0 $4.7B+1.9B · 1 $269M water · 2 $1B schools · 3 $50M institute · 4 jobs · 5 NOx monitored · 6 capture · 7 water for homes
+// highlightPairs indices: 0 $4.7B+1.9B · 1 $269.5M water · 2 $1B schools · 3 $50M institute · 4 jobs · 5 NOx monitored · 6 capture · 7 water for homes
 export const audiencePanels: Record<Audience, AudiencePanel> = {
   expert: {
     title: "The full record",
@@ -59,7 +59,7 @@ export const audiencePanels: Record<Audience, AudiencePanel> = {
     bullets: [
       { text: "About 3,000 permanent jobs in Phase 1 against the 750 the signed agreement requires, with staffing tied to the lease so the number is enforceable, not advertised.", sources: ["cba", "epm-jobs"] },
       { text: "A conditioned bond schedule of about $1 billion over 30 years for schools, infrastructure and services, against $360 million today, paid as jobs and emissions targets are verified.", sources: ["cba", "county-qa"] },
-      { text: "Five million gallons a day of new drinking water delivered to CRRUA from the plant NMSU already designed and priced at $269 million, instead of a $250,000 study of the same idea.", sources: ["nmsu", "cba"] },
+      { text: "Five million gallons a day of new drinking water delivered to CRRUA from the plant NMSU already designed and priced at $269.5 million, instead of a $250,000 study of the same idea.", sources: ["nmsu", "cba"] },
       { text: "Day-one carbon capture on the fuel-cell stacks, with every ton of smog measured continuously and published, in a county that already fails the ozone standard.", sources: ["sob", "sunland-park-ozone", "ala-sota-2025"] },
       { text: "Three bills are drafted and ready to sponsor: Microgrid Oversight, Waste-Heat Reuse, and Data Center Standards. The Microgrid Oversight Act (SB 235) passed the Senate in 2026.", sources: ["dailylobo"] },
       { text: "Cost to the developer is about 1.5% of the $165 billion bond; the county's only enforcement tool is the IRB lease, so the conditions have to be written in before the fuel cells arrive.", sources: ["cba"] },
@@ -71,7 +71,7 @@ export const audiencePanels: Record<Audience, AudiencePanel> = {
     ],
     highlightsOrder: [4, 2, 0, 1, 5, 6, 3, 7],
     heroSubhead: "3,000 enforceable jobs, $1 billion for schools over 30 years, 5 million gallons of new water a day, and a permit the courts will let stand.",
-    whatIsIntro: "For an elected official the question is simple: the county's leverage is the lease, and the lease is being finalized now. Here is what the documents say the project is, and what five conditions would change.",
+    whatIsIntro: "For an elected official the question is simple: the county's leverage is the lease, and the lease is being finalized now. Here is what the documents say the project is, and what six conditions would change.",
     netlossIntro: "On the developers' own filed numbers, here is what each year of the plan as filed costs the county, and what the same years deliver under the upgrade.",
     speedIntro: "Same site, same timeline, same builder. The upgrade adds about 1.5% to the bill and changes the outcome from a net loss to a net gain.",
     ctaLabel: "See the bills and the conditions",
@@ -85,7 +85,7 @@ export const audiencePanels: Record<Audience, AudiencePanel> = {
       { text: "Traffic: produce trucks use their own gate on the public road, so farm traffic never mixes with the secure entrance.", sources: ["render"] },
       { text: "Food and prices: about 60 million pounds a year of local, pesticide-free produce from 150 acres of greenhouses next to the halls (industry-average estimate).", sources: ["sweden"] },
       { text: "Jobs within driving distance: about 1,500 greenhouse, water, capture and training jobs on top of the 1,500 tech jobs they advertise, with an NMSU / DACC institute on site.", sources: ["cba", "epm-jobs"] },
-      { text: "What to ask your commissioner: are the five conditions in the lease yet? Today the answer is no.", sources: ["cba"] },
+      { text: "What to ask your commissioner: are the six conditions in the lease yet? Today the answer is no.", sources: ["cba"] },
     ],
     links: [
       { label: "Sign the petition", href: "/petition" },
@@ -94,7 +94,7 @@ export const audiencePanels: Record<Audience, AudiencePanel> = {
     ],
     highlightsOrder: [7, 5, 6, 4, 1, 2, 3, 0],
     heroSubhead: "Clean water added instead of taken, smog measured and captured instead of released, and food grown next door.",
-    whatIsIntro: "If you live in Sunland Park, Santa Teresa or Anthony, this project shares your water and your air. Here is what it is, in the developers' own words and documents, and what five conditions would change for your street.",
+    whatIsIntro: "If you live in Sunland Park, Santa Teresa or Anthony, this project shares your water and your air. Here is what it is, in the developers' own words and documents, and what six conditions would change for your street.",
     netlossIntro: "Year by year, here is what the plan as filed takes from the aquifer and puts into the air over your neighborhood, and what the upgrade does instead.",
     speedIntro: "Nothing about the upgrade slows the project down or moves it. It changes what your neighborhood gets out of it.",
     ctaLabel: "Add your name to the petition",
@@ -104,7 +104,7 @@ export const audiencePanels: Record<Audience, AudiencePanel> = {
     intro: "The upgrade creates businesses that do not exist in the filed plan: greenhouse leases, water sales, heat sales, packing and logistics, and a trained workforce. Here is the money side, with every figure labeled.",
     bullets: [
       { text: "Greenhouse land: about 150 acres inside the fence, leased to commercial growers, with warm water and CO₂ piped in. Lease plus heat revenue to the developer is estimated at about $130,000 per acre a year; growers get winter heat at a fraction of gas cost (estimate).", sources: ["sweden", "cba"] },
-      { text: "Water: a 5 MGD plant priced by NMSU at $269 million for the whole system, selling to CRRUA whose demand is projected at 6 MGD by 2027 and 15 by 2042.", sources: ["nmsu"] },
+      { text: "Water: a 5 MGD plant priced by NMSU at $269.5 million for the whole system, selling to CRRUA whose demand is projected at 6 MGD by 2027 and 15 by 2042.", sources: ["nmsu"] },
       { text: "Packing and logistics: a packing house on the public road at the Santa Teresa border crossing, with its own gate, feeding the produce trade that already runs through the port of entry.", sources: ["render"] },
       { text: "Workforce: a $50 million NMSU / DACC institute on site training for power, water, greenhouse and hardware jobs, against $4 million for workforce education in the signed agreement.", sources: ["cba"] },
       { text: "For the developer: lower fan and chiller electricity (the heat is sold instead of blown away), lease and water revenue, and a permit that survives review. The signed CBA already offsets $4.5 million in permit fees; the county could put similar certainty on the table for a plan that meets the conditions (our proposal, not a promise).", sources: ["cba", "nmpr-stay"] },
@@ -118,7 +118,7 @@ export const audiencePanels: Record<Audience, AudiencePanel> = {
     ],
     highlightsOrder: [0, 1, 3, 4, 6, 7, 2, 5],
     heroSubhead: "New leases, new water to sell, heat that is sold instead of thrown away, and a trained workforce on site, for about 1.5% more cost.",
-    whatIsIntro: "For an investor or an operator, the filed plan is a closed box: one tenant, one product, no side businesses. Here is what it is, and what five conditions would open up on the same land.",
+    whatIsIntro: "For an investor or an operator, the filed plan is a closed box: one tenant, one product, no side businesses. Here is what it is, and what six conditions would open up on the same land.",
     netlossIntro: "The as-filed column is what the site produces for anyone but the tenant: nothing. The upgraded column is the new revenue, year by year.",
     speedIntro: "How fast and how cheap: same schedule, same builder, about 1.5% more capital, most of it from growers, not the developer.",
     ctaLabel: "See what it costs and who pays",

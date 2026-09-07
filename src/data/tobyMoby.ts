@@ -139,7 +139,7 @@ export const partTM: Record<string, Exchange[]> = {
   brineWell: [
     {
       q: "What about the super salty leftover?",
-      a: "It gets pumped way down deep, far below the water we drink, behind a wall of solid rock. That way it can never mix back in with the good water.",
+      a: "First we squeeze it again to get even more clean water out, like El Paso is about to do with theirs. What is still left gets pumped way down deep, far below the water we drink, behind a wall of solid rock. That way it can never mix back in with the good water.",
     },
   ],
   closedLoop: [

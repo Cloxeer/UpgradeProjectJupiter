@@ -1,7 +1,7 @@
 const steps = [
   { n: "1", title: "What Project Jupiter is", body: "A $165 billion data-center campus in Santa Teresa with its own gas-fired power plant, approved by Doña Ana County in 2025.", href: "#whatis" },
   { n: "2", title: "What the upgrade changes", body: "Same site, same buildings, same timeline. Catch the CO₂, use the heat, make clean water from salty groundwater, grow food, put every ton on a public meter.", href: "/blueprint" },
-  { n: "3", title: "What you can do", body: "Ask the county and the Legislature to write five conditions into the leases before the fuel cells arrive.", href: "/petition" },
+  { n: "3", title: "What you can do", body: "Ask the county and the Legislature to write six conditions into the leases before the fuel cells arrive.", href: "/petition" },
 ];
 
 const paths = [

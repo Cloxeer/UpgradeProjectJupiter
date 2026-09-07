@@ -73,28 +73,28 @@ export const overallCopy: Copy = {
   willList: ["The CO₂ caught and used, and every ton of smog on a public meter", "5 million gallons a day of clean water added, not taken", "About 60 million pounds of food a year grown on the computers' heat", "Gas machines that rest more every year as geothermal and wind take over", "About 3,000 permanent jobs for people who live here, instead of 750"],
   willNotTitle: "THE PLAN AS FILED GIVES THEM:",
   willNotList: ["About 10 million tons of CO₂ a year into the sky", "Each smog gas kept just under the strict-review line, over a town that already fails the standard", "Drinking water taken and more pumped from the fresh aquifer", "All the heat blown into the desert", "750 jobs and $12 million a year"],
-  updatesLead: "Concrete is being poured now: 9% complete by the company's own report. A court has paused the air permit and the water well. None of the five conditions is in the county lease yet, so there is still time.",
+  updatesLead: "Concrete is being poured now: 9% complete by the company's own report. A court has paused the air permit and the water well. None of the six conditions is in the county lease yet, so there is still time.",
   scienceIntro: "How each part works, explained for every reader, with the documents behind it.",
   ctaAfter: ctaText.after,
   supportLead: "Tell Doña Ana County: do not cancel Project Jupiter. Make it earn its place on this land before the first fuel cell turns on.",
 };
 
 const legislator: Copy = {
-  heroLine: "The county holds the lease on a $165 billion data center and none of the five conditions is in it yet. This is what to write in before the fuel cells arrive.",
-  heroStats: [{ icon: "helmet", value: "3,000", label: "enforceable jobs", color: "#2e8b57" }, { icon: "water", value: "$269M", label: "water plant, designed", color: "#1f7ae0" }, { icon: "energy", value: "1.5%", label: "added to the bond", color: "#d99a00" }],
+  heroLine: "The county holds the lease on a $165 billion data center and none of the six conditions is in it yet. This is what to write in before the fuel cells arrive.",
+  heroStats: [{ icon: "helmet", value: "3,000", label: "enforceable jobs", color: "#2e8b57" }, { icon: "water", value: "$269.5M", label: "water plant, designed", color: "#1f7ae0" }, { icon: "energy", value: "1.5%", label: "added to the bond", color: "#d99a00" }],
   heroQuestion: "WHAT SHOULD THE LEASE REQUIRE BEFORE THE FUEL CELLS ARRIVE?",
   heroBullets: [
     { strong: "Enforceable jobs.", rest: " About 3,000 permanent positions in Phase 1 written into the IRB lease, against the 750 the signed agreement requires today." },
     { strong: "A conditioned bond schedule.", rest: " About $1 billion over 30 years for schools, infrastructure and services, paid as verified jobs and stack emissions targets are met, against $360 million unconditioned." },
-    { strong: "Water delivered, not studied.", rest: " The 5 MGD brackish plant NMSU priced at $269 million, built and handed to CRRUA, in place of the $250,000 desalination study the CBA funds." },
+    { strong: "Water delivered, not studied.", rest: " The 5 MGD brackish plant NMSU priced at $269.5 million, built and handed to CRRUA, in place of the $250,000 desalination study the CBA funds." },
     { strong: "One permit, monitored.", rest: " Capture on the fuel-cell stacks from day one and continuous smog monitors with public data, in a county that already fails the federal ozone standard." },
     { strong: "Gas hours falling.", rest: " A geothermal share and delivered wind contracted in the lease, so the HB93 zero in 2045 has a schedule instead of a promise." },
     { strong: "", rest: "The county's only enforcement tool is the lease, and the lease is being finalized now. Three bills are drafted. The conditions cost the developer about 1.5% of the bond." },
   ],
   whatIsParagraphs: [
     "Project Jupiter is a data-center campus in Santa Teresa financed through $165 billion in Doña Ana County industrial revenue bonds. The county holds title and leases the project back, so the lease, not the permit, is where conditions bind. The signed Community Benefits Agreement of Nov. 12, 2025 describes about 819 acres with a 400-acre first phase, a minimum of 750 full-time jobs, a 20,000-gallon-a-day potable cap and $11.4 million in programs. NMED's draft air permit puts the fuel-cell plant at 2,462 MW and 10,144,115 tons of CO₂e a year, with each criteria pollutant held just under the 250-ton PSD threshold.",
-    "The upgrade is five lease conditions, not a redesign: capture before power-on, one air permit with PSD-level controls and continuous monitoring, waste heat offered to growers at cost, the NMSU water plant funded, and bond payments tied to verified jobs and emissions. It keeps their halls, fuel cells, fence and schedule. Added cost is about 1.5% of the bond, most of it borne by growers rather than the developer.",
-    "Status as of Sept. 2, 2026: the air-permit hearing and the construction well are stayed by the Supreme Court, the pipeline's state-land segment has been denied twice, quarterly job reports were missed, and construction is 9% complete by the developers' own report. None of the five conditions is in the lease.",
+    "The upgrade is six lease conditions, not a redesign: capture before power-on, one air permit with PSD-level controls and continuous monitoring, waste heat offered to growers at cost, the NMSU water plant funded, and bond payments tied to verified jobs and emissions. It keeps their halls, fuel cells, fence and schedule. Added cost is about 1.5% of the bond, most of it borne by growers rather than the developer.",
+    "Status as of Sept. 2, 2026: the air-permit hearing and the construction well are stayed by the Supreme Court, the pipeline's state-land segment has been denied twice, quarterly job reports were missed, and construction is 9% complete by the developers' own report. None of the six conditions is in the lease.",
   ],
   highlightsIntro: "Eight of their published figures, each answered in the same unit with the arithmetic and the document behind it. Tap a card for the math you will be asked about.",
   pitches: [
@@ -102,12 +102,12 @@ const legislator: Copy = {
     { title: "What the Legislature can pass", body: "Three drafted bills: Microgrid Oversight (SB 235 passed the Senate in 2026), Waste-Heat Reuse, and Data Center Standards. Each has a fiscal note that is small because the hardware is ordinary and the money is the developer's." },
     { title: "What the record shows", body: "Nov. 12, 2025 CBA; two State Land Office denials; 103 million gallons pumped under an emergency authorization now stayed; NMED draft permit July 29, 2026; Supreme Court stay Aug. 24 and refusal to lift it Sept. 1; missed employment reports. Every date links to its document." },
   ],
-  netlossLead: "On the developers' filed numbers, each year of operation as filed adds emissions and water draw with no offsetting public asset. Under the five conditions the same years deliver water, food, verified jobs and bond revenue. Pick a year; every cell is cited.",
-  willTitle: "THE FIVE CONDITIONS DELIVER:",
+  netlossLead: "On the developers' filed numbers, each year of operation as filed adds emissions and water draw with no offsetting public asset. Under the six conditions the same years deliver water, food, verified jobs and bond revenue. Pick a year; every cell is cited.",
+  willTitle: "THE SIX CONDITIONS DELIVER:",
   willList: [
     "About $6.6 billion in Phase-1 economic impact on their own IMPLAN basis plus leases, heat and water sales, against their $4.7 billion†",
     "About $1 billion in conditioned bond payments over 30 years for schools, infrastructure and services, against $360 million",
-    "The $269 million NMSU-designed 5 MGD desalination system delivered to CRRUA, against a $50 million check and a $250,000 study",
+    "The $269.5 million NMSU-designed 5 MGD desalination system delivered to CRRUA, against a $50 million check and a $250,000 study",
     "About 3,000 permanent jobs written into the lease, against 750 binding and 1,500 advertised",
     "Capture from day one, one permit, continuous monitoring, and a geothermal and delivered-renewables schedule toward the HB93 2045 zero",
   ],
@@ -119,9 +119,9 @@ const legislator: Copy = {
     "An undisclosed non-potable water draw from a fresh-aquifer farm right, on top of the 103 million gallons already pumped",
     "About 2,400 MW of usable heat blown into the desert while the county funds a study of a water plant that is already designed",
   ],
-  updatesLead: "Construction is 9% complete by the developers' July 28, 2026 report. The permit and the well are stayed. The lease amendments have to be adopted before the fuel cells are delivered; today none of the five conditions is in the lease.",
+  updatesLead: "Construction is 9% complete by the developers' July 28, 2026 report. The permit and the well are stayed. The lease amendments have to be adopted before the fuel cells are delivered; today none of the six conditions is in the lease.",
   scienceIntro: "The engineering behind each condition, with vendor specifications, operating plants and university research, at four reading levels. The Expert level is the one to hand staff.",
-  ctaAfter: " to put the five conditions in the lease for ",
+  ctaAfter: " to put the six conditions in the lease for ",
   supportLead: "Ask the commission to amend the IRB leases and the Legislature to pass the three bills before the first fuel cell turns on. The conditions cost the developer about 1.5% of the bond.",
 };
 
@@ -168,11 +168,11 @@ const homeowner: Copy = {
   updatesLead: "Concrete is being poured now: 9% complete by the developers' own July report. The permit and the well are on hold in court. Nothing about water, air or jobs is written into the county lease yet, and the lease is the only place it can be enforced.",
   scienceIntro: "How the water plant, the capture, the heat and the greenhouses work, explained at four reading levels. Pick 'Adult' for the plain version.",
   ctaAfter: " to get water, clean air and food out of ",
-  supportLead: "Ask your county commissioner one question: are the five conditions in the lease yet? Today the answer is no.",
+  supportLead: "Ask your county commissioner one question: are the six conditions in the lease yet? Today the answer is no.",
 };
 
 const business: Copy = {
-  heroLine: "A closed box as filed: one tenant, one product, a permit stuck in court. Five conditions open leases, water, heat and clean power on the same land, for about 1.5% more.",
+  heroLine: "A closed box as filed: one tenant, one product, a permit stuck in court. Six conditions open leases, water, heat and clean power on the same land, for about 1.5% more.",
   heroStats: [{ icon: "datacenter", value: "150 acres", label: "to lease, heat included", color: "#2e8b57" }, { icon: "household", value: "$130k", label: "per acre a year", color: "#d99a00" }, { icon: "water", value: "6 → 15 MGD", label: "utility demand by 2042", color: "#1f7ae0" }],
   heroQuestion: "WHERE IS THE MONEY IN THE UPGRADE?",
   heroBullets: [
@@ -185,7 +185,7 @@ const business: Copy = {
   whatIsParagraphs: [
     "Project Jupiter is a $165 billion hyperscale campus in Santa Teresa with a 2,462 MW Bloom fuel-cell microgrid, financed through county industrial revenue bonds that swap property tax for lease payments over 30 years. As filed it is a closed box: one tenant, one product, all power from gas, all heat rejected, no water produced. The air permit and the construction well are stayed in court and the gas pipeline's state-land route has been denied twice, which is schedule risk for everyone on the site.",
     "The upgrade opens side businesses on the same land without touching the halls or the schedule: greenhouse leases with heat and CO₂ as inputs, a water plant with a utility customer, a packing house at the border crossing, and a contracted clean-power share that lowers the fuel bill. Each has a precedent: Gothenburg heats greenhouses on data-center heat, El Paso has run a 27.5 MGD brackish plant since 2007, Google has bought 396 MW of enhanced geothermal for 2028.",
-    "What it does for the developer: lower fan and chiller electricity, lease and water revenue, a permit that survives review, and the fee offsets the signed CBA already allows. It also makes this, to our knowledge, the first hyperscale campus in the country to combine stack capture, heat reuse, water production and a public emissions meter, with five quarterly metrics shareholders can audit. The county could put similar certainty on the table for a plan that meets the five conditions. That is a proposal, not a promise.",
+    "What it does for the developer: lower fan and chiller electricity, lease and water revenue, a permit that survives review, and the fee offsets the signed CBA already allows. It also makes this, to our knowledge, the first hyperscale campus in the country to combine stack capture, heat reuse, water production and a public emissions meter, with five quarterly metrics shareholders can audit. The county could put similar certainty on the table for a plan that meets the six conditions. That is a proposal, not a promise.",
   ],
   highlightsIntro: "Eight of their published figures with the revenue and cost behind each answer. Tap a card for the arithmetic.",
   pitches: [
