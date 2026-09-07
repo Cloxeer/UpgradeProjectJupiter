@@ -23,8 +23,15 @@ export const openQuestions: OpenQuestion[] = [
     q: "How fast does the deep brackish aquifer refill, and what happens to the ground above it?",
     thought:
       "NMSU puts 60 to 65 million acre-feet of usable brackish water in the Mesilla Basin and calls the supply 'large, but not infinite', recharged mostly by underflow that is itself brackish, at a rate it says is unknown. A 5 MGD plant draws about 5,600 acre-feet a year, 10 MGD about 11,200; against storage that is a hundredth of a percent a year, so volume is not the question. Compaction of fine-grained layers and salt moving upward toward fresh wells are, and neither has been measured at this depth here. El Paso's basin has measured subsidence from a century of fresh-water pumping; nobody has measured what brackish pumping at 1,000 to 2,000 feet does under Santa Teresa.",
-    next: "Deep monitoring wells around the well field before the plant opens, read yearly against the USGS Mesilla network that has taken annual measurements since 1987, and a public report. The lease condition exists because the answer does not.",
-    sources: ["nmsu", "usgs-mesilla"],
+    next: "Deep monitoring wells around the well field before the plant opens, read yearly against the USGS Mesilla network that has taken annual measurements since 1987, and a public report. The recharge basins answer the other half: with the fresh wells resting and 2 to 5 MGD going back underground, the shallow table should stop falling and climb, and the same wells will show whether it does. The lease condition exists because the answer does not.",
+    sources: ["nmsu", "usgs-mesilla", "epwater-recharge", "nm-asr-act"],
+  },
+  {
+    q: "Are the minerals in the brine worth selling, or did we just walk away from them?",
+    thought:
+      "We did the arithmetic rather than rule by instinct. The feed carries about 2,000 mg/L of dissolved solids, so a 5 MGD plant handles roughly 38 tons of salt a day, about 14,000 tons a year: mostly sodium, chloride and sulfate, with 20 to 84 mg/L calcium and 4 to 24 mg/L magnesium. Even if every ton fetched $500, a generous average for a mix that is mostly common salt, the whole stream is worth about $7 million a year, roughly what NMSU says the plant costs to run. The reason is dilution: this brine is several times thinner than seawater, and the world's mineral-recovery successes are on brines far more concentrated than seawater. GAO finds even seawater-brine mining unproven at scale, and the one plant that tried it next door failed at commissioning. The 2024 brackish pilot that works treats magnesium hydroxide as a byproduct of getting more water out.",
+    next: "Recover the water first, which is worth more than the salts. Sell gypsum, salt or magnesium hydroxide when a buyer signs, and put the revenue in the public accounts. Revisit if El Paso's new brine plant runs for a year.",
+    sources: ["nmsu", "gao-brine-minerals", "mred-brackish", "ewm-elpaso", "epwater-brine-recovery"],
   },
   {
     q: "Can the CO₂ be turned into rock with the brine's own minerals?",
@@ -73,20 +80,14 @@ export const openQuestions: OpenQuestion[] = [
 export const parkedIdeas: ParkedIdea[] = [
   {
     idea: "Sell the minerals in the brine: caustic soda, acid, gypsum, magnesium hydroxide.",
-    status: "parked",
-    why: "The one plant built to do exactly this, beside El Paso's desalination plant, failed during commissioning and changed hands. El Paso approved a second attempt in July 2026 with unnamed minerals and uncertain timing. If it runs for a year, this comes off the shelf; until then the site counts water recovered from brine and no mineral revenue.",
-    sources: ["ewm-elpaso", "epwater-brine-recovery"],
+    status: "candidate",
+    why: "Worth a few million dollars a year at most on this dilute brine (arithmetic above), so it rides on the water-recovery step rather than paying for it. The one plant built to do exactly this, beside El Paso's desalination plant, failed during commissioning; El Paso approved a second attempt in July 2026. If it runs for a year, a buyer and a price go into the plan; until then the site counts the water and no mineral revenue.",
+    sources: ["ewm-elpaso", "epwater-brine-recovery", "gao-brine-minerals"],
   },
   {
     idea: "Lithium from the deep brine.",
     status: "parked",
     why: "No published lithium concentration exists for these wells. NMSU's water-quality table for Lanark and Noria does not list it. A number first, then a plan.",
-    sources: ["nmsu"],
-  },
-  {
-    idea: "Put treated wastewater back underground to hold the aquifer up.",
-    status: "candidate",
-    why: "NMSU notes 'potential space to store artificial recharge for future recovery' in the basin. It needs CRRUA's effluent volume and quality, and a pilot, before it can be a condition.",
     sources: ["nmsu"],
   },
   {

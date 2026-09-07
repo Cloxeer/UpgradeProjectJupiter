@@ -24,10 +24,11 @@ export const steps = [
   { n: 3, who: "You", what: "sign, call your commissioner, and show up on a second or fourth Tuesday.", why: "None of the six conditions is in the lease yet. Concrete is being poured now.", href: "/petition", cta: "Sign the petition" },
 ] as const;
 
-/** Five tabs. Petition is the button, not a tab; the Science page is linked from the Blueprint and the footer. */
+/** Six tabs. Petition is the button, not a tab. */
 export const nav = [
   { label: "HOME", href: "/" },
   { label: "BLUEPRINT", href: "/blueprint" },
+  { label: "SCIENCE", href: "/science" },
   { label: "LEGISLATORS", href: "/legislators" },
   { label: "FAQ", href: "/faq" },
   { label: "SOURCES", href: "/sources" },
@@ -393,9 +394,9 @@ export const petitionDemands: { ask: string; theirs: string; why: string }[] = [
     why: "About 150 acres of greenhouses would grow about 60 million pounds of food a year and add about 1,000 jobs. Gothenburg does this today.",
   },
   {
-    ask: "The NMSU-designed water plant built and handed to the local utility: 5 million gallons a day of clean water from salty groundwater.",
+    ask: "The NMSU-designed water plant built and handed to the local utility: 5 million gallons a day of clean water from salty groundwater, with the towns' reclaimed water and the plant's surplus put back into the fresh aquifer under a state storage-and-recovery permit.",
     theirs: "Drinking water is taken from the local utility and more is pumped from the fresh aquifer. The signed deal funds a $250,000 study; the county is now designing a smaller plant with its own Jupiter tax money.",
-    why: "The plant is already designed and priced at $269.5 million, about 0.16% of the bond. It gives back more water than the campus takes.",
+    why: "The plant is already designed and priced at $269.5 million, about 0.16% of the bond. With the fresh wells resting and 2 to 5 million gallons a day going back underground, as El Paso has done since 1985, the aquifer under the towns stops falling and starts to climb.",
   },
   {
     ask: "The county tax break paid only as permanent jobs are verified each year, and a $50 million training institute on site so the jobs go to people who live here.",

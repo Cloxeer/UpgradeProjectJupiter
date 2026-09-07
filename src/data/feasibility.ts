@@ -64,14 +64,14 @@ export const demands: Demand[] = [
   {
     id: "water",
     process: "Process 3 · Water",
-    short: "Fund the NMSU water plant and hand it to the towns",
-    kidShort: "Clean the salty water so there is more to drink",
+    short: "Fund the NMSU water plant, hand it to the towns, and put the surplus back underground",
+    kidShort: "Clean the salty water so there is more to drink, and put extra water back into the ground",
     checks: [
-      { label: "Sold today", status: "yes", note: "Brackish reverse osmosis is the same technology El Paso has run since 2007.", sources: ["epwater"] },
-      { label: "Done at scale", status: "yes", note: "El Paso's plant makes 27.5 million gallons a day, more than five times what is asked for here.", sources: ["epwater"] },
-      { label: "Cost", status: "yes", note: "NMSU priced the whole 5 MGD system at $269.5 million in 2023, about 0.16% of the bond.", sources: ["nmsu"] },
+      { label: "Sold today", status: "yes", note: "Brackish reverse osmosis is the same technology El Paso has run since 2007, and El Paso has put reclaimed water back into its aquifer through wells and infiltration ponds since 1985.", sources: ["epwater", "epwater-recharge"] },
+      { label: "Done at scale", status: "yes", note: "El Paso's plant makes 27.5 million gallons a day, more than five times what is asked for here, and its recharge program has returned more than 30 billion gallons to the Hueco Bolson.", sources: ["epwater", "epwater-recharge"] },
+      { label: "Cost", status: "yes", note: "NMSU priced the whole 5 MGD system at $269.5 million in 2023, about 0.16% of the bond. Infiltration basins are the cheap end of water infrastructure; El Paso moved to them from wells for that reason.", sources: ["nmsu", "epwater-recharge"] },
       { label: "Fits the schedule", status: "yes", note: "The design exists, and the county is already designing a smaller 4 MGD plant with $15 million of Jupiter tax money for construction in 2028 or 2029. This puts the developer's money behind the full system on that same schedule.", sources: ["nmsu", "star-plant", "cba"] },
-      { label: "Legal lever", status: "yes", note: "The lease can fund construction instead of a study. The utility, CRRUA, needs the water by 2027 on its own projections.", sources: ["cba", "nmsu"] },
+      { label: "Legal lever", status: "partial", note: "The lease can fund construction instead of a study, and CRRUA needs the water by 2027 on its own projections. Recharge needs a State Engineer permit under the Ground Water Storage and Recovery Act; Albuquerque's, the state's first, took from 2008 tests to a 2014 permit, and NMSU flags a water-rights accounting question for reuse near the river. Doable, not automatic.", sources: ["cba", "nmsu", "nm-asr-act", "abcwua-bear-canyon"] },
     ],
   },
   {
