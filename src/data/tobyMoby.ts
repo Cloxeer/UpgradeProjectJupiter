@@ -31,7 +31,7 @@ export const partTM: Record<string, Exchange[]> = {
   greenhouses: [
     {
       q: "What are the glass farms next to the fans?",
-      a: "They're greenhouses kept warm all winter by the computer heat, growing tomatoes and lettuce. The bugs can't get in, so there's no bug spray on your food.",
+      a: "They're greenhouses kept warm all winter by the computer heat, growing tomatoes and lettuce. Most bugs can't get in, so there's hardly any bug spray on your food.",
     },
     {
       q: "Do they make jobs too?",
@@ -79,7 +79,7 @@ export const partTM: Record<string, Exchange[]> = {
   released: [
     {
       q: "What about the gas that gets away?",
-      a: "Some of it warms up the whole planet. Some turns into smog on hot sunny days and makes it hard to breathe, especially for kids with asthma.",
+      a: "The big part warms up the whole planet. A small part is other gases that can turn into smog on hot sunny days and make it hard to breathe, especially for kids with asthma. Nobody has to measure those from the real chimneys, which is why we want meters.",
     },
     {
       q: "Is that why we want to catch it?",
@@ -89,7 +89,7 @@ export const partTM: Record<string, Exchange[]> = {
   storage: [
     {
       q: "Where does the squeezed gas go?",
-      a: "Deep, deep underground into rock that's like a sponge, way below the water we drink. A solid lid of rock sits on top so the gas stays down there forever.",
+      a: "Deep, deep underground into rock that's like a sponge, way below the water we drink. A solid lid of rock sits on top so the gas stays down there for a very, very long time, and people keep checking it for 50 years after.",
     },
   ],
   nearZero: [
@@ -151,7 +151,7 @@ export const partTM: Record<string, Exchange[]> = {
   sodFarmWell: [
     {
       q: "Where do they get their water now?",
-      a: "They bought an old farm's right to pump the good water and are using it to build. A judge told them to stop because it's the same water the town needs.",
+      a: "They bought an old farm's right to pump the good water and are using it to build. A judge told them to stop pumping while the court decides whether the permit was done the right way.",
     },
   ],
 

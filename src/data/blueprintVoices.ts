@@ -67,12 +67,12 @@ export const kidSteps: Record<string, string[]> = {
 };
 
 export const costVoice: V = {
-  overall: "What it costs and who pays: about 1.5% on top of the $165 billion bond. Most of it is the developer's, and the greenhouses are the growers' money, not the county's.",
+  overall: "What it costs and who pays: about 2.5% of the $165 billion bond cap, most of the capture line repayable by the federal 45Q credit. Most of it is the developer's, and the greenhouses are the growers' money, not the county's.",
   expert: "Every line below is an estimate or a cited figure, shown as a share of the $165 billion bond, with the payer named.",
-  homeowner: "None of this is on your bill. The developer pays for capture, heat and the water plant; growers pay for the greenhouses. Your water rates go down when 5 million gallons a day is added, not up.",
-  legislator: "Total added capital is about 1.5% of the bond. The county funds nothing; the lease conditions assign each item to the developer or to growers, and the $250,000 desalination study in the CBA becomes a built plant.",
-  business: "Capital by line item, payer and basis. About $450 million is grower capital for greenhouses; the developer's items recover through lower electricity, leases and water sales.",
-  kid: "It costs about one and a half cents for every dollar they are already spending. The company pays for most of it. The farmers pay for the greenhouses. Your family pays nothing.",
+  homeowner: "None of this is on your bill. The developer pays for capture, heat and the water plant; growers pay for the greenhouses. NMSU warns desalinated water costs more to make than well water, so the lease should fix who pays that difference; the point is that your supply goes up.",
+  legislator: "Total added capital is about 2.5% of the bond cap, or 8% of the $50 billion first phase, before the federal 45Q credit. The county funds nothing; the lease conditions assign each item to the developer or to growers, and the companies' $250,000 desalination study in the CBA becomes a built plant.",
+  business: "Capital by line item, payer and basis. About $470 million is grower capital for greenhouses; the developer's items recover through the federal 45Q credit, heat and lease revenue and water sales.",
+  kid: "It costs about two and a half cents for every dollar of the whole deal, and the government pays most of that back for catching the gas. The company pays for the rest. The farmers pay for the greenhouses. Your family pays nothing.",
 };
 
 export const timelineKid: Record<number, string> = {
@@ -82,10 +82,10 @@ export const timelineKid: Record<number, string> = {
   5: "When you are a few years older: greenhouses are growing, the water machine has made billions of gallons, and hot rock and wind start taking over from gas.",
   10: "Ten years on: about 3,000 jobs, food from next door, and the gas machines resting more every year.",
   15: "Fifteen years on: the town has had clean water and local food for a whole childhood.",
-  20: "Twenty years on: the law says zero gas by 2045. Our plan has a road to get there; theirs does not.",
+  20: "Twenty years on: the law says the plant must count as clean by 2045, but it lets a gas plant count by cutting other pollution somewhere else. Our plan asks for the real thing: fewer gas hours every year, measured, as far as hot rock and wind can go.",
   25: "Twenty-five years on: the whole site is built out, with water, food, power and training on one piece of land.",
   30: "Thirty years on: the deal ends and the land goes back on the tax rolls. Our plan paid schools about $1 billion along the way; theirs paid $360 million.",
-  250: "Two hundred and fifty years on, our best guess: the gas machines have been off since 2045, the water underground is back to where it was before people pumped too much, and the gas we caught is stone. The deep wells are still checked every year, because money was set aside in 2026 to pay for it. In their plan, run the same way the whole time, the sky got a lot more gas and nobody wrote down who checks the wells.",
+  250: "Two hundred and fifty years on, our best guess: the gas catcher has been measured the whole time and the gas machines rest more than they run, the water underground dropped much more slowly because the town's cleaned water went back into it, and the gas we caught is stone. The deep wells are still checked every year, because money was set aside at the start to pay for it. In their plan, run the same way the whole time, the sky got a lot more gas and nobody wrote down who checks the wells.",
 };
 
 export const jupiterKid = {
@@ -112,9 +112,9 @@ export const takeaways: Record<string, Record<Audience, string>> = {
   },
   "Process 2 · Carbon": {
     overall: "Net gain for humanity: the gas is caught, used and counted instead of released over a town that already fails the smog standard.",
-    expert: "Net gain for humanity: 90–95% capture on a ~95%-pure stream, used first, stored as fallback, with continuous monitoring under one PSD-level permit.",
+    expert: "Net gain for humanity: a 90–95% capture target on a ~95%-pure stream, metered, used where buyers exist and stored for the rest, with continuous monitoring on every cluster and permit limits set for the capture configuration.",
     homeowner: "Your takeaway: the exhaust that drifts toward Sunland Park becomes a number you can check instead of smog you cannot see.",
-    legislator: "Your takeaway: one monitored permit with capture is the permit that survives review; the split, unmonitored one is the one stayed in court.",
+    legislator: "Your takeaway: a monitored permit with metered capture is the permit that survives review; the unmonitored one, with emissions estimated from one 65 kW test unit, is the one stayed in court.",
     business: "Your takeaway: a captured, monitored plant is the one that ends the litigation and the moratorium talk, and the CO₂ has buyers.",
     kid: "The gas gets caught in a box instead of floating over your house.",
   },

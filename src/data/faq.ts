@@ -12,26 +12,26 @@ export const faq: FaqItem[] = [
   {
     q: "Why did you switch the power supply to Bloom fuel cells?",
     theirs: "Community feedback; fuel cells cut emissions and water use compared with the original gas-turbine design.",
-    ours: "Good change, and it is why the upgrade is possible. Fuel cells do not burn with a flame, so their exhaust is about 95% carbon dioxide once dried, which makes capture cheap. The switch cut smog-forming pollutants but left the CO₂: NMED's draft permit still puts it at 10,144,115 tons a year. Keep the fuel cells; add the capture.",
+    ours: "Good change, and it is why the upgrade is possible. Fuel cells do not burn with a flame, so their exhaust is about 95% carbon dioxide once dried, which makes capture cheap. The switch cut smog-forming pollutants but left the CO₂: NMED's draft permit allows 8,820,970 tons a year (the developers applied for 10.1 million). Keep the fuel cells; add metered capture.",
     sources: ["sfnm-fuelcells", "sob", "bloom-chart"],
   },
   {
     q: "Will Project Jupiter have an impact on local air quality or the environmental health of the region?",
     theirs: "Fuel cells cut NOx 92%, particulates 83%, CO 67% and CO₂ 21% versus the prior design.",
-    ours: "Yes. Those percentages are against their own earlier turbine plan, not against clean air. The permit still holds each smog pollutant just under 250 tons a year and releases all the CO₂, into Sunland Park, which has been an EPA ozone nonattainment area since 2018, in a county the American Lung Association grades F for ozone. The upgrade adds capture, one Title V permit with PSD-level controls, and continuous public stack monitoring.",
-    sources: ["faq", "sob", "sunland-park-ozone", "ala-sota-2025", "epa-ozone-naaqs"],
+    ours: "Yes. Those percentages are against their own earlier turbine plan, not against clean air. The draft permit puts NOx at 37 tons a year, estimated from four tests of one 65 kW unit and scaled to 2,275 stacks with no continuous monitor required, and it releases all the CO₂, beside Sunland Park, an EPA ozone nonattainment area since 2018, in a county the American Lung Association grades F for ozone. The upgrade adds metered capture and continuous public monitors on every cluster.",
+    sources: ["faq", "sob", "sob-part-a", "sunland-park-ozone", "ala-sota-2025", "epa-ozone-naaqs"],
   },
   {
     q: "If the microgrid produces emissions, how much is expected and how will they be monitored and reported?",
     theirs: "The NMED air permit will require monitoring and annual reporting.",
-    ours: "NMED's draft Statement of Basis: 10,144,115 tons of greenhouse gas a year, criteria pollutants each held under 250 tons, 2,275 stacks, 8,760 hours. Annual self-reporting is the minimum the law allows. The upgrade asks for continuous emissions monitors with the data published live, the same way large power plants report.",
-    sources: ["sob", "notice"],
+    ours: "NMED's draft permit: 8,820,970 tons of greenhouse gas a year, NOx 37, CO 161, VOC 124 tons, 2,275 stacks, 8,760 hours. The permit requires fuel and power metering and periodic reports, not continuous stack monitors; the emission figures come from four tests of one 65 kW unit. The upgrade asks for continuous emissions monitors with the data published live, the same way large power plants report.",
+    sources: ["sob", "sob-part-a", "notice"],
   },
   {
     q: "Will Oracle and Project Jupiter comply with the Energy Transition Act?",
     theirs: "Oracle committed to 100% carbon-free energy matching by 2031, ahead of the ETA's 2045 goal.",
-    ours: "'Matching' means buying clean-energy credits somewhere else; it changes nothing at the stacks in Santa Teresa. The CBA itself says HB93 requires this microgrid to run on net-zero carbon resources by 2045. The upgrade's route is physical: 90–95% of stack CO₂ captured from day one, renewable-gas and hydrogen blending that Bloom hardware already accepts, and verified removals for the remainder, with 100% at the stack targeted for 2031.",
-    sources: ["bocc", "cba", "bloom-fuels"],
+    ours: "'Matching' means buying clean-energy credits somewhere else; it changes nothing at the stacks in Santa Teresa. The CBA says HB93 requires this microgrid to use net-zero carbon resources by 2045, and the statute counts a gas plant that offsets a tenth of its CO₂ in methane cuts as net-zero. The upgrade's route is physical: capture metered against a 90–95% target from day one, renewable-gas and hydrogen blending that Bloom hardware accepts, verified removals for the remainder, and a falling share of energy from gas on a public meter.",
+    sources: ["bocc", "cba", "nmsa-62-17-12", "bloom-fuels"],
   },
   {
     q: "Will fuel cells eliminate all emissions?",
@@ -54,7 +54,7 @@ export const faq: FaqItem[] = [
   {
     q: "Will the microgrid operate independently or rely on El Paso Electric?",
     theirs: "Behind the meter and independent; grid connection only for offices and emergency backup.",
-    ours: "Independence is why ratepayers are protected, and it is also why the state's clean-energy rules for utilities do not reach it. The upgrade keeps the microgrid off the public grid and asks the county to write the clean-air conditions into the lease, the one instrument that does reach it.",
+    ours: "Independence is why ratepayers are protected, and it is also why the state's clean-energy rules for utilities do not reach it. The upgrade keeps the microgrid off the public grid and asks the county to negotiate the clean-air conditions into the lease, the one instrument that does reach it, at the next consent the companies need.",
     sources: ["cba", "faq"],
   },
   {
@@ -96,7 +96,7 @@ export const faq: FaqItem[] = [
   {
     q: "How much of the investment from Project Jupiter will remain in New Mexico?",
     theirs: "More than $4.7 billion in long-term economic impact to the state and county.",
-    ours: "Their own IMPLAN estimate, and we use it as the baseline. The upgrade adds about $1.9 billion on top over 17 years from produce, water sales and land leases, for roughly 1.5% more capital cost. Our figures are estimates and labeled as such.",
+    ours: "Their own IMPLAN estimate, and we use it as the baseline. The upgrade adds about $1.7 billion on top over 17 years from produce, water sales, land leases and higher payments in lieu of taxes, for about 2.5% of the bond cap in added capital before the federal capture credit. Our figures are estimates built on their total, and labeled as such.",
     sources: ["econpdf", "bocc"],
   },
 ];

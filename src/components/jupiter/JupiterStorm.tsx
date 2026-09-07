@@ -23,7 +23,7 @@ export function JupiterStorm() {
             <p className="mt-2" style={{ fontSize: 16, lineHeight: 1.55, color: "rgba(255,255,255,0.85)" }}>
               {isKid
                 ? "The real planet Jupiter has a giant storm on it. Their plan breathes out gas every year, like the storm. Our plan catches it, so the planet stays calm. It is a joke, but the numbers below are real."
-                : <>The project is named after a planet with a storm bigger than Earth. As filed, this campus would add about 10 million tons of CO₂ a year over a valley that already fails the smog standard<Cite ids={["sob", "sunland-park-ozone"]} />. Upgraded, the same campus catches it. The drawings below show how.</>}
+                : <>The project is named after a planet with a storm bigger than Earth. As filed, this campus is permitted to add 8.8 million tons of CO₂ a year beside a valley that already fails the smog standard<Cite ids={["sob", "sunland-park-ozone"]} />. Upgraded, the same campus catches it. The drawings below show how.</>}
             </p>
           </div>
           <div className="grid grid-cols-2 gap-3">

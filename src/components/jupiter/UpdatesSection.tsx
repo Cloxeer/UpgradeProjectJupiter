@@ -8,7 +8,7 @@ import { Cite, SourceList } from "@/components/Cite";
 import { useCopy } from "./AudienceText";
 
 const tracker = [
-  { label: "Upgrade conditions adopted into the county lease", value: "0 of 5", state: "bad" as const, note: "Capture before power-on, one permit with PSD-level controls, heat offered to growers, NMSU water plant funded, bonds tied to verified jobs.", sources: ["cba"] },
+  { label: "Upgrade conditions adopted into the county lease", value: "0 of 6", state: "bad" as const, note: "Capture-ready stacks with metered capture, continuous monitors on every cluster, heat offered to growers, NMSU water plant funded, bonds tied to verified jobs, a closure and monitoring bond.", sources: ["cba"] },
   { label: "Air permit 10883", value: "Stayed", state: "bad" as const, note: "The New Mexico Supreme Court stayed the proceeding on Aug. 24, 2026 and on Sept. 1 unanimously refused to partially lift the stay. The Sept. 14 hearing is off.", sources: ["nmpr-stay", "abq-stay", "notice"] },
   { label: "Construction water well", value: "Stayed", state: "bad" as const, note: "Emergency authorization halted by the Supreme Court after more than 103 million gallons were pumped between April and August 2026.", sources: ["cbd-well", "nmpr-stay"] },
   { label: "Gas pipeline route", value: "Denied twice", state: "bad" as const, note: "State Land Office denied the state-land segment in March and again on July 14, 2026; a federal-land route is now being sought.", sources: ["slo", "energyconnects"] },
