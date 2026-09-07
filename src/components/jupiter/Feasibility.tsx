@@ -122,7 +122,9 @@ function ChipRow({ d }: { d: Demand }) {
         <span className="text-[12px] font-black uppercase tracking-wide" style={{ color: "#1f5f3a" }}>Feasibility</span>
         <span className="rounded px-2 py-0.5 text-[12px] font-black uppercase tracking-wide" style={{ backgroundColor: n === 5 ? G : Y, color: n === 5 ? "#fff" : "#003047" }}>{verdict(d)}</span>
         <Dots d={d} />
-        <span className="text-[13px]" style={{ color: "#3c3c3c" }}>{n} of 5 checks · {d.short}</span>
+        <span className="text-[13px]" style={{ color: "#3c3c3c" }}>
+          {n} of 5 checks · <strong style={{ color: "#003047" }}>{d.short}</strong>
+        </span>
         <span className="ml-auto text-[13px] font-bold" style={{ color: "#1f5f3a" }}>{open ? "hide ▲" : "see the checks ▼"}</span>
       </button>
       {open && <Checklist d={d} />}

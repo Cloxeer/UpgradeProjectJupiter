@@ -197,6 +197,26 @@ export function PartInfo({ id, onClose }: { id: string | null; onClose: () => vo
               <strong>What their plan does.</strong> {doc.theyDo}
             </p>
           )}
+          {(doc.pros?.length || doc.cons?.length) ? (
+            <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {doc.pros?.length ? (
+                <div className="rounded p-2" style={{ backgroundColor: "#eaf6ee", borderLeft: "4px solid #2e8b57" }}>
+                  <div className="text-[12px] font-black uppercase" style={{ color: "#1f5f3a" }}>Pros</div>
+                  <ul className="mt-1 list-disc pl-4" style={{ fontSize: 14, lineHeight: 1.5, color: "#3c3c3c" }}>
+                    {doc.pros.map((p) => <li key={p}>{p}</li>)}
+                  </ul>
+                </div>
+              ) : null}
+              {doc.cons?.length ? (
+                <div className="rounded p-2" style={{ backgroundColor: "#fff0ed", borderLeft: "4px solid #c0392b" }}>
+                  <div className="text-[12px] font-black uppercase" style={{ color: "#8e3b2f" }}>Cons</div>
+                  <ul className="mt-1 list-disc pl-4" style={{ fontSize: 14, lineHeight: 1.5, color: "#3c3c3c" }}>
+                    {doc.cons.map((c) => <li key={c}>{c}</li>)}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+          ) : null}
         </div>
       </div>
       )}

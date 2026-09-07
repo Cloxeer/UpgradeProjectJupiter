@@ -13,6 +13,9 @@ export type PartDoc = {
   kid?: string;
   photo?: { src: string; alt: string; caption: string; credit: string; href?: string };
   sources: string[];
+  /** two or three short pluses and minuses, shown as a pair of lists under the text; see partProsCons */
+  pros?: string[];
+  cons?: string[];
 };
 
 const crops = asset("/images/jupiter/render-crops");
@@ -351,3 +354,38 @@ export const partDocs: Record<string, PartDoc> = {
   },
 
 };
+
+/** Two or three short pluses and minuses per part. Kept apart from the prose so the panels stay short; merged into partDocs below. */
+const partProsCons: Record<string, { pros: string[]; cons: string[] }> = {
+  dataHall: { pros: ["Closed-loop liquid cooling: no evaporative water", "The same halls in both plans"], cons: ["Nearly all 2,462 MW leaves as heat", "1,500 jobs advertised, 750 signed for"] },
+  heatExchanger: { pros: ["Ordinary district-heating hardware, about $60M", "Every kilowatt taken is fan and chiller power saved"], cons: ["Low-grade heat (45–65 °C): good for greenhouses and chillers, not turbines", "Needs a grower or buyer next door"] },
+  dryCoolers: { pros: ["Zero water: the right choice in a desert"], cons: ["Blow about 2,400 MW into the air", "Cannot cool below air temperature on hot days, so chillers run"] },
+  chillerPlants: { pros: ["Backup that keeps the chips safe on 40 °C days"], cons: ["Burn electricity in the hottest hours", "Heat still ends up in the air"] },
+  greenhouses: { pros: ["About 60 million lbs of food and 1,000 jobs a year, on grower capital", "Use heat and CO₂ the campus already makes"], cons: ["Yields and staffing are industry averages, not a Santa Teresa study", "Need water, a produce market and summer cooling"] },
+  waterPlantHeat: { pros: ["Warmer feed means more water per membrane"], cons: ["About 15 MW of 2,400: a helper, not the engine"] },
+  naturalGas: { pros: ["Firm power that ships fast"], cons: ["The 400 MMcf/day pipeline has been denied twice on state land", "Fossil CO₂ for every hour it runs"] },
+  fuelCell: { pros: ["No flame: smog gases far below a turbine's", "Recycles its own water after a one-time fill"], cons: ["Still fossil gas: about 10 million tons of CO₂ a year", "Stacks replaced about every five years"] },
+  exhaust: { pros: ["About 95% CO₂ once dried: the easy case for capture"], cons: ["Vented to the sky as filed"] },
+  dryer: { pros: ["Turns the exhaust into a near-pure CO₂ stream"], cons: ["Energy and equipment on every cluster"] },
+  captureSkid: { pros: ["Bloom and Chart already sell it for this exact stream", "Containerized: arrives on the same trucks as the stacks"], cons: ["A 10–20% energy penalty means more gas burned", "No single site captures 10 million tons a year yet"] },
+  released: { pros: ["Nothing to build"], cons: ["More CO₂ than Albuquerque and Las Cruces combined"] },
+  storage: { pros: ["Permanent under cap rock, with 50 years of federal post-injection care", "Decatur stored a million tons with no felt quakes"], cons: ["No permitted Class VI well in New Mexico yet: a pipeline to Texas", "Any deep injection carries a small quake risk that needs fault maps and monitors"] },
+  nearZero: { pros: ["An honest route to 100%: cleaner gas, hydrogen, then removals"], cons: ["Regional biogas is nowhere near 400 MMcf a day"] },
+  brackishWell: { pros: ["About 65 million acre-feet of water nobody drinks", "Lets the fresh wells rest"], cons: ["Recharge of the deep layer is 'unknown': monitoring wells are a must"] },
+  preheat: { pros: ["More water per membrane from heat that was being thrown away"], cons: ["A small share of the heat, and one more pipe from the header"] },
+  filters: { pros: ["Cheap protection for costly membranes"], cons: ["Backwash water and upkeep"] },
+  reverseOsmosis: { pros: ["Proven 30 miles away since 2007", "$269.5M all-in, 0.16% of the bond"], cons: ["Energy-hungry compared with conventional treatment", "A quarter of the water leaves as brine"] },
+  storageTank: { pros: ["Smooths steady supply to peaky demand"], cons: ["Land and pumping"] },
+  crruaMains: { pros: ["5 MGD to homes, and 2–5 MGD put back underground", "El Paso has recharged reclaimed water since 1985"], cons: ["The storage-and-recovery permit and water-rights accounting take years", "CRRUA's arsenic record means the utility itself needs fixing"] },
+  brineWell: { pros: ["Below the aquifer and monitored; El Paso has done it since 2007", "Recovering water first shrinks what is injected"], cons: ["Minerals are worth little on brine this dilute", "Any injection carries a small quake risk"] },
+  closedLoop: { pros: ["The right choice in a desert: about 11 million gallons once"], cons: ["Leaves out drinking water, undisclosed non-potable use and 103 million gallons for construction"] },
+  sodFarmWell: { pros: ["A lawful, existing water right"], cons: ["Fresh Mesilla water in a basin that is falling", "Emergency pumping stayed by the Supreme Court"] },
+  solarRoof: { pros: ["The cheapest clean power on the site; runs the community side"], cons: ["Under 1% of the campus load"] },
+  solarAlternatives: { pros: ["Canopies add shade and about 1 MW"], cons: ["Roofs cannot carry greenhouses"] },
+  packing: { pros: ["Farm trucks never touch the secure gate"], cons: ["One more building and one more road"] },
+  useCo2: { pros: ["Sold instead of stored, and permanent as carbonate"], cons: ["Thousands of tons a year today, against 10 million"] },
+  geothermal: { pros: ["Around the clock with zero exhaust, on the rift heat under this county"], cons: ["Test wells first: the megawatts are unknown until drilled", "Deep injection rules apply"] },
+  deliveredRenewables: { pros: ["The fastest, cheapest way to cut gas hours; nothing built on site"], cons: ["Wind and sun are intermittent, so the fuel cells stay"] },
+  absorptionChiller: { pros: ["Gives the heat a summer job"], cons: ["Low efficiency (COP about 0.86) and needs 65–100 °C water"] },
+};
+for (const [id, pc] of Object.entries(partProsCons)) if (partDocs[id]) Object.assign(partDocs[id], pc);

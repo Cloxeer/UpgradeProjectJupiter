@@ -85,7 +85,7 @@ export const timelineKid: Record<number, string> = {
   20: "Twenty years on: the law says zero gas by 2045. Our plan has a road to get there; theirs does not.",
   25: "Twenty-five years on: the whole site is built out, with water, food, power and training on one piece of land.",
   30: "Thirty years on: the deal ends and the land goes back on the tax rolls. Our plan paid schools about $1 billion along the way; theirs paid $360 million.",
-  250: "Two hundred and fifty years on: the computers and the greenhouses are long gone. The gas we caught is stone. The deep wells are still there, and in our plan money was set aside in 2026 so someone is still paid to check them. In theirs, nobody wrote that part down.",
+  250: "Two hundred and fifty years on, our best guess: the gas machines have been off since 2045, the water underground is back to where it was before people pumped too much, and the gas we caught is stone. The deep wells are still checked every year, because money was set aside in 2026 to pay for it. In their plan, run the same way the whole time, the sky got a lot more gas and nobody wrote down who checks the wells.",
 };
 
 export const jupiterKid = {
