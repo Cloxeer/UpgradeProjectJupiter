@@ -17,7 +17,7 @@ export function CtaBar() {
             {copy.ctaAfter.replace("Project Jupiter", "").trim()} <Stamp kind="force">Project Jupiter</Stamp>
           </strong>
           <a href="#support" className="text-[15px] font-bold underline" style={{ color: "#003047" }}>
-            See the five demands
+            See the six demands
           </a>
         </p>
         <TheySay className="!mt-1 mb-2" label="Their version of this bar">

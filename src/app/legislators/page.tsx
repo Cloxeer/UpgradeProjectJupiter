@@ -34,7 +34,7 @@ export default function LegislatorsPage() {
               WHO TO CALL. WHAT TO SAY.
             </h1>
             <p className="mx-auto mt-4 max-w-[760px] text-gold" style={{ fontSize: 18, lineHeight: 1.5 }}>
-              Five county commissioners hold the lease. None of the five conditions is in it yet. Your call is step three.
+              Five county commissioners hold the lease. None of the six conditions is in it yet. Your call is step three.
             </p>
             <div className="mx-auto mt-8 max-w-[1000px] text-left">
               <Steps dark compact highlight={3} />

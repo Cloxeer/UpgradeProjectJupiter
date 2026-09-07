@@ -76,10 +76,12 @@ export const topics: Topic[] = [
     little: "Salty water goes in. Clean water comes out for 16,700 homes.",
     kid: "Deep under the desert is a huge lake of salty water nobody can drink. Pumps bring it up, server heat warms it, and a super-fine filter lets water through but not salt. Three cups out of four come out clean. The salty cup is pumped very deep, below the good water, so it never mixes back.",
     expert: [
-      { line: "NMSU (Xu, 2023): 5 MGD brackish RO, 75% recovery, 1 MGD skids, $115.5M plant / $269.4M system, brine to deep injection ≈20 mi away; Mesilla Basin ≈65M acre-ft recoverable < 5,000 mg/L.", sources: ["nmsu", "cduaws"] },
+      { line: "NMSU (Xu, 2023): 5 MGD brackish RO, 75% recovery, 1 MGD skids, $115.5M plant / $269.5M system, brine to deep injection ≈20 mi away; Mesilla Basin ≈65M acre-ft recoverable < 5,000 mg/L.", sources: ["nmsu", "cduaws"] },
       { line: "El Paso KBH: 27.5 MGD since 2007, brine piped 22 mi to injection wells 3,720–4,030 ft deep.", sources: ["epwater", "twdb"] },
       { line: "Their draw: 20,000 gal/day potable cap (60,000 peak); non-potable operating volume undisclosed; 103M+ gal pumped Apr–Aug 2026; sod-farm right ≈2,400–2,600 acre-ft/yr.", sources: ["cba", "haussamen-water", "cbd-well", "epm-jobs"] },
       { line: "5 MGD ÷ 300 gal/home/day ≈ 16,700 homes; CRRUA demand 6 MGD (2027) → 15 MGD (2042).", sources: ["epa-watersense", "nmsu"] },
+      { line: "Local wells carry arsenic (0.002–0.036 mg/L at Lanark and Noria; Santa Teresa Well 8A shut since 2001 for uranium and arsenic). RO removes both; they leave in the concentrate and the spent membranes, state-regulated residuals under the NMED discharge permit.", sources: ["nmsu", "epa-tenorm"] },
+      { line: "Long view: NMSU calls the 60–65M acre-ft brackish supply 'large, but not infinite' with recharge 'unknown' → lease condition: monitoring wells + an annual public water-level report. Brine: recover water first (El Paso/Upwell, ~3 MGD approved July 2026; the first mineral-recovery attempt there failed at commissioning), inject the rest under NMED Class I/V with groundwater monitoring. CO₂ storage: 50-year post-injection care is federal law. The county is designing its own 4 MGD plant ($75M, $15M Jupiter GRT) for 2028–29; the ask moves the developer's money behind the full 5 MGD system.", sources: ["nmsu", "epwater-brine-recovery", "ewm-elpaso", "epa-class-vi", "star-plant"] },
     ],
     blueprint: "/blueprint#p3",
   },

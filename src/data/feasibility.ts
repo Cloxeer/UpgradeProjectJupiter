@@ -1,4 +1,4 @@
-// Feasibility of each of the five demands, as a visible rubric rather than a bare score.
+// Feasibility of each of the six demands, as a visible rubric rather than a bare score.
 // Five checks per demand; each is "yes" or "partial" with the reason and the document behind it.
 // A reader sees the checks, not a number we assigned ourselves.
 
@@ -69,8 +69,8 @@ export const demands: Demand[] = [
     checks: [
       { label: "Sold today", status: "yes", note: "Brackish reverse osmosis is the same technology El Paso has run since 2007.", sources: ["epwater"] },
       { label: "Done at scale", status: "yes", note: "El Paso's plant makes 27.5 million gallons a day, more than five times what is asked for here.", sources: ["epwater"] },
-      { label: "Cost", status: "yes", note: "NMSU priced the whole 5 MGD system at $269 million in 2023, about 0.16% of the bond.", sources: ["nmsu"] },
-      { label: "Fits the schedule", status: "yes", note: "The design exists. The signed agreement already funds a $250,000 study of the same plant; this skips the study and builds it.", sources: ["nmsu", "cba"] },
+      { label: "Cost", status: "yes", note: "NMSU priced the whole 5 MGD system at $269.5 million in 2023, about 0.16% of the bond.", sources: ["nmsu"] },
+      { label: "Fits the schedule", status: "yes", note: "The design exists, and the county is already designing a smaller 4 MGD plant with $15 million of Jupiter tax money for construction in 2028 or 2029. This puts the developer's money behind the full system on that same schedule.", sources: ["nmsu", "star-plant", "cba"] },
       { label: "Legal lever", status: "yes", note: "The lease can fund construction instead of a study. The utility, CRRUA, needs the water by 2027 on its own projections.", sources: ["cba", "nmsu"] },
     ],
   },
@@ -85,6 +85,19 @@ export const demands: Demand[] = [
       { label: "Cost", status: "yes", note: "$50 million for the institute against the $4 million for workforce programs in the signed agreement. The jobs themselves are greenhouse and water jobs that pay for themselves.", sources: ["cba", "epm-jobs"] },
       { label: "Fits the schedule", status: "yes", note: "The institute can open before the first fuel cell turns on; the first permanent hires are for construction-phase operations anyway.", sources: ["cba"] },
       { label: "Legal lever", status: "yes", note: "The lease and the county's own sole remedy clause. The Data Center Standards bill would make verified-jobs terms standard.", sources: ["cba", "sourcenm-moratorium"] },
+    ],
+  },
+  {
+    id: "closure",
+    process: "Process 3 · Water",
+    short: "A closure and monitoring bond, so the land and wells are cared for after the lease ends",
+    kidShort: "Set money aside now so someone still checks the wells and the land after the company leaves",
+    checks: [
+      { label: "Sold today", status: "yes", note: "Doña Ana County already requires it of solar farms: a bond, letter of credit or escrow for full decommissioning, sized by a New Mexico engineer's estimate after year one and every fifth year, with foundations removed to 36 inches and native replanting. New Mexico's mining and oil rules carry the same kind of financial assurance.", sources: ["dac-solar-decom"] },
+      { label: "Done at scale", status: "partial", note: "For data centers it is new: Susquehanna County, Pa. requires decommissioning within twelve months of end of life with bonding, and Pennsylvania municipalities are adopting a 110%-of-removal-cost bond updated every five years. No campus of this size carries one yet.", sources: ["columbia-decom", "cga-pa"] },
+      { label: "Cost", status: "yes", note: "A bond is money set aside, not spent; the developer earns interest on an escrow and pays a premium on a surety. Against $165 billion the carrying cost is a rounding error. The size follows the engineer's estimate, as the county's solar rule already does.", sources: ["dac-solar-decom", "cba"] },
+      { label: "Fits the schedule", status: "yes", note: "A lease clause and an engineer's estimate after the first year of operation. Nothing is built; nothing waits.", sources: ["dac-solar-decom"] },
+      { label: "Legal lever", status: "yes", note: "The lease, which the signed agreement makes the county's sole remedy and which today has no closure, restoration or bond clause. Federal Class VI rules already make CO₂-well operators post the money for 50 years of post-injection care; the county's clause extends the same idea to the whole site.", sources: ["cba", "epa-class-vi"] },
     ],
   },
 ];

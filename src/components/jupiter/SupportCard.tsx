@@ -60,7 +60,7 @@ export function SupportCard() {
         </button>
       </div>
       <p className="mt-3 text-[12px]" style={{ lineHeight: 1.4, color: "#6b6b6b" }}>
-        None of the five conditions is in the county lease yet. Concrete is being poured now.
+        None of the six conditions is in the county lease yet. Concrete is being poured now.
       </p>
     </div>
   );

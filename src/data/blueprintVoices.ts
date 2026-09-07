@@ -9,7 +9,7 @@ export const heroVoice: Record<"sub" | "guide", V> = {
     overall: "Their buildings, their fence, their site. Same timeline. Here is what we would add, drawn so you can play with it.",
     expert: "Their buildings, their fence, their site, their timeline. Every number here is cited; sources sit in a dropdown under each part.",
     homeowner: "The same campus they are building, with the parts that change your water, your air and your street drawn in green.",
-    legislator: "The five lease conditions, drawn on the developers' own site plan, with the record and the cost of each.",
+    legislator: "The six lease conditions, drawn on the developers' own site plan, with the record and the cost of each.",
     business: "The same site with the revenue lines drawn in: leases, water sales, heat sales, CO₂ sales and a lower gas bill.",
     kid: "This is the giant computer place. Green things are what we want to add so your town gets clean air, water and food.",
   },
@@ -85,6 +85,7 @@ export const timelineKid: Record<number, string> = {
   20: "Twenty years on: the law says zero gas by 2045. Our plan has a road to get there; theirs does not.",
   25: "Twenty-five years on: the whole site is built out, with water, food, power and training on one piece of land.",
   30: "Thirty years on: the deal ends and the land goes back on the tax rolls. Our plan paid schools about $1 billion along the way; theirs paid $360 million.",
+  250: "Two hundred and fifty years on: the computers and the greenhouses are long gone. The gas we caught is stone. The deep wells are still there, and in our plan money was set aside in 2026 so someone is still paid to check them. In theirs, nobody wrote that part down.",
 };
 
 export const jupiterKid = {
@@ -119,7 +120,7 @@ export const takeaways: Record<string, Record<Audience, string>> = {
   },
   "Process 3 · Water": {
     overall: "Net gain for humanity: 5 million gallons a day of clean water made from water nobody could drink, added to the town's pipes.",
-    expert: "Net gain for humanity: 5 MGD brackish RO at 75% recovery, NMSU-designed, $269M system, brine minimized by heat and injected below the aquifer.",
+    expert: "Net gain for humanity: 5 MGD brackish RO at 75% recovery, NMSU-designed, $269.5M system, brine minimized by heat and injected below the aquifer.",
     homeowner: "Your takeaway: your tap gets 5 million gallons a day added, enough for about 16,700 homes, instead of water taken.",
     legislator: "Your takeaway: the $250,000 study in the CBA becomes a built plant delivered to CRRUA, for about 0.16% of the bond.",
     business: "Your takeaway: a designed, priced plant with a utility customer whose demand more than doubles by 2042.",

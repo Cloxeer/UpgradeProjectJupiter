@@ -12,11 +12,17 @@ export const OUR_WATER_GPD = 5_000_000;
 export const OUR_JOBS = 3_000;
 export const OUR_FOOD_LBS_YR = 60_000_000;
 
-export const YEARS = [0, 1, 2, 5, 10, 15, 20, 25, 30, 40, 50, 80] as const;
+export const YEARS = [0, 1, 2, 5, 10, 15, 20, 25, 30, 40, 50, 80, 250] as const;
 export type Year = (typeof YEARS)[number];
 
 /** Operating years: construction runs through year 2 (their Q3 2028 target), so nothing is emitted or produced before then. */
 export const operating = (y: number) => Math.max(0, y - 2);
+
+/** Beyond this year no filing, lease or state projection reaches. The lines stop counting and say what remains. */
+export const FAR_YEAR = 100;
+export const far = (y: number) => y >= FAR_YEAR;
+/** The last year the drawings count operation. No document says when the plant closes, so totals freeze at the year-80 view. */
+export const LAST_COUNTED_YEAR = 80;
 
 export type Row = { label: string; kidLabel?: string; theirs: (y: number) => string; ours: (y: number) => string; how: string; kidHow?: string; sources: string[] };
 
@@ -28,17 +34,17 @@ export const rows: Row[] = [
     label: "CO₂ released into the air, cumulative",
     kidLabel: "Planet-warming gas let into the sky, all added up",
     kidHow: "Their permit says about 10 million tons a year. We catch 90 to 95% of it, so only the small leftover gets out. Multiply by the years the plant has been running.",
-    theirs: (y) => (operating(y) === 0 ? "0 so far (still building)" : `${mt(GHG_PERMIT_TPY * GHG_PRACTICE_FACTOR * operating(y))} to ${mt(GHG_PERMIT_TPY * operating(y))}`),
-    ours: (y) => (operating(y) === 0 ? "0 so far (still building)" : `${mt(OUR_RELEASED_TPY_LOW * operating(y))} to ${mt(OUR_RELEASED_TPY_HIGH * operating(y))}`),
-    how: "Theirs: NMED's permitted 10,144,115 tons a year (low end uses the developers' own '40% less in practice' claim) × operating years. Ours: the 5–10% not captured × operating years, falling further as cleaner gas is blended. Operations start in year 2, their own Q3 2028 target.",
+    theirs: (y) => (far(y) ? "Whatever the plant emitted in its life is still warming the air: warming tracks the cumulative total and the effect lasts centuries. No filing says when the plant closes, so the count stops at year 80." : operating(y) === 0 ? "0 so far (still building)" : `${mt(GHG_PERMIT_TPY * GHG_PRACTICE_FACTOR * operating(y))} to ${mt(GHG_PERMIT_TPY * operating(y))}`),
+    ours: (y) => (far(y) ? "The captured share is rock inside concrete and aggregate, or CO₂ under cap rock long past its 50-year federal monitoring period. The few percent not captured are still in the air." : operating(y) === 0 ? "0 so far (still building)" : `${mt(OUR_RELEASED_TPY_LOW * operating(y))} to ${mt(OUR_RELEASED_TPY_HIGH * operating(y))}`),
+    how: "Theirs: NMED's permitted 10,144,115 tons a year (low end uses the developers' own '40% less in practice' claim) × operating years. Ours: the 5–10% not captured × operating years, falling further as cleaner gas is blended. Operations start in year 2, their own Q3 2028 target. Past year 80 the line stops counting and says what physically remains.",
     sources: ["sob", "bocc", "cba"],
   },
   {
     label: "Water taken from the fresh aquifer and CRRUA's pipes, cumulative",
     kidLabel: "Water: taken from our pipes, or added to them",
     kidHow: "Their signed deal lets them take 20,000 gallons a day of drinking water, and they already pumped 103 million gallons to build. Our plant makes 5 million gallons a day of clean water from salty water. Multiply by the years.",
-    theirs: (y) => (y === 0 ? bgal(CONSTRUCTION_PUMPED_GAL) + " already pumped for construction" : bgal(CONSTRUCTION_PUMPED_GAL + POTABLE_CAP_GPD * 365 * y) + " (plus undisclosed non-potable use)"),
-    ours: (y) => (operating(y) === 0 ? "Same construction water, then the plant opens" : "Same offices, same cap, but " + bgal(OUR_WATER_GPD * 365 * operating(y)) + " of new clean water put into those pipes"),
+    theirs: (y) => (far(y) ? "Fresh water pumped is gone from the basin. How fast the deep aquifer refills is 'unknown' (NMSU), and no filed plan or monitoring duty reaches this far." : y === 0 ? bgal(CONSTRUCTION_PUMPED_GAL) + " already pumped for construction" : bgal(CONSTRUCTION_PUMPED_GAL + POTABLE_CAP_GPD * 365 * y) + " (plus undisclosed non-potable use)"),
+    ours: (y) => (far(y) ? "The treated water went into homes; the brine sits below the confining layers. Whether the deep aquifer held up is exactly what the lease's monitoring wells and annual public report exist to answer, paid for by the closure bond." : operating(y) === 0 ? "Same construction water, then the plant opens" : "Same offices, same cap, but " + bgal(OUR_WATER_GPD * 365 * operating(y)) + " of new clean water put into those pipes"),
     how: "Theirs: 103 million gallons pumped April–August 2026, plus the CBA's 20,000 gal/day average drinking-water cap × 365 × years; their non-potable operating volume has not been disclosed. Ours: 5 MGD produced × 365 × operating years.",
     sources: ["cbd-well", "cba", "haussamen-water", "nmsu"],
   },
@@ -46,8 +52,8 @@ export const rows: Row[] = [
     label: "Smog where people live",
     kidLabel: "Smog over the houses",
     kidHow: "Sunland Park already fails the safe-breathing test. Their permit adds more smog gases. Our plan measures every bit and shows it to everyone.",
-    theirs: (y) => (operating(y) === 0 ? "Construction dust and truck exhaust in an area that already fails the ozone standard" : "Up to ~250 tons/yr of each smog pollutant added to an area that has failed the ozone standard since 2018 and gets an F grade"),
-    ours: () => "Same fuel cells, but every ton measured continuously and published, under one permit with PSD-level controls",
+    theirs: (y) => (far(y) ? "Ozone does not persist. What remains is what the extra smog did to the valley's health and compliance record while the plant ran, with only annual self-reports to show for it." : operating(y) === 0 ? "Construction dust and truck exhaust in an area that already fails the ozone standard" : "Up to ~250 tons/yr of each smog pollutant added to an area that has failed the ozone standard since 2018 and gets an F grade"),
+    ours: (y) => (far(y) ? "Same physics. The difference is the archive: a continuous public record of every stack, hour by hour, for the whole life of the plant." : "Same fuel cells, but every ton measured continuously and published, under one permit with PSD-level controls"),
     how: "Sunland Park has been an EPA ozone nonattainment area since Aug. 3, 2018. Doña Ana County: F for ozone, 15.2 unhealthy days a year (ALA 2025). The health standard is 70 ppb ozone; exposure is linked to asthma attacks and premature death.",
     sources: ["sunland-park-ozone", "ala-sota-2025", "epa-ozone-naaqs", "sob"],
   },
@@ -55,8 +61,8 @@ export const rows: Row[] = [
     label: "Permanent jobs the county can enforce",
     kidLabel: "Jobs the county can count on",
     kidHow: "They signed for 750 jobs. Our plan makes about 3,000: their 1,500 computer jobs plus about 1,500 in greenhouses, water and training.",
-    theirs: (y) => (y < 5 ? "0 required yet (750 due within 3 years of opening)" : `${BINDING_JOBS.toLocaleString()} full-time + 50 part-time`),
-    ours: (y) => (y < 2 ? "Construction; institute training the first cohorts" : y < 5 ? "~1,500 tech + first greenhouse block staffed" : `~${OUR_JOBS.toLocaleString()} permanent (1,500 tech + ~1,500 farm, water, capture, training)`),
+    theirs: (y) => (far(y) ? "The lease ended in 2056 and the companies may no longer exist. The signed agreement has no clause that reaches past its listed payments." : y < 5 ? "0 required yet (750 due within 3 years of opening)" : `${BINDING_JOBS.toLocaleString()} full-time + 50 part-time`),
+    ours: (y) => (far(y) ? "The only money that reaches this far is the closure and monitoring bond posted in the lease: it pays whoever is still watching the wells and the land." : y < 2 ? "Construction; institute training the first cohorts" : y < 5 ? "~1,500 tech + first greenhouse block staffed" : `~${OUR_JOBS.toLocaleString()} permanent (1,500 tech + ~1,500 farm, water, capture, training)`),
     how: "Theirs: CBA minimum of 750 full-time and 50 part-time within three years of opening; the 1,500 advertised is not binding. Ours: their 1,500 kept, plus industry-average greenhouse staffing and plant operations.",
     sources: ["cba", "epm-jobs"],
   },
@@ -65,7 +71,7 @@ export const rows: Row[] = [
     kidLabel: "Food grown here",
     kidHow: "150 acres of greenhouses grow about 60 million pounds a year. Multiply by the years.",
     theirs: () => "0 lbs",
-    ours: (y) => (operating(y) === 0 ? "First block planted in year 2" : `${((OUR_FOOD_LBS_YR * operating(y)) / 1e6).toFixed(0)} million lbs, pesticide-free (industry average yield)`),
+    ours: (y) => (far(y) ? "Glass lasts decades, not centuries. What carries forward is the water line, the trained people and a valley that kept growing its own food." : operating(y) === 0 ? "First block planted in year 2" : `${((OUR_FOOD_LBS_YR * operating(y)) / 1e6).toFixed(0)} million lbs, pesticide-free (industry average yield)`),
     how: "150 acres × ~400,000 lbs/acre/year for greenhouse tomatoes, peppers and greens (controlled-environment agriculture averages) × operating years.",
     sources: ["sweden"],
   },
@@ -73,8 +79,8 @@ export const rows: Row[] = [
     label: "Heat blown into the desert air",
     kidLabel: "Heat from the computers",
     kidHow: "The computers make as much heat as 90,000 home furnaces. Their plan blows it into the sky. Ours warms greenhouses in winter and runs chillers in summer.",
-    theirs: (y) => (operating(y) === 0 ? "None yet" : "~2,400 MW every hour of the year, about 90,000 home furnaces running flat out"),
-    ours: (y) => (operating(y) === 0 ? "None yet" : "The same fans, minus what greenhouses and the water plant use first in winter"),
+    theirs: (y) => (far(y) ? "Nothing remains. Heat is gone the hour it is made; only what it was used for, or not, leaves a trace." : operating(y) === 0 ? "None yet" : "~2,400 MW every hour of the year, about 90,000 home furnaces running flat out"),
+    ours: (y) => (far(y) ? "Nothing remains of the heat either. The food, water and jobs it made along the way are the trace." : operating(y) === 0 ? "None yet" : "The same fans, minus what greenhouses and the water plant use first in winter"),
     how: "Heat ≈ IT load (2,462 MW) is thermodynamics. 1 MW ≈ 38 typical 90,000 BTU/hr home furnaces. The heat is not smog, but it is the resource the upgrade puts to work.",
     sources: ["notice", "carrier-furnace", "render"],
   },

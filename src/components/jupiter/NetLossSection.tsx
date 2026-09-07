@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { SectionHeading } from "./SectionHeading";
 import { Cite, SourceList } from "@/components/Cite";
-import { rows, YEARS, operating, allSources, GHG_PERMIT_TPY, OUR_WATER_GPD, type Year } from "@/data/netloss";
+import { rows, YEARS, operating, far, LAST_COUNTED_YEAR, allSources, GHG_PERMIT_TPY, OUR_WATER_GPD, type Year } from "@/data/netloss";
 import { Cloud, Neighborhood } from "@/components/blueprint/Parts";
 import { useCopy } from "./AudienceText";
 import { useAudience } from "./Audience";
@@ -23,10 +23,15 @@ const HB93_YEAR = 19; // 2045 - 2026
 const LEASE_YEARS = 30;
 const WARM_YEAR = 44; // ~2070, the end of the state's 50-year projection window
 const STACK_LIFE = 5;
+/** 2042: NMSU projects CRRUA demand at 15 MGD, more than even a 10 MGD Phase-2 plant, so fresh pumping resumes unless the plant grows. */
+const PLANT_COVERS_UNTIL = 16;
+/** Operating years the drawings count. No filing says when the plant closes, so totals freeze at the year-80 view. */
+const countedOp = (years: number) => Math.min(operating(years), operating(LAST_COUNTED_YEAR));
 
 /** Smog (or clean air) over the neighborhood. Clouds and haze scale with the running CO2 total, uncapped. */
 function SmogScene({ smog, years }: { smog: boolean; years: number }) {
-  const op = operating(years);
+  const op = countedOp(years);
+  const isFar = far(years);
   const tons = smog ? GHG_PERMIT_TPY * op : GHG_PERMIT_TPY * 0.075 * op;
   const gasOff = !smog && op >= HB93_YEAR; // our plan: no gas hours after 2045
   // Haze: 0 at start, 1 at about 800 million tons (their 80-year total). Clouds: one more per ~120 million tons.
@@ -35,7 +40,13 @@ function SmogScene({ smog, years }: { smog: boolean; years: number }) {
   const swaps = Math.floor(op / STACK_LIFE);
   const warm = years >= WARM_YEAR;
   const sky = smog ? `rgb(${217 - k * 90},${211 - k * 105},${199 - k * 120})` : warm ? "#f6efe0" : "#eaf4fb";
-  const topLabel = op === 0 ? `Year ${years}: still building` : `Year ${years}: ${(tons / 1e6).toFixed(0)} M tons CO₂, running total`;
+  const topLabel = isFar
+    ? smog
+      ? `Year ${years}: the plant's lifetime CO₂ is still in the air`
+      : `Year ${years}: captured CO₂ is rock, or under cap rock`
+    : op === 0
+      ? `Year ${years}: still building`
+      : `Year ${years}: ${(tons / 1e6).toFixed(0)} M tons CO₂, running total`;
   void swaps;
   return (
     <svg viewBox="0 0 320 130" className="w-full" role="img" aria-label={smog ? `Smog over homes after ${years} years` : `Clean air over homes after ${years} years`}>
@@ -60,30 +71,43 @@ function SmogScene({ smog, years }: { smog: boolean; years: number }) {
       </text>
       <text x={160} y={124} textAnchor="middle" fontSize={8} fontWeight={800} fill={smog ? "#8e3b2f" : "#1f5f3a"}>
         {smog
-          ? op === 0
-            ? "CONSTRUCTION DUST · SUNLAND PARK ALREADY FAILS THE OZONE STANDARD"
-            : op >= HB93_YEAR
-              ? "SHOWN ASSUMING THE FUEL CELLS STILL BURN GAS AFTER 2045"
-              : "SMOG FORMS DOWNWIND ON HOT DAYS · SUNLAND PARK, SANTA TERESA"
-          : op === 0
-            ? "CAPTURE SKIDS INSTALLED BEFORE POWER-ON"
-            : gasOff
-              ? "NO EXHAUST · GEOTHERMAL, WIND AND CAPTURE CARRY THE LOAD"
-              : "CAPTURED AT THE STACK · MONITORED · PUBLISHED"}
+          ? isFar
+            ? "NO FILING SAYS WHEN THE PLANT CLOSES · DRAWN AT ITS YEAR-80 TOTAL"
+            : op === 0
+              ? "CONSTRUCTION DUST · SUNLAND PARK ALREADY FAILS THE OZONE STANDARD"
+              : op >= HB93_YEAR
+                ? "SHOWN ASSUMING THE FUEL CELLS STILL BURN GAS AFTER 2045"
+                : "SMOG FORMS DOWNWIND ON HOT DAYS · SUNLAND PARK, SANTA TERESA"
+          : isFar
+            ? "50-YEAR FEDERAL CARE ENDED · THE BOND PAYS WHOEVER STILL WATCHES"
+            : op === 0
+              ? "CAPTURE SKIDS INSTALLED BEFORE POWER-ON"
+              : gasOff
+                ? "NO EXHAUST · GEOTHERMAL, WIND AND CAPTURE CARRY THE LOAD"
+                : "CAPTURED AT THE STACK · MONITORED · PUBLISHED"}
       </text>
     </svg>
   );
 }
 
-/** Water table drops with years in their plan (and recharge falls); clean water added rises in ours. */
-/** Water surface (SVG y) for a side at a given year. Both sides sit exactly on the 2026 line (y=50) at year 0. */
+/**
+ * Water surface (SVG y) for a side at a given year. Both sides sit exactly on the 2026 line (y=50) at year 0.
+ * Both gauges show the same thing: the fresh water table CRRUA's wells draw from. Ours never rises above 2026:
+ * the plant makes water from the deep salty layer and lets the fresh wells rest, so the local table is held, not
+ * refilled, and farms, El Paso and Juárez keep pumping the basin. It is drawn flat while the plant covers CRRUA's
+ * demand (2028 to about 2042, when NMSU projects 15 MGD) and falls on the regional slope after that unless the plant
+ * grows with demand. An estimate, labelled as such in the chips and the expert note.
+ */
+const SLOPE = 62 / 80; // svg units per year, the regional decline both sides share
 function waterTop(down: boolean, years: number): number {
   if (down) {
     // Their plan: the table keeps falling for the whole horizon (USGS decline 2000-2020; recharge down 25%+ in the state projection).
-    return 50 + Math.min(1, years / 80) * 62;
+    return 50 + Math.min(80, years) * SLOPE;
   }
-  // Ours: nothing until the plant opens (operating year 0), then clean water added rises above the line.
-  return 50 - Math.min(1, operating(years) / 28) * 34;
+  if (years <= 2) return 50 + years * SLOPE; // same construction pumping until the plant opens
+  const atOpen = 50 + 2 * SLOPE;
+  if (years < PLANT_COVERS_UNTIL) return atOpen; // fresh wells rest: held, not raised
+  return atOpen + Math.min(80, years - PLANT_COVERS_UNTIL) * SLOPE * ((62 - 2 * SLOPE) / 62);
 }
 /** Where the table stood in earlier years, on the same decline slope the model uses forward (USGS: the Mesilla table has been falling for decades). */
 const HISTORY_MARKS: { year: number; y: number }[] = [
@@ -95,8 +119,17 @@ function WaterGauge({ down, years }: { down: boolean; years: number }) {
   const op = operating(years);
   const top = waterTop(down, years);
   const gal = OUR_WATER_GPD * 365 * op;
+  const isFar = far(years);
+  const held = !down && op > 0 && years < PLANT_COVERS_UNTIL;
   const downLabelY = Math.min(112, Math.max(63, top - 5));
   const warm = years >= WARM_YEAR;
+  const ourLabel = isFar
+    ? `year ${years}: no projection reaches this far`
+    : op === 0
+      ? `year ${years}: same construction pumping · plant being built`
+      : held
+        ? `year ${years}: fresh wells rest · table held, not raised`
+        : `year ${years}: CRRUA outgrew the plant · falling again`;
   return (
     <svg viewBox="0 0 320 130" className="w-full" role="img" aria-label={down ? `Aquifer level after ${years} years` : `Clean water added after ${years} years`}>
       <rect x={0} y={0} width={320} height={130} fill={warm ? "#e8d0a0" : "#e3cfa8"} />
@@ -119,23 +152,43 @@ function WaterGauge({ down, years }: { down: boolean; years: number }) {
           <path d={`M60,${top - 4} l-6,-8 M60,${top - 4} l6,-8`} stroke="#c0392b" strokeWidth={3} fill="none" />
           <rect x={68} y={downLabelY - 9} width={190} height={12} rx={2} fill="#e3cfa8" fillOpacity={0.9} />
           <text x={72} y={downLabelY} fontSize={9} fontWeight={800} fill="#8e3b2f">
-            year {years}: water table pulled down{warm ? " · recharge falling" : ""}
+            {isFar ? `year ${years}: no projection reaches this far` : `year ${years}: water table pulled down${warm ? " · recharge falling" : ""}`}
           </text>
         </>
       ) : (
         <>
-          <text x={72} y={104} fontSize={9} fontWeight={800} fill="#ffffff">{op === 0 ? `year ${years}: plant under construction · level held at 2026` : `year ${years}: ${(gal / 1e9).toFixed(0)} billion gallons of clean water added`}</text>
-          {op > 0 && <path d={`M60,${top + 14} L60,${top - 6} M60,${top - 6} l-6,8 M60,${top - 6} l6,8`} stroke="#1f5f3a" strokeWidth={3} fill="none" />}
+          {held ? (
+            // Held: a level bar at the surface, not an arrow. The table is neither rising nor falling while the fresh wells rest.
+            <path d={`M48,${top} L72,${top} M48,${top + 4} L72,${top + 4}`} stroke="#1f5f3a" strokeWidth={3} fill="none" />
+          ) : op > 0 && !isFar ? (
+            <>
+              <path d={`M60,${Math.max(54, top - 22)} L60,${top - 4}`} stroke="#1f5f3a" strokeWidth={3} strokeDasharray="4 3" />
+              <path d={`M60,${top - 4} l-6,-8 M60,${top - 4} l6,-8`} stroke="#1f5f3a" strokeWidth={3} fill="none" />
+            </>
+          ) : null}
+          <rect x={68} y={downLabelY - 9} width={200} height={12} rx={2} fill="#e3cfa8" fillOpacity={0.9} />
+          <text x={72} y={downLabelY} fontSize={9} fontWeight={800} fill="#1f5f3a">
+            {ourLabel}
+          </text>
+          {op > 0 && !isFar && (
+            <text x={6} y={120} fontSize={7.5} fontWeight={800} fill="#ffffff">{(gal / 1e9).toFixed(0)} billion gallons made from the salty layer so far</text>
+          )}
         </>
       )}
-      <text x={160} y={124} textAnchor="middle" fontSize={8} fontWeight={800} fill={down ? "#8e3b2f" : "#1f5f3a"}>
+      <text x={160} y={down || isFar || op === 0 ? 124 : 112} textAnchor="middle" fontSize={8} fontWeight={800} fill={down ? "#8e3b2f" : "#1f5f3a"}>
         {down
-          ? warm
-            ? "FRESH WATER STILL TAKEN · STATE PROJECTS RECHARGE DOWN 25%+ BY 2070"
-            : "FRESH WATER TAKEN FOR FILLS, BUILDING AND OPERATIONS"
-          : warm
-            ? "SALTY DEEP WATER TREATED · MORE VALUABLE AS THE STATE DRIES"
-            : "SALTY DEEP WATER TREATED · CLEAN WATER TO CRRUA"}
+          ? isFar
+            ? "NO PROJECTION REACHES 2276 · DRAWN AT THE 2070 ENDPOINT"
+            : warm
+              ? "FRESH WATER STILL TAKEN · STATE PROJECTS RECHARGE DOWN 25%+ BY 2070"
+              : "FRESH WATER TAKEN FOR FILLS, BUILDING AND OPERATIONS"
+          : isFar
+            ? "WHAT IS KNOWABLE IS WHAT IS MEASURED · MONITORING WELLS, BOND-FUNDED"
+            : op === 0
+              ? "PLANT UNDER CONSTRUCTION"
+              : held
+                ? "SALTY DEEP WATER TREATED · CRRUA'S FRESH WELLS REST"
+                : "DEMAND OUTGROWS THE PLANT UNLESS IT GROWS TOO (NMSU: 15 MGD BY 2042)"}
       </text>
     </svg>
   );
@@ -145,20 +198,63 @@ type Fact = { id: string; chip: string; color: string; info: string; sources: st
 
 /** The facts behind a picture at this year, for this side. Each is a chip; tap or hover for the explanation and source. */
 function factsFor(side: "ours" | "theirs", years: number, kid: boolean): Fact[] {
-  const op = operating(years);
+  const op = countedOp(years);
+  const isFar = far(years);
   const theirs = side === "theirs";
   const tons = theirs ? GHG_PERMIT_TPY * op : GHG_PERMIT_TPY * 0.075 * op;
   const out: Fact[] = [];
   if (op > 0) {
     out.push({
       id: "co2",
-      chip: `${(tons / 1e6).toFixed(0)} M tons CO₂ so far`,
+      chip: isFar ? `${(tons / 1e6).toFixed(0)} M tons CO₂ still in the air` : `${(tons / 1e6).toFixed(0)} M tons CO₂ so far`,
       color: theirs ? "#c0392b" : "#2e8b57",
       info: kid
         ? "This is all the planet-warming gas let out since the plant turned on, added up. It does not go away on its own for hundreds of years."
-        : `Running total since operations began (year 2): ${theirs ? "the permitted 10,144,115 tons a year" : "the 5–10% not captured"} × ${op} operating years. Counted cumulatively because warming tracks cumulative CO₂ almost linearly and the effects persist for centuries.`,
+        : `Running total since operations began (year 2): ${theirs ? "the permitted 10,144,115 tons a year" : "the 5–10% not captured"} × ${op} operating years${isFar ? ", frozen at the year-80 view because no filing says when the plant closes" : ""}. Counted cumulatively because warming tracks cumulative CO₂ almost linearly and the effects persist for centuries.`,
       sources: ["sob", "ipcc-ar6-spm"],
     });
+  }
+  if (!theirs && op > 0 && !isFar) {
+    const held = years < PLANT_COVERS_UNTIL;
+    out.push({
+      id: held ? "held" : "outgrown",
+      chip: held ? "table held, not raised" : "CRRUA needs 15 MGD by 2042",
+      color: "#1f7ae0",
+      info: kid
+        ? held
+          ? "The clean water comes from the deep salty layer, so the town's fresh wells can rest. The water underground stops dropping, but it does not fill back up: farms and two big cities still pump from it."
+          : "By 2042 the town needs more water than the plant makes, so the fresh wells start pumping again unless the plant is made bigger."
+        : held
+          ? "The plant makes water from the deep brackish layer and lets CRRUA's fresh wells rest, so the local table stops falling. It does not rise: farms, El Paso and Juárez keep pumping the same basin, and how fast the deep layer refills is 'unknown' (NMSU). Drawn flat while the plant covers CRRUA's demand; an estimate."
+          : "NMSU projects CRRUA demand at 6 MGD in 2027 and 15 MGD by 2042. A 10 MGD Phase-2 plant covers most of that; the rest comes from fresh wells again, so the table resumes the regional decline unless capacity keeps pace. Growing the plant with demand is a lease condition to write, not a promise already made.",
+      sources: ["nmsu", "usgs-mesilla-taap"],
+    });
+  }
+  if (isFar) {
+    out.push({
+      id: "far",
+      chip: "eight generations on",
+      color: theirs ? "#8e3b2f" : "#003047",
+      info: theirs
+        ? kid
+          ? "Nobody wrote down who takes care of the land and the deep wells this far ahead. The deal ends when the last payment is made."
+          : "No filing, lease or state projection reaches 2276. The signed agreement ends when its listed payments end and has no closure, restoration or bond clause; who owns the wells and the land by then is unknown."
+        : kid
+          ? "Our plan makes the company put money aside now, so someone is still paid to check the wells and the land long after the company is gone."
+          : "The lease's closure and monitoring bond, sized by an engineer's estimate and revised every five years the way Doña Ana County already requires of solar farms, is the one instrument written to outlive the companies.",
+      sources: theirs ? ["cba"] : ["cba", "dac-solar-decom"],
+    });
+    if (!theirs) {
+      out.push({
+        id: "rock",
+        chip: "captured CO₂ is rock",
+        color: "#2e8b57",
+        info: kid
+          ? "The gas we caught was turned into stone inside concrete, or pushed deep under a lid of rock. Stone does not float away."
+          : "CO₂ mineralized in concrete and aggregate becomes calcium carbonate, the mineral limestone is made of, stable on geologic time. CO₂ stored under cap rock passed its 50-year federal post-injection care in the 2100s; after that the bond funds whoever still monitors it.",
+        sources: ["carboncure", "blue-planet", "epa-class-vi"],
+      });
+    }
   }
   if (theirs && op > 0) {
     const swaps = Math.floor(op / STACK_LIFE);
@@ -315,7 +411,7 @@ export function NetLossSection() {
           ))}
         </div>
         <div className="text-center font-black" style={{ fontSize: 17, color: "#003047" }}>
-          After {year} {year === 1 ? "year" : "years"} · {2026 + year} {operating(year) === 0 ? "· still under construction" : `· ${operating(year)} ${operating(year) === 1 ? "year" : "years"} of operation`}
+          After {year} {year === 1 ? "year" : "years"} · {2026 + year} {far(year) ? "· beyond every filing and projection: what remains" : operating(year) === 0 ? "· still under construction" : `· ${operating(year)} ${operating(year) === 1 ? "year" : "years"} of operation`}
         </div>
 
         </div>
@@ -399,7 +495,7 @@ export function NetLossSection() {
 
         {expert && year >= 30 && (
           <p className="pj-adult mx-auto mb-6 max-w-[1000px] rounded px-4 py-3 text-[14px]" style={{ backgroundColor: "#fff8e6", lineHeight: 1.55, color: "#3c3c3c" }}>
-            <strong>What the long views assume, and where it comes from.</strong> CO₂ is a running total because cumulative emissions drive warming almost linearly and the effects last for centuries<Cite ids={["ipcc-ar6-spm"]} />. HB93 requires net-zero by 2045 (year 19); their route is credits, so exhaust after that assumes the fuel cells still burn gas, while the upgrade retires gas hours to zero by then<Cite ids={["cba", "bocc"]} />. Stacks are swapped about every five years<Cite ids={["bloom-stack-life"]} />. The 30-year lease ends at year 30 and the land returns to the tax rolls<Cite ids={["cba"]} />. New Mexico is projected 5–7 °F warmer within 50 years with groundwater recharge down at least 25%<Cite ids={["nmbg-164"]} />, and Mesilla groundwater already fell from 2000 to 2020<Cite ids={["usgs-mesilla-taap"]} />, so the water table keeps dropping under their plan. Beyond 2070 the state projection ends; the drawings hold at its endpoint rather than extrapolate.
+            <strong>What the long views assume, and where it comes from.</strong> CO₂ is a running total because cumulative emissions drive warming almost linearly and the effects last for centuries<Cite ids={["ipcc-ar6-spm"]} />. HB93 requires net-zero by 2045 (year 19); their route is credits, so exhaust after that assumes the fuel cells still burn gas, while the upgrade retires gas hours to zero by then<Cite ids={["cba", "bocc"]} />. Stacks are swapped about every five years<Cite ids={["bloom-stack-life"]} />. The 30-year lease ends at year 30 and the land returns to the tax rolls<Cite ids={["cba"]} />. New Mexico is projected 5–7 °F warmer within 50 years with groundwater recharge down at least 25%<Cite ids={["nmbg-164"]} />, and Mesilla groundwater already fell from 2000 to 2020<Cite ids={["usgs-mesilla-taap"]} />, so the water table keeps dropping under their plan. Beyond 2070 the state projection ends; the drawings hold at its endpoint rather than extrapolate. Both water gauges show the same fresh table CRRUA&apos;s wells draw from. Ours is held, not raised: the plant makes water from the deep brackish layer so the fresh wells rest, while farms, El Paso and Juárez keep pumping the basin and the deep layer&apos;s recharge is &quot;unknown&quot;<Cite ids={["nmsu"]} />. It is drawn flat while the plant covers CRRUA&apos;s demand and falls on the regional slope after 2042, when NMSU projects 15 MGD of demand, unless the plant grows with it. The year-250 view stops counting at year 80, because no document says when the plant closes, and states only what physically remains: CO₂ in the air or in rock, brine below the confining layers, and whether anyone is still measuring<Cite ids={["ipcc-ar6-spm", "epa-class-vi", "cba"]} />.
           </p>
         )}
         {/* Rows: the label sits in the middle because it applies to both sides; ours left, theirs right. Expert only; the home page comparison carries the six headline lines. */}

@@ -9,7 +9,7 @@ import type { TabPanel } from "@/data/jupiter";
 export const siteName = "Force Upgrade Project Jupiter";
 export const author = "Sebastian, an NMSU AI student";
 
-export const LAST_UPDATED = "Sept. 5, 2026";
+export const LAST_UPDATED = "Sept. 6, 2026";
 
 export const banner =
   "Independent proposal. Not affiliated with Oracle, STACK Infrastructure, or Project Jupiter Together. Their original text is one tap away.";
@@ -19,9 +19,9 @@ export const mission = "Keep the data center. Make it catch its carbon, reuse it
 
 /** How the upgrade actually happens. Step 3 is the only one a reader controls. */
 export const steps = [
-  { n: 1, who: "The county", what: "writes the five conditions into the bond lease before the fuel cells arrive.", why: "The county holds title during the 30-year bond, so the lease is the one contract that reaches the developer.", href: "/legislators#commission", cta: "Who signs the lease" },
+  { n: 1, who: "The county", what: "writes the six conditions into the bond lease before the fuel cells arrive.", why: "The county holds title during the 30-year bond, so the lease is the one contract that reaches the developer.", href: "/legislators#commission", cta: "Who signs the lease" },
   { n: 2, who: "Santa Fe", what: "passes the three bills so the same rules apply to the next data center.", why: "The Microgrid Oversight Act already passed the Senate in 2026. The other two are drafted.", href: "/legislators#bills", cta: "The three bills" },
-  { n: 3, who: "You", what: "sign, call your commissioner, and show up on a second or fourth Tuesday.", why: "None of the five conditions is in the lease yet. Concrete is being poured now.", href: "/petition", cta: "Sign the petition" },
+  { n: 3, who: "You", what: "sign, call your commissioner, and show up on a second or fourth Tuesday.", why: "None of the six conditions is in the lease yet. Concrete is being poured now.", href: "/petition", cta: "Sign the petition" },
 ] as const;
 
 /** Five tabs. Petition is the button, not a tab; the Science page is linked from the Blueprint and the footer. */
@@ -52,7 +52,7 @@ export const ctaText = { before: "Click ", link: "HERE", after: " to force the u
 export const whatIsParagraphs = [
   "Project Jupiter is a data center campus in Santa Teresa, Doña Ana County, backed by $165 billion in county industrial revenue bonds. The signed Community Benefits Agreement describes a site of about 819 acres with a 400-acre first phase; news reports say 1,400. NMED's draft permit puts the fuel-cell plant's greenhouse gas at 10,144,115 tons a year, more than Albuquerque and Las Cruces combined, with each smog pollutant capped just under the 250-ton line that would trigger full review. The website promises 1,500 permanent jobs; the signed agreement requires 750. That is one binding job for roughly every 13,500 tons of carbon.",
   "The upgrade does not cancel the project. It keeps the same four data halls, the same fuel cells, the same fenced campus, and the same construction timeline, then bolts on what the developers left out. NMED's own permit review says the fuel cells' dried exhaust is about 95 percent carbon dioxide, which is why Bloom has already partnered with Chart Industries on capture. Capture skids go in the fuel-cell yard. One plate heat exchanger taps the warm-water header before the dry coolers and sends heat to 150 acres of greenhouses in winter and to desalination preheat in summer. The added cost is about 1.5 percent of the bond request.",
-  "The upgrade also rebalances the deal. Instead of a $50 million check for water, the county gets the 5 million gallon a day brackish desalination plant that NMSU engineers designed and priced at $269 million in 2023. Instead of $360 million for schools over 30 years, a conditioned bond agreement delivers $1 billion. Instead of $6.9 million for workforce programs, a $50 million NMSU and DACC institute trains local residents for the jobs. Every number on this page is an estimate, labeled as such, and their original numbers are one click below each section so you can compare.",
+  "The upgrade also rebalances the deal. Instead of a $50 million check for water, the county gets the 5 million gallon a day brackish desalination plant that NMSU engineers designed and priced at $269.5 million in 2023. Instead of $360 million for schools over 30 years, a conditioned bond agreement delivers $1 billion. Instead of $6.9 million for workforce programs, a $50 million NMSU and DACC institute trains local residents for the jobs. Every number on this page is an estimate, labeled as such, and their original numbers are one click below each section so you can compare.",
 ];
 
 export type UpgradeHighlight = {
@@ -65,7 +65,7 @@ export type UpgradeHighlight = {
 
 export const highlights: UpgradeHighlight[] = [
   { icon: "datacenter", num: "$6.6B+", label: "IN LONG TERM ECONOMIC IMPACT, PHASE 1 († $8B AT FULL BUILD)", theirs: "$4.7B", color: "#15768c" },
-  { icon: "water", num: "$269M", label: "THE NMSU-DESIGNED 5 MGD DESALINATION PLANT, FULLY FUNDED", theirs: "$50M", color: "#1f7ae0" },
+  { icon: "water", num: "$269.5M", label: "THE NMSU-DESIGNED 5 MGD DESALINATION PLANT, FULLY FUNDED", theirs: "$50M", color: "#1f7ae0" },
   { icon: "school", num: "$1B+", label: "SCHOOLS, INFRASTRUCTURE & PUBLIC SERVICES OVER 30 YEARS", theirs: "$360M", color: "#d99a00" },
   { icon: "community", num: "$50M", label: "COMMUNITY & WORKFORCE PROGRAMS, INCLUDING AN NMSU / DACC TECH INSTITUTE", theirs: "$6.9M", color: "#e07b00" },
   { icon: "helmet", num: "11,000+", label: "WELL PAYING CONSTRUCTION & PERMANENT JOBS (3,000 PERMANENT IN PHASE 1)", theirs: "8,500+", color: "#2e8b57" },
@@ -111,7 +111,7 @@ export const pitches = [
 export const willList = [
   "Deliver more than $6.6 billion in long-term economic impact from the same land in Phase 1: their tax revenue and investment, plus 17 years of produce output, water sales, and land leases†",
   "Provide $1 billion in direct support for schools, infrastructure, and local services through bond payments conditioned on jobs and emissions targets actually being met",
-  "Fund the $269 million, 5 million gallon a day brackish desalination system that NMSU designed for Santa Teresa in 2023, instead of writing a $50 million check",
+  "Fund the $269.5 million, 5 million gallon a day brackish desalination system that NMSU designed for Santa Teresa in 2023, instead of writing a $50 million check",
   "Fund a $50 million NMSU and Doña Ana Community College institute for power, water, greenhouse, and hardware careers, with guaranteed local placement",
   "Create 8,000+ construction jobs and 3,000 permanent jobs in Phase 1: the same 1,500 data center roles plus about 1,000 in greenhouses, 250 in water and capture operations, and 250 in hardware refurbishment and training",
   "Pay full-time salaries averaging $75K–$100K plus benefits for tech roles, and living wages with benefits in every third-party greenhouse and water contract",
@@ -186,7 +186,7 @@ export const impactTabs: TabPanel[] = [
         ["Data Center Closed-Loop Cooling", "One-time fill: 2.5M gallons per building. Top-offs: 0–1,000 gal/yr", "Same", "Non-potable"],
         ["Bloom Fuel Cell System", "One-time fill: 960,000 gal. Top-offs: 167,000 gal/yr", "Same", "Non-potable"],
         ["Employee Use (kitchens, bathrooms)", "20,000 gal/day average", "Same", "Potable"],
-        ["Brackish Desalination Plant, NMSU 2023 design (5)", "$50M check to CRRUA", "5 MGD reverse osmosis, 75% recovery, $269M whole system, brine to two deep injection wells", "Potable"],
+        ["Brackish Desalination Plant, NMSU 2023 design (5)", "$50M check to CRRUA", "5 MGD reverse osmosis, 75% recovery, $269.5M whole system, brine to two deep injection wells", "Potable"],
         ["Greenhouse Irrigation", "—", "Recirculating hydroponics: ~90% less water per pound of food than open fields", "Desalinated"],
         ["Net Campus Water Balance", "About 9 households consumed", "Net producer: 5 MGD is close to CRRUA's entire projected 2027 demand of 6 MGD", ""],
       ],
@@ -239,7 +239,7 @@ export const keyComponentTabs: TabPanel[] = [
   {
     title: "Water: The Plant NMSU Already Designed",
     paragraphs: [
-      "Southern New Mexico sits on a vast brackish aquifer. NMSU's Dr. Pei Xu told the Legislature in October 2023 that the Mesilla Basin holds roughly 65 million acre-feet of economically recoverable fresh-to-brackish water, and presented a designed 5 million gallon a day reverse-osmosis plant for Santa Teresa: 75 percent recovery, two deep injection wells for brine about 20 miles away, $115.5 million for the treatment plant and $269 million for the whole system including wells, storage, and pipelines.",
+      "Southern New Mexico sits on a vast brackish aquifer. NMSU's Dr. Pei Xu told the Legislature in October 2023 that the Mesilla Basin holds roughly 65 million acre-feet of economically recoverable fresh-to-brackish water, and presented a designed 5 million gallon a day reverse-osmosis plant for Santa Teresa: 75 percent recovery, two deep injection wells for brine about 20 miles away, $115.5 million for the treatment plant and $269.5 million for the whole system including wells, storage, and pipelines.",
       "The proof it works is 30 miles away. El Paso's Kay Bailey Hutchison plant has treated Hueco Bolson brackish water since 2007 at 27.5 million gallons a day and pipes its brine 22 miles to three injection wells. Reverse osmosis is the proven technology. Server heat helps by preheating the feed, which raises membrane throughput, and by concentrating brine so less has to be injected.",
       "Five million gallons a day is nearly all of CRRUA's projected 2027 demand of 6 MGD for Sunland Park and Santa Teresa. The county is already paying $250,000 under the CBA to study a desalination plant. Every promise on their water page stays: closed-loop cooling, a 20,000 gallon a day potable cap, no evaporative towers. The upgrade adds an output, and it costs 0.16 percent of the bond.",
     ],
@@ -274,7 +274,7 @@ export const irbPoints = [
   { label: "JOBS TIED TO ABATEMENTS:", text: "Tax benefits scale with permanent jobs actually delivered and verified each year, not with a projection on a website." },
   { label: "NO COUNTY RISK:", text: "Unchanged. Doña Ana County spends no money and takes on no debt. Growers finance their own greenhouses." },
   { label: "FINANCIAL BENEFIT TO DOÑA ANA COUNTY:", text: "$1 billion in payments in lieu of taxes over 30 years, about $33M a year instead of $12M, plus lease revenue from 150 acres of greenhouses." },
-  { label: "HOW IT WORKS:", text: "Same structure: the County owns the site and leases it back. The lease adds five clauses: capture before power-on, one air permit, heat offered to growers, the water plant funded, bonds tied to jobs." },
+  { label: "HOW IT WORKS:", text: "Same structure: the County owns the site and leases it back. The lease adds six clauses: capture before power-on, one air permit, heat offered to growers, the water plant funded, bonds tied to jobs, and a closure and monitoring bond." },
 ];
 
 // ─── Resources ───────────────────────────────────────────────────────────────
@@ -299,7 +299,7 @@ export const sources = [
 // ─── Disclaimers ─────────────────────────────────────────────────────────────
 
 export const disclaimers = [
-  "† Upgraded figures are estimates prepared for this proposal, not audited projections. They take Project Jupiter Together's own IMPLAN-based totals as the baseline and add: 17 years of Phase 1 produce output, water sales, and greenhouse land leases; the $269M NMSU-designed desalination system; a conditioned $1B bond agreement; and a $50M training institute. They assume the same air permit and pipeline approvals the original plan assumes, plus capture installed before power-on.",
+  "† Upgraded figures are estimates prepared for this proposal, not audited projections. They take Project Jupiter Together's own IMPLAN-based totals as the baseline and add: 17 years of Phase 1 produce output, water sales, and greenhouse land leases; the $269.5M NMSU-designed desalination system; a conditioned $1B bond agreement; and a $50M training institute. They assume the same air permit and pipeline approvals the original plan assumes, plus capture installed before power-on.",
   "Emissions figures come from NMED's draft Statement of Basis for permit 10883 (10,144,115 tons GHG per year; criteria pollutants each held under 250 tons per year; exhaust about 95 percent CO₂ once dried). Capture rates of 90 to 95% reflect vendor claims and published pilot results, not a guaranteed figure. Greenhouse yields (200 to 250 tons per acre per year for tomatoes), 5 to 8 workers per acre, and water savings reflect controlled-environment agriculture industry averages. Desalination capacity, recovery, and cost are from the NMSU feasibility study presented to the Legislature on October 31, 2023. Site acreage: the executed Community Benefits Agreement says about 819 acres with a 400-acre first phase; news reports say 1,400. Map positions are traced from the August 2026 render and are not survey-accurate. Full citations on the Sources page.",
   "(1)–(4) as in the original Project Jupiter Together disclaimer, reproduced in the dropdown above. (5) New line items introduced by this proposal.",
 ];
@@ -364,7 +364,7 @@ export const talkingPoints = [
   "Their own permit filings say 10 to 14 million tons of carbon a year and 500 tons of smog, for 1,500 permanent jobs.",
   "The exhaust from their fuel cells is about half pure CO₂. Bloom already sells capture for it. Require it before power-on.",
   "Their servers make hot water. In Sweden and the Netherlands that heat grows food. Require them to offer it to growers on the 150 empty acres beside the dry coolers. That is 1,000 more jobs.",
-  "NMSU already designed a 5 million gallon a day desalination plant for Santa Teresa. It costs $269 million, 0.16% of their bond. Make them fund it.",
+  "NMSU already designed a 5 million gallon a day desalination plant for Santa Teresa. It costs $269.5 million, 0.16% of their bond. Make them fund it.",
   "Same land. Same timeline. About 1.5% more money. Attach the conditions to the $165 billion in bonds you already approved.",
 ];
 
@@ -375,7 +375,7 @@ export const petitionText = [
   "We do not ask you to cancel Project Jupiter. We ask you to force its upgrade. Before the first fuel cell turns on in Santa Teresa, make the following conditions binding on the air permit, the water permits, and the $165 billion in Industrial Revenue Bonds:",
 ];
 
-/** The five conditions. Each says what we ask, what their filed plan does today, and why it matters, in plain words. */
+/** The six conditions. Each says what we ask, what their filed plan does today, and why it matters, in plain words. */
 export const petitionDemands: { ask: string; theirs: string; why: string }[] = [
   {
     ask: "Carbon capture installed on the fuel-cell stacks from the first day of operation, catching at least 90% of the CO₂.",
@@ -394,12 +394,17 @@ export const petitionDemands: { ask: string; theirs: string; why: string }[] = [
   },
   {
     ask: "The NMSU-designed water plant built and handed to the local utility: 5 million gallons a day of clean water from salty groundwater.",
-    theirs: "Drinking water is taken from the local utility and more is pumped from the fresh aquifer. The signed deal funds only a $250,000 study of the plant.",
-    why: "The plant is already designed and priced at $269 million, about 0.16% of the bond. It gives back more water than the campus takes.",
+    theirs: "Drinking water is taken from the local utility and more is pumped from the fresh aquifer. The signed deal funds a $250,000 study; the county is now designing a smaller plant with its own Jupiter tax money.",
+    why: "The plant is already designed and priced at $269.5 million, about 0.16% of the bond. It gives back more water than the campus takes.",
   },
   {
     ask: "The county tax break paid only as permanent jobs are verified each year, and a $50 million training institute on site so the jobs go to people who live here.",
     theirs: "The signed agreement binds the company to 750 jobs and $4 million for workforce programs, with the tax break paid regardless.",
     why: "With greenhouses, the water plant and capture, about 3,000 permanent jobs are possible. Verification makes the number real instead of advertised.",
+  },
+  {
+    ask: "A closure and monitoring bond posted in the lease, sized by an independent engineer and revised every five years, so the wells, the land and the public meters are cared for after the companies are gone.",
+    theirs: "The signed agreement ends when its listed payments end. It has no decommissioning, restoration or bond clause; after the 30-year lease the shareholders own the site.",
+    why: "Servers last five years, the lease thirty, the aquifer and the stored CO₂ far longer. Doña Ana County already requires this bond of solar farms. It is the only instrument written to outlive the companies.",
   },
 ];
