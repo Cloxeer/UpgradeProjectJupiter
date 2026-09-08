@@ -981,6 +981,15 @@ export const sources: Source[] = [
     group: "primary",
     used: "Four years of nonuse forfeits a groundwater right after notice, except that periods when the right is placed in a State Engineer-approved water conservation program do not count toward the four years. The legal basis for leaving the unused sod-farm right in the aquifer instead of pumping it.",
   },
+  {
+    id: "osu-co2-enrichment",
+    title: "Greenhouse Carbon Dioxide Supplementation (HLA-6723)",
+    publisher: "Oklahoma State University Extension (Bruce Dunn, Megha Poudel)",
+    date: "2023",
+    url: "https://extension.okstate.edu/fact-sheets/greenhouse-carbon-dioxide-supplementation.html",
+    group: "science",
+    used: "Raising CO₂ to 800–1,000 ppm can raise C3 crop yield 40–100% with other inputs optimal; but \"on warmer days, it is difficult to maintain desirable higher CO₂ levels because of venting to cool the greenhouses\", and a properly vented house sits at the ambient 400 ppm. So enrichment is a closed-vent, cool-season and early-morning practice; in a Chihuahuan Desert summer with pads and vents running, most CO₂ fed in leaves through the vents.",
+  },
 ];
 
 export const sourceById = Object.fromEntries(sources.map((s) => [s.id, s])) as Record<string, Source>;

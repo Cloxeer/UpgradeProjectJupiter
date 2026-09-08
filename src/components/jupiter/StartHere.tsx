@@ -7,7 +7,7 @@ const steps = [
 const paths = [
   { who: "One minute", what: "Read the eight highlight cards. Ours on top, theirs quoted underneath.", href: "#highlights" },
   { who: "Elected official", what: "How fast, how cheap, who pays: the speed-and-cost table and the cost table on the Blueprint.", href: "#speed" },
-  { who: "Business owner", what: "What it adds to the developer's bill as a share of the bond, on every process card.", href: "/blueprint#cost" },
+  { who: "Business owner", what: "What it adds to the developer's bill as a share of the $50 billion first phase, on every process card.", href: "/blueprint#cost" },
   { who: "Kid or student", what: "Every process has an 'If you are ten' box and a drawing you can make bigger.", href: "/blueprint#processes" },
 ];
 

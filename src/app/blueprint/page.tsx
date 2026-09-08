@@ -9,23 +9,19 @@ import { HeatDiagram, CarbonDiagram, WaterDiagram, SolarDiagram, GreenhouseDiagr
 import { YearTimeline } from "@/components/blueprint/YearTimeline";
 import { costItems, costTotals, receipts, SOURCE_NOTE } from "@/data/blueprint";
 import { HelpImprove } from "@/components/jupiter/HelpImprove";
-import { pctOfBond } from "@/lib/units";
+import { pctOfBond, pctOfPhase1, parseCostM } from "@/lib/units";
 import { PlanModeProvider, PlanSwitch } from "@/components/blueprint/PlanMode";
 import { Glossary } from "@/components/jupiter/Term";
 import { JupiterStorm } from "@/components/jupiter/JupiterStorm";
 import { AudienceChip } from "@/components/jupiter/Audience";
 import { VoiceText, HideFor, OnlyFor } from "@/components/blueprint/Voice";
+import { Truth } from "@/components/jupiter/Truth";
 
 export const metadata: Metadata = {
   title: "Blueprint: the upgraded site plan, drawn",
-  description: "Interactive site plan and five process drawings for upgrading Project Jupiter on its own 819 acres: waste heat to greenhouses, carbon capture on the fuel cells, a 5 MGD desalination plant, geothermal and wind, costs as a share of the $165B bond, and a 30-year timeline.",
+  description: "Interactive site plan and five process drawings for upgrading Project Jupiter on its own 819 acres: waste heat to greenhouses, carbon capture on the fuel cells, a 5 MGD desalination plant, geothermal and wind, costs as a share of the $50B first phase and the $165B bond cap, and a 30-year timeline.",
   alternates: { canonical: "/blueprint/" },
 };
-
-function parseCost(v: string): number {
-  const n = parseFloat(v.replace(/[^0-9.]/g, ""));
-  return v.includes("B") ? n * 1000 : n;
-}
 
 const renderLabels = ["Secure Entrance", "Secure Exit", "Operations", "Warehouse", "Parking", "Guard Booth", "Security Fence", "Transformer Yard", "Modular Chiller Plants — Closed Loop System", "Dry Coolers"];
 
@@ -150,30 +146,39 @@ export default function BlueprintPage() {
                 <tr>
                   <th>Item</th>
                   <th>Cost</th>
-                  <th>% of $165B</th>
+                  <th>% of $50B first phase</th>
                   <th>Who pays</th>
                   <th>Basis</th>
                 </tr>
               </thead>
               <tbody>
-                {costItems.map((c) => (
-                  <tr key={c.item}>
-                    <th scope="row">{c.item}</th>
-                    <td data-label="Cost" className="pj-cell-ours" style={{ whiteSpace: "nowrap" }}>{c.cost}</td>
-                    <td data-label="% of $165B" style={{ whiteSpace: "nowrap", fontWeight: 700, color: "#c0392b" }}>{pctOfBond(parseCost(c.cost))}</td>
-                    <td data-label="Who pays">{c.who}</td>
-                    <td data-label="Basis" style={{ fontSize: 15 }}>{c.note}</td>
-                  </tr>
-                ))}
+                {costItems.map((c) => {
+                  const m = parseCostM(c.cost);
+                  const approx = m.lo !== undefined ? "~" : "";
+                  return (
+                    <tr key={c.item}>
+                      <th scope="row">{c.item}</th>
+                      <td data-label="Cost" className="pj-cell-ours" style={{ whiteSpace: "nowrap" }}>{c.cost}</td>
+                      <td data-label="% of $50B first phase" style={{ whiteSpace: "nowrap" }}>
+                        <span style={{ fontWeight: 700, color: "#c0392b" }}>{approx}{pctOfPhase1(m.m)}</span>
+                        <span className="block text-[13px]" style={{ color: "#6b6b6b" }} title="The $165 billion is the bond ceiling in the county deal, not money in a bank">{approx}{pctOfBond(m.m)} of the $165B cap (a ceiling, not cash)</span>
+                      </td>
+                      <td data-label="Who pays">{c.who}</td>
+                      <td data-label="Basis" style={{ fontSize: 15 }}>
+                        <Truth label={c.label} /> {c.note}{m.stream && <span style={{ color: "#6b6b6b" }}> (A payment stream, not capital.)</span>}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
           </HideFor>
           <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
             {[
-              { label: "Developer's share", value: costTotals.developer, sub: "against a $165B bond request", color: "#c0392b" },
+              { label: "Developer's share", value: costTotals.developer, sub: "against the $50B first-phase commitment ($165B is the bond ceiling)", color: "#c0392b" },
               { label: "Growers' share", value: costTotals.growers, sub: "private, off the developer's books", color: "#2e8b57" },
-              { label: "Added to the project", value: costTotals.pctOfBond, sub: "for capture, water, food, and 1,500 more jobs", color: "#003047" },
+              { label: "Added to the project", value: costTotals.share, sub: "for capture, water, food, and 1,500 more jobs", color: "#003047" },
             ].map((s) => (
               <div key={s.label} className="rounded bg-white p-5 text-center shadow-sm">
                 <div className="text-[13px] font-bold uppercase tracking-wide" style={{ color: "#6b6b6b" }}>{s.label}</div>
@@ -186,7 +191,7 @@ export default function BlueprintPage() {
           <TheySay label="What they are spending on the community today">
             <p>
               $50 million for water system improvements (80% funded), about $360 million in payments in lieu of taxes over 30 years, and $6.9 million
-              for workforce and community programs. Total: roughly $417 million, or about 0.25% of the $165 billion bond.
+              for workforce and community programs. Total: roughly $417 million, about 0.8% of the $50 billion first phase (0.25% of the $165 billion bond cap, a ceiling, not cash).
             </p>
           </TheySay>
           </HideFor>

@@ -2,10 +2,23 @@
 // Five checks per demand; each is "yes" or "partial" with the reason and the document behind it.
 // A reader sees the checks, not a number we assigned ourselves.
 
+import type { ClaimLabel } from "./claims";
+
 export type Check = {
   label: string;
   status: "yes" | "partial";
+  /** what kind of claim the note rests on */
+  claim: ClaimLabel;
   note: string;
+  sources: string[];
+};
+
+/** The gate: what is verified, by whom, when, and what the lease does if it is missed. The county cannot stop operations (NMED issues the air permit and the CBA makes the lease the county's sole remedy), so every consequence is a lease consequence. */
+export type Gate = {
+  test: string;
+  verifier: string;
+  by: string;
+  ifMissed: string;
   sources: string[];
 };
 
@@ -17,7 +30,12 @@ export type Demand = {
   /** the same demand in little-kid words */
   kidShort: string;
   checks: Check[];
+  gate: Gate;
+  /** model lease language for counsel; the instruments named are real, the wording is this site's */
+  clause: string;
 };
+
+export const CLAUSE_NOTE = "Model text for counsel, not legal advice. The instruments named are real; the wording is this site's.";
 
 export const CHECK_LABELS = ["Sold today", "Done at scale", "Cost", "Fits the schedule", "Legal lever"] as const;
 
@@ -28,12 +46,21 @@ export const demands: Demand[] = [
     short: "Catch the CO₂ at the stack before power-on",
     kidShort: "Catch the gas in a box before it goes into the sky",
     checks: [
-      { label: "Sold today", status: "partial", note: "Bloom and Chart Industries announced a capture product for this fuel cell in February 2025; no operating plant uses it yet. NMED's own review says the dried exhaust is about 95% CO₂, the easiest stream to capture.", sources: ["bloom-chart", "bloom-co2", "sob"] },
-      { label: "Done at scale", status: "partial", note: "Boundary Dam, the longest-running power-plant capture unit, caught 848,000 tons in its best year (2024) and about 660,000 a year on average since 2014; the best plants anywhere sustain 50 to 75%. Nothing captures 8 million tons at one site. So the lease condition is metered tons against a 90–95% target, phased in as stacks arrive.", sources: ["boundary-dam-2024", "sob"] },
-      { label: "Cost", status: "partial", note: "The largest item: about $1.5 billion for the skids plus $1.5 to 2 billion for a pipeline to Texas storage, wells and 50 years of care, all estimates. The federal 45Q credit, $85 a ton for 12 years, could repay most of it. Together the upgrade is about 2.5% of the $165 billion bond cap, or 8% of the $50 billion first phase.", sources: ["cba", "irs-45q"] },
-      { label: "Fits the schedule", status: "yes", note: "Skids go in the fuel-cell yard as each block of stacks is delivered. Nothing about the halls or the timeline changes.", sources: ["render", "notice"] },
-      { label: "Legal lever", status: "yes", note: "The bond lease, amendable by agreement at the county's next consent point, and the air permit, which is already stayed in court and will be rewritten anyway.", sources: ["cba", "nmpr-stay"] },
+      { label: "Sold today", status: "partial", claim: "verified-estimate", note: "Bloom and Chart Industries announced a capture product for this fuel cell in February 2025; no operating plant uses it yet. NMED's own review says the dried exhaust is about 95% CO₂, the easiest stream to capture.", sources: ["bloom-chart", "bloom-co2", "sob"] },
+      { label: "Done at scale", status: "partial", claim: "projection", note: "Boundary Dam, the longest-running power-plant capture unit, caught 848,000 tons in its best year (2024) and about 660,000 a year on average since 2014; the best plants anywhere sustain 50 to 75%. Nothing captures 8 million tons at one site. So the lease condition is metered tons against a 90–95% target, phased in as stacks arrive.", sources: ["boundary-dam-2024", "sob"] },
+      { label: "Cost", status: "partial", claim: "projection", note: "The largest item: about $1.5 billion for the skids plus $1.5 to 2 billion for a pipeline to Texas storage, wells and 50 years of care, all estimates. The federal 45Q credit, $85 a ton for 12 years, could repay most of it. Together the upgrade is about 8% of the $50 billion first phase (2.5% of the $165 billion bond cap, a ceiling, not cash).", sources: ["cba", "irs-45q"] },
+      { label: "Fits the schedule", status: "yes", claim: "projection", note: "Skids go in the fuel-cell yard as each block of stacks is delivered. Nothing about the halls or the timeline changes.", sources: ["render", "notice"] },
+      { label: "Legal lever", status: "yes", claim: "fact", note: "The bond lease, amendable by agreement at the county's next consent point, and the air permit, which is already stayed in court and will be rewritten anyway.", sources: ["cba", "nmpr-stay"] },
     ],
+    gate: {
+      test: "Metered tons kept out of the air reach 50 to 75% of the stacks' CO₂ by lease year 5 (2031) and 90 to 95% by year 10 (2036), read from the stack meters, not the vendor's brochure.",
+      verifier: "an independent auditor on the stack meters, reported quarterly in public",
+      by: "years 5 and 10",
+      ifMissed: "the conditioned payment above the $12 million a year is withheld for that year, and the shortfall tons are priced at the federal 45Q rate into the closure escrow",
+      sources: ["cba", "boundary-dam-2024", "irs-45q", "dac-irb-safeguards"],
+    },
+    clause:
+      "Lessee shall install capture-ready exhaust manifolds on each fuel-cell cluster before that cluster is energized, and shall meter captured and released carbon dioxide by continuous monitoring meeting the quality-assurance provisions of 40 CFR Part 75. From the fifth lease year the metered share of carbon dioxide kept out of the air shall be not less than fifty percent, and from the tenth lease year not less than ninety percent, on the public meter. Any shortfall shall reduce that year's conditioned payment in proportion and shall be subject to the County's Industrial Revenue Bond Safeguards policy.",
   },
   {
     id: "permit",
@@ -41,12 +68,21 @@ export const demands: Demand[] = [
     short: "Every stack on a public meter, with limits set for the capture configuration",
     kidShort: "Measure the smog from every chimney and show everyone the number",
     checks: [
-      { label: "Sold today", status: "yes", note: "Continuous emissions monitors are standard equipment on large power plants. The draft permit requires none: its 37 tons of NOx a year is estimated from four four-hour tests of one 65 kW unit.", sources: ["sob", "sob-part-a"] },
-      { label: "Done at scale", status: "yes", note: "Continuous monitoring is how every large fossil plant in the country reports. What is unusual here is the scale: NMED notes the largest operating fuel-cell plant is about 25 MW against 2,462 MW.", sources: ["sob"] },
-      { label: "Cost", status: "yes", note: "Monitors and reporting are a rounding error against the plant. Setting the permit limits for the capture configuration, which burns 5 to 15% more gas, is a paperwork change.", sources: ["sob"] },
-      { label: "Fits the schedule", status: "yes", note: "The permit is already paused by the Supreme Court. Adding monitoring conditions costs no time the project has not already lost.", sources: ["nmpr-stay"] },
-      { label: "Legal lever", status: "yes", note: "NMED sets permit conditions; the county can ask for monitoring in the lease and in its comments on the draft permit.", sources: ["sob", "cba"] },
+      { label: "Sold today", status: "yes", claim: "fact", note: "Continuous emissions monitors are standard equipment on large power plants. The draft permit requires none: its 37 tons of NOx a year is estimated from four four-hour tests of one 65 kW unit.", sources: ["sob", "sob-part-a"] },
+      { label: "Done at scale", status: "yes", claim: "fact", note: "Continuous monitoring is how every large fossil plant in the country reports. What is unusual here is the scale: NMED notes the largest operating fuel-cell plant is about 25 MW against 2,462 MW.", sources: ["sob"] },
+      { label: "Cost", status: "yes", claim: "projection", note: "Monitors and reporting are a rounding error against the plant. Setting the permit limits for the capture configuration, which burns 5 to 15% more gas (about 120 to 370 MW of the 2,462), is a paperwork change.", sources: ["sob"] },
+      { label: "Fits the schedule", status: "yes", claim: "fact", note: "The permit is already paused by the Supreme Court. Adding monitoring conditions costs no time the project has not already lost.", sources: ["nmpr-stay"] },
+      { label: "Legal lever", status: "yes", claim: "fact", note: "NMED sets permit conditions; the county can ask for monitoring in the lease and in its comments on the draft permit.", sources: ["sob", "cba"] },
     ],
+    gate: {
+      test: "A continuous emissions monitor on every fuel-cell cluster, certified before that cluster is energized, with hourly data public within 24 hours.",
+      verifier: "NMED as a permit condition and the county's auditor on the public feed",
+      by: "before each cluster is energized, from 2027",
+      ifMissed: "the conditioned payment is withheld for any quarter a cluster runs unmetered, and repeated gaps trigger the county's IRB Safeguards clawback",
+      sources: ["sob", "sob-part-a", "dac-irb-safeguards"],
+    },
+    clause:
+      "Lessee shall install and operate a continuous emissions monitoring system on each fuel-cell cluster in the manner of 40 CFR Part 75, and shall publish hourly data within twenty-four hours. No cluster shall be energized before its monitor is certified. Lessee shall request that the New Mexico Environment Department incorporate these conditions into Air Quality Permit 10883, with emission limits set for the capture configuration.",
   },
   {
     id: "heat",
@@ -54,12 +90,21 @@ export const demands: Demand[] = [
     short: "Offer the computers' heat to greenhouses next door",
     kidShort: "Use the computers' heat to grow tomatoes",
     checks: [
-      { label: "Sold today", status: "yes", note: "One plate heat exchanger on the warm-water line before the dry coolers. Ordinary district-heating hardware.", sources: ["absorption-review", "sweden"] },
-      { label: "Done at scale", status: "partial", note: "Gothenburg and Boden run small pilots (130 and 300 square metres). The scale precedents are Agriport A7 in the Netherlands, where Microsoft and Google data centers sit beside greenhouse growers, and Germany's law requiring data centers to reuse 10% of their heat from July 2026 and 20% from 2028. No greenhouse of 150 acres runs on data-center heat yet.", sources: ["goteborg-energi", "agriport", "enefg"] },
-      { label: "Cost", status: "yes", note: "About $60 million of hardware for the developer, recovered by selling heat to growers; fan savings alone are a few percent of the heat moved. The greenhouses themselves are grower money, off the developer's books.", sources: ["cba"] },
-      { label: "Fits the schedule", status: "yes", note: "The greenhouse acres are empty in the filed render. Growers build in parallel while the halls go up.", sources: ["render"] },
-      { label: "Legal lever", status: "yes", note: "A heat-offer condition in the lease now, and the Waste-Heat Reuse bill to make it standard statewide.", sources: ["cba", "dailylobo"] },
+      { label: "Sold today", status: "yes", claim: "fact", note: "One plate heat exchanger on the warm-water line before the dry coolers. Ordinary district-heating hardware.", sources: ["absorption-review", "sweden"] },
+      { label: "Done at scale", status: "partial", claim: "verified-estimate", note: "Gothenburg and Boden run small pilots (130 and 300 square metres). The scale precedents are Agriport A7 in the Netherlands, where Microsoft and Google data centers sit beside greenhouse growers, and Germany's law requiring data centers to reuse 10% of their heat from July 2026 and 20% from 2028. No greenhouse of 150 acres runs on data-center heat yet.", sources: ["goteborg-energi", "agriport", "enefg"] },
+      { label: "Cost", status: "yes", claim: "projection", note: "About $60 million of hardware for the developer, recovered by selling heat to growers; fan savings alone are a few percent of the heat moved. The greenhouses themselves are grower money, off the developer's books.", sources: ["cba"] },
+      { label: "Fits the schedule", status: "yes", claim: "projection", note: "The greenhouse acres are empty in the filed render. Growers build in parallel while the halls go up.", sources: ["render"] },
+      { label: "Legal lever", status: "yes", claim: "fact", note: "A heat-offer condition in the lease now, and the Waste-Heat Reuse bill to make it standard statewide.", sources: ["cba", "dailylobo"] },
     ],
+    gate: {
+      test: "The plate heat exchanger is installed on the warm-water header and a heat tariff is posted before the first greenhouse block breaks ground.",
+      verifier: "the county engineer's sign-off and the posted tariff",
+      by: "year 5, with greenhouse block 1",
+      ifMissed: "an equivalent conditioned payment replaces the county's greenhouse-lease revenue share until the header is live",
+      sources: ["cba", "enefg", "agriport"],
+    },
+    clause:
+      "Lessee shall install a plate heat exchanger on the warm-water header ahead of the dry coolers and shall offer the recovered heat at a published tariff not exceeding propane parity, with a right of first refusal for growers based in Doña Ana County. The header shall be operational before the first greenhouse block is occupied. Lessee shall report heat delivered, in megawatt-hours, with the quarterly reports required under the Community Benefits Agreement.",
   },
   {
     id: "water",
@@ -67,12 +112,21 @@ export const demands: Demand[] = [
     short: "Fund the NMSU water plant, hand it to the towns' utility, recharge the towns' reclaimed water, and leave the unused farm water right in the aquifer",
     kidShort: "Clean the salty water so there is more to drink, put the towns' used water back into the ground cleaned, and leave the old farm's water in the ground",
     checks: [
-      { label: "Sold today", status: "yes", note: "Brackish reverse osmosis is the same technology El Paso has run since 2007, and El Paso has put reclaimed water back into its aquifer through wells and infiltration ponds since 1985.", sources: ["epwater", "epwater-recharge"] },
-      { label: "Done at scale", status: "yes", note: "El Paso's plant makes 27.5 million gallons a day, more than five times what is asked for here, and its recharge program has returned more than 30 billion gallons to the Hueco Bolson.", sources: ["epwater", "epwater-recharge"] },
-      { label: "Cost", status: "yes", note: "NMSU priced the whole 5 MGD system at $269.5 million in 2023, about 0.16% of the bond. Infiltration basins are the cheap end of water infrastructure; El Paso moved to them from wells for that reason.", sources: ["nmsu", "epwater-recharge"] },
-      { label: "Fits the schedule", status: "yes", note: "The design exists, and the county is already designing a smaller 4 MGD plant with $15 million of Jupiter tax money for construction in 2028 or 2029. This puts the developer's money behind the full system on that same schedule: final design plus a 2–3 year build opens the plant about 2031 (year 5); El Paso's plant took 2004 to 2007.", sources: ["nmsu", "star-plant", "cba", "epwater"] },
-      { label: "Legal lever", status: "partial", note: "The lease can fund construction instead of a study, and CRRUA needs the water by 2027 on its own projections. Recharge needs a State Engineer permit under the Ground Water Storage and Recovery Act; Albuquerque's, the state's first, took from 2008 tests to a 2014 permit, and NMSU flags a water-rights accounting question for reuse near the river. The sod-farm right, about 2,400 to 2,600 acre-feet a year, need not be pumped: New Mexico's forfeiture statute stops the four-year clock while a right sits in a State Engineer-approved conservation program, so the lease can cap the campus's non-potable draw and enroll the balance. Districts and the Interstate Stream Commission use that mechanism; no data-center lease has. Doable, not automatic.", sources: ["cba", "nmsu", "nm-asr-act", "abcwua-bear-canyon", "nmsa-72-12-8", "haussamen-water"] },
+      { label: "Sold today", status: "yes", claim: "fact", note: "Brackish reverse osmosis is the same technology El Paso has run since 2007, and El Paso has put reclaimed water back into its aquifer through wells and infiltration ponds since 1985.", sources: ["epwater", "epwater-recharge"] },
+      { label: "Done at scale", status: "yes", claim: "fact", note: "El Paso's plant makes 27.5 million gallons a day, more than five times what is asked for here, and its recharge program has returned more than 30 billion gallons to the Hueco Bolson.", sources: ["epwater", "epwater-recharge"] },
+      { label: "Cost", status: "yes", claim: "verified-estimate", note: "NMSU priced the whole 5 MGD system at $269.5 million in 2023, about 0.54% of the $50 billion first phase (0.16% of the bond cap). Infiltration basins are the cheap end of water infrastructure; El Paso moved to them from wells for that reason.", sources: ["nmsu", "epwater-recharge"] },
+      { label: "Fits the schedule", status: "yes", claim: "projection", note: "The design exists, and the county is already designing a smaller 4 MGD plant with $15 million of Jupiter tax money for construction in 2028 or 2029. This puts the developer's money behind the full system on that same schedule: final design plus a 2–3 year build opens the plant about 2031 (year 5); El Paso's plant took 2004 to 2007.", sources: ["nmsu", "star-plant", "cba", "epwater"] },
+      { label: "Legal lever", status: "partial", claim: "verified-estimate", note: "The lease can fund construction instead of a study, and CRRUA needs the water by 2027 on its own projections. Recharge needs a State Engineer permit under the Ground Water Storage and Recovery Act; Albuquerque's, the state's first, took from 2008 tests to a 2014 permit, and NMSU flags a water-rights accounting question for reuse near the river. The sod-farm right, about 2,400 to 2,600 acre-feet a year, need not be pumped: New Mexico's forfeiture statute stops the four-year clock while a right sits in a State Engineer-approved conservation program, so the lease can cap the campus's non-potable draw and enroll the balance. Districts and the Interstate Stream Commission use that mechanism; no data-center lease has. Doable, not automatic.", sources: ["cba", "nmsu", "nm-asr-act", "abcwua-bear-canyon", "nmsa-72-12-8", "haussamen-water"] },
     ],
+    gate: {
+      test: "The storage-and-recovery application is filed with the State Engineer in year 1; the NMSU 5 MGD system is built and conveyed to the towns' utility by year 5; the unused sod-farm right is enrolled in a State Engineer conservation program.",
+      verifier: "State Engineer filing receipts and the utility's written acceptance",
+      by: "year 1 for the filing, year 5 for the handover",
+      ifMissed: "Lessee pays the utility the NMSU capital-equivalent, about $4 a thousand gallons on 5 MGD, as a conditioned payment until the handover, and the IRB Safeguards clawback applies if the plant is abandoned",
+      sources: ["nmsu", "nm-asr-act", "nmsa-72-12-8", "dac-irb-safeguards"],
+    },
+    clause:
+      "Lessee shall fund and construct the 5 MGD brackish-water system designed by New Mexico State University and shall convey it, with its wells, brine-disposal wells and lines, to the regional water utility by the fifth lease year. Lessee shall file an application under the Ground Water Storage and Recovery Act (NMSA 1978, §72-5A) in the first lease year for the recharge of reclaimed water. Any acquired groundwater right not needed for campus operations shall be placed in a water conservation program approved by the State Engineer under NMSA 1978, §72-12-8, and shall not be pumped.",
   },
   {
     id: "jobs",
@@ -80,25 +134,44 @@ export const demands: Demand[] = [
     short: "Tie the tax break to real jobs, with a training school on site",
     kidShort: "Real jobs for people from here, and a school to learn them",
     checks: [
-      { label: "Sold today", status: "yes", note: "No hardware. A lease clause that pays the bond benefit as jobs are verified each year, and a $50 million institute run by NMSU and the community college.", sources: ["cba", "county-qa"] },
-      { label: "Done at scale", status: "yes", note: "Doña Ana County's own IRB policy already provides for repayment of tax breaks or higher payments when job goals are missed, and Sandoval County amended Intel's lease by agreement in 2019 and 2024 to add payments. Rio Rancho requires clawbacks; Las Cruces proposed tiered ones in 2026.", sources: ["dac-irb-safeguards", "sandoval-intel", "county-qa"] },
-      { label: "Cost", status: "yes", note: "$50 million for the institute against the $4 million for workforce programs in the signed agreement. The jobs themselves are greenhouse and water jobs that pay for themselves.", sources: ["cba", "epm-jobs"] },
-      { label: "Fits the schedule", status: "yes", note: "The institute can open before the first fuel cell turns on; the first permanent hires are for construction-phase operations anyway.", sources: ["cba"] },
-      { label: "Legal lever", status: "yes", note: "The lease and the county's own sole remedy clause. The Data Center Standards bill would make verified-jobs terms standard.", sources: ["cba", "sourcenm-moratorium"] },
+      { label: "Sold today", status: "yes", claim: "fact", note: "No hardware. A lease clause that pays the bond benefit as jobs are verified each year, and a $50 million institute run by NMSU and the community college.", sources: ["cba", "county-qa"] },
+      { label: "Done at scale", status: "yes", claim: "fact", note: "Doña Ana County's own IRB policy already provides for repayment of tax breaks or higher payments when job goals are missed, and Sandoval County amended Intel's lease by agreement in 2019 and 2024 to add payments. Rio Rancho requires clawbacks; Las Cruces proposed tiered ones in 2026.", sources: ["dac-irb-safeguards", "sandoval-intel", "county-qa"] },
+      { label: "Cost", status: "yes", claim: "fact", note: "$50 million for the institute against the $4 million for workforce programs in the signed agreement. The jobs themselves are greenhouse and water jobs that pay for themselves.", sources: ["cba", "epm-jobs"] },
+      { label: "Fits the schedule", status: "yes", claim: "projection", note: "The institute can open before the first fuel cell turns on; the first permanent hires are for construction-phase operations anyway.", sources: ["cba"] },
+      { label: "Legal lever", status: "yes", claim: "fact", note: "The lease and the county's own sole remedy clause. The Data Center Standards bill would make verified-jobs terms standard.", sources: ["cba", "sourcenm-moratorium"] },
     ],
+    gate: {
+      test: "An audited count of full-time positions each year: at least 750 by year 3, as signed, and the lease schedule toward about 3,000 by year 10.",
+      verifier: "the county auditor, from payroll records, published with the quarterly reports",
+      by: "every year from opening",
+      ifMissed: "the tax benefit is repaid or the conditioned payment increased under the county's IRB Safeguards policy, and no benefit is released for unverified positions",
+      sources: ["cba", "dac-irb-safeguards", "abq-reports"],
+    },
+    clause:
+      "Lessee shall deliver to the County each year an audited count of full-time positions on the Project Site, derived from payroll records, and the County shall publish it. Conditioned payments and the property-tax benefit shall be released only against verified positions. Any shortfall against the schedule in this Lease shall be remedied under the County's Industrial Revenue Bond Safeguards policy by repayment of the benefit or an increased payment in lieu of taxes.",
   },
   {
     id: "closure",
+    // Stays on the Water card: the bond's concrete objects are the brine injection wells, the recharge basins and the monitoring-well series.
     process: "Process 3 · Water",
     short: "A closure and monitoring bond, so the land and wells are cared for after the lease ends",
     kidShort: "Set money aside now so someone still checks the wells and the land after the company leaves",
     checks: [
-      { label: "Sold today", status: "yes", note: "Doña Ana County already requires it of solar farms: a bond, letter of credit or escrow for full decommissioning, sized by a New Mexico engineer's estimate after year one and every fifth year, with foundations removed to 36 inches and native replanting. New Mexico's mining and oil rules carry the same kind of financial assurance.", sources: ["dac-solar-decom"] },
-      { label: "Done at scale", status: "partial", note: "For data centers it is new: Susquehanna County, Pa. requires decommissioning within twelve months of end of life with bonding, and a model clause recommended to Pennsylvania municipalities sets the bond at 110% of removal cost, updated every five years. No campus of this size carries one yet.", sources: ["columbia-decom", "cga-pa"] },
-      { label: "Cost", status: "yes", note: "A bond is money set aside, not spent; the developer earns interest on an escrow and pays a premium on a surety. Against $165 billion the carrying cost is a rounding error. The size follows the engineer's estimate, as the county's solar rule already does.", sources: ["dac-solar-decom", "cba"] },
-      { label: "Fits the schedule", status: "yes", note: "A lease clause and an engineer's estimate after the first year of operation. Nothing is built; nothing waits.", sources: ["dac-solar-decom"] },
-      { label: "Legal lever", status: "yes", note: "The lease, which the signed agreement makes the county's sole remedy and which today has no closure, restoration or bond clause. Federal Class VI rules already make CO₂-well operators post the money for 50 years of post-injection care; the county's clause extends the same idea to the whole site.", sources: ["cba", "epa-class-vi"] },
+      { label: "Sold today", status: "yes", claim: "fact", note: "Doña Ana County already requires it of solar farms: a bond, letter of credit or escrow for full decommissioning, sized by a New Mexico engineer's estimate after year one and every fifth year, with foundations removed to 36 inches and native replanting. New Mexico's mining and oil rules carry the same kind of financial assurance.", sources: ["dac-solar-decom"] },
+      { label: "Done at scale", status: "partial", claim: "verified-estimate", note: "For data centers it is new: Susquehanna County, Pa. requires decommissioning within twelve months of end of life with bonding, and a model clause recommended to Pennsylvania municipalities sets the bond at 110% of removal cost, updated every five years. No campus of this size carries one yet.", sources: ["columbia-decom", "cga-pa"] },
+      { label: "Cost", status: "yes", claim: "projection", note: "A bond is money set aside, not spent; the developer earns interest on an escrow and pays a premium on a surety. Against a $50 billion first phase the carrying cost is a rounding error. The size follows the engineer's estimate, as the county's solar rule already does.", sources: ["dac-solar-decom", "cba"] },
+      { label: "Fits the schedule", status: "yes", claim: "projection", note: "A lease clause and an engineer's estimate after the first year of operation. Nothing is built; nothing waits.", sources: ["dac-solar-decom"] },
+      { label: "Legal lever", status: "yes", claim: "fact", note: "The lease, which the signed agreement makes the county's sole remedy and which today has no closure, restoration or bond clause. Federal Class VI rules already make CO₂-well operators post the money for 50 years of post-injection care; the county's clause extends the same idea to the whole site.", sources: ["cba", "epa-class-vi"] },
     ],
+    gate: {
+      test: "A decommissioning, restoration and monitoring bond is posted within one year of operations, sized by a New Mexico licensed engineer and revised every fifth year, with the 50-year Class VI post-injection care funded up front.",
+      verifier: "a New Mexico licensed engineer; the county treasurer holds the instrument",
+      by: "year 1, then every fifth year",
+      ifMissed: "the bond is exercised or the conditioned payment withheld until the instrument is current, and the county withholds consent to any assignment of the lease",
+      sources: ["dac-solar-decom", "epa-class-vi", "cba"],
+    },
+    clause:
+      "Within one year of the start of operations Lessee shall post a bond, letter of credit or escrow for the decommissioning of the Project Site, restoration of the land and post-closure monitoring of the wells, sized by a New Mexico licensed professional engineer without salvage value and revised every fifth year, in the manner of the County's solar-facility decommissioning requirements. The instrument shall include the fifty-year post-injection site care required of carbon dioxide storage wells under 40 CFR 146.93. This obligation shall survive assignment and the expiry of this Lease.",
   },
 ];
 

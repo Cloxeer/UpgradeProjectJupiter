@@ -1,6 +1,6 @@
 # KNOWLEDGE.md — read this first, before any work on the Force Upgrade Project Jupiter site
 
-Last verified: Sept. 7, 2026. One file, checked in, so no session re-derives the baselines.
+Last verified: Sept. 8, 2026. One file, checked in, so no session re-derives the baselines.
 Rule: every number below traces to a document in `src/data/sources.ts` (id in brackets) or to a primary text in `docs/research/primary/`. Anything not here is unverified until checked against a primary document.
 
 ## 1. The filed project (theirs)
@@ -37,11 +37,11 @@ Rule: every number below traces to a document in `src/data/sources.ts` (id in br
 - Deep aquifer: 60–65M acre-ft usable brackish, recharge rate "unknown" (NMSU); USGS Mesilla network annual measurements since 1987; table fell 2000–2020 [usgs-mesilla-taap].
 
 ## 5. Capture, heat, power, jobs, food, cost
-- Capture: exhaust ≈95% CO₂ once dried (NMED). Target 90–95%; best operating plants 50–75% (Boundary Dam 848,388 t in 2024 at 85% availability vs 1 Mt design; long-run avg ~660 kt/yr); Bloom–Chart announced Feb. 2025, **no operating plant**; energy penalty 5–15%; ~200-mile pipeline to Texas Class VI storage; use slider starts 1% [boundary-dam-2024][bloom-chart][carboncure][blue-planet].
+- Capture: exhaust ≈95% CO₂ once dried (NMED). Target 90–95%; best operating plants 50–75% (Boundary Dam 848,388 t in 2024 at 85% availability vs 1 Mt design; long-run avg ~660 kt/yr); Bloom–Chart announced Feb. 2025, **no operating plant**; energy penalty 5–15% = about 120–370 MW of the 2,462 (`CAPTURE_PENALTY_LO/HI`, `penaltyMW()`), and `ourReleased()` uplifts gross CO₂ by (1 + penalty) from year 5, so the **residual at the 90–95% target is 0.45–1.0 Mt/yr** (was 0.4–0.9); cumulative ours ≈ 20–45 Mt at year 10, 25–55 Mt at year 20; ~200-mile pipeline to Texas Class VI storage; use slider starts 1% [boundary-dam-2024][bloom-chart][carboncure][blue-planet].
 - Heat: 2,462 MW IT ≈ heat; loop 45–65 °C; absorption chillers need ~90 °C → **not counted**; greenhouse root heat + desal preheat only (~1% of heat); precedents Gothenburg 130 m² pilot, Agriport A7, German EnEfG 10%/20% [goteborg-energi][agriport][enefg]. Pad cooling water 1–1.6 MGD.
 - Power: SunZia 3,021 MW contracted west; geothermal $3–7M/MW, Fervo Cape 100→500 MW, Lightning Dock ~11 MW; roof solar ~0.25%; every slider at max still leaves ~half the energy on gas [fervo-cape][gsa-2011].
 - Jobs: ~3,000 permanent Phase 1 (1,500 tech + ~1,000 greenhouse at 4–6.5/acre + ~250 water/capture + ~250 institute); 4,800 full build; construction ~7,500. Food: 150 acres × ~400,000 lbs/acre = "up to 60M lbs/yr"; "far fewer pesticides", not "pesticide-free" unless labelled [sweden].
-- Cost: developer capital $3.4–3.9B (incl. $1.5–2B CO₂ transport/storage) + $640M PILT; growers $0.47B; "~2.5% of the $165B bond cap, ~8% of the $50B first phase, before 45Q". Economic impact ~$6.4B (their $4.7B + $1.7B). Greenhouse lease+heat ≈ $0.05M/acre/yr.
+- Cost: developer capital $3.4–3.9B (incl. $1.5–2B CO₂ transport/storage) + $640M PILT; growers $0.47B. **Denominator rule (Sept. 8):** lead with "about 8% of the $50B first phase" (CBA: $50B in five years), then "(2.5% of the $165B bond cap, a ceiling, not cash)"; never the cap alone, never PILT as a denominator. Code: `PHASE1_M`, `BOND_M` in blueprint.ts; `pctOfPhase1`, `pctOfBond`, `parseCostM` in `src/lib/units.ts`. Economic impact ~$6.4B (their $4.7B + $1.7B). Greenhouse lease+heat ≈ $0.05M/acre/yr.
 
 ## 6. Realistic milestone years (both timelines must match this table)
 Years count from 2026. Their schedule is used for what they build; ours adds only what permits and build times allow.
@@ -64,8 +64,15 @@ Code: `CAPTURE_START_YEAR`, `captureShare()`, `OUR_WATER_START_YEAR`, `RECHARGE_
 - Strictly factual, sourced, professional; "net gain for humanity" framing, grounded in present-day law while thinking 80–250 years out. Never make anything up; every claim against a primary document.
 - 250-year view is an **estimate**, never "no projection". Water gauge for ours: **decline slowed**, not held or rising, until recharge and expansion are real. Pros/cons in plain sentences. Condense, never lengthen; prefer chips/tooltips/folds. **Text changes only, no UI changes** unless asked. `src/data/jupiter.ts` stays untouched.
 - Kid voice (Toby & Moby) must stay factual; kid pitches anchor ages to years explicitly.
+- **Truth labels (Sept. 8):** structured claims carry one of four labels from `src/data/claims.ts` rendered by `<Truth/>` (hidden for kids): Fact = in a signed or filed document; Verified estimate = priced or measured by a named institution, not built here; Projection = our arithmetic on industry averages; Unknown = no document answers it. Applied on compare rows, cost table, hero tiles, feasibility checks, net-gain rows, zone stat tiles. Prose stays unlabelled; the "(ESTIMATE†)" dagger stays for aggregate totals.
+- **Gates (Sept. 8):** every demand has a `gate` (test, verifier, by, ifMissed) and a `clause` (model lease text). The county cannot stop operations (NMED permit; CBA makes the lease the sole remedy), so every consequence is a lease consequence: conditioned payment withheld, IRB Safeguards clawback, bond exercised, assignment consent withheld. Never write "no operations permitted until". Clauses are labelled "model text for counsel, not legal advice".
+- **Greenhouse CO₂:** enrichment works only with vents closed (OSU HLA-6723, `osu-co2-enrichment`); in summer pads and vents run, so it is a cool-season and morning practice. Say "fed to plants", never "absorbed"; ~9,000 t/yr ≈ 0.1% of the stream (estimate).
 
-## 8. Tooling and process
+## 8. Outside review (Sept. 8, 2026): adopted and rejected
+Adopted: $50B first phase as the lead denominator; four truth labels; gates inside demand folds; draft lease clauses (home fold + legislators appendix); energy penalty in MW and in the emission math; summer venting caveat; two new expert open questions (parasitic CO₂, greenhouse uptake); fixes for 975-vs-1,000 jobs (rounded to hundreds), 11,000→10,500 total, use-slider 10%→1% text and step 5→1.
+Rejected as wrong or unverified: "Sunland Park in nonattainment" as a facility claim (facility is outside the NAA, SoB §2.79); "SOFC exhaust ~50% CO₂" (NMED ~95% dried); Boundary Dam "57%" (site uses 848,388 t in 2024, ~660 kt/yr avg); an "Oracle July 1, 2026 power-plan blog" (not verified; the overhaul source is `sfnm-fuelcells`, April 2026); PILT ($360M) as a cost denominator (county revenue, not developer spend); "25 vs 150 acres" (150 everywhere; misread of "125-acre buffer" and "25–35 MW").
+
+## 9. Tooling and process
 - Deploy: worktree `deploy-sync` → remote `deploy` main; `git fetch deploy && git rebase deploy/main` then push, **never force**; GitHub Actions "Deploy to GitHub Pages"; verify via GitHub API (gh CLI not authenticated). CNAME is set in Pages settings, not a file.
 - OCR: `D:\claude-tools\ocr\ocr.cmd` (pymupdf text layer first, Unlimited-OCR on GPU); never run a keep-warm server.
 - Audit method: four independent trials per claim; report in `docs/research/AUDIT-2026-09-06-fact-test.md`; primary texts in `docs/research/primary/`.

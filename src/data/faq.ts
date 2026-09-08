@@ -96,7 +96,7 @@ export const faq: FaqItem[] = [
   {
     q: "How much of the investment from Project Jupiter will remain in New Mexico?",
     theirs: "More than $4.7 billion in long-term economic impact to the state and county.",
-    ours: "Their own IMPLAN estimate, and we use it as the baseline. The upgrade adds about $1.7 billion on top over 17 years from produce, water sales, land leases and higher payments in lieu of taxes, for about 2.5% of the bond cap in added capital before the federal capture credit. Our figures are estimates built on their total, and labeled as such.",
+    ours: "Their own IMPLAN estimate, and we use it as the baseline. The upgrade adds about $1.7 billion on top over 17 years from produce, water sales, land leases and higher payments in lieu of taxes, for about 8% of the $50 billion first phase (2.5% of the bond cap, a ceiling, not cash) in added capital before the federal capture credit. Our figures are estimates built on their total, and labeled as such.",
     sources: ["econpdf", "bocc"],
   },
 ];
