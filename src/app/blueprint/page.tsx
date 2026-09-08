@@ -7,7 +7,8 @@ import { TheySay } from "@/components/jupiter/TheySay";
 import { SitePlan } from "@/components/blueprint/SitePlan";
 import { HeatDiagram, CarbonDiagram, WaterDiagram, SolarDiagram, GreenhouseDiagram } from "@/components/blueprint/Diagrams";
 import { YearTimeline } from "@/components/blueprint/YearTimeline";
-import { costItems, costTotals, receipts, SOURCE_NOTE } from "@/data/blueprint";
+import { costItems, receipts, SOURCE_NOTE } from "@/data/blueprint";
+import { CostTotals } from "@/components/blueprint/CostTotals";
 import { HelpImprove } from "@/components/jupiter/HelpImprove";
 import { pctOfBond, pctOfPhase1, parseCostM } from "@/lib/units";
 import { PlanModeProvider, PlanSwitch } from "@/components/blueprint/PlanMode";
@@ -174,19 +175,7 @@ export default function BlueprintPage() {
             </table>
           </div>
           </HideFor>
-          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {[
-              { label: "Developer's share", value: costTotals.developer, sub: "against the $50B first-phase commitment ($165B is the bond ceiling)", color: "#c0392b" },
-              { label: "Growers' share", value: costTotals.growers, sub: "private, off the developer's books", color: "#2e8b57" },
-              { label: "Added to the project", value: costTotals.share, sub: "for capture, water, food, and 1,500 more jobs", color: "#003047" },
-            ].map((s) => (
-              <div key={s.label} className="rounded bg-white p-5 text-center shadow-sm">
-                <div className="text-[13px] font-bold uppercase tracking-wide" style={{ color: "#6b6b6b" }}>{s.label}</div>
-                <div className="font-black" style={{ fontSize: 34, color: s.color }}>{s.value}</div>
-                <div className="text-[15px]" style={{ color: "#3c3c3c" }}>{s.sub}</div>
-              </div>
-            ))}
-          </div>
+          <CostTotals />
           <HideFor audiences={["kid"]}>
           <TheySay label="What they are spending on the community today">
             <p>
