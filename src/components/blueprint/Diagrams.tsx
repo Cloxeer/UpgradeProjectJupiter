@@ -167,7 +167,7 @@ function Card({ title, kicker, children, intro, kid, sources, mode, onMode, voic
   const theirs = mode === "theirs" ? theirsCards[kicker] : undefined;
   // The label already says "Net gain for humanity", so drop that prefix from the sentence itself (text is otherwise verbatim).
   const ourPoint = (takeaways[kicker]?.[audience] ?? kid).replace(/^Net gain for humanity:\s*/i, "").replace(/^Your takeaway:\s*/i, "");
-  const point = theirs ? (isKid ? theirs.kidTakeaway : theirs.takeaway.replace(/^As filed:\s*/i, "")) : ourPoint;
+  const point = theirs ? (isKid ? theirs.kidTakeaway : (theirs.takeaway[audience] ?? theirs.takeaway.overall).replace(/^As filed:\s*/i, "")) : ourPoint;
   const pointLabel = theirs ? "As filed" : audience === "overall" || audience === "expert" ? "Net gain for humanity" : audience === "kid" ? "The big idea" : "Why it matters to you";
   const header = (
     <div className="md:grid md:grid-cols-[minmax(0,1fr)_auto] md:items-start md:gap-6">
@@ -791,7 +791,7 @@ export function CarbonDiagram() {
       <PartInfo id={part} onClose={() => setPart(null)} />
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-        <Slider label="Capture efficiency (how much of the CO₂ the box catches)" value={ours ? rate : 0} min={0} max={95} step={5} unit="%" onChange={setRate} disabled={!ours} />
+        <Slider label="Capture target (metered from year 5; 50–75% until year 10)" value={ours ? rate : 0} min={0} max={95} step={5} unit="%" onChange={setRate} disabled={!ours} />
         <Slider label="Share of captured CO₂ used (greenhouses, concrete, aggregate) instead of stored" value={ours ? useShare : 0} min={0} max={100} step={1} unit="%" onChange={setUseShare} disabled={!ours} />
       </div>
       <div className="mt-4">
@@ -884,7 +884,7 @@ export function WaterDiagram() {
   const tankFill = 8 + (mgd / 10) * 24;
 
   return (
-    <Card voices={{ homeowner: "This is your tap. CRRUA needs 6 million gallons a day next year and 15 by 2042. The plant makes 5 million a day from water nobody could drink, so your supply goes up instead of down.", legislator: "The CBA already funds a $250,000 study of exactly this plant. NMSU designed and priced it in 2023. A lease condition that funds construction instead of a study delivers 5 MGD to CRRUA for about 0.54% of the $50 billion first phase (0.16% of the bond cap).", business: "A designed, priced plant with a utility customer whose demand more than doubles by 2042, plus El Paso's precedent of recovering water and minerals from the brine. Water is a product here, not a cost.", overall: "Deep under the desert is salty water nobody can drink. A filter takes the salt out and gives 16,700 homes' worth of clean water a day to the town." }} kicker="Process 3 · Water" title="Salty groundwater in, clean water out" mode={mode} onMode={setMode} kid="Deep under the desert there is a huge lake of salty water nobody can drink. In their plan the campus takes drinking water from the town pipe and pumps an old farm's water for its fills. In ours, pumps bring the salty water up, server heat warms it, and a super-fine filter lets water through but not salt. Three cups out of four come out clean and go to homes. The salty cup is pumped very deep, below the good water, so it can never mix back in." sources={["nmsu", "epwater", "twdb", "cduaws", "cba", "faq", "haussamen-water", "cbd-well", "epa-watersense", "usgs-mesilla"]} intro={(<p>
+    <Card voices={{ homeowner: "This is your tap. CRRUA needs 6 million gallons a day next year and 15 by 2042. The plant makes 5 million a day from water nobody could drink, so the towns can meet next year's demand without pumping the fresh wells harder.", legislator: "The CBA already funds a $250,000 study of exactly this plant. NMSU designed and priced it in 2023. A lease condition that funds construction instead of a study delivers 5 MGD to CRRUA for about 0.54% of the $50 billion first phase (0.16% of the bond cap).", business: "A designed, priced plant with a utility customer whose demand more than doubles by 2042, plus El Paso's precedent of recovering water and minerals from the brine. Water is a product here, not a cost.", overall: "Deep under the desert is salty water nobody can drink. NMSU has already designed the plant that takes the salt out; this condition has the developer fund it, so from about 2031 it makes 5 million gallons a day that the towns would otherwise pump from their fresh wells." }} kicker="Process 3 · Water" title="Salty groundwater in, clean water out" mode={mode} onMode={setMode} kid="Deep under the desert there is a huge lake of salty water nobody can drink. In their plan the campus takes drinking water from the town pipe and pumps an old farm's water for its fills. In ours, pumps bring the salty water up, server heat warms it, and a super-fine filter lets water through but not salt. Three cups out of four come out clean and go to homes. The salty cup is pumped very deep, below the good water, so it can never mix back in." sources={["nmsu", "epwater", "twdb", "cduaws", "cba", "faq", "haussamen-water", "cbd-well", "epa-watersense", "usgs-mesilla"]} intro={(<p>
         {ours ? (
           <>
             NMSU has already designed a 5 MGD brackish reverse-osmosis plant for Santa Teresa: 75% recovery, 1 MGD skids, $115.5M plant, $269.5M system, brine to deep injection wells
@@ -968,13 +968,13 @@ export function WaterDiagram() {
             <Tag x={515} y={190} text={`5 · TREATED DRINKING-WATER TANK · ${mgd} MGD (${Math.round(NMSU_RECOVERY * 100)}% of the feed)`} anchor="middle" bold size={8.5} color="#1f5f3a" />
             <Flow d="M470,150 H370" color="#1f7ae0" width={Math.max(4, 3 + mgd)} dur={2} />
             <Clickable id="crruaMains" selected={part} onSelect={setPart}>
-              <rect x={280} y={132} width={90} height={36} rx={4} fill="#2e8b57" />
-              <text x={325} y={147} textAnchor="middle" fontSize={9.5} fontWeight={800} fill="#fff" pointerEvents="none">CRRUA MAINS</text>
-              <text x={325} y={160} textAnchor="middle" fontSize={8.5} fill="#e8f8ee" pointerEvents="none">homes · greenhouses</text>
+              <rect x={250} y={132} width={120} height={36} rx={4} fill="#2e8b57" />
+              <text x={310} y={147} textAnchor="middle" fontSize={9.5} fontWeight={800} fill="#fff" pointerEvents="none">TO CRRUA&apos;S PIPES</text>
+              <text x={310} y={160} textAnchor="middle" fontSize={7.5} fill="#e8f8ee" pointerEvents="none">replaces fresh-well pumping</text>
               {Array.from({ length: nHomes }).map((_, i) => <House key={i} x={250 + i * 16} y={200} />)}
             </Clickable>
-            <NewMarker box={{ x: 280, y: 132, w: 90, h: 36 }} side="left" />
-            <Flow d="M325,168 V196" color="#2e8b57" width={3} dur={2} r={2.4} />
+            <NewMarker box={{ x: 250, y: 132, w: 120, h: 36 }} side="left" />
+            <Flow d="M310,168 V196" color="#2e8b57" width={3} dur={2} r={2.4} />
             <Tag x={270} y={230} text={`${Math.round(households / 1000)}k homes' daily water · ${Math.round((mgd / CRRUA_2027_MGD) * 100)}% of CRRUA's 2027 need`} anchor="middle" size={8} color="#1f5f3a" bold />
             <Tag x={270} y={244} text="used water goes back to CRRUA's treatment plant, as today" anchor="middle" size={7.5} color="#6b6b6b" />
 
