@@ -117,12 +117,28 @@ export default function BlueprintPage() {
               <Glossary keys={["MW", "MGD", "tpy", "ppb", "ugm3", "CO2e", "captureEfficiency", "brackish", "PSD", "TitleV", "nonattainment", "acreFoot", "IRB", "CBA"]} />
               </HideFor>
             </div>
-            <nav aria-label="Processes" className="mb-4 flex flex-wrap justify-center gap-2 text-[14px] font-bold uppercase">
-              {["1 · Heat", "2 · Carbon", "3 · Water", "4 · Retire the gas", "5 · Food & jobs"].map((t, i) => (
-                <a key={t} href={`#p${i + 1}`} className="inline-flex items-center rounded border px-3 py-1.5" style={{ borderColor: "#003047", color: "#003047", backgroundColor: "#fff" }}>
-                  {t}
-                </a>
-              ))}
+            {/* TLDR: the five ideas in one breath, for readers who will not scroll five diagrams. Each row jumps to its drawing. */}
+            <nav aria-label="Processes" className="mx-auto mb-4 max-w-[760px]">
+              <p className="mb-2 text-center text-[13px] font-black uppercase tracking-wide" style={{ color: "#6b6b6b" }}>
+                TLDR · the five ideas in one breath · tap one to see it move
+              </p>
+              <ol className="space-y-1.5">
+                {[
+                  { n: 1, name: "Heat", line: "Their fans blow all the computers' heat into the sky. One extra box sends it to greenhouses first." },
+                  { n: 2, name: "Carbon", line: "8.8 million tons of CO₂ a year is allowed out. The exhaust is almost pure, so a box can catch it, with a meter to prove it." },
+                  { n: 3, name: "Water", line: "The plant that turns salty water into 5 million gallons a day is already designed. Build it, not a study." },
+                  { n: 4, name: "Retire the gas", line: "Every hour of geothermal and wind is an hour the gas machines rest, on a public meter." },
+                  { n: 5, name: "Food & jobs", line: "150 acres of greenhouses beside the coolers: food for the region and about 1,000 jobs." },
+                ].map((t) => (
+                  <li key={t.n}>
+                    <a href={`#p${t.n}`} className="flex min-h-[44px] flex-col gap-y-0.5 rounded border bg-white px-3 py-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-2 sm:py-1.5" style={{ borderColor: "#e0e0e0" }}>
+                      <span className="text-[14px] font-black uppercase" style={{ color: "#003047" }}>{t.n} · {t.name}</span>
+                      <span className="min-w-0 flex-1 text-[15px]" style={{ color: "#3c3c3c", lineHeight: 1.4 }}>{t.line}</span>
+                      <span className="whitespace-nowrap text-[13px] font-bold sm:ml-auto" style={{ color: "#2e8b57" }}>see it move ↓</span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
             </nav>
           </div>
           {processes.map(({ id, Comp }, i) => (
