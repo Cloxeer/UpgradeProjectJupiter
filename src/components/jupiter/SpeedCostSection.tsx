@@ -19,7 +19,7 @@ export function SpeedCostSection() {
         >
           <AudienceText
             field="speedIntro"
-            fallback="Same land. Same buildings. About 2.5% more up front, most of it repayable by the federal capture credit. Everything below is built on top of the plan they already filed, not instead of it."
+            fallback="Same land. Same buildings. About 8% more on the $50 billion first phase, most of it repayable by the federal capture credit. Everything below is built on top of the plan they already filed, not instead of it."
           />
         </p>
 

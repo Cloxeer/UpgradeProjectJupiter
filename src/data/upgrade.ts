@@ -9,13 +9,13 @@ import type { TabPanel } from "@/data/jupiter";
 export const siteName = "Force Upgrade Project Jupiter";
 export const author = "Sebastian, an NMSU AI student";
 
-export const LAST_UPDATED = "Sept. 7, 2026";
+export const LAST_UPDATED = "Sept. 8, 2026";
 
 export const banner =
   "Independent proposal. Not affiliated with Oracle, STACK Infrastructure, or Project Jupiter Together. Their original text is one tap away.";
 
 /** The mission, one sentence, shown under the header on every page. The same words for every reader. */
-export const mission = "Keep the data center. Make it catch its carbon, reuse its heat, make new water and hire here. Same land, same buildings, about 2.5% more, most of it repayable by the federal capture credit.";
+export const mission = "Keep the data center. Make it catch its carbon, reuse its heat, make new water and hire here. Same land, same buildings, about 8% more on the $50 billion first phase, most of it repayable by the federal capture credit.";
 
 /** How the upgrade actually happens. Step 3 is the only one a reader controls. */
 export const steps = [
@@ -40,7 +40,7 @@ export const heroSubhead =
 export const heroQuestion = "WHAT SHOULD PROJECT JUPITER MEAN FOR NEW MEXICO?";
 
 export const heroBullets = [
-  { strong: "About $6.4 billion in economic benefits (estimate).", rest: " Same site, same buildings, about 2.5% more capital, most of it repayable by the federal 45Q capture credit." },
+  { strong: "About $6.4 billion in economic benefits (estimate).", rest: " Same site, same buildings, about 8% more capital on the $50 billion first phase, most of it repayable by the federal 45Q capture credit." },
   { strong: "More good jobs.", rest: " About 7,500 construction jobs and about 3,000 permanent jobs in Phase 1: the same 1,500 tech roles plus about 1,500 in greenhouses, water, capture and training (industry-average staffing). About 4,800 at full build." },
   { strong: "More water, not less.", rest: " Fund the 5 million gallon a day desalination plant NMSU already designed for Santa Teresa. Server heat preheats the feed." },
   { strong: "Clean air, not cleaner air.", rest: " NMED says the fuel-cell exhaust is about 95% CO₂ once dried. Capture-ready stacks from day one, capture metered against a 90 to 95% target once the storage line is connected (about year 5), and continuous smog monitors on every cluster." },
@@ -52,7 +52,7 @@ export const ctaText = { before: "Click ", link: "HERE", after: " to force the u
 
 export const whatIsParagraphs = [
   "Project Jupiter is a data center campus in Santa Teresa, Doña Ana County, backed by $165 billion in county industrial revenue bonds. The signed Community Benefits Agreement describes a site of about 819 acres with a 400-acre first phase; early news reports said 1,400. NMED's draft permit allows the fuel-cell plant 8,820,970 tons of greenhouse gas a year (the developers applied for 10.1 million), more than Albuquerque and Las Cruces emit combined, with smog gases estimated from four tests of one 65 kW unit and no continuous stack monitor required. The website promises 1,500 permanent jobs; the signed agreement requires 750. That is one binding job for roughly every 11,800 tons of carbon.",
-  "The upgrade does not cancel the project. It keeps the same four data halls, the same fuel cells, the same fenced campus, and the same construction timeline, then bolts on what the developers left out. NMED's own permit review says the fuel cells' dried exhaust is about 95 percent carbon dioxide, which is why Bloom and Chart Industries announced a capture product for it in 2025; no plant runs it yet, so the condition is metered tons. Capture skids go in the fuel-cell yard. One plate heat exchanger taps the warm-water header before the dry coolers and sends heat to 150 acres of greenhouses in winter and to desalination preheat year-round. The added cost is about 2.5 percent of the bond cap, or about 8 percent of the $50 billion first phase, before the federal 45Q credit.",
+  "The upgrade does not cancel the project. It keeps the same four data halls, the same fuel cells, the same fenced campus, and the same construction timeline, then bolts on what the developers left out. NMED's own permit review says the fuel cells' dried exhaust is about 95 percent carbon dioxide, which is why Bloom and Chart Industries announced a capture product for it in 2025; no plant runs it yet, so the condition is metered tons. Capture skids go in the fuel-cell yard. One plate heat exchanger taps the warm-water header before the dry coolers and sends heat to 150 acres of greenhouses in winter and to desalination preheat year-round. The added cost is about 8 percent of the $50 billion first phase (2.5 percent of the $165 billion bond cap, a ceiling, not cash), before the federal 45Q credit.",
   "The upgrade also rebalances the deal. Instead of a $50 million check for water, the county gets the 5 million gallon a day brackish desalination plant that NMSU engineers designed and priced at $269.5 million in 2023. Instead of $360 million for schools over 30 years, a conditioned bond agreement delivers $1 billion. Instead of $6.9 million for workforce programs, a $50 million NMSU and DACC institute trains local residents for the jobs. Every number on this page is an estimate, labeled as such, and their original numbers are one click below each section so you can compare.",
 ];
 
@@ -81,10 +81,10 @@ export const speedRows: { label: string; theirs: string; ours: string }[] = [
   { label: "Land", theirs: "About 819 acres per the signed CBA, 400 in the first phase; early news reports said 1,400", ours: "The same site. Nothing added outside the property line; greenhouse acreage set from their unpublished site plan" },
   { label: "Construction footprint", theirs: "Four data halls, ops, warehouse, transformer yard, chiller plants, dry coolers, and a fuel-cell yard the render does not show", ours: "Every one of those stays where it is. Greenhouses and the water plant go on undeveloped acres beside the dry coolers" },
   { label: "Time to power online", theirs: "18 to 24 months, currently stalled by a Supreme Court stay on the air permit", ours: "18 to 24 months. Capture skids ship in containers like the fuel cells. Meeting the conditions is what un-stalls the permit" },
-  { label: "Capital cost", theirs: "~$165B bond cap; $50B committed in the first five years", ours: "About $3.4–3.9B more capital (2.5% of the cap, 8% of the first phase) plus $640M more in payments over 30 years, before the federal 45Q credit repays most of the capture cost. Growers finance their own greenhouses" },
+  { label: "Capital cost", theirs: "~$165B bond cap; $50B committed in the first five years", ours: "About $3.4–3.9B more capital (8% of the $50B first phase; 2.5% of the cap, a ceiling, not cash) plus $640M more in payments over 30 years, before the federal 45Q credit repays most of the capture cost. Growers finance their own greenhouses" },
   { label: "Who runs the greenhouses", theirs: "Nobody. Heat is blown into the desert by the dry coolers", ours: "Commercial growers lease 150 acres. Oracle and STACK sell them heat they are paying fans to throw away" },
   { label: "Permanent jobs", theirs: "750 full-time + 50 part-time, binding. 1,500 advertised", ours: "About 3,000 in Phase 1 including the binding 750, about 4,800 at full build (estimates)" },
-  { label: "CO₂ released per year", theirs: "8,820,970 tons permitted (draft permit); the developers applied for 10.1 million and expect about 40% less in practice", ours: "0.4 to 0.9 million tons if capture meets its 90 to 95% target, falling as the share of energy from gas falls. HB93's 2045 net-zero definition allows methane offsets; we ask for the physical reading" },
+  { label: "CO₂ released per year", theirs: "8,820,970 tons permitted (draft permit); the developers applied for 10.1 million and expect about 40% less in practice", ours: "0.45 to 1.0 million tons if capture meets its 90 to 95% target, counting the 5 to 15% more gas the capture itself burns, falling as the share of energy from gas falls. HB93's 2045 net-zero definition allows methane offsets; we ask for the physical reading" },
   { label: "Smog (NOx)", theirs: "37 tons a year in the draft permit (CO 161, VOC 124), estimated from four tests of one 65 kW unit; no continuous stack monitor required", ours: "Continuous monitors on every cluster, public dashboard, limits set for the capture configuration" },
   { label: "Water", theirs: "Takes 20,000 gal/day of drinking water (signed cap); pulls an undisclosed amount more from a fresh-aquifer farm right; pumped 103M gallons for construction; gives a $50M cheque", ours: "Makes 5 million gallons a day of clean water from salty groundwater nobody can drink, using the plant NMSU designed, and puts it in CRRUA's pipes" },
   { label: "Solar", theirs: "None", ours: "Every roof and parking canopy. Honestly under 1% of campus load, but enough to run the greenhouses, water plant, and offices" },
@@ -95,7 +95,7 @@ export const speedRows: { label: string; theirs: string; ours: string }[] = [
 export const pitches = [
   {
     title: "If you run the company",
-    body: "You do not farm, and you do not run a water plant. You lease 150 acres you are not using to growers, sell them heat your dry-cooler fans are already paid to reject, and bolt capture skids onto exhaust that is about 95% CO₂ once dried, with the federal 45Q credit paying $85 a ton. It adds about 2.5% of the bond cap, answers the litigation that has your air permit frozen, and gives you, to our knowledge, the first hyperscale site in the country to combine metered capture, heat reuse, water production and a public emissions meter.",
+    body: "You do not farm, and you do not run a water plant. You lease 150 acres you are not using to growers, sell them heat your dry-cooler fans are already paid to reject, and bolt capture skids onto exhaust that is about 95% CO₂ once dried, with the federal 45Q credit paying $85 a ton. It adds about 8% to the first-phase commitment (2.5% of the bond cap), answers the litigation that has your air permit frozen, and gives you, to our knowledge, the first hyperscale site in the country to combine metered capture, heat reuse, water production and a public emissions meter.",
   },
   {
     title: "If you hold the vote",
@@ -202,7 +202,7 @@ export const impactTabs: TabPanel[] = [
         ["Particulate Air Pollution", "83%", "83%+"],
         ["Carbon Monoxide (CO)", "67%", "67%+"],
         ["Carbon Dioxide (CO₂)", "21%", "90 to 95% capture target, metered (dried exhaust is ~95% CO₂)"],
-        ["CO₂ Actually Released Each Year", "8.8 million tons permitted", "0.4 to 0.9 million tons at the capture target, falling as the share of energy from gas falls"],
+        ["CO₂ Actually Released Each Year", "8.8 million tons permitted", "0.45 to 1.0 million tons at the capture target, counting the 5 to 15% more gas the capture itself burns, falling as the share of energy from gas falls"],
       ],
     },
   },
@@ -232,7 +232,7 @@ export const keyComponentTabs: TabPanel[] = [
     title: "Carbon Capture on the Fuel Cells",
     paragraphs: [
       "Bloom Energy solid-oxide fuel cells do not burn gas in a flame. They run an electrochemical reaction at 700 to 900 °C (1,300 to 1,650 °F), which is why their smog emissions are far lower than a turbine's. NMED's draft Statement of Basis says the depleted anode exhaust is about 95 percent carbon dioxide once dried, versus a few percent in turbine exhaust. That is why Bloom and Chart Industries announced a capture product for it in February 2025. No plant runs it yet, and the best capture plants operating anywhere sustain 50 to 75 percent, so the lease condition is metered tons against a 90 to 95 percent target. Skid-mounted units ship in containers like the fuel cells and bolt onto the exhaust side.",
-      "The energy penalty is real, roughly 5 to 15 percent of output, which means more fuel cells and more gas, and permit limits that must be set for that configuration. That is the honest price of not releasing 8.8 million tons a year; the federal 45Q credit, $85 a ton for 12 years, repays most of it. Captured CO₂ goes two places: a small share into the greenhouses at 800 to 1,200 ppm, where it speeds growth by 20 to 30 percent, and the bulk into permanent geologic storage. New Mexico has no approved Class VI injection wells yet, so the realistic path is a pipeline of about 200 miles to permitted Permian Basin storage in Texas, four to five years of permitting, with a capture-ready build and a sequestration deadline written into the permit.",
+      "The energy penalty is real, roughly 5 to 15 percent of output (about 120 to 370 MW of the 2,462), which means more fuel cells, more gas and more CO₂ that must itself be captured, and permit limits that must be set for that configuration. That is the honest price of not releasing 8.8 million tons a year; the federal 45Q credit, $85 a ton for 12 years, repays most of it. Captured CO₂ goes two places: a small share into the greenhouses at 800 to 1,200 ppm, where it speeds growth by 20 to 30 percent while the vents are closed (in a Chihuahuan Desert summer the pads and vents run all day, so enrichment is a cool-season and morning practice and the greenhouses take only a small share of the stream), and the bulk into permanent geologic storage. New Mexico has no approved Class VI injection wells yet, so the realistic path is a pipeline of about 200 miles to permitted Permian Basin storage in Texas, four to five years of permitting, with a capture-ready build and a sequestration deadline written into the permit.",
       "The permit is a single Title V major source because carbon monoxide and volatile organics exceed 100 tons a year; nitrogen oxides are 37 tons. Those figures are scaled from four four-hour tests of one 65 kW unit, and the permit requires no continuous stack monitor. The upgrade asks for continuous monitors on every cluster with a public dashboard, and limits set for the capture configuration.",
     ],
     sources: ["sob", "sob-part-a", "notice", "bloom-co2", "bloom-chart", "irs-45q", "boundary-dam-2024"],
@@ -242,7 +242,7 @@ export const keyComponentTabs: TabPanel[] = [
     paragraphs: [
       "Southern New Mexico sits on a vast brackish aquifer. NMSU's Dr. Pei Xu told the Legislature in October 2023 that the Mesilla Basin holds roughly 65 million acre-feet of economically recoverable fresh-to-brackish water, and presented a designed 5 million gallon a day reverse-osmosis plant for Santa Teresa: 75 percent recovery, two deep injection wells for brine about 20 miles away, $115.5 million for the treatment plant and $269.5 million for the whole system including wells, storage, and pipelines.",
       "The proof it works is 30 miles away. El Paso's Kay Bailey Hutchison plant has treated Hueco Bolson brackish water since 2007 at 27.5 million gallons a day and pipes its brine 22 miles to three injection wells. Reverse osmosis is the proven technology. Server heat helps by preheating the feed, which raises membrane throughput, and by concentrating brine so less has to be injected.",
-      "Five million gallons a day is nearly all of CRRUA's projected 2027 demand of 6 MGD for Sunland Park and Santa Teresa. The CBA has the companies pay the county $250,000 toward a desalination study, and the county is now designing a 4 MGD plant of its own with $15 million of Jupiter tax money. Every promise on their water page stays: closed-loop cooling, a 20,000 gallon a day potable cap, no evaporative towers. The upgrade adds an output, and it costs 0.16 percent of the bond.",
+      "Five million gallons a day is nearly all of CRRUA's projected 2027 demand of 6 MGD for Sunland Park and Santa Teresa. The CBA has the companies pay the county $250,000 toward a desalination study, and the county is now designing a 4 MGD plant of its own with $15 million of Jupiter tax money. Every promise on their water page stays: closed-loop cooling, a 20,000 gallon a day potable cap, no evaporative towers. The upgrade adds an output, and it costs about half a percent of the $50 billion first phase (0.16 percent of the bond cap).",
     ],
     sources: ["nmsu", "epwater", "twdb", "cduaws", "cba", "haussamen-water", "cbd-well"],
   },
@@ -250,7 +250,7 @@ export const keyComponentTabs: TabPanel[] = [
     title: "150 Acres of Greenhouses, Then More",
     paragraphs: [
       "Top-tier glass hydroponic greenhouses grow 200 to 250 tons of tomatoes per acre per year, roughly ten times an open field, with about 90 percent less water per pound. Leafy greens go seed to harvest in 25 to 35 days. Tomatoes, peppers, and cucumbers first-harvest at 60 to 75 days and then produce for ten months on vertical trellises. Phase 1 is 150 acres beside the dry coolers: up to about 60 million pounds of food a year if mostly tomatoes, 30 to 45 million on a mixed crop, and 600 to 1,000 growing, packing, and trucking jobs at the 4 to 6.5 workers per acre of Southwest greenhouses in Marfa and Willcox.",
-      "Winter nights in Santa Teresa drop into the 20s and 30s °F (about −5 to 2 °C), and crops need roots held at 68 to 72 °F (20 to 22 °C). Growers normally burn gas or propane for that. Here the heat is sold at cost. Summer cooling is evaporative pads and shade, the way Arizona greenhouses already do it, which uses water: about 1 to 1.6 million gallons a day for 150 acres in summer, so the towns' 5 MGD must be ring-fenced. Sealed bays keep most field pests out, so pesticide use is far lower and mostly biological control. Sensors and computer vision run climate, nutrients, and harvest, as in the Netherlands.",
+      "Winter nights in Santa Teresa drop into the 20s and 30s °F (about −5 to 2 °C), and crops need roots held at 68 to 72 °F (20 to 22 °C). Growers normally burn gas or propane for that. Here the heat is sold at cost. Summer cooling is evaporative pads and shade, the way Arizona greenhouses already do it, which means open vents and little CO₂ enrichment on those days, and which uses water: about 1 to 1.6 million gallons a day for 150 acres in summer, so the towns' 5 MGD must be ring-fenced. Sealed bays keep most field pests out, so pesticide use is far lower and mostly biological control. Sensors and computer vision run climate, nutrients, and harvest, as in the Netherlands.",
       "Oracle and STACK do not farm. Established growers lease the land, buy the heat and CO₂, and use their own public gate so produce trucks never touch the secure server entrance. Acreage and location depend on which of the roughly 819 acres are unbuilt, which the developers have not published. Every yield and staffing figure here is an industry average, not a Santa Teresa study.",
     ],
     sources: ["cba", "epm-jobs", "sweden", "sob"],
@@ -271,7 +271,7 @@ export const irbSubhead = "No Financial Risk to County. Conditions Attached.";
 
 export const irbPoints = [
   { label: "KICKSTARTING BIG INVESTMENTS:", text: "IRBs are how counties attract projects like this. The upgrade keeps the bonds. It attaches conditions to them." },
-  { label: "$165B WITH STRINGS:", text: "The bond cap signals the investment. About 2.5% of it, most repayable by the federal capture credit, buys metered capture, heat to growers, and the NMSU water plant. The county should not abate property tax on up to $165 billion of property with no conditions on emissions, heat or water." },
+  { label: "$165B WITH STRINGS:", text: "The bond cap is a ceiling, not cash; the companies committed $50 billion for the first five years. About 8% of that first phase (2.5% of the cap), most repayable by the federal capture credit, buys metered capture, heat to growers, and the NMSU water plant. The county should not abate property tax on up to $165 billion of property with no conditions on emissions, heat or water." },
   { label: "JOBS TIED TO ABATEMENTS:", text: "Tax benefits scale with permanent jobs actually delivered and verified each year, not with a projection on a website." },
   { label: "NO COUNTY RISK:", text: "Unchanged. Doña Ana County spends no money and takes on no debt. Growers finance their own greenhouses." },
   { label: "FINANCIAL BENEFIT TO DOÑA ANA COUNTY:", text: "$1 billion in payments in lieu of taxes over 30 years, about $33M a year instead of $12M, plus lease revenue from 150 acres of greenhouses." },
@@ -366,7 +366,7 @@ export const talkingPoints = [
   "The exhaust from their fuel cells is about 95% CO₂ once dried. Bloom has announced capture for it and the federal credit pays $85 a ton. Require capture-ready stacks and a meter before power-on.",
   "Their servers make hot water. In Sweden and the Netherlands that heat grows food. Require them to offer it to growers on the 150 empty acres beside the dry coolers. That is 1,000 more jobs.",
   "NMSU already designed a 5 million gallon a day desalination plant for Santa Teresa. It costs $269.5 million, 0.16% of their bond. Make them fund it.",
-  "Same land. Same buildings. About 2.5% more, most of it repayable by the federal capture credit. Negotiate the conditions into the leases at the next consent the companies need.",
+  "Same land. Same buildings. About 8% more on the $50 billion first phase, most of it repayable by the federal capture credit. Negotiate the conditions into the leases at the next consent the companies need.",
 ];
 
 // ─── Petition ────────────────────────────────────────────────────────────────
@@ -396,7 +396,7 @@ export const petitionDemands: { ask: string; theirs: string; why: string }[] = [
   {
     ask: "The NMSU-designed water plant built and handed to the towns' utility: 5 million gallons a day of clean water from salty groundwater, the towns' reclaimed water put back into the fresh aquifer under a state storage-and-recovery permit, and the unused part of the old farm's water right left in the aquifer in a State Engineer conservation program instead of pumped.",
     theirs: "Drinking water is taken from the local utility and more is pumped from the fresh aquifer. The signed deal has the companies fund a $250,000 study; the county is now designing a smaller plant with its own Jupiter tax money.",
-    why: "The plant is already designed and priced at $269.5 million, about 0.16% of the bond. With the towns' fresh wells pumping far less and about 2 million gallons a day of reclaimed water going back underground, as El Paso has done since 1985 and Rio Rancho since 2017, the local decline slows. Leaving the farm right in a conservation program costs a filing, and state law protects an enrolled right from forfeiture.",
+    why: "The plant is already designed and priced at $269.5 million, about 0.54% of the $50 billion first phase (0.16% of the bond cap). With the towns' fresh wells pumping far less and about 2 million gallons a day of reclaimed water going back underground, as El Paso has done since 1985 and Rio Rancho since 2017, the local decline slows. Leaving the farm right in a conservation program costs a filing, and state law protects an enrolled right from forfeiture.",
   },
   {
     ask: "The county tax break paid only as permanent jobs are verified each year, and a $50 million training institute on site so the jobs go to people who live here.",

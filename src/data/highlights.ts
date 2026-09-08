@@ -34,7 +34,7 @@ export const highlightPairs: HighlightPair[] = [
     ours: { num: "$269.5M", label: "A 5-MILLION-GALLON-A-DAY DESALINATION PLANT, ALREADY DESIGNED BY NMSU, BUILT AND HANDED TO CRRUA" },
     theirs: { num: "$50M", label: "WATER SYSTEM IMPROVEMENTS" },
     explain: "Their $50 million is a cheque to CRRUA for pipes: about $25 million collected so far, held by the state and expected to reach the county in early 2027. NMSU priced a complete 5 MGD brackish reverse-osmosis system for Santa Teresa at $269.5 million in 2023: wells, plant, storage, brine injection wells and lines. The county is already designing a smaller 4 MGD plant with $15 million of Jupiter tax money. Have the developer fund the full plant instead, and keep the tax money.",
-    math: "$269.5M ÷ $165,000M bond = 0.16% of the project.",
+    math: "$269.5M ÷ $50,000M first phase = 0.54%; ÷ $165,000M bond cap = 0.16% (a ceiling, not cash).",
     sources: ["nmsu", "bocc", "cba", "epm-water-fund", "star-plant"],
     voices: {
       legislator: { label: "THE NMSU-DESIGNED 5 MGD BRACKISH DESALINATION SYSTEM, DELIVERED TO CRRUA UNDER THE LEASE" },
@@ -72,7 +72,7 @@ export const highlightPairs: HighlightPair[] = [
   {
     icon: "helmet",
     color: "#2e8b57",
-    ours: { num: "~11,000", label: "CONSTRUCTION & PERMANENT JOBS · 3,000 PERMANENT IN PHASE 1 · THEY SIGNED FOR 750" },
+    ours: { num: "~10,500", label: "CONSTRUCTION & PERMANENT JOBS · 3,000 PERMANENT IN PHASE 1 · THEY SIGNED FOR 750" },
     theirs: { num: "8,500+", label: "WELL PAYING CONSTRUCTION & OPERATIONS JOBS" },
     explain: "Their 8,500 is 7,000 construction plus 1,500 operations, both website projections. The signed agreement requires 2,500 construction and 750 full-time jobs. The upgrade keeps their 1,500 tech roles and adds up to about 1,000 greenhouse jobs per 150 acres (Southwest greenhouses run 4 to 6.5 an acre), 250 in water and capture, and 250 in refurbishment and training. All estimates.",
     sources: ["cba", "epm-jobs", "faq"],
@@ -100,7 +100,7 @@ export const highlightPairs: HighlightPair[] = [
     color: "#2e8b57",
     ours: { num: "90–95%", label: "CAPTURE TARGET, METERED AT THE STACK FROM THE FIRST DAY · THE LAST 5–10% CLOSED OVER TIME WITH CLEANER GAS AND VERIFIED REMOVALS (TARGET)" },
     theirs: { num: "100%", label: "CARBON-FREE ENERGY MATCHING BY 2031" },
-    explain: "Matching means buying clean-energy credits somewhere else; the 8,820,970 permitted tons still leave the stacks in Santa Teresa. Capture is physical: NMED says the dried exhaust is about 95% CO₂, and Bloom and Chart announced capture for it in 2025, though no plant runs it yet and the best operating plants sustain 50 to 75%. So the condition is metered tons against the target, with the federal 45Q credit paying $85 a ton. The last 5–10% is covered over time by blending renewable gas and hydrogen, which Bloom hardware runs on, and verified removals for any remainder; renewable-gas supply is the limit. Captured CO₂ is used first where buyers exist (greenhouses, concrete, aggregate, today about 1%) and the rest stored, and Process 4 asks for a falling share of energy from gas so the whole stream shrinks.",
+    explain: "Matching means buying clean-energy credits somewhere else; the 8,820,970 permitted tons still leave the stacks in Santa Teresa. Capture is physical: NMED says the dried exhaust is about 95% CO₂, and Bloom and Chart announced capture for it in 2025, though no plant runs it yet and the best operating plants sustain 50 to 75%. So the condition is metered tons against the target, with the federal 45Q credit paying $85 a ton; the skids themselves burn 5 to 15% more gas (about 120 to 370 MW), and that CO₂ goes through the same skids. The last 5–10% is covered over time by blending renewable gas and hydrogen, which Bloom hardware runs on, and verified removals for any remainder; renewable-gas supply is the limit. Captured CO₂ is used first where buyers exist (greenhouses, concrete, aggregate, today about 1%) and the rest stored, and Process 4 asks for a falling share of energy from gas so the whole stream shrinks.",
     sources: ["bocc", "sob", "bloom-chart", "bloom-fuels", "cba"],
     voices: {
       legislator: { label: "OF STACK CO₂ CAPTURED FROM COMMENCEMENT OF OPERATIONS · USED FIRST, STORED AS FALLBACK · RESIDUAL CLOSED BY 2031 WITH CLEANER GAS AND VERIFIED REMOVALS (TARGET)" },

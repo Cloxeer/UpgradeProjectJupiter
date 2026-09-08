@@ -5,6 +5,7 @@ import { asset } from "@/lib/base";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePlanMode, SwitchHint, markSwitched } from "@/components/blueprint/PlanMode";
+import { Truth } from "@/components/jupiter/Truth";
 import { useAudience } from "@/components/jupiter/Audience";
 import { zoneKid, zoneKidName } from "@/data/blueprintVoices";
 import { zoneTM } from "@/data/tobyMoby";
@@ -524,7 +525,7 @@ export function SitePlan() {
                 {sel.stats.map((st) => (
                   <div key={st.label} className="rounded px-2 py-3 text-center" style={{ backgroundColor: "#f7f7f7", borderTop: `4px solid ${st.color}` }}>
                     <div className="font-black" style={{ fontSize: "clamp(18px,2vw,26px)", lineHeight: 1.05, color: st.color }}>{st.value}</div>
-                    <div className="mt-1 font-semibold" style={{ fontSize: 13, lineHeight: 1.25, color: "#3c3c3c" }}>{st.label}</div>
+                    <div className="mt-1 font-semibold" style={{ fontSize: 13, lineHeight: 1.25, color: "#3c3c3c" }}>{st.label} <Truth label={st.claim} /></div>
                   </div>
                 ))}
               </div>

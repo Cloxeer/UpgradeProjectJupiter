@@ -75,6 +75,22 @@ export const openQuestions: OpenQuestion[] = [
     next: "Match each obligation to the clock of the thing it governs: stack emissions yearly, jobs yearly, aquifer levels yearly for as long as the wells exist, closure whenever it comes. That is what the year-250 view on this site is for.",
     sources: ["bloom-stack-life", "cba", "nmsu"],
   },
+  // The outside review (Sept. 2026) raised four questions. Two are already on the plan: the Class VI void is why capture is first metered
+  // in year 5 (CAPTURE_START_YEAR in netloss.ts), and the decommissioning liability is demand 6. The other two are below.
+  {
+    q: "How much of the captured CO₂ is the capture itself making?",
+    thought:
+      "The skids, dryers and compressors run on the same gas: 5 to 15% of output, which on 2,462 MW is about 120 to 370 MW of extra fuel cells. On an 8.8 million ton gross stream that is roughly 0.4 to 1.3 million tons a year more CO₂ going through the same skids. At the 90 to 95% target the residual rises from 0.4 to 0.9 million tons a year to about 0.45 to 1.0, and the site now counts it that way from year 5. The literature puts anode-stream penalties at 4 to 6%; Bloom and Chart have published no figure for their announced unit.",
+    next: "A vendor guarantee of parasitic load per ton captured, and a lease meter that reads gross fuel in, not only tons out, so the penalty is measured rather than budgeted.",
+    sources: ["bloom-chart", "boundary-dam-2024", "sob"],
+  },
+  {
+    q: "How much CO₂ can greenhouses really take in a desert summer?",
+    thought:
+      "Enrichment works with the vents closed. From May to September the pads and vents run most of the day, so 800 to 1,200 ppm is a November-to-March and early-morning practice here, as Oklahoma State's extension sheet says of warm days anywhere. Our own estimate, 150 acres times about 60 tons an acre, is about 9,000 tons a year, a tenth of one percent of the stream, and no Santa Teresa figure exists. That is why the use slider starts at 1% and the greenhouse line is labelled \"fed to plants\", not absorbed.",
+    next: "One greenhouse block instrumented for a year: ppm inside, vent hours, and yield against an unenriched block.",
+    sources: ["osu-co2-enrichment", "agriport", "sob"],
+  },
 ];
 
 export const parkedIdeas: ParkedIdea[] = [
