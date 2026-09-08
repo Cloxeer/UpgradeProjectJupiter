@@ -14,7 +14,7 @@ import { PlanModeProvider, PlanSwitch } from "@/components/blueprint/PlanMode";
 import { Glossary } from "@/components/jupiter/Term";
 import { JupiterStorm } from "@/components/jupiter/JupiterStorm";
 import { AudienceChip } from "@/components/jupiter/Audience";
-import { VoiceText, HideFor, OnlyFor } from "@/components/blueprint/Voice";
+import { VoiceText, HideFor, OnlyFor, HeroSub } from "@/components/blueprint/Voice";
 import { Truth } from "@/components/jupiter/Truth";
 
 export const metadata: Metadata = {
@@ -47,7 +47,7 @@ export default function BlueprintPage() {
               <Stamp kind="force">PROJECT JUPITER</Stamp> BLUEPRINT
             </h1>
             <p className="mx-auto mt-4 max-w-[760px] font-semibold" style={{ fontSize: "clamp(17px,2vw,21px)", lineHeight: 1.4, color: "#003047" }}>
-              <VoiceText field="heroSub" />
+              <HeroSub />
             </p>
             <div className="mt-6 flex flex-col items-center gap-4">
               <PlanSwitch labelTheirs="Their plan, as filed" labelOurs="The upgraded plan" big hint scrollTo="#site" />

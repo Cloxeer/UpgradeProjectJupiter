@@ -31,7 +31,7 @@ import { Clickable, PartInfo, NewMarker, Cloud, Neighborhood } from "@/component
 import { usePlanMode, PlanSwitch, OURS } from "@/components/blueprint/PlanMode";
 import { Term } from "@/components/jupiter/Term";
 import { useAudience, type Audience } from "@/components/jupiter/Audience";
-import { kidSteps, takeaways, takeawayNotes } from "@/data/blueprintVoices";
+import { kidSteps, takeaways, takeawayNotes, theirsCards } from "@/data/blueprintVoices";
 import { GH_ACRES_PHASE1 } from "@/data/blueprint";
 import { FeasibilityChip } from "@/components/jupiter/Feasibility";
 import { processTM } from "@/data/tobyMoby";
@@ -163,21 +163,24 @@ function Card({ title, kicker, children, intro, kid, sources, mode, onMode, voic
       document.body.style.overflow = "";
     };
   }, [big]);
+  // Theirs mode states their filed plan in their own terms: their title, an "As filed" line, no net-gain framing.
+  const theirs = mode === "theirs" ? theirsCards[kicker] : undefined;
   // The label already says "Net gain for humanity", so drop that prefix from the sentence itself (text is otherwise verbatim).
-  const point = (takeaways[kicker]?.[audience] ?? kid).replace(/^Net gain for humanity:\s*/i, "").replace(/^Your takeaway:\s*/i, "");
-  const pointLabel = audience === "overall" || audience === "expert" ? "Net gain for humanity" : audience === "kid" ? "The big idea" : "Why it matters to you";
+  const ourPoint = (takeaways[kicker]?.[audience] ?? kid).replace(/^Net gain for humanity:\s*/i, "").replace(/^Your takeaway:\s*/i, "");
+  const point = theirs ? (isKid ? theirs.kidTakeaway : theirs.takeaway.replace(/^As filed:\s*/i, "")) : ourPoint;
+  const pointLabel = theirs ? "As filed" : audience === "overall" || audience === "expert" ? "Net gain for humanity" : audience === "kid" ? "The big idea" : "Why it matters to you";
   const header = (
     <div className="md:grid md:grid-cols-[minmax(0,1fr)_auto] md:items-start md:gap-6">
     <div className="min-w-0">
-      <div className="text-[13px] font-bold uppercase tracking-wide" style={{ color: G }}>{kicker}</div>
-      <h3 className="mt-1 font-bold" style={{ fontSize: 24, lineHeight: 1.15, color: "#003047" }}>{title}</h3>
+      <div className="text-[13px] font-bold uppercase tracking-wide" style={{ color: theirs ? "#c0392b" : G }}>{kicker}</div>
+      <h3 className="mt-1 font-bold" style={{ fontSize: 24, lineHeight: 1.15, color: "#003047" }}>{theirs?.title ?? title}</h3>
       {/* The one line this reader wants, right under the title. It replaces the old "key takeaway" box. */}
-      <p key={audience} className="pj-fade mt-2 mb-3 rounded px-3 py-2" style={{ backgroundColor: "#eaf6ee", borderLeft: "5px solid #2e8b57", fontSize: isKid ? 18 : 16, lineHeight: 1.5, color: "#003047" }}>
-        <span className="mr-1 text-[12px] font-black uppercase tracking-wide" style={{ color: "#1f5f3a" }}>{pointLabel} ·</span>
+      <p key={`${audience}-${mode}`} className="pj-fade mt-2 mb-3 rounded px-3 py-2" style={{ backgroundColor: theirs ? "#fff0ed" : "#eaf6ee", borderLeft: `5px solid ${theirs ? "#c0392b" : "#2e8b57"}`, fontSize: isKid ? 18 : 16, lineHeight: 1.5, color: "#003047" }}>
+        <span className="mr-1 text-[12px] font-black uppercase tracking-wide" style={{ color: theirs ? "#c0392b" : "#1f5f3a" }}>{pointLabel} ·</span>
         <strong>{point}</strong>
       </p>
-      <FeasibilityChip process={kicker} />
-      {!isKid && takeawayNotes[kicker] && (
+      {!theirs && <FeasibilityChip process={kicker} />}
+      {!isKid && !theirs && takeawayNotes[kicker] && (
         <details name="pj-one" className="-mt-2 mb-3 rounded px-3 py-1" style={{ backgroundColor: "#eaf6ee" }}>
           <summary className="cursor-pointer text-[14px] font-bold" style={{ color: "#1f5f3a" }}>How can heat make cooling? And is there a winter here? ▾</summary>
           <p className="pb-2 pt-1" style={{ fontSize: 15, lineHeight: 1.5, color: "#1f5f3a" }}>{takeawayNotes[kicker]}</p>
@@ -213,11 +216,11 @@ function Card({ title, kicker, children, intro, kid, sources, mode, onMode, voic
   const fold = !isKid && (
     audience === "expert" || more ? (
       <div className="pj-late pj-reveal mt-3 rounded border px-4 py-3" style={{ borderColor: "#e0e0e0" }}>
-        {voice && audience !== "expert" && audience !== "overall" && (
+        {voice && !theirs && audience !== "expert" && audience !== "overall" && (
           <p className="mb-3" style={{ fontSize: 16, lineHeight: 1.65, color: "#1f3a2a" }}>{voice}</p>
         )}
         <div style={{ fontSize: 15, lineHeight: 1.65, color: "#3c3c3c" }}>{intro}</div>
-        {audience !== "expert" && (
+        {audience !== "expert" && !theirs && (
           <p className="mt-3 rounded p-3" style={{ backgroundColor: "#fff8e6", fontSize: 15, lineHeight: 1.55, color: "#3c3c3c" }}>
             <strong>If you are ten:</strong> {kid}
           </p>
@@ -230,13 +233,13 @@ function Card({ title, kicker, children, intro, kid, sources, mode, onMode, voic
       </div>
     ) : (
       <button type="button" onClick={() => setMore(true)} className="pj-foldbtn mt-3 min-h-[44px] w-full rounded border px-4 text-[15px] font-bold" style={{ borderColor: "#003047", color: "#003047", backgroundColor: "#fff" }}>
-        Read more: the numbers, the cost, and how it works ▼
+        {theirs ? "Read the filings behind this ▼" : "Read more: the numbers, the cost, and how it works ▼"}
       </button>
     )
   );
   const body = (
     <>
-      <ClickHint />
+      <ClickHint theirs={!!theirs} />
       <div className="pj-scroll">
         {children}
         <div ref={moreRef} className="pj-foldanchor scroll-mt-32" aria-hidden />
@@ -336,7 +339,7 @@ function Bar({ parts, total, what }: { parts: { label: string; value: number; co
   );
 }
 
-function ClickHint() {
+function ClickHint({ theirs = false }: { theirs?: boolean }) {
   const [audience] = useAudience();
   if (audience === "kid") {
     return (
@@ -350,7 +353,7 @@ function ClickHint() {
     <p className="mb-2 flex items-center gap-2 text-[14px]" style={{ color: "#6b6b6b" }}>
       <span className="pj-shake" aria-hidden>!</span>
       <span>
-        <strong style={{ color: G }}>Tap any part of the drawing</strong> for what it is and a photo. <span className="rounded px-1 text-[12px] font-black text-white" style={{ backgroundColor: G }}>NEW</span> marks what the upgrade adds.
+        <strong style={{ color: G }}>Tap any part of the drawing</strong> for what it is and a photo.{!theirs && <> <span className="rounded px-1 text-[12px] font-black text-white" style={{ backgroundColor: G }}>NEW</span> marks what the upgrade adds.</>}
       </span>
     </p>
   );
@@ -605,12 +608,12 @@ export function HeatDiagram() {
       </svg></div>
       <PartInfo id={part} onClose={() => setPart(null)} />
 
-      <Slider label="Greenhouse acres (proposed)" value={acres} min={50} max={400} step={10} unit="acres" onChange={setAcres} disabled={!ours} />
+      <Slider label="Greenhouse acres (proposed)" value={ours ? acres : 0} min={ours ? 50 : 0} max={400} step={10} unit="acres" onChange={setAcres} disabled={!ours} />
       <div className="mt-4">
         <Bar what="all the heat the computers make, and where it goes" total={HEAT_MW} parts={[{ label: "Greenhouses MW", value: gh, color: "#2e8b57" }, { label: "Water plant MW", value: desal + brine, color: "#1f7ae0" }, { label: "Dry coolers MW", value: dry, color: "#6f8f9a" }]} />
       </div>
       <div className="pj-stats mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-        <Stat label="Heat put to work" value={`${Math.round(reused)} MW`} sub={<>≈ {reusedH.furnaces.toLocaleString()} home furnaces&apos; worth<Cite ids={["carrier-furnace"]} /> · {((reused / HEAT_MW) * 100).toFixed(1)}% of the total · {winter ? "winter: greenhouse root heat + desal preheat" : "summer: desal preheat only"}</>} color={ours ? "#2e8b57" : "#c0392b"} />
+        <Stat label="Heat put to work" value={`${Math.round(reused)} MW`} sub={ours ? <>≈ {reusedH.furnaces.toLocaleString()} home furnaces&apos; worth<Cite ids={["carrier-furnace"]} /> · {((reused / HEAT_MW) * 100).toFixed(1)}% of the total · {winter ? "winter: greenhouse root heat + desal preheat" : "summer: desal preheat only"}</> : "none offered; dry coolers reject it all"} color={ours ? "#2e8b57" : "#c0392b"} />
         <Stat label="Heat blown into the air" value={`${Math.round(dry).toLocaleString()} MW`} sub={<>≈ {dryH.furnaces.toLocaleString()} furnaces running flat out, every hour</>} color="#c0392b" />
         <Stat label="Fan & chiller electricity saved" value={`~${Math.round(fansSaved)} MW`} sub={ours ? "a few percent of the heat moved (estimate)" : "nothing saved"} color="#d99a00" />
       </div>
@@ -1122,7 +1125,7 @@ export function SolarDiagram() {
   const stacksIdle = Math.round(STACKS * (1 - gasShare));
 
   return (
-    <Card voices={{ homeowner: "Every hour the fuel cells rest is an hour with no exhaust over your neighborhood. Hot rock under this valley and New Mexico's own wind can take those hours, more of them every year.", legislator: "HB93's net-zero definition lets a gas plant qualify through methane offsets, so 2045 forces nothing at the stacks. A lease condition for geothermal test wells in Phase 1 and a delivered-renewables contract gives the date a physical schedule, with Google's 396 MW geothermal purchase as the market precedent; how far it goes depends on the wells and on transmission that does not yet exist.", business: "Gas is the plant's largest operating cost. Geothermal at about 90% capacity factor and contracted wind at about 39% cut the gas share directly, and both are bought at fixed prices while gas is not.", overall: "The best way to make less smoke is to burn less gas. Hot rock under the valley and New Mexico's wind can take over more of the work every year, once wells are drilled and wires are built." }} kicker="Process 4 · Retire the gas" title="Solar on the roofs, geothermal in the ground, wind on the wire" mode={mode} onMode={setMode} kid="The best way to make less smoke is to burn less gas. The sun goes on every roof, but that is a tiny slice. The big slices are hot rock deep under this valley, which can make power day and night, and the giant wind farm New Mexico just switched on, whose power can come here by wire. Every year more clean power arrives and the gas machines run less, until the law says zero in 2045." sources={["ktsm-sqft", "notice", "render", "cba", "doe-pv-cost", "lightning-dock", "dona-ana-geothermal", "nm-geothermal-handout", "fervo-cape", "fervo-google", "sunzia-eia", "sob"]} intro={(<p>
+    <Card voices={{ homeowner: "Every hour the fuel cells rest is an hour with no exhaust over your neighborhood. Hot rock under this valley and New Mexico's own wind can take those hours, more of them every year.", legislator: "HB93's net-zero definition lets a gas plant qualify through methane offsets, so 2045 forces nothing at the stacks. A lease condition for geothermal test wells in Phase 1 and a delivered-renewables contract gives the date a physical schedule, with Google's 396 MW geothermal purchase as the market precedent; how far it goes depends on the wells and on transmission that does not yet exist.", business: "Gas is the plant's largest operating cost. Geothermal at about 90% capacity factor and contracted wind at about 39% cut the gas share directly, and both are bought at fixed prices while gas is not.", overall: "The best way to make less smoke is to burn less gas. Hot rock under the valley and New Mexico's wind can take over more of the work every year, once wells are drilled and wires are built." }} kicker="Process 4 · Retire the gas" title="Solar on the roofs, geothermal in the ground, wind on the wire" mode={mode} onMode={setMode} kid="The best way to make less smoke is to burn less gas. The sun goes on every roof, but that is a tiny slice. The big slices are hot rock deep under this valley, which can make power day and night, and the giant wind farm New Mexico just switched on, whose power can come here by wire. Every year more clean power arrives and the gas machines run less, and the share of energy from gas falls year by year (the 2045 law allows offsets, so we ask for the real meter reading)." sources={["ktsm-sqft", "notice", "render", "cba", "doe-pv-cost", "lightning-dock", "dona-ana-geothermal", "nm-geothermal-handout", "fervo-cape", "fervo-google", "sunzia-eia", "sob"]} intro={(<p>
         {ours ? (
           <>
             Cleaning the exhaust is the second-best answer; the best is fewer hours of gas. Three clean sources, in order of size. <strong>Geothermal:</strong> this
@@ -1213,7 +1216,7 @@ export function SolarDiagram() {
       <PartInfo id={part} onClose={() => { setPart(null); setRoof(null); }} />
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-        <Slider label="Geothermal built by 2032 (MW)" value={ours ? geoMW : 0} min={0} max={500} step={25} unit="MW" onChange={setGeoMW} disabled={!ours} />
+        <Slider label="Geothermal online by year 10 (2036), MW (target)" value={ours ? geoMW : 0} min={0} max={500} step={25} unit="MW" onChange={setGeoMW} disabled={!ours} />
         <Slider label="Wind + solar under a delivered contract (MW; needs new transmission)" value={ours ? ppaMW : 0} min={0} max={2000} step={100} unit="MW" onChange={setPpaMW} disabled={!ours} />
         <Slider label="Roofs with solar" value={ours ? step : 0} min={0} max={solarSteps.length} step={1} unit={`of ${solarSteps.length}`} onChange={setStep} disabled={!ours} />
       </div>
