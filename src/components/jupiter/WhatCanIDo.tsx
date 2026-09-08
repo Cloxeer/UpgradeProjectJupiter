@@ -36,7 +36,7 @@ export function WhatCanIDo() {
       <a href="/petition" className="inline-flex min-h-[56px] w-full items-center justify-center rounded px-10 text-[18px] font-black uppercase tracking-wide text-white sm:w-auto" style={{ backgroundColor: G }}>
         {kid ? "Sign the petition with a grown-up" : "Sign the petition"}
       </a>
-      <p className="mt-2 text-[14px]" style={{ color: "#6b6b6b" }}>One minute. Your name and ZIP go in the packet handed to the commission.</p>
+      <p className="mt-2 text-[14px]" style={{ color: "#6b6b6b" }}>One minute. A count of support we hand to the commission; the permit record and the microphone are what bind.</p>
       <div className="mt-4 flex flex-col items-center gap-1 sm:flex-row sm:justify-center sm:gap-6" style={{ fontSize: 16, color: "#003047" }}>
         <a href="/legislators#commission" className={link}>{kid ? "Call the county →" : "Email or call your commissioner →"}</a>
         <a href="/legislators#commission" className={link} title={meeting}>{kid ? "Go to the meeting →" : "Speak at a commission meeting →"}</a>

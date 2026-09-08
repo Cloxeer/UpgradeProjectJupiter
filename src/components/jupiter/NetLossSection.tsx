@@ -100,13 +100,16 @@ function SmogScene({ smog, years }: { smog: boolean; years: number }) {
  * wells pump far less (the plant covers most of CRRUA's demand) and about 2 MGD of reclaimed water is recharged from the
  * same year, so the local decline is drawn slowed, not reversed. El Paso's recharge "slowed the decline" of its aquifer; stabilization there came with conservation and
  * river water. The slower slope is a schematic of direction, not a measurement; the chips and the expert note say so. In the
- * 250-year view both trends are continued and every figure is labelled an estimate.
+ * far view (year 80) both trends are continued and every figure is labelled an estimate.
  */
-const SLOPE = 62 / 80; // svg units per year, the regional decline both sides share
+/** Their line reaches THEIRS_MAX_DROP below the 2026 line at year 80: about 80% of the way to the gauge floor, never "empty". */
+const THEIRS_MAX_DROP = 50;
+const SLOPE = THEIRS_MAX_DROP / 80; // svg units per year, the regional decline both sides share
+const FLOOR = 50 + THEIRS_MAX_DROP; // lowest y either water top reaches
 /** Where the table stood in earlier years, on the same decline slope the model uses forward (USGS: the Mesilla table has been falling for decades). */
 const HISTORY_MARKS: { year: number; y: number }[] = [
-  { year: 1980, y: 50 - ((2026 - 1980) / 80) * 62 },
-  { year: 2005, y: 50 - ((2026 - 2005) / 80) * 62 },
+  { year: 1980, y: 50 - (2026 - 1980) * SLOPE },
+  { year: 2005, y: 50 - (2026 - 2005) * SLOPE },
 ];
 function waterTop(down: boolean, years: number): number {
   if (down) {
@@ -115,8 +118,11 @@ function waterTop(down: boolean, years: number): number {
   }
   if (years <= OUR_WATER_START_YEAR) return 50 + years * SLOPE; // same pumping until the plant opens in year 5
   const atOpen = 50 + OUR_WATER_START_YEAR * SLOPE;
-  return Math.min(50 + 62, atOpen + (years - OUR_WATER_START_YEAR) * SLOPE * SLOWED); // plant runs: decline slowed, not reversed (schematic)
+  return Math.min(FLOOR, atOpen + (years - OUR_WATER_START_YEAR) * SLOPE * SLOWED); // plant runs: decline slowed, not reversed (schematic)
 }
+
+/** Bar length in svg units for a cumulative gallon count: 137 B gal (year 80 made) fits in 150 of the 320 width; never shorter than 3. */
+const barW = (g: number) => Math.max(3, Math.min(150, (g / 1e9) * 1.1));
 
 function WaterGauge({ down, years }: { down: boolean; years: number }) {
   const op = operating(years);
@@ -125,8 +131,8 @@ function WaterGauge({ down, years }: { down: boolean; years: number }) {
   const isFar = far(years);
   const held = !down && years === OUR_WATER_START_YEAR; // the year the plant opens and recharge begins: nothing cumulative yet
   const rising = !down && years > OUR_WATER_START_YEAR; // "rising" = recharge running; the table is drawn falling more slowly, not climbing
-  const downLabelY = Math.min(112, Math.max(63, top - 5));
-  const ourLabelY = Math.min(112, Math.max(63, top + 12));
+  const downLabelY = Math.min(FLOOR, Math.max(63, top - 5));
+  const ourLabelY = Math.min(FLOOR, Math.max(63, top + 12));
   const warm = years >= WARM_YEAR;
   const ourLabel = isFar
     ? `year ${years}: slower decline continued (estimate)`
@@ -137,6 +143,24 @@ function WaterGauge({ down, years }: { down: boolean; years: number }) {
         : held
           ? `year ${years}: plant opens · recharge begins (estimate)`
           : `year ${years}: ~2 MGD recharged · decline slowed (estimate)`;
+  // Bottom caption, at most two lines of under 50 characters each so nothing clips at fontSize 8 in the 320-wide box.
+  const caption: string[] = down
+    ? isFar
+      ? ["ESTIMATE · 2000–2020 BASIN DECLINE CONTINUED", "NOT THIS CAMPUS ALONE"]
+      : warm
+        ? ["FRESH WATER STILL TAKEN", "STATE PROJECTS RECHARGE DOWN 25%+ BY 2070"]
+        : ["FRESH WATER TAKEN FOR FILLS, BUILDING AND OPERATIONS"]
+    : isFar
+      ? ["ESTIMATE · SLOWER DECLINE CONTINUED", "WELLS STILL READ YEARLY"]
+      : op === 0
+        ? ["PLANT IN FINAL DESIGN · STORAGE PERMIT FILED"]
+        : years < OUR_WATER_START_YEAR
+          ? ["PLANT UNDER CONSTRUCTION · SAME PUMPING UNTIL IT OPENS"]
+          : held
+            ? ["PLANT OPENS · TOWNS' FRESH WELLS PUMP FAR LESS", "RECHARGE BEGINS"]
+            : ["RECLAIMED WATER RECHARGED (~2 MGD)", "AS EL PASO HAS DONE SINCE 1985"];
+  // With the bars and their sentence in the band y 105-128, the ours caption moves up to y 97-106; otherwise it sits at the foot.
+  const captionYs = rising ? [97, 106] : caption.length === 2 ? [115, 124] : [124];
   return (
     <svg viewBox="0 0 320 130" className="w-full" role="img" aria-label={down ? `Aquifer level after ${years} years` : `Clean water added after ${years} years`}>
       <rect x={0} y={0} width={320} height={130} fill={warm ? "#e8d0a0" : "#e3cfa8"} />
@@ -176,29 +200,22 @@ function WaterGauge({ down, years }: { down: boolean; years: number }) {
             {ourLabel}
           </text>
           {rising && (
-            <text x={6} y={120} fontSize={7.5} fontWeight={800} fill="#ffffff">
-              {(gal / 1e9).toFixed(0)} B gal made from the salty layer{rising ? ` · ${(recharged(years) / 1e9).toFixed(0)} B gal reclaimed water put back${isFar ? " (est.)" : ""}` : ""}
-            </text>
+            // Two bars, scaled to gallons, so ours is a visible addition and not only a shallower fall: made (dark) and put back (light).
+            <>
+              <rect x={6} y={110} width={barW(gal)} height={4} fill="#0f3d78" />
+              <rect x={6} y={116} width={barW(recharged(years))} height={4} fill="#bfe2ff" />
+              <text x={6} y={127} fontSize={7.5} fontWeight={800} fill="#ffffff">
+                {(gal / 1e9).toFixed(0)} B gal made from the salty layer · {(recharged(years) / 1e9).toFixed(0)} B gal put back{isFar ? " (est.)" : ""}
+              </text>
+            </>
           )}
         </>
       )}
-      <text x={160} y={down || years < OUR_WATER_START_YEAR ? 124 : 112} textAnchor="middle" fontSize={8} fontWeight={800} fill={down ? "#8e3b2f" : rising || held ? "#ffffff" : "#1f5f3a"}>
-        {down
-          ? isFar
-            ? "ESTIMATE · 2000–2020 DECLINE CONTINUED · TOWN WELLS DRY"
-            : warm
-              ? "FRESH WATER STILL TAKEN · STATE PROJECTS RECHARGE DOWN 25%+ BY 2070"
-              : "FRESH WATER TAKEN FOR FILLS, BUILDING AND OPERATIONS"
-          : isFar
-            ? "ESTIMATE · SLOWER DECLINE CONTINUED · WELLS STILL READ YEARLY"
-            : op === 0
-              ? "PLANT IN FINAL DESIGN · STORAGE PERMIT FILED"
-              : years < OUR_WATER_START_YEAR
-                ? "PLANT UNDER CONSTRUCTION · SAME PUMPING UNTIL IT OPENS"
-                : held
-                  ? "PLANT OPENS · TOWNS' FRESH WELLS PUMP FAR LESS · RECHARGE BEGINS"
-                  : "RECLAIMED WATER RECHARGED (~2 MGD) · AS EL PASO HAS DONE SINCE 1985"}
-      </text>
+      {caption.map((line, i) => (
+        <text key={line} x={160} y={captionYs[i]} textAnchor="middle" fontSize={8} fontWeight={800} fill={down ? "#8e3b2f" : rising || held ? "#ffffff" : "#1f5f3a"}>
+          {line}
+        </text>
+      ))}
     </svg>
   );
 }
@@ -242,7 +259,7 @@ function factsFor(side: "ours" | "theirs", years: number, kid: boolean): Fact[] 
           ? "Nothing on the water side is delivered yet, and the drawing says so. NMSU's 5 MGD design needs final design and a 2–3 year build (El Paso's 27.5 MGD plant took 2004 to 2007), and the recharge permit under the Ground Water Storage and Recovery Act took Albuquerque from 2008 tests to a 2014 permit. Until the plant opens in year 5 our side follows the same decline as theirs."
           : held
             ? "The plant opens: 5 MGD from the deep brackish layer against CRRUA's 6 MGD of 2027 demand, so the towns' fresh wells pump about 1 MGD instead of 6, and the recharge basins begin taking the towns' reclaimed water under the storage permit. Nothing is cumulative yet; from here the local decline is drawn slowed, while the regional decline, driven by farms, El Paso and Juárez, continues."
-            : `CRRUA's three treatment plants handle about 1.85 MGD of wastewater today, growing with the towns. Treated to drinking standard and put into infiltration basins, that is about 2 million gallons a day back into the fresh aquifer, against the 3.1 MGD CRRUA pumped from it in 2020. There is no plant surplus to add: CRRUA's demand (6 MGD in 2027) exceeds the 5 MGD plant. El Paso has recharged reclaimed water since 1985, over 30 billion gallons, which the utility says slowed its aquifer's decline; Rio Rancho has held New Mexico's first permit for reclaimed-water recharge since 2017. Drawn as a decline at 40% of the regional rate: direction, not a measurement.${isFar ? " Continued this far the slower decline still reaches the bottom of the gauge; nobody can promise otherwise." : ""} That effluent today counts as the towns' Rio Grande return-flow offset, and a storage permit needs a water right; the State Engineer is where both are settled.`,
+            : `CRRUA's three treatment plants handle about 1.85 MGD of wastewater today, growing with the towns. Treated to drinking standard and put into infiltration basins, that is about 2 million gallons a day back into the fresh aquifer, against the 3.1 MGD CRRUA pumped from it in 2020. There is no plant surplus to add: CRRUA's demand (6 MGD in 2027) exceeds the 5 MGD plant. El Paso has recharged reclaimed water since 1985, over 30 billion gallons, which the utility says slowed its aquifer's decline; Rio Rancho has held New Mexico's first permit for reclaimed-water recharge since 2017. Drawn as a decline at 40% of the regional rate: direction, not a measurement.${isFar ? " Continued this far the decline is slower, not reversed: recharge of about 2 MGD cannot offset a whole basin. The monitoring wells, not this drawing, are the record." : ""} That effluent today counts as the towns' Rio Grande return-flow offset, and a storage permit needs a water right; the State Engineer is where both are settled.`,
       sources: ["nmsu", "epwater-recharge", "epwater-aquifers", "nm-asr-act", "rio-rancho-pure", "abcwua-bear-canyon", "usgs-mesilla-taap"],
     });
   }
@@ -511,7 +528,7 @@ export function NetLossSection() {
 
         {expert && year >= 30 && (
           <p className="pj-adult mx-auto mb-6 max-w-[1000px] rounded px-4 py-3 text-[14px]" style={{ backgroundColor: "#fff8e6", lineHeight: 1.55, color: "#3c3c3c" }}>
-            <strong>What the long views assume, and where it comes from.</strong> CO₂ is a running total because cumulative emissions drive warming almost linearly and the effects last for centuries<Cite ids={["ipcc-ar6-spm"]} />. Their side uses the draft permit&apos;s 8,820,970 tons a year (high) and the developers&apos; own expectation of about 6.1 million (low)<Cite ids={["sob-part-a", "bocc"]} />. HB93 requires net-zero carbon resources by 2045 (year 19), but the statute counts a gas plant that offsets a tenth of its CO₂ in methane cuts as net-zero, and the developers&apos; route is credit matching by 2031, so their exhaust is drawn continuing<Cite ids={["nmsa-62-17-12", "cba", "bocc"]} />. Our side counts what is not captured, year by year: in years 3 and 4 everything but about 1% used in concrete, because the storage line and wells cannot be permitted faster (Texas Class VI reviews run about a year, NMSU puts injection wells at 4 to 5 years, and the gas pipeline shows what a right-of-way fight costs); in years 5 to 9 the 25–50% the best operating plants have let through; from year 10 the 5–10% against a 90–95% target that no plant has yet sustained for a decade; the gas share is drawn as a falling target, never as zero<Cite ids={["boundary-dam-2024", "epa-class-vi", "nmsu", "slo"]} />. Power modules are swapped about every five years<Cite ids={["sob"]} />. The 30-year lease ends at year 30 and the land returns to the tax rolls<Cite ids={["cba"]} />. New Mexico is projected 5–7 °F warmer within 50 years with major rivers down 16–28%<Cite ids={["nmbg-164"]} />, and Mesilla groundwater already fell from 2000 to 2020<Cite ids={["usgs-mesilla-taap"]} />, so the water table keeps dropping under their plan. Beyond 2070 the state projection ends; the drawings hold at its endpoint rather than extrapolate. Both water gauges show the same fresh table CRRUA&apos;s wells draw from, and the historic marks are schematic. Ours follows the same decline until the plant opens in year 5 (NMSU&apos;s design still needs final design and a 2–3 year build; El Paso&apos;s plant took 2004 to 2007), then falls at 40% of the regional slope, when the plant covers most of CRRUA&apos;s demand and the fresh wells pump about 1 MGD instead of 6, with about 2 MGD of the towns&apos; reclaimed water recharged from the same year under a Ground Water Storage and Recovery permit once the Rio Grande return-flow offset and a water right are settled<Cite ids={["nmsu", "nm-asr-act"]} />. El Paso has recharged reclaimed water since 1985, over 30 billion gallons, which the utility says slowed its aquifer&apos;s decline; Rio Rancho has held New Mexico&apos;s first reclaimed-recharge permit since 2017<Cite ids={["epwater-recharge", "epwater-aquifers", "rio-rancho-pure"]} />. There is no plant surplus to recharge in Phase 1 because CRRUA&apos;s demand exceeds the plant. The year-250 view is an estimate that continues each documented trend past every filing and projection; every figure on it carries the word estimate<Cite ids={["ipcc-ar6-spm", "epa-class-vi", "cba", "nmsu"]} />.
+            <strong>What the long views assume, and where it comes from.</strong> CO₂ is a running total because cumulative emissions drive warming almost linearly and the effects last for centuries<Cite ids={["ipcc-ar6-spm"]} />. Their side uses the draft permit&apos;s 8,820,970 tons a year (high) and the developers&apos; own expectation of about 6.1 million (low)<Cite ids={["sob-part-a", "bocc"]} />. HB93 requires net-zero carbon resources by 2045 (year 19), but the statute counts a gas plant that offsets a tenth of its CO₂ in methane cuts as net-zero, and the developers&apos; route is credit matching by 2031, so their exhaust is drawn continuing<Cite ids={["nmsa-62-17-12", "cba", "bocc"]} />. Our side counts what is not captured, year by year: in years 3 and 4 everything but about 1% used in concrete, because the storage line and wells cannot be permitted faster (Texas Class VI reviews run about a year, NMSU puts injection wells at 4 to 5 years, and the gas pipeline shows what a right-of-way fight costs); in years 5 to 9 the 25–50% the best operating plants have let through; from year 10 the 5–10% against a 90–95% target that no plant has yet sustained for a decade; the gas share is drawn as a falling target, never as zero<Cite ids={["boundary-dam-2024", "epa-class-vi", "nmsu", "slo"]} />. Power modules are swapped about every five years<Cite ids={["sob"]} />. The 30-year lease ends at year 30 and the land returns to the tax rolls<Cite ids={["cba"]} />. New Mexico is projected 5–7 °F warmer within 50 years with major rivers down 16–28%<Cite ids={["nmbg-164"]} />, and Mesilla groundwater already fell from 2000 to 2020<Cite ids={["usgs-mesilla-taap"]} />, so the water table keeps dropping under their plan. Beyond 2070 the state projection ends; the drawings hold at its endpoint rather than extrapolate. Both water gauges show the same fresh table CRRUA&apos;s wells draw from, and the historic marks are schematic. Ours follows the same decline until the plant opens in year 5 (NMSU&apos;s design still needs final design and a 2–3 year build; El Paso&apos;s plant took 2004 to 2007), then falls at 40% of the regional slope, when the plant covers most of CRRUA&apos;s demand and the fresh wells pump about 1 MGD instead of 6, with about 2 MGD of the towns&apos; reclaimed water recharged from the same year under a Ground Water Storage and Recovery permit once the Rio Grande return-flow offset and a water right are settled<Cite ids={["nmsu", "nm-asr-act"]} />. El Paso has recharged reclaimed water since 1985, over 30 billion gallons, which the utility says slowed its aquifer&apos;s decline; Rio Rancho has held New Mexico&apos;s first reclaimed-recharge permit since 2017<Cite ids={["epwater-recharge", "epwater-aquifers", "rio-rancho-pure"]} />. There is no plant surplus to recharge in Phase 1 because CRRUA&apos;s demand exceeds the plant. The year-80 view is an estimate that continues each documented trend past every filing and projection; every figure on it carries the word estimate<Cite ids={["ipcc-ar6-spm", "epa-class-vi", "cba", "nmsu"]} />.
           </p>
         )}
         {/* Rows: the label sits in the middle because it applies to both sides; ours left, theirs right. Expert only; the home page comparison carries the six headline lines. */}

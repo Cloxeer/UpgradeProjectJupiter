@@ -10,6 +10,8 @@ import {
   BRINE_CONCENTRATOR_MW,
   ABQ_LC_MT,
   CAPTURE_MAX_PENALTY,
+  CAPTURE_PENALTY_LO,
+  CAPTURE_PENALTY_HI,
   NMSU_COST_POINTS,
   NMSU_SYSTEM_MULTIPLIER,
   NMSU_RECOVERY,
@@ -29,7 +31,7 @@ import { Clickable, PartInfo, NewMarker, Cloud, Neighborhood } from "@/component
 import { usePlanMode, PlanSwitch, OURS } from "@/components/blueprint/PlanMode";
 import { Term } from "@/components/jupiter/Term";
 import { useAudience, type Audience } from "@/components/jupiter/Audience";
-import { kidSteps, takeaways, takeawayNotes } from "@/data/blueprintVoices";
+import { kidSteps, takeaways, takeawayNotes, theirsCards } from "@/data/blueprintVoices";
 import { GH_ACRES_PHASE1 } from "@/data/blueprint";
 import { FeasibilityChip } from "@/components/jupiter/Feasibility";
 import { processTM } from "@/data/tobyMoby";
@@ -161,21 +163,24 @@ function Card({ title, kicker, children, intro, kid, sources, mode, onMode, voic
       document.body.style.overflow = "";
     };
   }, [big]);
+  // Theirs mode states their filed plan in their own terms: their title, an "As filed" line, no net-gain framing.
+  const theirs = mode === "theirs" ? theirsCards[kicker] : undefined;
   // The label already says "Net gain for humanity", so drop that prefix from the sentence itself (text is otherwise verbatim).
-  const point = (takeaways[kicker]?.[audience] ?? kid).replace(/^Net gain for humanity:\s*/i, "").replace(/^Your takeaway:\s*/i, "");
-  const pointLabel = audience === "overall" || audience === "expert" ? "Net gain for humanity" : audience === "kid" ? "The big idea" : "Why it matters to you";
+  const ourPoint = (takeaways[kicker]?.[audience] ?? kid).replace(/^Net gain for humanity:\s*/i, "").replace(/^Your takeaway:\s*/i, "");
+  const point = theirs ? (isKid ? theirs.kidTakeaway : theirs.takeaway.replace(/^As filed:\s*/i, "")) : ourPoint;
+  const pointLabel = theirs ? "As filed" : audience === "overall" || audience === "expert" ? "Net gain for humanity" : audience === "kid" ? "The big idea" : "Why it matters to you";
   const header = (
     <div className="md:grid md:grid-cols-[minmax(0,1fr)_auto] md:items-start md:gap-6">
     <div className="min-w-0">
-      <div className="text-[13px] font-bold uppercase tracking-wide" style={{ color: G }}>{kicker}</div>
-      <h3 className="mt-1 font-bold" style={{ fontSize: 24, lineHeight: 1.15, color: "#003047" }}>{title}</h3>
+      <div className="text-[13px] font-bold uppercase tracking-wide" style={{ color: theirs ? "#c0392b" : G }}>{kicker}</div>
+      <h3 className="mt-1 font-bold" style={{ fontSize: 24, lineHeight: 1.15, color: "#003047" }}>{theirs?.title ?? title}</h3>
       {/* The one line this reader wants, right under the title. It replaces the old "key takeaway" box. */}
-      <p key={audience} className="pj-fade mt-2 mb-3 rounded px-3 py-2" style={{ backgroundColor: "#eaf6ee", borderLeft: "5px solid #2e8b57", fontSize: isKid ? 18 : 16, lineHeight: 1.5, color: "#003047" }}>
-        <span className="mr-1 text-[12px] font-black uppercase tracking-wide" style={{ color: "#1f5f3a" }}>{pointLabel} ·</span>
+      <p key={`${audience}-${mode}`} className="pj-fade mt-2 mb-3 rounded px-3 py-2" style={{ backgroundColor: theirs ? "#fff0ed" : "#eaf6ee", borderLeft: `5px solid ${theirs ? "#c0392b" : "#2e8b57"}`, fontSize: isKid ? 18 : 16, lineHeight: 1.5, color: "#003047" }}>
+        <span className="mr-1 text-[12px] font-black uppercase tracking-wide" style={{ color: theirs ? "#c0392b" : "#1f5f3a" }}>{pointLabel} ·</span>
         <strong>{point}</strong>
       </p>
-      <FeasibilityChip process={kicker} />
-      {!isKid && takeawayNotes[kicker] && (
+      {!theirs && <FeasibilityChip process={kicker} />}
+      {!isKid && !theirs && takeawayNotes[kicker] && (
         <details name="pj-one" className="-mt-2 mb-3 rounded px-3 py-1" style={{ backgroundColor: "#eaf6ee" }}>
           <summary className="cursor-pointer text-[14px] font-bold" style={{ color: "#1f5f3a" }}>How can heat make cooling? And is there a winter here? ▾</summary>
           <p className="pb-2 pt-1" style={{ fontSize: 15, lineHeight: 1.5, color: "#1f5f3a" }}>{takeawayNotes[kicker]}</p>
@@ -211,11 +216,11 @@ function Card({ title, kicker, children, intro, kid, sources, mode, onMode, voic
   const fold = !isKid && (
     audience === "expert" || more ? (
       <div className="pj-late pj-reveal mt-3 rounded border px-4 py-3" style={{ borderColor: "#e0e0e0" }}>
-        {voice && audience !== "expert" && audience !== "overall" && (
+        {voice && !theirs && audience !== "expert" && audience !== "overall" && (
           <p className="mb-3" style={{ fontSize: 16, lineHeight: 1.65, color: "#1f3a2a" }}>{voice}</p>
         )}
         <div style={{ fontSize: 15, lineHeight: 1.65, color: "#3c3c3c" }}>{intro}</div>
-        {audience !== "expert" && (
+        {audience !== "expert" && !theirs && (
           <p className="mt-3 rounded p-3" style={{ backgroundColor: "#fff8e6", fontSize: 15, lineHeight: 1.55, color: "#3c3c3c" }}>
             <strong>If you are ten:</strong> {kid}
           </p>
@@ -228,13 +233,13 @@ function Card({ title, kicker, children, intro, kid, sources, mode, onMode, voic
       </div>
     ) : (
       <button type="button" onClick={() => setMore(true)} className="pj-foldbtn mt-3 min-h-[44px] w-full rounded border px-4 text-[15px] font-bold" style={{ borderColor: "#003047", color: "#003047", backgroundColor: "#fff" }}>
-        Read more: the numbers, the cost, and how it works ▼
+        {theirs ? "Read the filings behind this ▼" : "Read more: the numbers, the cost, and how it works ▼"}
       </button>
     )
   );
   const body = (
     <>
-      <ClickHint />
+      <ClickHint theirs={!!theirs} />
       <div className="pj-scroll">
         {children}
         <div ref={moreRef} className="pj-foldanchor scroll-mt-32" aria-hidden />
@@ -334,7 +339,7 @@ function Bar({ parts, total, what }: { parts: { label: string; value: number; co
   );
 }
 
-function ClickHint() {
+function ClickHint({ theirs = false }: { theirs?: boolean }) {
   const [audience] = useAudience();
   if (audience === "kid") {
     return (
@@ -348,7 +353,7 @@ function ClickHint() {
     <p className="mb-2 flex items-center gap-2 text-[14px]" style={{ color: "#6b6b6b" }}>
       <span className="pj-shake" aria-hidden>!</span>
       <span>
-        <strong style={{ color: G }}>Tap any part of the drawing</strong> for what it is and a photo. <span className="rounded px-1 text-[12px] font-black text-white" style={{ backgroundColor: G }}>NEW</span> marks what the upgrade adds.
+        <strong style={{ color: G }}>Tap any part of the drawing</strong> for what it is and a photo.{!theirs && <> <span className="rounded px-1 text-[12px] font-black text-white" style={{ backgroundColor: G }}>NEW</span> marks what the upgrade adds.</>}
       </span>
     </p>
   );
@@ -513,7 +518,7 @@ export function HeatDiagram() {
   const reusedH = humanHeat(reused);
 
   return (
-    <Card tools={ours ? <SeasonToggle season={season} onChange={setSeason} /> : null} voices={{ homeowner: "This is the heat that would otherwise blow across the desert toward your street. Used, it grows tomatoes in winter and makes cold for the greenhouses in summer.", legislator: "A waste-heat reuse condition in the lease is the cheapest item on the list: about $60 million of standard district-heating hardware, paid by the developer and recovered by selling heat to growers; Germany already requires data centers to reuse a share of their heat. The Waste-Heat Reuse bill makes it standard practice statewide.", business: "About 2,400 MW of heat is rejected for free today. Sold to growers in winter and to the water plant year-round, a small slice of it becomes a revenue line on the same fans you already pay for.", overall: "The computers' heat is free. Their plan throws it away. Ours sells it to greenhouses in winter and turns it into cooling in summer." }} kicker="Process 1 · Heat" title="Where the heat goes" mode={mode} onMode={setMode} kid="Computers get hot, like a laptop on your lap. This place cools millions of them with water. In their plan the warm water goes to big fans that blow all the heat into the sky. In ours, one extra box lets greenhouses and the water plant use the warmth first. The fans still handle the rest." sources={["render", "waterpdf", "faq", "sob", "sweden", "carrier-furnace"]} intro={(<p>
+    <Card tools={ours ? <SeasonToggle season={season} onChange={setSeason} /> : null} voices={{ homeowner: "This is the heat that would otherwise blow across the desert toward your street. Used, it warms tomato roots in winter and preheats the water plant all year; in summer the greenhouses cool with wet pads.", legislator: "A waste-heat reuse condition in the lease is the cheapest item on the list: about $60 million of standard district-heating hardware, paid by the developer and recovered by selling heat to growers; Germany already requires data centers to reuse a share of their heat. The Waste-Heat Reuse bill makes it standard practice statewide.", business: "About 2,462 MW of heat is rejected for free today. Sold to growers in winter and to the water plant year-round, a small slice of it becomes a revenue line on the same fans you already pay for.", overall: "The computers' heat is free. Their plan throws it away. Ours sells it to greenhouses in winter and to the water plant all year; summer cooling stays evaporative." }} kicker="Process 1 · Heat" title="Where the heat goes" mode={mode} onMode={setMode} kid="Computers get hot, like a laptop on your lap. This place cools millions of them with water. In their plan the warm water goes to big fans that blow all the heat into the sky. In ours, one extra box lets greenhouses and the water plant use the warmth first. The fans still handle the rest." sources={["render", "waterpdf", "faq", "sob", "sweden", "carrier-furnace"]} intro={(<p>
         {ours ? (
           <>
             Nearly all the electricity a chip uses turns into heat. Their halls run closed-loop liquid cooling with a one-time fill<Cite ids={["waterpdf", "faq"]} />, and their render
@@ -562,7 +567,7 @@ export function HeatDiagram() {
             <Clickable id="waterPlantHeat" selected={part} onSelect={setPart}>
               <rect x={428} y={148} width={214} height={36} rx={4} fill="#1f7ae0" />
               <text x={535} y={163} textAnchor="middle" fontSize={10} fontWeight={800} fill="#fff" pointerEvents="none">WATER PLANT</text>
-              <text className="pj-num " x={535} y={177} textAnchor="middle" fontSize={8.5} fill="#e6f0ff" pointerEvents="none">{winter ? `preheats salty feed by 15 °C / 27 °F · ${desal} MW` : `preheat + brine drying · ${desal + brine} MW`}</text>
+              <text className="pj-num " x={535} y={177} textAnchor="middle" fontSize={8.5} fill="#e6f0ff" pointerEvents="none">{winter ? `preheats salty feed by 15 °C / 27 °F · ${desal} MW` : `desal preheat · ${desal + brine} MW (brine drying not counted at 45–65 °C)`}</text>
             </Clickable>
             <NewMarker box={{ x: 428, y: 148, w: 214, h: 36 }} side="left" />
 
@@ -603,14 +608,14 @@ export function HeatDiagram() {
       </svg></div>
       <PartInfo id={part} onClose={() => setPart(null)} />
 
-      <Slider label="Greenhouse acres (proposed)" value={acres} min={50} max={400} step={10} unit="acres" onChange={setAcres} disabled={!ours} />
+      <Slider label="Greenhouse acres (proposed)" value={ours ? acres : 0} min={ours ? 50 : 0} max={400} step={10} unit="acres" onChange={setAcres} disabled={!ours} />
       <div className="mt-4">
         <Bar what="all the heat the computers make, and where it goes" total={HEAT_MW} parts={[{ label: "Greenhouses MW", value: gh, color: "#2e8b57" }, { label: "Water plant MW", value: desal + brine, color: "#1f7ae0" }, { label: "Dry coolers MW", value: dry, color: "#6f8f9a" }]} />
       </div>
       <div className="pj-stats mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-        <Stat label="Heat put to work" value={`${Math.round(reused)} MW`} sub={<>≈ {reusedH.furnaces.toLocaleString()} home furnaces&apos; worth<Cite ids={["carrier-furnace"]} /> · {((reused / HEAT_MW) * 100).toFixed(1)}% of the total · {winter ? "winter: greenhouse root heat + desal preheat" : "summer: desal preheat only"}</>} color={ours ? "#2e8b57" : "#c0392b"} />
+        <Stat label="Heat put to work" value={`${Math.round(reused)} MW`} sub={ours ? <>≈ {reusedH.furnaces.toLocaleString()} home furnaces&apos; worth<Cite ids={["carrier-furnace"]} /> · {((reused / HEAT_MW) * 100).toFixed(1)}% of the total · {winter ? "winter: greenhouse root heat + desal preheat" : "summer: desal preheat only"}</> : "none offered; dry coolers reject it all"} color={ours ? "#2e8b57" : "#c0392b"} />
         <Stat label="Heat blown into the air" value={`${Math.round(dry).toLocaleString()} MW`} sub={<>≈ {dryH.furnaces.toLocaleString()} furnaces running flat out, every hour</>} color="#c0392b" />
-        <Stat label="Fan & chiller electricity saved" value={`~${Math.round(fansSaved)} MW`} sub={ours ? "a few percent of the heat moved (estimate)" : "nothing saved"} color="#d99a00" />
+        <Stat label="Fan & chiller electricity saved" value={`~${Math.round(fansSaved)} MW`} sub={ours ? "≈10% of the heat moved, an estimate; not how the exchanger pays back" : "nothing saved"} color="#d99a00" />
       </div>
       {ours && <CostStrip millions={60} label="for the heat exchanger, pumps and insulated header (standard district-heating hardware, estimate)" who="the developer; it pays back through heat sold to growers, not fan savings" />}
       <p className="pj-fine mt-3 text-[14px]" style={{ color: "#6b6b6b" }}>
@@ -624,12 +629,13 @@ export function HeatDiagram() {
 
 // ─── 2. Carbon ───────────────────────────────────────────────────────────────
 
-const GHG_PERMIT_TPY = 10_144_115; // NMED draft Statement of Basis, safety factor removed
-const GHG_APPLICANT_TPY = 8_820_970; // applicant's figure with 15% safety factor
+const GHG_PERMIT_TPY = 8_820_970; // Draft Permit 10883 Part A, Table 102.A; NMED struck the 15% safety factor
+const GHG_APPLICATION_TPY = 10_144_115; // the application figure NMED would not accept
+const GHG_EXPECTED_TPY = 6_086_469; // BOCC deck, July 28, 2026
 const STACKS = 2275;
 
 const pollutants = [
-  { name: "Carbon dioxide (CO₂)", amount: "8,820,970 tons/yr permitted (10.1 million applied for)", does: "Warms the climate. Not a smog gas; it is the climate gas.", standard: "No ambient health standard; it is regulated as a greenhouse gas and reported.", future: "20 years as filed: about 160 million tons in the air at the permitted rate, where CO₂ stays for centuries. Warming is cumulative, so every year adds to the last. Upgraded: about 25 to 55 million tons over the same 20 years, because capture cannot be metered before the storage line in year 5 and reaches its 90–95% target in year 10; falling after that as the gas share falls.", sources: ["sob", "sob-part-a"] },
+  { name: "Carbon dioxide (CO₂)", amount: "8,820,970 tons/yr permitted (10.1 million applied for)", does: "Warms the climate. Not a smog gas; it is the climate gas.", standard: "No ambient health standard; it is regulated as a greenhouse gas and reported.", future: "20 years as filed: about 176 million tons in the air at the permitted rate, where CO₂ stays for centuries. Warming is cumulative, so every year adds to the last. Upgraded: about 25 to 55 million tons over the same 20 years, because capture cannot be metered before the storage line in year 5 and reaches its 90–95% target in year 10; falling after that as the gas share falls.", sources: ["sob", "sob-part-a"] },
   { name: "Nitrogen oxides (NOx)", amount: "37.2 tons/yr (draft permit)", does: "Reacts with VOCs in sunlight to make ground-level ozone, the main ingredient of smog. Irritates lungs, triggers asthma.", standard: "Ozone health standard: 70 ppb over 8 hours. Sunland Park, next door, has failed it since 2018; the campus sits just outside the boundary.", future: "20 years as filed: about 750 tons of NOx estimated from four tests of one 65 kW unit and never measured at the real stacks, beside a town that already fails the ozone standard. Upgraded: the same fuel cells, but every ton measured and posted, with limits set for the capture configuration.", sources: ["sob-part-a", "epa-ozone-naaqs", "sunland-park-ozone"] },
   { name: "Carbon monoxide (CO)", amount: "161.2 tons/yr (draft permit)", does: "Reduces the blood's ability to carry oxygen at high concentrations.", standard: "Above 100 tons/yr, which is what makes the plant a Title V major source.", future: "20 years as filed: about 3,200 tons, released and estimated rather than measured. Upgraded: continuous monitors, so a bad day is known the day it happens.", sources: ["sob-part-a", "sob"] },
   { name: "Volatile organic compounds (VOC)", amount: "124.0 tons/yr (draft permit)", does: "The other half of the smog recipe with NOx.", standard: "Above 100 tons/yr, a second reason the plant is a Title V major source.", future: "20 years as filed: about 2,500 tons feeding summer ozone. Upgraded: measured, posted, and falling with the gas share.", sources: ["sob-part-a", "sob"] },
@@ -649,7 +655,8 @@ export function CarbonDiagram() {
   const used = captured * (useShare / 100);
   const stored = captured - used;
   const left = GHG_PERMIT_TPY * (1 - r);
-  const leftLow = GHG_APPLICANT_TPY * (1 - r);
+  const releasedLow = GHG_EXPECTED_TPY * (1 + CAPTURE_PENALTY_LO) * (1 - r);
+  const releasedHigh = GHG_PERMIT_TPY * (1 + CAPTURE_PENALTY_HI) * (1 - r);
   const penaltyMW = IT_LOAD_MW * CAPTURE_MAX_PENALTY * (ours ? rate / 95 : 0);
   const plume = 8 + (1 - r) * 30;
 
@@ -764,8 +771,8 @@ export function CarbonDiagram() {
               <Cloud cx={480} cy={42} size={40} variant="smog" opacity={0.9} />
               <Cloud cx={565} cy={62} size={30} variant="smog" opacity={0.75} />
             </Clickable>
-            <Tag x={500} y={112} text={`100% released · ${(GHG_PERMIT_TPY / 1e6).toFixed(1)} Mt/yr permitted`} anchor="middle" bold size={9} color="#c0392b" />
-            <Tag x={500} y={130} text={`developers expect ~${((GHG_PERMIT_TPY * 0.6) / 1e6).toFixed(1)} Mt in practice · ≈ ${(GHG_PERMIT_TPY / 1e6 / ABQ_LC_MT).toFixed(1)}× Albuquerque + Las Cruces`} anchor="middle" size={8} />
+            <Tag x={500} y={112} text={`100% released · ${(GHG_PERMIT_TPY / 1e6).toFixed(1)} Mt/yr permitted (${(GHG_APPLICATION_TPY / 1e6).toFixed(1)} applied for)`} anchor="middle" bold size={9} color="#c0392b" />
+            <Tag x={500} y={130} text={`developers expect ~${(GHG_EXPECTED_TPY / 1e6).toFixed(1)} Mt in practice · ≈ ${(GHG_PERMIT_TPY / 1e6 / ABQ_LC_MT).toFixed(1)}× Albuquerque + Las Cruces`} anchor="middle" size={8} />
             {/* smog over homes */}
             <rect x={420} y={150} width={215} height={60} fill="#d9d3c7" />
             <rect x={420} y={150} width={215} height={60} fill="#4a4a4a" opacity={0.18} />
@@ -775,7 +782,7 @@ export function CarbonDiagram() {
             <text x={527} y={248} textAnchor="middle" fontSize={9.5} fontWeight={800} fill="#c0392b">NO DRYER · NO CAPTURE · NO STORAGE</text>
             <text x={527} y={268} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">&quot;100% carbon-free matching by 2031&quot; = credits</text>
             <text x={527} y={282} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">bought elsewhere; the stacks are unchanged</text>
-            <text x={527} y={302} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">Sunland Park: ozone nonattainment since 2018</text>
+            <text x={527} y={302} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">Sunland Park: ozone nonattainment since 2018 · this site sits just outside that area</text>
             <text x={527} y={316} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">Doña Ana County: F for ozone, 15 bad-air days/yr</text>
             <text x={527} y={336} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">HB93: net-zero by 2045, methane offsets allowed</text>
           </>
@@ -791,7 +798,7 @@ export function CarbonDiagram() {
         <Bar what="all the gas the power plant breathes out in a year" total={GHG_PERMIT_TPY} parts={[{ label: "Captured (tons/yr)", value: captured, color: "#003047" }, { label: "Released (tons/yr)", value: left, color: "#9aa5ad" }]} />
       </div>
       <div className="pj-stats mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-        <Stat label="Released" value={`${(leftLow / 1e6).toFixed(2)}–${(left / 1e6).toFixed(2)} Mt`} sub={<>per year, applicant vs. NMED figure<Cite ids={["sob"]} /></>} color={r >= 0.9 ? "#2e8b57" : "#c0392b"} />
+        <Stat label="Released" value={`${(releasedLow / 1e6).toFixed(2)}–${(releasedHigh / 1e6).toFixed(2)} Mt`} sub={<>expected vs permitted stream, counting the 5–15% more gas the capture burns<Cite ids={["sob"]} /></>} color={r >= 0.9 ? "#2e8b57" : "#c0392b"} />
         <Stat label="Used, not buried" value={`${(used / 1e6).toFixed(1)} Mt`} sub={ours ? "per year into food, concrete and aggregate (buyers set the pace)" : "nothing is used"} color="#2e8b57" />
         <Stat label="Stored as fallback" value={`${(stored / 1e6).toFixed(1)} Mt`} sub={ours ? "per year by pipeline to permitted storage; shrinks as use and clean power grow" : "nothing is captured"} color="#1f7ae0" />
         <Stat label="Equals" value={`${(left / 1e6 / ABQ_LC_MT).toFixed(2)}×`} sub={<>Albuquerque + Las Cruces (~6.7 Mt)<Cite ids={["abq-lc"]} /></>} color={r >= 0.9 ? "#2e8b57" : "#c0392b"} />
@@ -883,7 +890,9 @@ export function WaterDiagram() {
             NMSU has already designed a 5 MGD brackish reverse-osmosis plant for Santa Teresa: 75% recovery, 1 MGD skids, $115.5M plant, $269.5M system, brine to deep injection wells
             <Cite ids={["nmsu"]} />. The Mesilla Basin holds roughly 65 million acre-feet of recoverable water<Cite ids={["nmsu", "cduaws"]} />. El Paso&apos;s Kay Bailey Hutchison plant has run
             this way since 2007 at 27.5 MGD<Cite ids={["epwater", "twdb"]} />. <strong>Not a loop:</strong> the brine goes 3,700–4,000 ft down, below the aquifer, exactly so it cannot come
-            back and re-salt the water being treated.
+            back and re-salt the water being treated. CRRUA needs about 6 MGD in 2027 and 15 by 2042, so a 5 MGD plant has no surplus in Phase 1; it replaces fresh-well pumping,
+            and about 2 MGD of the towns&apos; reclaimed water goes back into the aquifer through recharge basins from year 5 under a State Engineer storage-and-recovery permit
+            <Cite ids={["nmsu", "nm-asr-act"]} />.
           </>
         ) : (
           <>
@@ -1024,8 +1033,9 @@ export function WaterDiagram() {
             <text x={538} y={206} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">NMSU&apos;s 5 MGD plant design sits unfunded</text>
             <text x={538} y={240} textAnchor="middle" fontSize={8.5} fill="#6b6b6b">&quot;nine households&quot; counts only the fills,</text>
             <text x={538} y={254} textAnchor="middle" fontSize={8.5} fill="#6b6b6b">not offices, construction or the sod farm</text>
-            <text x={538} y={290} textAnchor="middle" fontSize={8.5} fill="#8e3b2f">Mesilla Basin storage has fallen in most</text>
-            <text x={538} y={304} textAnchor="middle" fontSize={8.5} fill="#8e3b2f">five-year periods since 1985 (USGS)</text>
+            <text x={538} y={290} textAnchor="middle" fontSize={8.5} fill="#8e3b2f">USGS has measured the Mesilla Basin wells</text>
+            <text x={538} y={304} textAnchor="middle" fontSize={8.5} fill="#8e3b2f">every year since 1987; the fresh table</text>
+            <text x={538} y={318} textAnchor="middle" fontSize={8.5} fill="#8e3b2f">fell between 2000 and 2020 (USGS)</text>
           </>
         )}
       </svg></div>
@@ -1055,7 +1065,7 @@ export function WaterDiagram() {
       </div>
       {ours && <CostStrip millions={system} label={`for the whole ${mgd} MGD system: wells, plant, storage, brine wells, lines (NMSU 2023 figures)`} who="the developer, delivered to CRRUA and the county" />}
       <p className="pj-fine mt-3 text-[14px]" style={{ color: "#6b6b6b" }}>
-        Brine does not have to be the end of the line: El Paso&apos;s board approved recovering about 3 MGD of drinking water and minerals from its KBH brine in 2026<Cite ids={["epwater-brine-recovery"]} /> (the first mineral-recovery attempt there failed during commissioning, so we count the water and not the minerals<Cite ids={["ewm-elpaso"]} />), and a brine concentrator run on summer server heat would cut the injected volume by half or more (an estimate with a real energy cost)<Cite ids={["zld-nature-water", "reclamation-zld"]} />. Costs interpolate NMSU&apos;s 2023 figures for 1, 5 and 10 MGD plants and scale to the whole system using the study&apos;s 5 MGD ratio. Well count and home count are
+        Brine does not have to be the end of the line: El Paso&apos;s board approved recovering about 3 MGD of drinking water and minerals from its KBH brine in 2026<Cite ids={["epwater-brine-recovery"]} /> (the first mineral-recovery attempt there failed during commissioning, so we count the water and not the minerals<Cite ids={["ewm-elpaso"]} />), and a brine concentrator would cut the injected volume, but it needs water hotter than this 45–65 °C loop, so it is not counted here<Cite ids={["zld-nature-water", "reclamation-zld"]} />. Costs interpolate NMSU&apos;s 2023 figures for 1, 5 and 10 MGD plants and scale to the whole system using the study&apos;s 5 MGD ratio. Well count and home count are
         illustrative. Reverse osmosis is the proven method; server heat is a helper, not the engine. The county is already designing a 4 MGD plant with $15 million of Jupiter tax money
         <Cite ids={["star-plant"]} />; the plan asks the developer to fund the full NMSU system instead.
       </p>
@@ -1118,7 +1128,7 @@ export function SolarDiagram() {
   const stacksIdle = Math.round(STACKS * (1 - gasShare));
 
   return (
-    <Card voices={{ homeowner: "Every hour the fuel cells rest is an hour with no exhaust over your neighborhood. Hot rock under this valley and New Mexico's own wind can take those hours, more of them every year.", legislator: "HB93's net-zero definition lets a gas plant qualify through methane offsets, so 2045 forces nothing at the stacks. A lease condition for geothermal test wells in Phase 1 and a delivered-renewables contract gives the date a physical schedule, with Google's 396 MW geothermal purchase as the market precedent; how far it goes depends on the wells and on transmission that does not yet exist.", business: "Gas is the plant's largest operating cost. Geothermal at about 90% capacity factor and contracted wind at about 39% cut the gas share directly, and both are bought at fixed prices while gas is not.", overall: "The best way to make less smoke is to burn less gas. Hot rock under the valley and New Mexico's wind can take over more of the work every year, once wells are drilled and wires are built." }} kicker="Process 4 · Retire the gas" title="Solar on the roofs, geothermal in the ground, wind on the wire" mode={mode} onMode={setMode} kid="The best way to make less smoke is to burn less gas. The sun goes on every roof, but that is a tiny slice. The big slices are hot rock deep under this valley, which can make power day and night, and the giant wind farm New Mexico just switched on, whose power can come here by wire. Every year more clean power arrives and the gas machines run less, until the law says zero in 2045." sources={["ktsm-sqft", "notice", "render", "cba", "doe-pv-cost", "lightning-dock", "dona-ana-geothermal", "nm-geothermal-handout", "fervo-cape", "fervo-google", "sunzia-eia", "sob"]} intro={(<p>
+    <Card voices={{ homeowner: "Every hour the fuel cells rest is an hour with no exhaust over your neighborhood. Hot rock under this valley and New Mexico's own wind can take those hours, more of them every year.", legislator: "HB93's net-zero definition lets a gas plant qualify through methane offsets, so 2045 forces nothing at the stacks. A lease condition for geothermal test wells in Phase 1 and a delivered-renewables contract gives the date a physical schedule, with Google's 396 MW geothermal purchase as the market precedent; how far it goes depends on the wells and on transmission that does not yet exist.", business: "Gas is the plant's largest operating cost. Geothermal at about 90% capacity factor and contracted wind at about 39% cut the gas share directly, and both are bought at fixed prices while gas is not.", overall: "The best way to make less smoke is to burn less gas. Hot rock under the valley and New Mexico's wind can take over more of the work every year, once wells are drilled and wires are built." }} kicker="Process 4 · Retire the gas" title="Solar on the roofs, geothermal in the ground, wind on the wire" mode={mode} onMode={setMode} kid="The best way to make less smoke is to burn less gas. The sun goes on every roof, but that is a tiny slice. The big slices are hot rock deep under this valley, which can make power day and night, and the giant wind farm New Mexico just switched on, whose power can come here by wire. Every year more clean power arrives and the gas machines run less, and the share of energy from gas falls year by year (the 2045 law allows offsets, so we ask for the real meter reading)." sources={["ktsm-sqft", "notice", "render", "cba", "doe-pv-cost", "lightning-dock", "dona-ana-geothermal", "nm-geothermal-handout", "fervo-cape", "fervo-google", "sunzia-eia", "sob"]} intro={(<p>
         {ours ? (
           <>
             Cleaning the exhaust is the second-best answer; the best is fewer hours of gas. Three clean sources, in order of size. <strong>Geothermal:</strong> this
@@ -1209,7 +1219,7 @@ export function SolarDiagram() {
       <PartInfo id={part} onClose={() => { setPart(null); setRoof(null); }} />
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-        <Slider label="Geothermal built by 2032 (MW)" value={ours ? geoMW : 0} min={0} max={500} step={25} unit="MW" onChange={setGeoMW} disabled={!ours} />
+        <Slider label="Geothermal online by year 10 (2036), MW (target)" value={ours ? geoMW : 0} min={0} max={500} step={25} unit="MW" onChange={setGeoMW} disabled={!ours} />
         <Slider label="Wind + solar under a delivered contract (MW; needs new transmission)" value={ours ? ppaMW : 0} min={0} max={2000} step={100} unit="MW" onChange={setPpaMW} disabled={!ours} />
         <Slider label="Roofs with solar" value={ours ? step : 0} min={0} max={solarSteps.length} step={1} unit={`of ${solarSteps.length}`} onChange={setStep} disabled={!ours} />
       </div>
@@ -1315,11 +1325,11 @@ export function GreenhouseDiagram() {
               <text x={180 + Math.ceil(nBays / 2) * bayW + ((nBays - Math.ceil(nBays / 2)) * bayW) / 2} y={60} textAnchor="middle" fontSize={8} fontWeight={900} fill="#1f5f3a" pointerEvents="none">SUMMER</text>
             </Clickable>
             <Clickable id="absorptionChiller" selected={part} onSelect={setPart}>
-              <rect x={136} y={96} width={42} height={24} rx={3} fill="#1f7ae0" />
-              <text x={157} y={106} textAnchor="middle" fontSize={6.5} fontWeight={800} fill="#fff" pointerEvents="none">CHILLER</text>
-              <text x={157} y={115} textAnchor="middle" fontSize={5.5} fill="#e6f0ff" pointerEvents="none">heat → cold</text>
+              <rect x={130} y={94} width={48} height={30} rx={3} fill={winter ? "#8a949b" : "#1f7ae0"} />
+              <text x={154} y={103} textAnchor="middle" fontSize={6} fontWeight={800} fill="#fff" pointerEvents="none">SUMMER:</text>
+              <text x={154} y={111} textAnchor="middle" fontSize={6} fontWeight={800} fill="#fff" pointerEvents="none">PADS + VENTS</text>
+              <text x={154} y={119} textAnchor="middle" fontSize={5} fill="#e6f0ff" pointerEvents="none">(heat not used)</text>
             </Clickable>
-            <Flow d={`M178,108 H${180 + Math.ceil(nBays / 2) * bayW}`} color="#1f7ae0" width={3} dur={2} r={2.2} active={!winter} />
             <NewMarker box={{ x: 178, y: 26, w: nBays * bayW + 4, h: 96 }} side="left" align="start" />
             <Tag x={180 + (nBays * bayW) / 2} y={20} text={`${acres} acres · ${nBays} block${nBays > 1 ? "s" : ""} of ~50 acres · sealed, few pesticides`} anchor="middle" bold size={9} color="#1f5f3a" />
             <Tag x={182} y={134} text={winter ? `winter blocks: roots at ${tempRange(20, 22)} · summer: wet-pad cooling` : "summer: wet pads and shade cool the glass (uses water) · root heat off"} anchor="start" size={7.5} />
@@ -1333,7 +1343,7 @@ export function GreenhouseDiagram() {
             </Clickable>
             <NewMarker box={{ x: 540, y: 50, w: 92, h: 50 }} side="top" />
             {Array.from({ length: nTrucks }).map((_, i) => <Truck key={i} x={540 + (i % 3) * 30} y={112 + Math.floor(i / 3) * 18} />)}
-            <Tag x={586} y={160} text={`${(lbs / 1e6).toFixed(0)}M lbs of food a year`} anchor="middle" bold size={9} color="#1f5f3a" />
+            <Tag x={586} y={160} text={`up to ${(lbs / 1e6).toFixed(0)}M lbs of food a year`} anchor="middle" bold size={9} color="#1f5f3a" />
             <rect x={180} y={220} width={452} height={34} rx={4} fill="#dbe9f7" stroke="#1f7ae0" strokeWidth={1} />
             <text x={406} y={234} textAnchor="middle" fontSize={9} fontWeight={800} fill="#1f5f3a">RECIRCULATING HYDROPONICS · water goes around and around</text>
             <text className="pj-num" x={406} y={247} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">~90% less water per pound than open fields · saves about {(waterSaved / 1e9).toFixed(1)} billion gallons a year vs. field farming</text>
@@ -1378,7 +1388,7 @@ export function GreenhouseDiagram() {
         {ours ? (
           <>
             <Stat label="Permanent jobs" value={`~${jobs.toLocaleString()}`} sub={`${GH_JOBS_PER_ACRE} per acre incl. packing, rounded to hundreds (industry average)`} color="#d99a00" />
-            <Stat label="Food per year" value={`${(lbs / 1_000_000).toFixed(0)}M lbs`} sub="tomatoes, peppers, greens, berries (industry average)" color="#2e8b57" />
+            <Stat label="Food per year" value={`up to ${(lbs / 1_000_000).toFixed(0)}M lbs`} sub="tomatoes, peppers, greens, berries (industry average)" color="#2e8b57" />
             <Stat label="Water saved vs. fields" value={`${(waterSaved / 1_000_000_000).toFixed(1)}B gal`} sub="per year, recirculating hydroponics" color="#1f7ae0" />
             <Stat label="Winter heat drawn" value={`${Math.round(acres * GH_PEAK_MW_PER_ACRE)} MW`} sub={`≈ ${humanHeat(acres * GH_PEAK_MW_PER_ACRE).furnaces.toLocaleString()} home furnaces, coldest night (estimate)`} color="#c0392b" />
             <Stat label="CO₂ fed to plants" value={`${Math.round(co2 / 1000)}k tons`} sub="per year with vents closed (cool season, mornings); about 0.1% of the 8.8 Mt stream (estimate)" color="#1f7ae0" />

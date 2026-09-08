@@ -85,20 +85,19 @@ export const timelineKid: Record<number, string> = {
   20: "Twenty years on: the law says the plant must count as clean by 2045, but it lets a gas plant count by cutting other pollution somewhere else. Our plan asks for the real thing: fewer gas hours every year, measured, as far as hot rock and wind can go.",
   25: "Twenty-five years on: the whole site is built out, with water, food, power and training on one piece of land.",
   30: "Thirty years on: the deal ends and the land goes back on the tax rolls. Our plan paid schools about $1 billion along the way; theirs paid $360 million.",
-  250: "Two hundred and fifty years on, our best guess: the gas catcher has been measured the whole time and the gas machines rest more than they run, the water underground dropped much more slowly because the town's cleaned water went back into it, and the gas we caught is stone. The deep wells are still checked every year, because money was set aside at the start to pay for it. In their plan, run the same way the whole time, the sky got a lot more gas and nobody wrote down who checks the wells.",
 };
 
 /** A short plain-words note under the takeaway where readers get stuck. Facts here already appear, cited, in the card below. */
 export const takeawayNotes: Record<string, string> = {
   "Process 1 · Heat":
-    "How heat makes cooling: an absorption chiller runs on hot water instead of electricity, the way a propane camping fridge does. And winter is real here: Santa Teresa nights drop into the 20s and 30s °F from December to February, so a greenhouse needs root heat on every cold night from November to March. This is not about making more power: the heat is already there and free. Their plan blows it into the sky; ours puts it to work so 150 acres of greenhouses grow food year-round. The gain is measured in food and jobs, not megawatts.",
+    "Can heat make cooling? An absorption chiller runs on hot water instead of electricity, the way a propane camping fridge does, but standard units want water near 90 °C and this loop is 45 to 65 °C, so no summer cooling is counted here. Winter is real here: Santa Teresa nights drop into the 20s and 30s °F from December to February, so a greenhouse needs root heat on every cold night from November to March. This is not about making more power: the heat is already there and free. Their plan blows it into the sky; ours puts it to work so 150 acres of greenhouses grow food year-round. The gain is measured in food and jobs, not megawatts.",
 };
 
 /** The one line each reader most wants, per process. Everyone and Expert get the net-gain-for-humanity line. */
 export const takeaways: Record<string, Record<Audience, string>> = {
   "Process 1 · Heat": {
-    overall: "Net gain for humanity: free heat that was going to the sky now grows food in winter and makes cooling in summer.",
-    expert: "Net gain for humanity: ~105 MW of reject heat put to work year-round for about $60M of standard hardware, recovered in fan and chiller electricity.",
+    overall: "Net gain for humanity: free heat that was going to the sky now warms greenhouse roots in winter and preheats the water plant all year; summer cooling stays evaporative.",
+    expert: "Net gain for humanity: ≈100 MW of reject heat put to work on winter nights (≈10 MW year-round for desal preheat), about 1% of the stream on average, for about $60M of standard hardware paid back by heat sold to growers, not fan savings; absorption cooling not counted at 45–65 °C.",
     homeowner: "Your takeaway: the heat that would blow across the desert toward your street heats greenhouses instead, and your neighborhood gets the food.",
     legislator: "Your takeaway: the cheapest condition on the list, about $60M paid by the developer, and it makes the greenhouse jobs possible.",
     business: "Your takeaway: heat becomes a product with a buyer, and the fans you already pay for run less.",
@@ -135,5 +134,34 @@ export const takeaways: Record<string, Record<Audience, string>> = {
     legislator: "Your takeaway: greenhouse staffing is what lifts the enforceable job count from 750 to about 3,000, and the lease is where it is written.",
     business: "Your takeaway: 150 acres to lease with heat and CO₂ supplied, a packing house at the border, and a trained workforce.",
     kid: "Tomatoes and lettuce all year, and about 3,000 jobs.",
+  },
+};
+
+/** Their plan, as filed, in their own terms: what the theirs mode of each process card says. No net-gain framing. Sources: CBA, BOCC packet, NMED Statement of Basis (cited on the cards). */
+export const theirsCards: Record<string, { title: string; takeaway: string; kidTakeaway: string }> = {
+  "Process 1 · Heat": {
+    title: "Heat blown into the air",
+    takeaway: "As filed: a closed-loop dry-cooling system rejects all of the roughly 2,462 MW of server heat to the air, and neither the CBA nor the permit filings offer that heat to anyone.",
+    kidTakeaway: "The computers' heat goes to giant fans that blow it into the sky, and nobody uses it.",
+  },
+  "Process 2 · Carbon": {
+    title: "Gas fuel cells, exhaust to the sky",
+    takeaway: "As filed: 2,462 MW of gas fuel cells permitted for 8,820,970 tons of CO₂e a year (10.1 million applied for; the developers expect about 40% less), no capture, emission factors from four 4-hour tests of one 65 kW unit with no continuous stack monitors required, “100% carbon-free energy matching by 2031” as an accounting commitment, and HB93 net-zero by 2045 with methane offsets allowed.",
+    kidTakeaway: "The power machines breathe out gas into the sky all day and all night, and nobody measures each chimney.",
+  },
+  "Process 3 · Water": {
+    title: "Town water in, a fund and a study out",
+    takeaway: "As filed: a potable cap of 20,000 gallons a day on average (60,000 at peak), an undisclosed non-potable operating volume, 103 million gallons pumped April to August 2026 under an emergency authorization, a $50M water fund (about $25M collected, flowing early 2027), $250,000 toward a desalination study, and the county building its own 4 MGD STAR plant with $15M of Jupiter tax money.",
+    kidTakeaway: "The computer place takes some drinking water from the town pipe and pays money into a water fund, and the town builds its own water machine.",
+  },
+  "Process 4 · Retire the gas": {
+    title: "Gas fuel cells, all year, plus batteries",
+    takeaway: "As filed: 2,462 MW of Bloom fuel cells on natural gas 8,760 hours a year plus battery storage, fed by the 17.7-mile Green Chile lateral (up to 400 MMcf/day) whose state-trust segment was denied on Mar. 20 and July 15, 2026, with carbon-free matching by 2031 through credits.",
+    kidTakeaway: "The gas machines run every hour of every day, and the gas pipe to feed them has been told no twice.",
+  },
+  "Process 5 · Food & jobs": {
+    title: "750 jobs, no greenhouses",
+    takeaway: "As filed: 750 full-time and 50 part-time jobs binding within 3 years (1,500 advertised) at a $75k–$100k average wage, at least 2,500 construction jobs, $4M for workforce programs, a $1M habitat fund and $12M a year in lieu of taxes; no greenhouses and no training institute.",
+    kidTakeaway: "The deal promises 750 jobs and some money for the town, and the land next to the fans stays empty desert.",
   },
 };
