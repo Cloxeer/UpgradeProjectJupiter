@@ -1,8 +1,10 @@
 "use client";
 
 import { useOpenOne } from "./OpenOne";
-import { demands, demandById, verdict, yesCount, type Demand } from "@/data/feasibility";
-import { SourceList } from "@/components/Cite";
+import { demands, demandById, verdict, yesCount, CLAUSE_NOTE, type Demand } from "@/data/feasibility";
+import { Cite, SourceList } from "@/components/Cite";
+import { CopyTextButton } from "./CopyScript";
+import { Truth } from "./Truth";
 import { useAudience } from "./Audience";
 
 const G = "#2e8b57";
@@ -24,6 +26,13 @@ function Checklist({ d, dark = false }: { d: Demand; dark?: boolean }) {
   const text = dark ? "rgba(255,255,255,0.9)" : "#3c3c3c";
   return (
     <div className="mt-2 rounded p-3" style={{ backgroundColor: dark ? "rgba(255,255,255,0.08)" : "#f7faf8", border: `1px solid ${dark ? "rgba(255,255,255,0.2)" : "#cfe6d8"}` }} role="region" aria-live="polite">
+      {/* The gate first: what is verified, by whom, when, and what the lease does if it is missed. */}
+      <p className="mb-2 rounded px-2 py-1.5" style={{ fontSize: 14, lineHeight: 1.5, color: text, backgroundColor: dark ? "rgba(0,0,0,0.2)" : "#fff" }}>
+        <strong style={{ color: dark ? "#fff" : "#003047" }}>Gate: </strong>
+        {d.gate.test} <span style={{ color: dark ? "rgba(255,255,255,0.7)" : "#6b6b6b" }}>· verified by</span> {d.gate.verifier} <span style={{ color: dark ? "rgba(255,255,255,0.7)" : "#6b6b6b" }}>· by</span> {d.gate.by}{" "}
+        <span style={{ color: dark ? "rgba(255,255,255,0.7)" : "#6b6b6b" }}>· if missed:</span> {d.gate.ifMissed}
+        <Cite ids={d.gate.sources} />
+      </p>
       <ul className="space-y-2">
         {d.checks.map((c) => (
           <li key={c.label} className="flex gap-2" style={{ fontSize: 15, lineHeight: 1.5, color: text }}>
@@ -31,7 +40,7 @@ function Checklist({ d, dark = false }: { d: Demand; dark?: boolean }) {
             <span>
               <strong style={{ color: dark ? "#fff" : "#003047" }}>{c.label}: </strong>
               <span className="font-bold" style={{ color: c.status === "yes" ? (dark ? "#9be3b6" : "#1f5f3a") : (dark ? "#ffd25e" : "#8a6200") }}>{c.status === "yes" ? "yes" : "partly"}. </span>
-              {c.note}
+              <Truth label={c.claim} dark={dark} /> {c.note}
             </span>
           </li>
         ))}
@@ -39,7 +48,15 @@ function Checklist({ d, dark = false }: { d: Demand; dark?: boolean }) {
       <p className="mt-2 text-[13px]" style={{ color: dark ? "rgba(255,255,255,0.7)" : "#6b6b6b" }}>
         Green = yes. Yellow = partly, with the reason. Our assessment, from the documents listed.
       </p>
-      <SourceList ids={d.checks.flatMap((c) => c.sources)} dark={dark} />
+      <details className="mt-2 rounded px-2 py-1" style={{ backgroundColor: dark ? "rgba(0,0,0,0.2)" : "#fff", border: `1px solid ${dark ? "rgba(255,255,255,0.2)" : "#cfe6d8"}` }}>
+        <summary className="cursor-pointer text-[14px] font-bold" style={{ color: dark ? "#fff" : "#1f5f3a" }}>Draft lease language (model text for counsel, not legal advice) ▾</summary>
+        <p className="pt-2" style={{ fontSize: 14, lineHeight: 1.55, color: text }}>{d.clause}</p>
+        <p className="pt-1 text-[12px]" style={{ color: dark ? "rgba(255,255,255,0.7)" : "#6b6b6b" }}>{CLAUSE_NOTE}</p>
+        <div className="pb-1 pt-2">
+          <CopyTextButton text={d.clause} label="Copy this clause" dark={dark} small />
+        </div>
+      </details>
+      <SourceList ids={[...d.gate.sources, ...d.checks.flatMap((c) => c.sources)]} dark={dark} />
     </div>
   );
 }

@@ -67,10 +67,10 @@ export const kidSteps: Record<string, string[]> = {
 };
 
 export const costVoice: V = {
-  overall: "What it costs and who pays: about 2.5% of the $165 billion bond cap, most of the capture line repayable by the federal 45Q credit. Most of it is the developer's, and the greenhouses are the growers' money, not the county's.",
-  expert: "Every line below is an estimate or a cited figure, shown as a share of the $165 billion bond, with the payer named.",
+  overall: "What it costs and who pays: about 8% of the $50 billion first phase (2.5% of the $165 billion bond cap, a ceiling, not cash), most of the capture line repayable by the federal 45Q credit. Most of it is the developer's, and the greenhouses are the growers' money, not the county's.",
+  expert: "Every line below is an estimate or a cited figure, shown as a share of the $50 billion first-phase commitment and of the $165 billion bond cap (a ceiling, not cash), with the payer named.",
   homeowner: "None of this is on your bill. The developer pays for capture, heat and the water plant; growers pay for the greenhouses. NMSU warns desalinated water costs more to make than well water, so the lease should fix who pays that difference; the point is that your supply goes up.",
-  legislator: "Total added capital is about 2.5% of the bond cap, or 8% of the $50 billion first phase, before the federal 45Q credit. The county funds nothing; the lease conditions assign each item to the developer or to growers, and the companies' $250,000 desalination study in the CBA becomes a built plant.",
+  legislator: "Total added capital is about 8% of the $50 billion first phase (2.5% of the bond cap, a ceiling, not cash), before the federal 45Q credit. The county funds nothing; the lease conditions assign each item to the developer or to growers, and the companies' $250,000 desalination study in the CBA becomes a built plant.",
   business: "Capital by line item, payer and basis. About $470 million is grower capital for greenhouses; the developer's items recover through the federal 45Q credit, heat and lease revenue and water sales.",
   kid: "It costs about two and a half cents for every dollar of the whole deal, and the government pays most of that back for catching the gas. The company pays for the rest. The farmers pay for the greenhouses. Your family pays nothing.",
 };
@@ -116,7 +116,7 @@ export const takeaways: Record<string, Record<Audience, string>> = {
     overall: "Net gain for humanity: 5 million gallons a day of clean water made from water nobody could drink, added to the town's pipes.",
     expert: "Net gain for humanity: 5 MGD brackish RO at 75% recovery, NMSU-designed, $269.5M system, brine minimized by heat and injected below the aquifer.",
     homeowner: "Your takeaway: your tap gets 5 million gallons a day added, enough for about 16,700 homes, instead of water taken.",
-    legislator: "Your takeaway: the $250,000 study in the CBA becomes a built plant delivered to CRRUA, for about 0.16% of the bond.",
+    legislator: "Your takeaway: the $250,000 study in the CBA becomes a built plant delivered to CRRUA, for about 0.54% of the $50 billion first phase (0.16% of the bond cap).",
     business: "Your takeaway: a designed, priced plant with a utility customer whose demand more than doubles by 2042.",
     kid: "Salty water goes in, clean water comes out for 16,700 homes every day.",
   },

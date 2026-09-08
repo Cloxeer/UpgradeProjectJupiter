@@ -10,6 +10,7 @@ import { statIcons } from "./icons";
 import { Notice } from "./Notice";
 import { useOpenOne } from "./OpenOne";
 import { Emph } from "./Rich";
+import { Truth } from "./Truth";
 
 function Bullets({ items }: { items: { strong: string; rest: string }[] }) {
   return (
@@ -60,7 +61,9 @@ export function HeroSection() {
           {copy.heroStats.map((s) => {
             const Icon = statIcons[s.icon];
             return (
-              <div key={s.label} className="flex flex-col items-center rounded bg-white px-2 py-4 text-center shadow-md sm:px-4 sm:py-5">
+              <div key={s.label} className="relative flex flex-col items-center rounded bg-white px-2 py-4 text-center shadow-md sm:px-4 sm:py-5">
+                {/* The truth label sits in the tile corner so the hero does not get taller. */}
+                <span className="absolute right-1 top-1"><Truth label={s.claim} /></span>
                 <div className="flex items-center justify-center rounded-full text-white" style={{ width: 56, height: 56, backgroundColor: s.color }}>
                   <Icon style={{ width: 32, height: 32 }} />
                 </div>

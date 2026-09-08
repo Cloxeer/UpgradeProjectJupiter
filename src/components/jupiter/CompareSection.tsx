@@ -8,6 +8,7 @@ import { SourceList } from "@/components/Cite";
 import { TheySay } from "./TheySay";
 import { statIcons } from "./icons";
 import { Linked } from "./Rich";
+import { Truth } from "./Truth";
 
 const G = "#2e8b57";
 const R = "#c0392b";
@@ -36,6 +37,11 @@ function Row({ i }: { i: number }) {
       </button>
       {open && (
         <div className="pj-reveal border-t px-4 pb-4 pt-3" style={{ borderColor: "#f0f0f0" }}>
+          {!kid && (
+            <p className="mb-2 text-[13px] font-bold" style={{ color: "#6b6b6b" }}>
+              Their number: <Truth label={r.theirsLabel} /> · Ours: <Truth label={r.oursLabel} />
+            </p>
+          )}
           <p style={{ fontSize: kid ? 18 : 16, lineHeight: 1.6, color: "#3c3c3c" }}><Linked text={why} /></p>
           {!kid && <SourceList ids={r.sources} />}
         </div>

@@ -1,3 +1,6 @@
+import { IT_LOAD_MW, CAPTURE_PENALTY_LO, CAPTURE_PENALTY_HI } from "./blueprint";
+import type { ClaimLabel } from "./claims";
+
 // Net loss vs net gain over time, on their filed numbers. Every figure is derived from a cited source
 // by simple multiplication; the derivation is shown in `how`.
 
@@ -16,16 +19,19 @@ export const BINDING_JOBS = 750;
  */
 export const CAPTURE_START_YEAR = 5;
 export const CAPTURE_FULL_YEAR = 10;
+/** The capture skids and compressors run on the same gas: 5–15% of output (literature 4–6% for anode streams), so gross CO₂ rises by (1 + penalty) once capture runs. In MW: about 120 to 370 of the 2,462. */
+export const penaltyMW = (): [number, number] => [Math.round((IT_LOAD_MW * CAPTURE_PENALTY_LO) / 10) * 10, Math.round((IT_LOAD_MW * CAPTURE_PENALTY_HI) / 10) * 10];
 /** Share of the stacks' CO₂ kept out of the air in a given year: [low, high]. */
 export const captureShare = (y: number): [number, number] => (y < CAPTURE_START_YEAR ? [0.01, 0.01] : y < CAPTURE_FULL_YEAR ? [0.5, 0.75] : [0.9, 0.95]);
-/** Cumulative tons released under the upgrade through year y: [low, high]. Low uses the developers' expected rate with the high capture share; high uses the permitted rate with the low share. Operations start in year 3 (year 2 is their Q3 2028 completion). */
+/** Cumulative tons released under the upgrade through year y: [low, high]. Low uses the developers' expected rate with the high capture share and the low energy penalty; high uses the permitted rate with the low share and the high penalty. From year 5 the gross stream is uplifted by (1 + penalty) because the capture itself burns gas. Operations start in year 3 (year 2 is their Q3 2028 completion). */
 export const ourReleased = (y: number): [number, number] => {
   let lo = 0;
   let hi = 0;
   for (let t = 3; t <= y; t++) {
     const [a, b] = captureShare(t);
-    lo += GHG_EXPECTED_TPY * (1 - b);
-    hi += GHG_PERMIT_TPY * (1 - a);
+    const up = t >= CAPTURE_START_YEAR ? [1 + CAPTURE_PENALTY_LO, 1 + CAPTURE_PENALTY_HI] : [1, 1];
+    lo += GHG_EXPECTED_TPY * up[0] * (1 - b);
+    hi += GHG_PERMIT_TPY * up[1] * (1 - a);
   }
   return [lo, hi];
 };
@@ -53,7 +59,7 @@ export const operating = (y: number) => Math.max(0, y - 2);
 export const FAR_YEAR = 80;
 export const far = (y: number) => y >= FAR_YEAR;
 
-export type Row = { label: string; kidLabel?: string; theirs: (y: number) => string; ours: (y: number) => string; how: string; kidHow?: string; sources: string[] };
+export type Row = { label: string; kidLabel?: string; theirsLabel: ClaimLabel; oursLabel: ClaimLabel; theirs: (y: number) => string; ours: (y: number) => string; how: string; kidHow?: string; sources: string[] };
 
 const mt = (t: number) => (t === 0 ? "0" : `${(t / 1e6).toFixed(t >= 1e8 ? 0 : 1)} million tons`);
 const bgal = (g: number) => (g === 0 ? "0 gallons" : g >= 1e9 ? `${(g / 1e9).toFixed(1)} billion gallons` : `${Math.round(g / 1e6)} million gallons`);
@@ -61,15 +67,19 @@ const bgal = (g: number) => (g === 0 ? "0 gallons" : g >= 1e9 ? `${(g / 1e9).toF
 export const rows: Row[] = [
   {
     label: "CO₂ released into the air, cumulative",
+    theirsLabel: "fact",
+    oursLabel: "projection",
     kidLabel: "Planet-warming gas let into the sky, all added up",
     kidHow: "Their permit allows almost 9 million tons a year. Our plan catches it once the big pipe to the storage rock exists, in year 5, and aims for 90 to 95% by year 10, with a meter to prove it. Before that the chimneys are the same as theirs.",
     theirs: (y) => (far(y) ? `${mt(GHG_EXPECTED_TPY * operating(y))} to ${mt(GHG_PERMIT_TPY * operating(y))} if run as filed for the whole period (estimate). Warming tracks the cumulative total and lasts centuries, so every ton is still in the air.` : operating(y) === 0 ? "0 so far (still building)" : `${mt(GHG_EXPECTED_TPY * operating(y))} to ${mt(GHG_PERMIT_TPY * operating(y))}`),
     ours: (y) => (far(y) ? `${mt(ourReleased(y)[0])} to ${mt(ourReleased(y)[1])} in total if capture holds its 90–95% target from year 10 for the whole period (estimate, a target no plant has yet sustained), falling further as the share of energy from gas falls. The captured share is rock inside concrete and aggregate, or CO₂ under cap rock long past its 50-year federal monitoring period.` : operating(y) === 0 ? "0 so far (still building)" : y < CAPTURE_START_YEAR ? `${mt(ourReleased(y)[0])} to ${mt(ourReleased(y)[1])}: the same stacks as theirs while the storage line and wells are permitted; about 1% used in concrete` : y < CAPTURE_FULL_YEAR ? `${mt(ourReleased(y)[0])} to ${mt(ourReleased(y)[1])}: capture metered from year 5 at 50–75%, the range the best operating plants have averaged` : `${mt(ourReleased(y)[0])} to ${mt(ourReleased(y)[1])}`),
-    how: "Theirs: the draft permit's 8,820,970 tons a year (high end) and the developers' own expectation of about 40% below their 10.14 million application figure, about 6.1 million (low end), × operating years, continued as filed in the long views. Ours, year by year: years 3 and 4 the same stacks with about 1% used in concrete curing, because the storage line and wells cannot be permitted faster (Texas Class VI reviews take about a year, NMSU puts injection wells at 4 to 5 years, and the gas pipeline shows what a right-of-way fight costs); years 5 to 9 capture metered at 50–75%, the range the best operating plants have averaged; from year 10 the 5–10% not captured against a 90–95% target that no plant has yet sustained for a decade, falling further as the share of energy from gas falls (HB93 itself allows methane offsets). Operations start in year 2, their own Q3 2028 target. Every figure from year 80 on is an estimate that continues the documented trend.",
+    how: "Theirs: the draft permit's 8,820,970 tons a year (high end) and the developers' own expectation of about 40% below their 10.14 million application figure, about 6.1 million (low end), × operating years, continued as filed in the long views. Ours, year by year: years 3 and 4 the same stacks with about 1% used in concrete curing, because the storage line and wells cannot be permitted faster (Texas Class VI reviews take about a year, NMSU puts injection wells at 4 to 5 years, and the gas pipeline shows what a right-of-way fight costs); years 5 to 9 capture metered at 50–75%, the range the best operating plants have averaged; from year 10 the 5–10% not captured, of a stream 5–15% larger because the capture skids run on the same gas (about 120 to 370 MW of the 2,462), against a 90–95% target that no plant has yet sustained for a decade, falling further as the share of energy from gas falls (HB93 itself allows methane offsets). Operations start in year 2, their own Q3 2028 target. Every figure from year 80 on is an estimate that continues the documented trend.",
     sources: ["sob", "sob-part-a", "bocc", "cba", "boundary-dam-2024", "epa-class-vi", "nmsu"],
   },
   {
     label: "Water taken from the fresh aquifer and CRRUA's pipes, cumulative",
+    theirsLabel: "fact",
+    oursLabel: "verified-estimate",
     kidLabel: "Water: taken from our pipes, or added to them",
     kidHow: "Their signed deal lets them take 20,000 gallons a day of drinking water, and they already pumped 103 million gallons to build. Our plant makes 5 million gallons a day of clean water from salty water once it is built, in year 5. Multiply by the years after that.",
     theirs: (y) => (far(y) ? bgal(CONSTRUCTION_PUMPED_GAL + POTABLE_CAP_GPD * 365 * y) + " taken at the signed cap alone (estimate), plus undisclosed non-potable use every year. The fresh table's 2000–2020 decline, driven by the whole basin's pumping and not by this campus alone, continued for 250 years; no filed plan or monitoring duty reaches this far." : y === 0 ? bgal(CONSTRUCTION_PUMPED_GAL) + " already pumped for construction" : bgal(CONSTRUCTION_PUMPED_GAL + POTABLE_CAP_GPD * 365 * y) + " (plus undisclosed non-potable use)"),
@@ -79,6 +89,8 @@ export const rows: Row[] = [
   },
   {
     label: "Smog where people live",
+    theirsLabel: "fact",
+    oursLabel: "fact",
     kidLabel: "Smog over the houses",
     kidHow: "Sunland Park already fails the safe-breathing test. Their smog numbers come from testing one small machine and multiplying, and nobody has to keep measuring the real chimneys. Our plan measures every bit and shows it to everyone.",
     theirs: (y) => (far(y) ? `About ${Math.round(37.2 * operating(y)).toLocaleString()} tons of NOx and ${Math.round(161 * operating(y)).toLocaleString()} tons of CO over the period if run as filed (estimate), beside a valley that already fails the ozone standard, estimated from four tests of one 65 kW unit and never measured continuously.` : operating(y) === 0 ? "Construction dust and truck exhaust beside an area that already fails the ozone standard" : "37 tons of NOx, 161 of CO and 124 of VOCs a year (draft permit), beside an area that has failed the ozone standard since 2018, estimated from four tests of one 65 kW unit with no continuous stack monitor required"),
@@ -88,6 +100,8 @@ export const rows: Row[] = [
   },
   {
     label: "Permanent jobs the county can enforce",
+    theirsLabel: "fact",
+    oursLabel: "projection",
     kidLabel: "Jobs the county can count on",
     kidHow: "They signed for 750 jobs. Our plan makes about 3,000: their 1,500 computer jobs plus about 1,500 in greenhouses, water and training.",
     theirs: (y) => (far(y) ? "0 enforceable (estimate). The lease ended in 2056 and the signed agreement has no clause that reaches past its listed payments; whatever runs on the site runs on whoever owns it." : y < 5 ? "0 required yet (750 due within 3 years of opening)" : `${BINDING_JOBS.toLocaleString()} full-time + 50 part-time`),
@@ -97,6 +111,8 @@ export const rows: Row[] = [
   },
   {
     label: "Food grown on site, cumulative",
+    theirsLabel: "fact",
+    oursLabel: "projection",
     kidLabel: "Food grown here",
     kidHow: "150 acres of greenhouses grow up to about 60 million pounds a year once they are built, in year 5. Multiply by the years after that.",
     theirs: () => "0 lbs",
@@ -106,6 +122,8 @@ export const rows: Row[] = [
   },
   {
     label: "Heat blown into the desert air",
+    theirsLabel: "fact",
+    oursLabel: "fact",
     kidLabel: "Heat from the computers",
     kidHow: "The computers make as much heat as 90,000 home furnaces. Their plan blows it into the sky. Ours warms greenhouses in winter and runs chillers in summer.",
     theirs: (y) => (far(y) ? "~2,400 MW every hour for the whole period if run as filed (estimate). Heat is gone the hour it is made; only what it was used for, or not, leaves a trace." : operating(y) === 0 ? "None yet" : "~2,400 MW every hour of the year, about 90,000 home furnaces running flat out"),

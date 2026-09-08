@@ -8,6 +8,7 @@ import { rows, YEARS, operating, far, ourReleased, CAPTURE_START_YEAR, OUR_WATER
 import { Cloud, Neighborhood } from "@/components/blueprint/Parts";
 import { useCopy } from "./AudienceText";
 import { useAudience } from "./Audience";
+import { Truth } from "./Truth";
 
 /*
   Long-view rules, all from cited sources (see the note under the pictures):
@@ -220,7 +221,7 @@ function factsFor(side: "ours" | "theirs", years: number, kid: boolean): Fact[] 
         ? "This is all the planet-warming gas let out since the plant turned on, added up. It does not go away on its own for hundreds of years."
         : theirs
           ? `Running total since operations began (year 2): the permitted 8,820,970 tons a year × ${op} operating years${isFar ? ", an estimate that assumes the plant ran as filed for the whole period" : ""}. Counted cumulatively because warming tracks cumulative CO₂ almost linearly and the effects persist for centuries.`
-          : `Running total since operations began (year 2), shown as the midpoint of a range. Years 3 and 4: the same stacks as theirs with about 1% of the CO₂ used in concrete, because the storage line and wells cannot be permitted faster. Years 5 to 9: capture metered at 50–75%, the range the best operating plants have averaged. From year 10: the 5–10% not captured, against a 90–95% target that no plant has yet sustained for a decade${isFar ? ", continued as an estimate" : ""}. Counted cumulatively because warming tracks cumulative CO₂ almost linearly and the effects persist for centuries.`,
+          : `Running total since operations began (year 2), shown as the midpoint of a range. Years 3 and 4: the same stacks as theirs with about 1% of the CO₂ used in concrete, because the storage line and wells cannot be permitted faster. Years 5 to 9: capture metered at 50–75%, the range the best operating plants have averaged. From year 10: the 5–10% not captured, of a stream 5–15% larger because the capture skids run on the same gas (about 120 to 370 MW of the 2,462), against a 90–95% target that no plant has yet sustained for a decade${isFar ? ", continued as an estimate" : ""}. Counted cumulatively because warming tracks cumulative CO₂ almost linearly and the effects persist for centuries.`,
       sources: ["sob", "ipcc-ar6-spm", "boundary-dam-2024", "epa-class-vi", "nmsu"],
     });
   }
@@ -545,6 +546,11 @@ export function NetLossSection() {
                   </button>
                   {on && (
                     <div className="border-t px-4 pb-4 pt-3" style={{ borderColor: "#f0f0f0", fontSize: kid ? 15 : 13, lineHeight: 1.6, color: "#3c3c3c" }}>
+                      {!kid && (
+                        <p className="mb-1 font-bold" style={{ color: "#6b6b6b" }}>
+                          As filed: <Truth label={r.theirsLabel} /> · Upgraded: <Truth label={r.oursLabel} />
+                        </p>
+                      )}
                       <strong>{kid ? "How we know:" : "How this is calculated:"}</strong> {kid && r.kidHow ? r.kidHow : r.how}
                       {!kid && (
                         <>

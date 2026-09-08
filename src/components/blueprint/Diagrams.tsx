@@ -34,7 +34,7 @@ import { GH_ACRES_PHASE1 } from "@/data/blueprint";
 import { FeasibilityChip } from "@/components/jupiter/Feasibility";
 import { processTM } from "@/data/tobyMoby";
 import { TobyMoby } from "@/components/blueprint/TobyMoby";
-import { humanHeat, tempRange, temp, pctOfBond, GAL_PER_HOME_DAY } from "@/lib/units";
+import { humanHeat, tempRange, temp, pctOfBond, pctOfPhase1, GAL_PER_HOME_DAY } from "@/lib/units";
 import { useOpenOne } from "@/components/jupiter/OpenOne";
 
 /*
@@ -133,7 +133,7 @@ function CostStrip({ millions, label, who }: { millions: number; label: string; 
     <div className="pj-cost mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 rounded px-3 py-2" style={{ backgroundColor: "#f4f4f4", fontSize: 15, color: "#3c3c3c" }}>
       <span className="font-bold uppercase text-[13px]" style={{ color: "#6b6b6b" }}>What this adds</span>
       <span><strong style={{ color: G }}>{dollars}</strong> {label}</span>
-      <span>= <strong style={{ color: G }}>{pctOfBond(millions)}</strong> of the $165B bond<Cite ids={["cba"]} /></span>
+      <span>= <strong style={{ color: G }}>{pctOfPhase1(millions)}</strong> of the $50B first phase · {pctOfBond(millions)} of the $165B cap (a ceiling, not cash)<Cite ids={["cba"]} /></span>
       <span style={{ color: "#6b6b6b" }}>paid by {who}</span>
     </div>
   );
@@ -629,7 +629,7 @@ const GHG_APPLICANT_TPY = 8_820_970; // applicant's figure with 15% safety facto
 const STACKS = 2275;
 
 const pollutants = [
-  { name: "Carbon dioxide (CO₂)", amount: "8,820,970 tons/yr permitted (10.1 million applied for)", does: "Warms the climate. Not a smog gas; it is the climate gas.", standard: "No ambient health standard; it is regulated as a greenhouse gas and reported.", future: "20 years as filed: about 160 million tons in the air at the permitted rate, where CO₂ stays for centuries. Warming is cumulative, so every year adds to the last. Upgraded: about 25 to 50 million tons over the same 20 years, because capture cannot be metered before the storage line in year 5 and reaches its 90–95% target in year 10; falling after that as the gas share falls.", sources: ["sob", "sob-part-a"] },
+  { name: "Carbon dioxide (CO₂)", amount: "8,820,970 tons/yr permitted (10.1 million applied for)", does: "Warms the climate. Not a smog gas; it is the climate gas.", standard: "No ambient health standard; it is regulated as a greenhouse gas and reported.", future: "20 years as filed: about 160 million tons in the air at the permitted rate, where CO₂ stays for centuries. Warming is cumulative, so every year adds to the last. Upgraded: about 25 to 55 million tons over the same 20 years, because capture cannot be metered before the storage line in year 5 and reaches its 90–95% target in year 10; falling after that as the gas share falls.", sources: ["sob", "sob-part-a"] },
   { name: "Nitrogen oxides (NOx)", amount: "37.2 tons/yr (draft permit)", does: "Reacts with VOCs in sunlight to make ground-level ozone, the main ingredient of smog. Irritates lungs, triggers asthma.", standard: "Ozone health standard: 70 ppb over 8 hours. Sunland Park, next door, has failed it since 2018; the campus sits just outside the boundary.", future: "20 years as filed: about 750 tons of NOx estimated from four tests of one 65 kW unit and never measured at the real stacks, beside a town that already fails the ozone standard. Upgraded: the same fuel cells, but every ton measured and posted, with limits set for the capture configuration.", sources: ["sob-part-a", "epa-ozone-naaqs", "sunland-park-ozone"] },
   { name: "Carbon monoxide (CO)", amount: "161.2 tons/yr (draft permit)", does: "Reduces the blood's ability to carry oxygen at high concentrations.", standard: "Above 100 tons/yr, which is what makes the plant a Title V major source.", future: "20 years as filed: about 3,200 tons, released and estimated rather than measured. Upgraded: continuous monitors, so a bad day is known the day it happens.", sources: ["sob-part-a", "sob"] },
   { name: "Volatile organic compounds (VOC)", amount: "124.0 tons/yr (draft permit)", does: "The other half of the smog recipe with NOx.", standard: "Above 100 tons/yr, a second reason the plant is a Title V major source.", future: "20 years as filed: about 2,500 tons feeding summer ozone. Upgraded: measured, posted, and falling with the gas share.", sources: ["sob-part-a", "sob"] },
@@ -785,7 +785,7 @@ export function CarbonDiagram() {
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         <Slider label="Capture efficiency (how much of the CO₂ the box catches)" value={ours ? rate : 0} min={0} max={95} step={5} unit="%" onChange={setRate} disabled={!ours} />
-        <Slider label="Share of captured CO₂ used (greenhouses, concrete, aggregate) instead of stored" value={ours ? useShare : 0} min={0} max={100} step={5} unit="%" onChange={setUseShare} disabled={!ours} />
+        <Slider label="Share of captured CO₂ used (greenhouses, concrete, aggregate) instead of stored" value={ours ? useShare : 0} min={0} max={100} step={1} unit="%" onChange={setUseShare} disabled={!ours} />
       </div>
       <div className="mt-4">
         <Bar what="all the gas the power plant breathes out in a year" total={GHG_PERMIT_TPY} parts={[{ label: "Captured (tons/yr)", value: captured, color: "#003047" }, { label: "Released (tons/yr)", value: left, color: "#9aa5ad" }]} />
@@ -795,7 +795,7 @@ export function CarbonDiagram() {
         <Stat label="Used, not buried" value={`${(used / 1e6).toFixed(1)} Mt`} sub={ours ? "per year into food, concrete and aggregate (buyers set the pace)" : "nothing is used"} color="#2e8b57" />
         <Stat label="Stored as fallback" value={`${(stored / 1e6).toFixed(1)} Mt`} sub={ours ? "per year by pipeline to permitted storage; shrinks as use and clean power grow" : "nothing is captured"} color="#1f7ae0" />
         <Stat label="Equals" value={`${(left / 1e6 / ABQ_LC_MT).toFixed(2)}×`} sub={<>Albuquerque + Las Cruces (~6.7 Mt)<Cite ids={["abq-lc"]} /></>} color={r >= 0.9 ? "#2e8b57" : "#c0392b"} />
-        <Stat label="Energy penalty" value={`~${Math.round(penaltyMW)} MW`} sub={ours ? "more fuel cells to run capture (estimate)" : "none, nothing is captured"} color="#c0392b" />
+        <Stat label="Energy penalty" value={`~${Math.round(penaltyMW)} MW`} sub={ours ? "more fuel cells to run capture (5–15% of 2,462 MW ≈ 120–370 MW; this is the 15% case, estimate)" : "none, nothing is captured"} color="#c0392b" />
       </div>
       {ours && <CostStrip millions={1500} label="for capture and compression on 2,275 stacks, manifolded by cluster (order-of-magnitude estimate, no vendor quote yet)" who="the developer" />}
 
@@ -877,7 +877,7 @@ export function WaterDiagram() {
   const tankFill = 8 + (mgd / 10) * 24;
 
   return (
-    <Card voices={{ homeowner: "This is your tap. CRRUA needs 6 million gallons a day next year and 15 by 2042. The plant makes 5 million a day from water nobody could drink, so your supply goes up instead of down.", legislator: "The CBA already funds a $250,000 study of exactly this plant. NMSU designed and priced it in 2023. A lease condition that funds construction instead of a study delivers 5 MGD to CRRUA for about 0.16% of the bond.", business: "A designed, priced plant with a utility customer whose demand more than doubles by 2042, plus El Paso's precedent of recovering water and minerals from the brine. Water is a product here, not a cost.", overall: "Deep under the desert is salty water nobody can drink. A filter takes the salt out and gives 16,700 homes' worth of clean water a day to the town." }} kicker="Process 3 · Water" title="Salty groundwater in, clean water out" mode={mode} onMode={setMode} kid="Deep under the desert there is a huge lake of salty water nobody can drink. In their plan the campus takes drinking water from the town pipe and pumps an old farm's water for its fills. In ours, pumps bring the salty water up, server heat warms it, and a super-fine filter lets water through but not salt. Three cups out of four come out clean and go to homes. The salty cup is pumped very deep, below the good water, so it can never mix back in." sources={["nmsu", "epwater", "twdb", "cduaws", "cba", "faq", "haussamen-water", "cbd-well", "epa-watersense", "usgs-mesilla"]} intro={(<p>
+    <Card voices={{ homeowner: "This is your tap. CRRUA needs 6 million gallons a day next year and 15 by 2042. The plant makes 5 million a day from water nobody could drink, so your supply goes up instead of down.", legislator: "The CBA already funds a $250,000 study of exactly this plant. NMSU designed and priced it in 2023. A lease condition that funds construction instead of a study delivers 5 MGD to CRRUA for about 0.54% of the $50 billion first phase (0.16% of the bond cap).", business: "A designed, priced plant with a utility customer whose demand more than doubles by 2042, plus El Paso's precedent of recovering water and minerals from the brine. Water is a product here, not a cost.", overall: "Deep under the desert is salty water nobody can drink. A filter takes the salt out and gives 16,700 homes' worth of clean water a day to the town." }} kicker="Process 3 · Water" title="Salty groundwater in, clean water out" mode={mode} onMode={setMode} kid="Deep under the desert there is a huge lake of salty water nobody can drink. In their plan the campus takes drinking water from the town pipe and pumps an old farm's water for its fills. In ours, pumps bring the salty water up, server heat warms it, and a super-fine filter lets water through but not salt. Three cups out of four come out clean and go to homes. The salty cup is pumped very deep, below the good water, so it can never mix back in." sources={["nmsu", "epwater", "twdb", "cduaws", "cba", "faq", "haussamen-water", "cbd-well", "epa-watersense", "usgs-mesilla"]} intro={(<p>
         {ours ? (
           <>
             NMSU has already designed a 5 MGD brackish reverse-osmosis plant for Santa Teresa: 75% recovery, 1 MGD skids, $115.5M plant, $269.5M system, brine to deep injection wells
@@ -1039,7 +1039,7 @@ export function WaterDiagram() {
             <Stat label="Homes' daily water" value={`~${Math.round(households / 1000).toLocaleString()}k`} sub={<>at {GAL_PER_HOME_DAY} gal/day per home<Cite ids={["epa-watersense"]} /></>} color="#2e8b57" />
             <Stat label="Of CRRUA's 2027 demand" value={`${Math.round((mgd / CRRUA_2027_MGD) * 100)}%`} sub={<>6 MGD projected<Cite ids={["nmsu"]} /></>} color="#2e8b57" />
             <Stat label="Whole-system cost" value={`$${Math.round(system)}M`} sub={<>plant alone ${Math.round(plant)}M, NMSU 2023<Cite ids={["nmsu"]} /></>} color="#d99a00" />
-            <Stat label="Share of $165B bond" value={pctOfBond(system)} sub="what we ask them to fund" color="#d99a00" />
+            <Stat label="Share of $50B first phase" value={pctOfPhase1(system)} sub={`${pctOfBond(system)} of the $165B cap · what we ask them to fund`} color="#d99a00" />
             <Stat label="Brine to inject" value={`${brine.toFixed(1)} MGD`} sub={<>two deep wells ~20 miles out<Cite ids={["nmsu"]} /></>} color="#8e3b2f" />
           </>
         ) : (
@@ -1260,7 +1260,7 @@ export function GreenhouseDiagram() {
   const [part, setPart] = useState<string | null>(null);
   const ours = mode === "ours";
   const winter = season === "winter";
-  const jobs = acres * GH_JOBS_PER_ACRE;
+  const jobs = Math.round((acres * GH_JOBS_PER_ACRE) / 100) * 100; // rounded to hundreds, as the site plan tile is
   const lbs = acres * GH_LBS_PER_ACRE;
   const waterSaved = lbs * GH_WATER_SAVED_GAL_PER_LB;
   const co2 = acres * GH_CO2_TONS_PER_ACRE;
@@ -1324,7 +1324,7 @@ export function GreenhouseDiagram() {
             <Tag x={180 + (nBays * bayW) / 2} y={20} text={`${acres} acres · ${nBays} block${nBays > 1 ? "s" : ""} of ~50 acres · sealed, few pesticides`} anchor="middle" bold size={9} color="#1f5f3a" />
             <Tag x={182} y={134} text={winter ? `winter blocks: roots at ${tempRange(20, 22)} · summer: wet-pad cooling` : "summer: wet pads and shade cool the glass (uses water) · root heat off"} anchor="start" size={7.5} />
             {Array.from({ length: nPeople }).map((_, i) => <Person key={i} x={190 + i * 18} y={160} />)}
-            <Tag x={190 + (nPeople * 18) / 2} y={196} text={`~${Math.round(jobs).toLocaleString()} jobs · ${GH_JOBS_PER_ACRE} per acre incl. packing (industry average)`} anchor="middle" size={8} color="#003047" />
+            <Tag x={190 + (nPeople * 18) / 2} y={196} text={`~${jobs.toLocaleString()} jobs · ${GH_JOBS_PER_ACRE} per acre incl. packing, rounded (industry average)`} anchor="middle" size={8} color="#003047" />
             <Flow d={`M${180 + nBays * bayW},75 H540`} color="#2e8b57" width={5} dur={2.2} />
             <Clickable id="packing" selected={part} onSelect={setPart}>
               <rect x={540} y={50} width={92} height={50} rx={4} fill="#d99a00" />
@@ -1377,11 +1377,11 @@ export function GreenhouseDiagram() {
       <div className="pj-stats mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
         {ours ? (
           <>
-            <Stat label="Permanent jobs" value={`~${Math.round(jobs).toLocaleString()}`} sub={`${GH_JOBS_PER_ACRE} per acre incl. packing (industry average)`} color="#d99a00" />
+            <Stat label="Permanent jobs" value={`~${jobs.toLocaleString()}`} sub={`${GH_JOBS_PER_ACRE} per acre incl. packing, rounded to hundreds (industry average)`} color="#d99a00" />
             <Stat label="Food per year" value={`${(lbs / 1_000_000).toFixed(0)}M lbs`} sub="tomatoes, peppers, greens, berries (industry average)" color="#2e8b57" />
             <Stat label="Water saved vs. fields" value={`${(waterSaved / 1_000_000_000).toFixed(1)}B gal`} sub="per year, recirculating hydroponics" color="#1f7ae0" />
             <Stat label="Winter heat drawn" value={`${Math.round(acres * GH_PEAK_MW_PER_ACRE)} MW`} sub={`≈ ${humanHeat(acres * GH_PEAK_MW_PER_ACRE).furnaces.toLocaleString()} home furnaces, coldest night (estimate)`} color="#c0392b" />
-            <Stat label="CO₂ used by plants" value={`${Math.round(co2 / 1000)}k tons`} sub="per year, a small share of capture" color="#1f7ae0" />
+            <Stat label="CO₂ fed to plants" value={`${Math.round(co2 / 1000)}k tons`} sub="per year with vents closed (cool season, mornings); about 0.1% of the 8.8 Mt stream (estimate)" color="#1f7ae0" />
             <Stat label="Lease + heat revenue" value={`$${lease.toFixed(0)}M/yr`} sub="to the developer, new (estimate)" color="#d99a00" />
           </>
         ) : (

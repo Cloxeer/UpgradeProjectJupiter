@@ -62,7 +62,7 @@ export const audiencePanels: Record<Audience, AudiencePanel> = {
       { text: "Five million gallons a day of new drinking water delivered to CRRUA from the plant NMSU already designed and priced at $269.5 million, instead of a $250,000 study of the same idea.", sources: ["nmsu", "cba"] },
       { text: "Capture-ready stacks from day one, capture metered once the storage line is connected (about year 5), and every ton of smog measured continuously and published, in a county that already fails the ozone standard; the draft permit requires no continuous monitor.", sources: ["sob", "sob-part-a", "sunland-park-ozone", "ala-sota-2025"] },
       { text: "Bills in play: the Microgrid Oversight Act (SB 235) passed the Senate in 2026 and died in the House, with sponsors planning to reintroduce it; a statewide data-center moratorium is proposed for 2027 with no text yet; a waste-heat reuse rule is this site's proposal.", sources: ["dailylobo", "krwg-reintro", "sourcenm-moratorium"] },
-      { text: "Cost to the developer is about 2.5% of the $165 billion bond cap before the federal capture credit; the county's only enforcement tool is the IRB lease, which can be amended only by agreement, so the conditions have to be negotiated in at the next consent the companies need.", sources: ["cba", "sandoval-intel"] },
+      { text: "Cost to the developer is about 8% of the $50 billion first phase (2.5% of the $165 billion bond cap, a ceiling, not cash) before the federal capture credit; the county's only enforcement tool is the IRB lease, which can be amended only by agreement, so the conditions have to be negotiated in at the next consent the companies need.", sources: ["cba", "sandoval-intel"] },
     ],
     links: [
       { label: "The three bills and who to call", href: "/legislators" },
@@ -73,7 +73,7 @@ export const audiencePanels: Record<Audience, AudiencePanel> = {
     heroSubhead: "3,000 enforceable jobs, $1 billion for schools over 30 years, 5 million gallons of new water a day, and a permit the courts will let stand.",
     whatIsIntro: "For an elected official the question is simple: the county's leverage is the lease, and the lease can be changed only by agreement, at the consents the companies still need. Here is what the documents say the project is, and what six conditions would change.",
     netlossIntro: "On the developers' own filed numbers, here is what each year of the plan as filed costs the county, and what the same years deliver under the upgrade.",
-    speedIntro: "Same site, same builder. The upgrade adds about 2.5% of the bond cap up front, most of it repayable by the federal capture credit, and changes what the county gets out of it.",
+    speedIntro: "Same site, same builder. The upgrade adds about 8% to the $50 billion first phase up front (2.5% of the bond cap), most of it repayable by the federal capture credit, and changes what the county gets out of it.",
     ctaLabel: "See the bills and the conditions",
   },
   homeowner: {
@@ -108,7 +108,7 @@ export const audiencePanels: Record<Audience, AudiencePanel> = {
       { text: "Packing and logistics: a packing house on the public road at the Santa Teresa border crossing, with its own gate, feeding the produce trade that already runs through the port of entry.", sources: ["render"] },
       { text: "Workforce: a $50 million NMSU / DACC institute on site training for power, water, greenhouse and hardware jobs, against $4 million for workforce education in the signed agreement.", sources: ["cba"] },
       { text: "For the developer: heat sold instead of blown away, lease and water revenue, the federal 45Q credit on captured CO₂, and a permit that survives review. The signed CBA already offsets $4.5 million in permit fees; the county could put similar certainty on the table for a plan that meets the conditions (our proposal, not a promise).", sources: ["cba", "nmpr-stay"] },
-      { text: "Total added capital is about $3.4 to 3.9 billion, about 2.5% of the $165 billion bond cap or 8% of the $50 billion first phase, before the 45Q credit, with the greenhouses off the developer's balance sheet.", sources: ["cba", "irs-45q"] },
+      { text: "Total added capital is about $3.4 to 3.9 billion, about 8% of the $50 billion first phase (2.5% of the $165 billion bond cap, a ceiling, not cash), before the 45Q credit, with the greenhouses off the developer's balance sheet.", sources: ["cba", "irs-45q"] },
       { text: "For Oracle, STACK or BorderPlex: a capture-first, monitored, geothermal-backed campus is the version that ends the court stays and the 2027 moratorium talk. To our knowledge it would be the first hyperscale campus in the country to combine capture, heat reuse, water production and a public emissions meter, and it hands investor relations five auditable numbers a quarter: tons captured, gas hours avoided, gallons delivered, jobs verified, lease revenue per acre. That is the line for the earnings call, and it is what takes the legislators off your back.", sources: ["nmpr-stay", "sourcenm-moratorium", "dailylobo", "fervo-google"] },
     ],
     links: [
@@ -117,10 +117,10 @@ export const audiencePanels: Record<Audience, AudiencePanel> = {
       { label: "Help improve the plan", href: "/#help" },
     ],
     highlightsOrder: [0, 1, 3, 4, 6, 7, 2, 5],
-    heroSubhead: "New leases, new water to sell, heat that is sold instead of thrown away, and a trained workforce on site, for about 2.5% of the bond cap before the federal credit.",
+    heroSubhead: "New leases, new water to sell, heat that is sold instead of thrown away, and a trained workforce on site, for about 8% of the $50 billion first phase (2.5% of the bond cap) before the federal credit.",
     whatIsIntro: "For an investor or an operator, the filed plan is a closed box: one tenant, one product, no side businesses. Here is what it is, and what six conditions would open up on the same land.",
     netlossIntro: "The as-filed column is what the site produces for anyone but the tenant: nothing. The upgraded column is the new revenue, year by year.",
-    speedIntro: "How fast and how cheap: same builder, about 2.5% of the bond cap in added capital, most of the capture line repayable by 45Q, and the greenhouses on grower capital.",
+    speedIntro: "How fast and how cheap: same builder, about 8% of the $50 billion first phase in added capital (2.5% of the bond cap), most of the capture line repayable by 45Q, and the greenhouses on grower capital.",
     ctaLabel: "See what it costs and who pays",
   },
   kid: {
