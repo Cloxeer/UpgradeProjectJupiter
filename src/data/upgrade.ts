@@ -21,7 +21,7 @@ export const mission = "Keep the data center. Make it catch its carbon, reuse it
 export const steps = [
   { n: 1, who: "The county", what: "negotiates the six conditions into the bond lease at its next consent point, before the fuel cells arrive.", why: "The county holds title during the 30-year bond and the lease is its only remedy, but the lease can be changed only by agreement; the leverage is every consent the companies still need.", href: "/legislators#commission", cta: "Who signs the lease" },
   { n: 2, who: "Santa Fe", what: "passes the three bills so the same rules apply to the next data center.", why: "The Microgrid Oversight Act already passed the Senate in 2026. The other two are drafted.", href: "/legislators#bills", cta: "The three bills" },
-  { n: 3, who: "You", what: "sign, call your commissioner, and show up on a second or fourth Tuesday.", why: "None of the six conditions is in the lease yet. Concrete is being poured now.", href: "/petition", cta: "Sign the petition" },
+  { n: 3, who: "You", what: "write a comment on the NMED permit record, speak at the commission on a second or fourth Tuesday, call your commissioner, then add your name so the count can be shown.", why: "A petition has no legal force here; comments on the permit record and at the commission do. Your name adds to a count we hand the commissioners; the record is what binds.", href: "/petition", cta: "Sign the petition" },
 ] as const;
 
 /** Six tabs. Petition is the button, not a tab. */

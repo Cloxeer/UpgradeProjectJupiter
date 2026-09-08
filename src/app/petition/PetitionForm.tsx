@@ -9,7 +9,7 @@ export function PetitionForm() {
         <div className="text-[13px] font-black uppercase tracking-wide" style={{ color: "#fdb715" }}>Add your name</div>
         <h2 className="mt-1 font-black text-white" style={{ fontSize: 28, lineHeight: 1.1 }}>Sign the petition</h2>
         <p className="mx-auto mt-4 max-w-[520px]" style={{ fontSize: 16, lineHeight: 1.6, color: "rgba(255,255,255,0.85)" }}>
-          It takes about a minute. Your name and ZIP code make it count. The petition goes to the Doña Ana County commissioners and New
+          It takes about a minute. Your name and ZIP code add to a count of support we hand to the Doña Ana County commissioners and New
           Mexico legislators. Then spread the word: tell your friends and family, go to your local representatives and council meetings,
           learn, understand and teach others.
         </p>
@@ -20,8 +20,8 @@ export function PetitionForm() {
         <div className="mt-5 rounded p-3 text-left" style={{ backgroundColor: "rgba(255,255,255,0.08)" }}>
           <div className="text-[12px] font-black uppercase tracking-wide" style={{ color: "#fdb715" }}>After you sign</div>
           <p className="mt-1" style={{ fontSize: 14, lineHeight: 1.55, color: "rgba(255,255,255,0.85)" }}>
-            The names go in the public-comment packet handed to the commissioners at a second- or fourth-Tuesday meeting, and to the legislators who sponsor the bills.
-            Step two takes sixty seconds:{" "}
+            This petition is a count of support, not a legal instrument. We hand the names and ZIP codes to the county commissioners at a public meeting before the next lease vote and to the legislators sponsoring the bills.
+            What binds is the record: a written comment on NMED Permit 10883 and three minutes at the microphone on a second or fourth Tuesday. Start with your commissioner:{" "}
             <a href="/legislators#commission" className="font-bold underline" style={{ color: "#fdb715" }}>
               email your commissioner, script included →
             </a>
