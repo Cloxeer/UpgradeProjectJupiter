@@ -390,7 +390,7 @@ export const petitionDemands: { ask: string; theirs: string; why: string }[] = [
   },
   {
     ask: "The computers' waste heat offered to greenhouse growers on the empty acres beside the cooling fans, local growers first.",
-    theirs: "All the heat, about 2,400 megawatts, is blown into the desert by fans. The land beside them stays bare.",
+    theirs: "All the heat, about 2,462 megawatts, is blown into the desert by fans. The land beside them stays bare.",
     why: "About 150 acres of greenhouses would grow up to about 60 million pounds of food a year and add 600 to 1,000 jobs. Dutch data centers already sit beside greenhouse growers, and Germany requires data centers to reuse a share of their heat.",
   },
   {

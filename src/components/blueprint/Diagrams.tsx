@@ -518,7 +518,7 @@ export function HeatDiagram() {
   const reusedH = humanHeat(reused);
 
   return (
-    <Card tools={ours ? <SeasonToggle season={season} onChange={setSeason} /> : null} voices={{ homeowner: "This is the heat that would otherwise blow across the desert toward your street. Used, it grows tomatoes in winter and makes cold for the greenhouses in summer.", legislator: "A waste-heat reuse condition in the lease is the cheapest item on the list: about $60 million of standard district-heating hardware, paid by the developer and recovered by selling heat to growers; Germany already requires data centers to reuse a share of their heat. The Waste-Heat Reuse bill makes it standard practice statewide.", business: "About 2,400 MW of heat is rejected for free today. Sold to growers in winter and to the water plant year-round, a small slice of it becomes a revenue line on the same fans you already pay for.", overall: "The computers' heat is free. Their plan throws it away. Ours sells it to greenhouses in winter and turns it into cooling in summer." }} kicker="Process 1 · Heat" title="Where the heat goes" mode={mode} onMode={setMode} kid="Computers get hot, like a laptop on your lap. This place cools millions of them with water. In their plan the warm water goes to big fans that blow all the heat into the sky. In ours, one extra box lets greenhouses and the water plant use the warmth first. The fans still handle the rest." sources={["render", "waterpdf", "faq", "sob", "sweden", "carrier-furnace"]} intro={(<p>
+    <Card tools={ours ? <SeasonToggle season={season} onChange={setSeason} /> : null} voices={{ homeowner: "This is the heat that would otherwise blow across the desert toward your street. Used, it warms tomato roots in winter and preheats the water plant all year; in summer the greenhouses cool with wet pads.", legislator: "A waste-heat reuse condition in the lease is the cheapest item on the list: about $60 million of standard district-heating hardware, paid by the developer and recovered by selling heat to growers; Germany already requires data centers to reuse a share of their heat. The Waste-Heat Reuse bill makes it standard practice statewide.", business: "About 2,462 MW of heat is rejected for free today. Sold to growers in winter and to the water plant year-round, a small slice of it becomes a revenue line on the same fans you already pay for.", overall: "The computers' heat is free. Their plan throws it away. Ours sells it to greenhouses in winter and to the water plant all year; summer cooling stays evaporative." }} kicker="Process 1 · Heat" title="Where the heat goes" mode={mode} onMode={setMode} kid="Computers get hot, like a laptop on your lap. This place cools millions of them with water. In their plan the warm water goes to big fans that blow all the heat into the sky. In ours, one extra box lets greenhouses and the water plant use the warmth first. The fans still handle the rest." sources={["render", "waterpdf", "faq", "sob", "sweden", "carrier-furnace"]} intro={(<p>
         {ours ? (
           <>
             Nearly all the electricity a chip uses turns into heat. Their halls run closed-loop liquid cooling with a one-time fill<Cite ids={["waterpdf", "faq"]} />, and their render
@@ -567,7 +567,7 @@ export function HeatDiagram() {
             <Clickable id="waterPlantHeat" selected={part} onSelect={setPart}>
               <rect x={428} y={148} width={214} height={36} rx={4} fill="#1f7ae0" />
               <text x={535} y={163} textAnchor="middle" fontSize={10} fontWeight={800} fill="#fff" pointerEvents="none">WATER PLANT</text>
-              <text className="pj-num " x={535} y={177} textAnchor="middle" fontSize={8.5} fill="#e6f0ff" pointerEvents="none">{winter ? `preheats salty feed by 15 °C / 27 °F · ${desal} MW` : `preheat + brine drying · ${desal + brine} MW`}</text>
+              <text className="pj-num " x={535} y={177} textAnchor="middle" fontSize={8.5} fill="#e6f0ff" pointerEvents="none">{winter ? `preheats salty feed by 15 °C / 27 °F · ${desal} MW` : `desal preheat · ${desal + brine} MW (brine drying not counted at 45–65 °C)`}</text>
             </Clickable>
             <NewMarker box={{ x: 428, y: 148, w: 214, h: 36 }} side="left" />
 
@@ -615,7 +615,7 @@ export function HeatDiagram() {
       <div className="pj-stats mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
         <Stat label="Heat put to work" value={`${Math.round(reused)} MW`} sub={ours ? <>≈ {reusedH.furnaces.toLocaleString()} home furnaces&apos; worth<Cite ids={["carrier-furnace"]} /> · {((reused / HEAT_MW) * 100).toFixed(1)}% of the total · {winter ? "winter: greenhouse root heat + desal preheat" : "summer: desal preheat only"}</> : "none offered; dry coolers reject it all"} color={ours ? "#2e8b57" : "#c0392b"} />
         <Stat label="Heat blown into the air" value={`${Math.round(dry).toLocaleString()} MW`} sub={<>≈ {dryH.furnaces.toLocaleString()} furnaces running flat out, every hour</>} color="#c0392b" />
-        <Stat label="Fan & chiller electricity saved" value={`~${Math.round(fansSaved)} MW`} sub={ours ? "a few percent of the heat moved (estimate)" : "nothing saved"} color="#d99a00" />
+        <Stat label="Fan & chiller electricity saved" value={`~${Math.round(fansSaved)} MW`} sub={ours ? "≈10% of the heat moved, an estimate; not how the exchanger pays back" : "nothing saved"} color="#d99a00" />
       </div>
       {ours && <CostStrip millions={60} label="for the heat exchanger, pumps and insulated header (standard district-heating hardware, estimate)" who="the developer; it pays back through heat sold to growers, not fan savings" />}
       <p className="pj-fine mt-3 text-[14px]" style={{ color: "#6b6b6b" }}>
@@ -890,7 +890,9 @@ export function WaterDiagram() {
             NMSU has already designed a 5 MGD brackish reverse-osmosis plant for Santa Teresa: 75% recovery, 1 MGD skids, $115.5M plant, $269.5M system, brine to deep injection wells
             <Cite ids={["nmsu"]} />. The Mesilla Basin holds roughly 65 million acre-feet of recoverable water<Cite ids={["nmsu", "cduaws"]} />. El Paso&apos;s Kay Bailey Hutchison plant has run
             this way since 2007 at 27.5 MGD<Cite ids={["epwater", "twdb"]} />. <strong>Not a loop:</strong> the brine goes 3,700–4,000 ft down, below the aquifer, exactly so it cannot come
-            back and re-salt the water being treated.
+            back and re-salt the water being treated. CRRUA needs about 6 MGD in 2027 and 15 by 2042, so a 5 MGD plant has no surplus in Phase 1; it replaces fresh-well pumping,
+            and about 2 MGD of the towns&apos; reclaimed water goes back into the aquifer through recharge basins from year 5 under a State Engineer storage-and-recovery permit
+            <Cite ids={["nmsu", "nm-asr-act"]} />.
           </>
         ) : (
           <>
@@ -1031,8 +1033,9 @@ export function WaterDiagram() {
             <text x={538} y={206} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">NMSU&apos;s 5 MGD plant design sits unfunded</text>
             <text x={538} y={240} textAnchor="middle" fontSize={8.5} fill="#6b6b6b">&quot;nine households&quot; counts only the fills,</text>
             <text x={538} y={254} textAnchor="middle" fontSize={8.5} fill="#6b6b6b">not offices, construction or the sod farm</text>
-            <text x={538} y={290} textAnchor="middle" fontSize={8.5} fill="#8e3b2f">Mesilla Basin storage has fallen in most</text>
-            <text x={538} y={304} textAnchor="middle" fontSize={8.5} fill="#8e3b2f">five-year periods since 1985 (USGS)</text>
+            <text x={538} y={290} textAnchor="middle" fontSize={8.5} fill="#8e3b2f">USGS has measured the Mesilla Basin wells</text>
+            <text x={538} y={304} textAnchor="middle" fontSize={8.5} fill="#8e3b2f">every year since 1987; the fresh table</text>
+            <text x={538} y={318} textAnchor="middle" fontSize={8.5} fill="#8e3b2f">fell between 2000 and 2020 (USGS)</text>
           </>
         )}
       </svg></div>
@@ -1062,7 +1065,7 @@ export function WaterDiagram() {
       </div>
       {ours && <CostStrip millions={system} label={`for the whole ${mgd} MGD system: wells, plant, storage, brine wells, lines (NMSU 2023 figures)`} who="the developer, delivered to CRRUA and the county" />}
       <p className="pj-fine mt-3 text-[14px]" style={{ color: "#6b6b6b" }}>
-        Brine does not have to be the end of the line: El Paso&apos;s board approved recovering about 3 MGD of drinking water and minerals from its KBH brine in 2026<Cite ids={["epwater-brine-recovery"]} /> (the first mineral-recovery attempt there failed during commissioning, so we count the water and not the minerals<Cite ids={["ewm-elpaso"]} />), and a brine concentrator run on summer server heat would cut the injected volume by half or more (an estimate with a real energy cost)<Cite ids={["zld-nature-water", "reclamation-zld"]} />. Costs interpolate NMSU&apos;s 2023 figures for 1, 5 and 10 MGD plants and scale to the whole system using the study&apos;s 5 MGD ratio. Well count and home count are
+        Brine does not have to be the end of the line: El Paso&apos;s board approved recovering about 3 MGD of drinking water and minerals from its KBH brine in 2026<Cite ids={["epwater-brine-recovery"]} /> (the first mineral-recovery attempt there failed during commissioning, so we count the water and not the minerals<Cite ids={["ewm-elpaso"]} />), and a brine concentrator would cut the injected volume, but it needs water hotter than this 45–65 °C loop, so it is not counted here<Cite ids={["zld-nature-water", "reclamation-zld"]} />. Costs interpolate NMSU&apos;s 2023 figures for 1, 5 and 10 MGD plants and scale to the whole system using the study&apos;s 5 MGD ratio. Well count and home count are
         illustrative. Reverse osmosis is the proven method; server heat is a helper, not the engine. The county is already designing a 4 MGD plant with $15 million of Jupiter tax money
         <Cite ids={["star-plant"]} />; the plan asks the developer to fund the full NMSU system instead.
       </p>
@@ -1322,11 +1325,11 @@ export function GreenhouseDiagram() {
               <text x={180 + Math.ceil(nBays / 2) * bayW + ((nBays - Math.ceil(nBays / 2)) * bayW) / 2} y={60} textAnchor="middle" fontSize={8} fontWeight={900} fill="#1f5f3a" pointerEvents="none">SUMMER</text>
             </Clickable>
             <Clickable id="absorptionChiller" selected={part} onSelect={setPart}>
-              <rect x={136} y={96} width={42} height={24} rx={3} fill="#1f7ae0" />
-              <text x={157} y={106} textAnchor="middle" fontSize={6.5} fontWeight={800} fill="#fff" pointerEvents="none">CHILLER</text>
-              <text x={157} y={115} textAnchor="middle" fontSize={5.5} fill="#e6f0ff" pointerEvents="none">heat → cold</text>
+              <rect x={130} y={94} width={48} height={30} rx={3} fill={winter ? "#8a949b" : "#1f7ae0"} />
+              <text x={154} y={103} textAnchor="middle" fontSize={6} fontWeight={800} fill="#fff" pointerEvents="none">SUMMER:</text>
+              <text x={154} y={111} textAnchor="middle" fontSize={6} fontWeight={800} fill="#fff" pointerEvents="none">PADS + VENTS</text>
+              <text x={154} y={119} textAnchor="middle" fontSize={5} fill="#e6f0ff" pointerEvents="none">(heat not used)</text>
             </Clickable>
-            <Flow d={`M178,108 H${180 + Math.ceil(nBays / 2) * bayW}`} color="#1f7ae0" width={3} dur={2} r={2.2} active={!winter} />
             <NewMarker box={{ x: 178, y: 26, w: nBays * bayW + 4, h: 96 }} side="left" align="start" />
             <Tag x={180 + (nBays * bayW) / 2} y={20} text={`${acres} acres · ${nBays} block${nBays > 1 ? "s" : ""} of ~50 acres · sealed, few pesticides`} anchor="middle" bold size={9} color="#1f5f3a" />
             <Tag x={182} y={134} text={winter ? `winter blocks: roots at ${tempRange(20, 22)} · summer: wet-pad cooling` : "summer: wet pads and shade cool the glass (uses water) · root heat off"} anchor="start" size={7.5} />
@@ -1340,7 +1343,7 @@ export function GreenhouseDiagram() {
             </Clickable>
             <NewMarker box={{ x: 540, y: 50, w: 92, h: 50 }} side="top" />
             {Array.from({ length: nTrucks }).map((_, i) => <Truck key={i} x={540 + (i % 3) * 30} y={112 + Math.floor(i / 3) * 18} />)}
-            <Tag x={586} y={160} text={`${(lbs / 1e6).toFixed(0)}M lbs of food a year`} anchor="middle" bold size={9} color="#1f5f3a" />
+            <Tag x={586} y={160} text={`up to ${(lbs / 1e6).toFixed(0)}M lbs of food a year`} anchor="middle" bold size={9} color="#1f5f3a" />
             <rect x={180} y={220} width={452} height={34} rx={4} fill="#dbe9f7" stroke="#1f7ae0" strokeWidth={1} />
             <text x={406} y={234} textAnchor="middle" fontSize={9} fontWeight={800} fill="#1f5f3a">RECIRCULATING HYDROPONICS · water goes around and around</text>
             <text className="pj-num" x={406} y={247} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">~90% less water per pound than open fields · saves about {(waterSaved / 1e9).toFixed(1)} billion gallons a year vs. field farming</text>
@@ -1385,7 +1388,7 @@ export function GreenhouseDiagram() {
         {ours ? (
           <>
             <Stat label="Permanent jobs" value={`~${jobs.toLocaleString()}`} sub={`${GH_JOBS_PER_ACRE} per acre incl. packing, rounded to hundreds (industry average)`} color="#d99a00" />
-            <Stat label="Food per year" value={`${(lbs / 1_000_000).toFixed(0)}M lbs`} sub="tomatoes, peppers, greens, berries (industry average)" color="#2e8b57" />
+            <Stat label="Food per year" value={`up to ${(lbs / 1_000_000).toFixed(0)}M lbs`} sub="tomatoes, peppers, greens, berries (industry average)" color="#2e8b57" />
             <Stat label="Water saved vs. fields" value={`${(waterSaved / 1_000_000_000).toFixed(1)}B gal`} sub="per year, recirculating hydroponics" color="#1f7ae0" />
             <Stat label="Winter heat drawn" value={`${Math.round(acres * GH_PEAK_MW_PER_ACRE)} MW`} sub={`≈ ${humanHeat(acres * GH_PEAK_MW_PER_ACRE).furnaces.toLocaleString()} home furnaces, coldest night (estimate)`} color="#c0392b" />
             <Stat label="CO₂ fed to plants" value={`${Math.round(co2 / 1000)}k tons`} sub="per year with vents closed (cool season, mornings); about 0.1% of the 8.8 Mt stream (estimate)" color="#1f7ae0" />

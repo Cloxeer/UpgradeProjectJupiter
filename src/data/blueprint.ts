@@ -205,7 +205,7 @@ export const roads = {
 // ─── Process constants ──────────────────────────────────────────────────────
 
 export const IT_LOAD_MW = 2462;
-export const HEAT_MW = 2400;
+export const HEAT_MW = 2462; // IT load ≈ heat rejected [sob]
 export const GH_PEAK_MW_PER_ACRE = 0.6; // winter night root-zone + air heating
 export const DESAL_PREHEAT_MW = 10; // 6.7 MGD feed, +5 to 10 °C, inside membrane temperature limits (estimate)
 export const BRINE_CONCENTRATOR_MW = 0; // not counted: thermal concentrators need water hotter than this 45–65 °C loop

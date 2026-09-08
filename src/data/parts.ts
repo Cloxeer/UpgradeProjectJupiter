@@ -51,7 +51,7 @@ export const partDocs: Record<string, PartDoc> = {
     title: "Dry coolers",
     kind: "theirs",
     what: "Rows of large fans blowing desert air across finned pipes, like a car radiator scaled up to hundreds of feet. The warm loop water cools inside the pipes and goes back to the chips. No water evaporates, which is why their plan calls this a closed loop with a one-time fill.",
-    why: "It is how the campus gets rid of roughly 2,400 MW of heat, about the same as 90,000 home furnaces running at once (rough equivalence, see Sources). The heat itself is not smog; it is warm air. The smog and CO₂ come from the fuel-cell stacks in Process 2.",
+    why: "It is how the campus gets rid of roughly 2,462 MW of heat, about the same as 90,000 home furnaces running at once (rough equivalence, see Sources). The heat itself is not smog; it is warm air. The smog and CO₂ come from the fuel-cell stacks in Process 2.",
     theyDo: "Their render shows two long dry-cooler bands and a third row behind the back halls. We keep every one of them; they simply do less work in winter.",
     kid: "Giant fans that blow the computer heat into the sky, the way a car's radiator fan cools the engine.",
     photo: { src: `${crops}/dry.jpg`, alt: "Dry cooler rows in their render", caption: "The long dry-cooler rows in their render.", credit: renderCredit, href: "https://projectjupitertogether.com/wp-content/uploads/2026/08/Project-Jupiter-Site-Render_Labeled-8.27.26-Website.jpg" },
@@ -379,7 +379,7 @@ const partProsCons: Record<string, { pros: string[]; cons: string[] }> = {
   },
   waterPlantHeat: {
     pros: ["Warming the salty water before it hits the filters means more clean water comes out of the same filters."],
-    cons: ["It uses only a sliver of the campus heat, about 15 megawatts out of 2,400, so it is a helper, not the main use."],
+    cons: ["It uses only a sliver of the campus heat, about 15 megawatts out of 2,462, so it is a helper, not the main use."],
   },
   naturalGas: {
     pros: ["Gas power is steady and can be built quickly."],

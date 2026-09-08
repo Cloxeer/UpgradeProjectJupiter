@@ -41,7 +41,7 @@ export const openQuestions: OpenQuestion[] = [
     sources: ["nmsu", "carboncure", "blue-planet"],
   },
   {
-    q: "What does 2,400 megawatts of warmth do to the night air over Santa Teresa?",
+    q: "What does 2,462 megawatts of warmth do to the night air over Santa Teresa?",
     thought:
       "Nearly all of the electricity the chips use leaves as heat, and in the filed plan the dry coolers hand every megawatt of it to the desert air, day and night, all year. Cities are measurably warmer at night than the land around them because of stored and released heat; that is documented for cities. It is not documented for a single 2.4 gigawatt campus in open desert, and we found no study of this site. The upgrade takes about 1% of the heat on average for greenhouses and the water plant; the rest still goes to the air.",
     next: "A ring of cheap temperature and humidity sensors around the campus and in Sunland Park, logging from before the first hall opens, published with the stack meters. It costs almost nothing and turns a guess into a record.",
