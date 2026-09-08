@@ -38,7 +38,7 @@ export const audiencePanels: Record<Audience, AudiencePanel> = {
     bullets: [
       { text: "Air: as filed, 8.8 million tons of CO₂ a year permitted, with smog gases estimated from one small test unit and never measured, beside a valley that has failed the federal ozone standard since 2018. Upgraded: the CO₂ is caught, metered and used, and every stack has a public meter.", sources: ["sob", "sob-part-a", "sunland-park-ozone", "ala-sota-2025"] },
       { text: "Water: as filed, drinking water taken from the local utility and more pumped from the fresh aquifer; 103 million gallons went to construction in five months. Upgraded: 5 million gallons a day of clean water made from salty groundwater nobody could drink, and given to the towns.", sources: ["cba", "haussamen-water", "cbd-well", "nmsu"] },
-      { text: "Land and food: as filed, the acres beside the fans stay bare desert and about 2,400 MW of heat is blown into the sky. Upgraded: 150 acres of greenhouses grow up to about 60 million pounds of food a year on that heat, with far fewer pesticides than field farming.", sources: ["render", "agriport", "notice"] },
+      { text: "Land and food: as filed, the acres beside the fans stay bare desert and about 2,462 MW of heat is blown into the sky. Upgraded: 150 acres of greenhouses grow up to about 60 million pounds of food a year on that heat, with far fewer pesticides than field farming.", sources: ["render", "agriport", "notice"] },
       { text: "People: as filed, 750 binding jobs. Upgraded: about 3,000, with a training school on site so the work goes to people who already live here, and gas hours that fall every year as geothermal and wind take over.", sources: ["cba", "epm-jobs", "fervo-google"] },
     ],
     links: [

@@ -41,7 +41,7 @@ export const openQuestions: OpenQuestion[] = [
     sources: ["nmsu", "carboncure", "blue-planet"],
   },
   {
-    q: "What does 2,400 megawatts of warmth do to the night air over Santa Teresa?",
+    q: "What does 2,462 megawatts of warmth do to the night air over Santa Teresa?",
     thought:
       "Nearly all of the electricity the chips use leaves as heat, and in the filed plan the dry coolers hand every megawatt of it to the desert air, day and night, all year. Cities are measurably warmer at night than the land around them because of stored and released heat; that is documented for cities. It is not documented for a single 2.4 gigawatt campus in open desert, and we found no study of this site. The upgrade takes about 1% of the heat on average for greenhouses and the water plant; the rest still goes to the air.",
     next: "A ring of cheap temperature and humidity sensors around the campus and in Sunland Park, logging from before the first hall opens, published with the stack meters. It costs almost nothing and turns a guess into a record.",
@@ -50,7 +50,7 @@ export const openQuestions: OpenQuestion[] = [
   {
     q: "Who is watching in 2100, and with whose money?",
     thought:
-      "Federal rules make a CO₂ storage operator monitor for 50 years after injection stops and post the money for it up front. NMED groundwater permits require monitoring while the permit lives. The signed agreement's obligations run only while the bonds are outstanding and it names no one after that; after the 30-year lease the shareholders own the site. Between the last permit and 2276 the only instruments that can exist are a bond and a public archive of the data.",
+      "Federal rules make a CO₂ storage operator monitor for 50 years after injection stops and post the money for it up front. NMED groundwater permits require monitoring while the permit lives. The signed agreement's obligations run only while the bonds are outstanding and it names no one after that; after the 30-year lease the shareholders own the site. Between the last permit and 2106 the only instruments that can exist are a bond and a public archive of the data.",
     next: "The sixth condition: a closure and monitoring bond sized by an engineer and revised every five years, the way the county already requires of solar farms, with the meter and well data archived where the public can reach it.",
     sources: ["epa-class-vi", "cba", "dac-solar-decom"],
   },
@@ -72,7 +72,7 @@ export const openQuestions: OpenQuestion[] = [
     q: "What is the site's real lifetime, and why does every clock on it run at a different speed?",
     thought:
       "Servers turn over in three to five years, fuel-cell stacks in about five, the lease in thirty, the state's net-zero deadline in nineteen. The water the plant draws is a deep reserve NMSU describes as outside the hydrologic cycle. Every obligation in the filed deal is written on the shortest of these clocks. The physical consequences run on the longest.",
-    next: "Match each obligation to the clock of the thing it governs: stack emissions yearly, jobs yearly, aquifer levels yearly for as long as the wells exist, closure whenever it comes. That is what the year-250 view on this site is for.",
+    next: "Match each obligation to the clock of the thing it governs: stack emissions yearly, jobs yearly, aquifer levels yearly for as long as the wells exist, closure whenever it comes. That is what the year-80 view on this site is for.",
     sources: ["bloom-stack-life", "cba", "nmsu"],
   },
   // The outside review (Sept. 2026) raised four questions. Two are already on the plan: the Class VI void is why capture is first metered

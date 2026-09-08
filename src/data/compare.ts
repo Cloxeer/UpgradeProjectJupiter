@@ -64,7 +64,7 @@ export const compareRows: CompareRow[] = [
     ours: { num: "60M lbs", tail: "of food a year" },
     theirsLabel: "fact",
     oursLabel: "projection",
-    why: "The computers reject about 2,400 megawatts of warmth, roughly 90,000 home furnaces' worth, through fans. One heat exchanger before those fans sends it to about 150 acres of greenhouses on the empty land beside them. At top-tier tomato yields that is up to about 60 million pounds of produce a year, grown with far fewer pesticides than field farming. Dutch data centers already sit beside greenhouse growers at Agriport A7, and Germany now requires data centers to reuse a share of their heat; Gothenburg runs a small pilot.",
+    why: "The computers reject about 2,462 megawatts of warmth, roughly 90,000 home furnaces' worth, through fans. One heat exchanger before those fans sends it to about 150 acres of greenhouses on the empty land beside them. At top-tier tomato yields that is up to about 60 million pounds of produce a year, grown with far fewer pesticides than field farming. Dutch data centers already sit beside greenhouse growers at Agriport A7, and Germany now requires data centers to reuse a share of their heat; Gothenburg runs a small pilot.",
     kidWhy: "Computers get hot. Their plan blows all the heat into the sky. Ours pipes the warm water to greenhouses next door and grows tomatoes and lettuce all year.",
     voices: {
       business: "About 150 leasable acres with heat and CO₂ supplied, around $40,000 to $60,000 an acre a year in lease and heat revenue (heat near propane parity, estimate), on grower capital. Heat becomes a product with a buyer.",
