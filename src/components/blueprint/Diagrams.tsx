@@ -559,7 +559,7 @@ export function HeatDiagram() {
               <rect x={426} y={12} width={nGh * ghW + 4} height={54} fill="transparent" />
               {Array.from({ length: nGh }).map((_, i) => <GreenhouseIcon key={i} x={428 + i * ghW} y={14} w={ghW - 3} h={50} warm={winter} />)}
             </Clickable>
-            <Tag x={535} y={8} text={`3 · GREENHOUSES · ${acres} acres`} anchor="middle" bold color="#1f5f3a" size={9} />
+            <Tag x={535} y={8} text={`3 · GREENHOUSES · ${acres} acres by year 10 (first block year 5)`} anchor="middle" bold color="#1f5f3a" size={9} />
             <Tag x={535} y={80} text={winter ? `warm water heats roots · ${Math.round(gh)} MW ≈ ${humanHeat(gh).furnaces.toLocaleString()} furnaces` : "summer: greenhouses cool with wet pads; only the water plant takes heat"} anchor="middle" size={8} color={winter ? "#1f5f3a" : "#1f7ae0"} />
             <NewMarker box={{ x: 428, y: 14, w: nGh * ghW, h: 50 }} side="left" />
 
@@ -798,7 +798,7 @@ export function CarbonDiagram() {
         <Bar what="all the gas the power plant breathes out in a year" total={GHG_PERMIT_TPY} parts={[{ label: "Captured (tons/yr)", value: captured, color: "#003047" }, { label: "Released (tons/yr)", value: left, color: "#9aa5ad" }]} />
       </div>
       <div className="pj-stats mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-        <Stat label="Released" value={`${(releasedLow / 1e6).toFixed(2)}–${(releasedHigh / 1e6).toFixed(2)} Mt`} sub={<>expected vs permitted stream, counting the 5–15% more gas the capture burns<Cite ids={["sob"]} /></>} color={r >= 0.9 ? "#2e8b57" : "#c0392b"} />
+        <Stat label="Released" value={`${(releasedLow / 1e6).toFixed(2)}–${(releasedHigh / 1e6).toFixed(2)} Mt`} sub={<>per year at the slider target; metered from year 5, 50–75% until year 10; counts the 5–15% more gas the capture burns<Cite ids={["sob"]} /></>} color={r >= 0.9 ? "#2e8b57" : "#c0392b"} />
         <Stat label="Used, not buried" value={`${(used / 1e6).toFixed(1)} Mt`} sub={ours ? "per year into food, concrete and aggregate (buyers set the pace)" : "nothing is used"} color="#2e8b57" />
         <Stat label="Stored as fallback" value={`${(stored / 1e6).toFixed(1)} Mt`} sub={ours ? "per year by pipeline to permitted storage; shrinks as use and clean power grow" : "nothing is captured"} color="#1f7ae0" />
         <Stat label="Equals" value={`${(left / 1e6 / ABQ_LC_MT).toFixed(2)}×`} sub={<>Albuquerque + Las Cruces (~6.7 Mt)<Cite ids={["abq-lc"]} /></>} color={r >= 0.9 ? "#2e8b57" : "#c0392b"} />
@@ -977,6 +977,7 @@ export function WaterDiagram() {
             <Flow d="M310,168 V196" color="#2e8b57" width={3} dur={2} r={2.4} />
             <Tag x={270} y={230} text={`${Math.round(households / 1000)}k homes' daily water · ${Math.round((mgd / CRRUA_2027_MGD) * 100)}% of CRRUA's 2027 need`} anchor="middle" size={8} color="#1f5f3a" bold />
             <Tag x={270} y={244} text="used water goes back to CRRUA's treatment plant, as today" anchor="middle" size={7.5} color="#6b6b6b" />
+            <Tag x={270} y={258} text="reclaimed water recharged ~2 MGD from year 5 (permit needed)" anchor="middle" size={7.5} color="#6b6b6b" />
 
             <Flow d="M420,102 V215 H520 V262" color="#8e3b2f" width={Math.max(2, 2 + brine * 1.5)} dur={3} />
             <Clickable id="brineWell" selected={part} onSelect={setPart}>
@@ -1041,13 +1042,13 @@ export function WaterDiagram() {
       </svg></div>
       <PartInfo id={part} onClose={() => setPart(null)} />
 
-      <Slider label="Plant capacity" value={ours ? mgd : 0} min={ours ? 1 : 0} max={10} step={1} unit="MGD" onChange={setMgd} disabled={!ours} />
+      <Slider label="Plant size (MGD; 5 designed, 10 only if CRRUA demand triggers it, about year 10)" value={ours ? mgd : 0} min={ours ? 1 : 0} max={10} step={1} unit="MGD" onChange={setMgd} disabled={!ours} />
       <div className="pj-stats mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
         {ours ? (
           <>
             <Stat label="Clean water made" value={`${mgd} M gal/day`} sub={`${Math.round(acreFeet).toLocaleString()} acre-feet a year`} color="#1f7ae0" />
             <Stat label="Homes' daily water" value={`~${Math.round(households / 1000).toLocaleString()}k`} sub={<>at {GAL_PER_HOME_DAY} gal/day per home<Cite ids={["epa-watersense"]} /></>} color="#2e8b57" />
-            <Stat label="Of CRRUA's 2027 demand" value={`${Math.round((mgd / CRRUA_2027_MGD) * 100)}%`} sub={<>6 MGD projected<Cite ids={["nmsu"]} /></>} color="#2e8b57" />
+            <Stat label="Of CRRUA's 2027 demand" value={`${Math.round((mgd / CRRUA_2027_MGD) * 100)}%`} sub={<>6 MGD projected; plant opens about 2031 (year 5)<Cite ids={["nmsu"]} /></>} color="#2e8b57" />
             <Stat label="Whole-system cost" value={`$${Math.round(system)}M`} sub={<>plant alone ${Math.round(plant)}M, NMSU 2023<Cite ids={["nmsu"]} /></>} color="#d99a00" />
             <Stat label="Share of $50B first phase" value={pctOfPhase1(system)} sub={`${pctOfBond(system)} of the $165B cap · what we ask them to fund`} color="#d99a00" />
             <Stat label="Brine to inject" value={`${brine.toFixed(1)} MGD`} sub={<>two deep wells ~20 miles out<Cite ids={["nmsu"]} /></>} color="#8e3b2f" />
@@ -1220,7 +1221,7 @@ export function SolarDiagram() {
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
         <Slider label="Geothermal online by year 10 (2036), MW (target)" value={ours ? geoMW : 0} min={0} max={500} step={25} unit="MW" onChange={setGeoMW} disabled={!ours} />
-        <Slider label="Wind + solar under a delivered contract (MW; needs new transmission)" value={ours ? ppaMW : 0} min={0} max={2000} step={100} unit="MW" onChange={setPpaMW} disabled={!ours} />
+        <Slider label="Wind + solar under a delivered contract (MW; needs new transmission; target)" value={ours ? ppaMW : 0} min={0} max={2000} step={100} unit="MW" onChange={setPpaMW} disabled={!ours} />
         <Slider label="Roofs with solar" value={ours ? step : 0} min={0} max={solarSteps.length} step={1} unit={`of ${solarSteps.length}`} onChange={setStep} disabled={!ours} />
       </div>
       <div className="mt-4">
@@ -1331,7 +1332,7 @@ export function GreenhouseDiagram() {
               <text x={154} y={119} textAnchor="middle" fontSize={5} fill="#e6f0ff" pointerEvents="none">(heat not used)</text>
             </Clickable>
             <NewMarker box={{ x: 178, y: 26, w: nBays * bayW + 4, h: 96 }} side="left" align="start" />
-            <Tag x={180 + (nBays * bayW) / 2} y={20} text={`${acres} acres · ${nBays} block${nBays > 1 ? "s" : ""} of ~50 acres · sealed, few pesticides`} anchor="middle" bold size={9} color="#1f5f3a" />
+            <Tag x={180 + (nBays * bayW) / 2} y={20} text={`${acres} acres · ${nBays} block${nBays > 1 ? "s" : ""} of ~50 acres by year 10 (first block year 5) · sealed, few pesticides`} anchor="middle" bold size={9} color="#1f5f3a" />
             <Tag x={182} y={134} text={winter ? `winter blocks: roots at ${tempRange(20, 22)} · summer: wet-pad cooling` : "summer: wet pads and shade cool the glass (uses water) · root heat off"} anchor="start" size={7.5} />
             {Array.from({ length: nPeople }).map((_, i) => <Person key={i} x={190 + i * 18} y={160} />)}
             <Tag x={190 + (nPeople * 18) / 2} y={196} text={`~${jobs.toLocaleString()} jobs · ${GH_JOBS_PER_ACRE} per acre incl. packing, rounded (industry average)`} anchor="middle" size={8} color="#003047" />
@@ -1387,7 +1388,7 @@ export function GreenhouseDiagram() {
       <div className="pj-stats mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
         {ours ? (
           <>
-            <Stat label="Permanent jobs" value={`~${jobs.toLocaleString()}`} sub={`${GH_JOBS_PER_ACRE} per acre incl. packing, rounded to hundreds (industry average)`} color="#d99a00" />
+            <Stat label="Permanent jobs" value={`~${jobs.toLocaleString()}`} sub={`by year 10 (first block year 5); ${GH_JOBS_PER_ACRE} per acre incl. packing, rounded to hundreds (industry average)`} color="#d99a00" />
             <Stat label="Food per year" value={`up to ${(lbs / 1_000_000).toFixed(0)}M lbs`} sub="tomatoes, peppers, greens, berries (industry average)" color="#2e8b57" />
             <Stat label="Water saved vs. fields" value={`${(waterSaved / 1_000_000_000).toFixed(1)}B gal`} sub="per year, recirculating hydroponics" color="#1f7ae0" />
             <Stat label="Winter heat drawn" value={`${Math.round(acres * GH_PEAK_MW_PER_ACRE)} MW`} sub={`≈ ${humanHeat(acres * GH_PEAK_MW_PER_ACRE).furnaces.toLocaleString()} home furnaces, coldest night (estimate)`} color="#c0392b" />

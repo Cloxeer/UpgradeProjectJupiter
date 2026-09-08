@@ -35,7 +35,7 @@ export const zoneKid: Record<string, string> = {
   capture: "Our box that catches the gas from the power plant before it floats away.",
   solar: "Solar panels on the roofs and in a strip along the fans.",
   institute: "A packing house for the food and a school that teaches people the jobs.",
-  water: "Our machine that turns salty water into clean water for 16,700 homes a day.",
+  water: "The towns need more water than they have. Our machine makes enough for 16,700 homes from salty water, so the fresh wells can rest a bit; it opens when you are about five years older.",
   greenhouse: "Our greenhouses, warmed by the computers, growing tomatoes and lettuce all year.",
   buffer: "A strip of desert kept open around the edge.",
 };
@@ -61,7 +61,7 @@ export const zoneKidName: Record<string, string> = {
 export const kidSteps: Record<string, string[]> = {
   "Process 1 · Heat": ["Computers get hot", "Warm water leaves", "Our box passes the heat on", "Tomatoes get warm, glass gets cool", "Fans blow the rest away"],
   "Process 2 · Carbon": ["Power plant breathes out gas", "Dryer takes the water out", "Box catches the gas", "Some feeds plants and concrete", "The rest goes deep underground"],
-  "Process 3 · Water": ["Salty water comes up", "Computer heat warms it", "Filter takes the salt out", "Clean water goes to homes", "Salt goes deep down, never back"],
+  "Process 3 · Water": ["Salty water comes up", "Computer heat warms it", "Filter takes the salt out", "Fresh wells get to rest a bit", "Salt goes deep down, never back"],
   "Process 4 · Retire the gas": ["Sun on every roof", "Hot rock makes power at night", "Wind farm sends power by wire", "Gas machines rest more each year"],
   "Process 5 · Food & jobs": ["Warm water under the plants", "Gas from the box feeds them", "Tomatoes all year", "Trucks take the food to town", "About 3,000 jobs"],
 };
@@ -117,7 +117,7 @@ export const takeaways: Record<string, Record<Audience, string>> = {
     homeowner: "Your takeaway: nothing changes at your tap until about 2031; then 5 million gallons a day from salty water replaces pumping from the fresh wells the towns depend on, and the towns' used water starts going back into the ground.",
     legislator: "Your takeaway: the CBA's $250,000 buys a study; the county is building a 4 MGD plant with $15M of Jupiter tax money; this condition has the developer fund the full $269.5M NMSU system so that tax money stays with schools, delivered by year 5, and files the recharge permit in year 1 (Albuquerque's took six years).",
     business: "Your takeaway: a designed, priced plant with a utility customer whose demand hits 15 MGD by 2042, built by year 5, no surplus to sell in Phase 1.",
-    kid: "Salty water goes in, clean water comes out for 16,700 homes every day.",
+    kid: "The towns need more water than they have. Salty water goes in and enough for 16,700 homes comes out, so the fresh wells can rest a bit; it opens when you are about five years older.",
   },
   "Process 4 · Retire the gas": {
     overall: "Net gain for humanity: every hour the fuel cells rest is an hour of no exhaust, and those hours grow every year.",
