@@ -56,13 +56,12 @@ Years count from 2026. Their schedule is used for what they build; ours adds onl
 | 19–20 | 2045–46 | HB93 net-zero date (offsets allowed) | Gas share falling on a public meter (target) |
 | 30 | 2056 | Lease ends; shareholders own the site | Closure bond exercised or renewed |
 | 40–80 | | | Well series shows whether decline slowed; bond + archive outlive the permits |
-| 250 | 2276 | Estimate | Estimate, labelled |
 
 Code: `CAPTURE_START_YEAR`, `captureShare()`, `OUR_WATER_START_YEAR`, `RECHARGE_START_YEAR`, `FAR_YEAR` in `src/data/netloss.ts`; `HB93_YEAR` in `NetLossSection.tsx` compares calendar years (fires at selection 20); `timelineYears` in `src/data/blueprint.ts`.
 
 ## 7. Wording rules Sebastian set
-- Strictly factual, sourced, professional; "net gain for humanity" framing, grounded in present-day law while thinking 80–250 years out. Never make anything up; every claim against a primary document.
-- 250-year view is an **estimate**, never "no projection". Water gauge for ours: **decline slowed**, not held or rising, until recharge and expansion are real. Pros/cons in plain sentences. Condense, never lengthen; prefer chips/tooltips/folds. **Text changes only, no UI changes** unless asked. `src/data/jupiter.ts` stays untouched.
+- Strictly factual, sourced, professional; "net gain for humanity" framing, grounded in present-day law while thinking 80 years out. Never make anything up; every claim against a primary document.
+- The year-80 view is an estimate, labelled, never "no projection". Water gauge for ours: **decline slowed**, not held or rising, until recharge and expansion are real. Pros/cons in plain sentences. Condense, never lengthen; prefer chips/tooltips/folds. **Text changes only, no UI changes** unless asked. `src/data/jupiter.ts` stays untouched.
 - Kid voice (Toby & Moby) must stay factual; kid pitches anchor ages to years explicitly.
 - **Truth labels (Sept. 8):** structured claims carry one of four labels from `src/data/claims.ts` rendered by `<Truth/>` (hidden for kids): Fact = in a signed or filed document; Verified estimate = priced or measured by a named institution, not built here; Projection = our arithmetic on industry averages; Unknown = no document answers it. Applied on compare rows, cost table, hero tiles, feasibility checks, net-gain rows, zone stat tiles. Prose stays unlabelled; the "(ESTIMATE†)" dagger stays for aggregate totals.
 - **Gates (Sept. 8):** every demand has a `gate` (test, verifier, by, ifMissed) and a `clause` (model lease text). The county cannot stop operations (NMED permit; CBA makes the lease the sole remedy), so every consequence is a lease consequence: conditioned payment withheld, IRB Safeguards clawback, bond exercised, assignment consent withheld. Never write "no operations permitted until". Clauses are labelled "model text for counsel, not legal advice".
