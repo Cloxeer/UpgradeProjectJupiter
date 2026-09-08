@@ -112,11 +112,11 @@ export const takeaways: Record<string, Record<Audience, string>> = {
     kid: "The gas gets caught in a box instead of floating over your house.",
   },
   "Process 3 · Water": {
-    overall: "Net gain for humanity: 5 million gallons a day of clean water made from water nobody could drink, added to the town's pipes.",
-    expert: "Net gain for humanity: 5 MGD brackish RO at 75% recovery, NMSU-designed, $269.5M system, brine minimized by heat and injected below the aquifer.",
-    homeowner: "Your takeaway: your tap gets 5 million gallons a day added, enough for about 16,700 homes, instead of water taken.",
-    legislator: "Your takeaway: the $250,000 study in the CBA becomes a built plant delivered to CRRUA, for about 0.54% of the $50 billion first phase (0.16% of the bond cap).",
-    business: "Your takeaway: a designed, priced plant with a utility customer whose demand more than doubles by 2042.",
+    overall: "Net gain for humanity: the towns need 6 million gallons a day next year and the plant to make 5 of them from salty water is already designed; this condition has the developer build it instead of paying for a study, open about 2031, with the towns' used water put back into the ground once the state permit is granted.",
+    expert: "Net gain for humanity: 5 MGD brackish RO at 75% recovery, NMSU-designed, $269.5M system, brine minimized by heat and injected below the aquifer; no Phase 1 surplus (CRRUA 6 MGD 2027); ~2 MGD reclaimed recharge from year 5 under NMSA 72-5A.",
+    homeowner: "Your takeaway: nothing changes at your tap until about 2031; then 5 million gallons a day from salty water replaces pumping from the fresh wells the towns depend on, and the towns' used water starts going back into the ground.",
+    legislator: "Your takeaway: the CBA's $250,000 buys a study; the county is building a 4 MGD plant with $15M of Jupiter tax money; this condition has the developer fund the full $269.5M NMSU system so that tax money stays with schools, delivered by year 5, and files the recharge permit in year 1 (Albuquerque's took six years).",
+    business: "Your takeaway: a designed, priced plant with a utility customer whose demand hits 15 MGD by 2042, built by year 5, no surplus to sell in Phase 1.",
     kid: "Salty water goes in, clean water comes out for 16,700 homes every day.",
   },
   "Process 4 · Retire the gas": {
@@ -138,30 +138,60 @@ export const takeaways: Record<string, Record<Audience, string>> = {
 };
 
 /** Their plan, as filed, in their own terms: what the theirs mode of each process card says. No net-gain framing. Sources: CBA, BOCC packet, NMED Statement of Basis (cited on the cards). */
-export const theirsCards: Record<string, { title: string; takeaway: string; kidTakeaway: string }> = {
+export const theirsCards: Record<string, { title: string; takeaway: Partial<Record<Audience, string>> & { overall: string; expert: string }; kidTakeaway: string }> = {
   "Process 1 · Heat": {
     title: "Heat blown into the air",
-    takeaway: "As filed: a closed-loop dry-cooling system rejects all of the roughly 2,462 MW of server heat to the air, and neither the CBA nor the permit filings offer that heat to anyone.",
+    takeaway: {
+      overall: "As filed: all the computers' heat goes out through big fans into the sky, and nobody is offered it.",
+      homeowner: "As filed: the warm air from the fans blows across the desert toward your street, and none of that heat warms anything or grows anything for your town.",
+      legislator: "As filed: neither the community benefits agreement nor the permit papers say a word about the heat, so nothing obliges the developer to offer it to anyone.",
+      business: "As filed: the fans that throw the heat away are a cost with no revenue line, and the heat itself is never priced or sold.",
+      expert: "As filed: a closed-loop dry-cooling system rejects all of the roughly 2,462 MW of server heat to the air, and neither the CBA nor the permit filings offer that heat to anyone.",
+    },
     kidTakeaway: "The computers' heat goes to giant fans that blow it into the sky, and nobody uses it.",
   },
   "Process 2 · Carbon": {
     title: "Gas fuel cells, exhaust to the sky",
-    takeaway: "As filed: 2,462 MW of gas fuel cells permitted for 8,820,970 tons of CO₂e a year (10.1 million applied for; the developers expect about 40% less), no capture, emission factors from four 4-hour tests of one 65 kW unit with no continuous stack monitors required, “100% carbon-free energy matching by 2031” as an accounting commitment, and HB93 net-zero by 2045 with methane offsets allowed.",
+    takeaway: {
+      overall: "As filed: the gas power plant may put 8.8 million tons of CO₂ into the air every year, nothing is caught, and no meter on the chimneys is required.",
+      homeowner: "As filed: the exhaust drifts over the houses next door every day and night, nobody measures it at the chimneys, and the clean-energy promise for 2031 is paper credits, not cleaner air.",
+      legislator: "As filed: the permit allows 8.8 million tons of CO₂ a year, requires no meter on the chimneys, and the 2031 clean-energy pledge and the 2045 net-zero law can both be met on paper with credits and offsets.",
+      business: "As filed: 8.8 million tons of CO₂ a year with nothing caught, no meters, and no credit income, while the air permit sits stayed in court.",
+      expert: "As filed: 2,462 MW of gas fuel cells permitted for 8,820,970 tons of CO₂e a year (10.1 million applied for; the developers expect about 40% less), no capture, emission factors from four 4-hour tests of one 65 kW unit with no continuous stack monitors required, “100% carbon-free energy matching by 2031” as an accounting commitment, and HB93 net-zero by 2045 with methane offsets allowed.",
+    },
     kidTakeaway: "The power machines breathe out gas into the sky all day and all night, and nobody measures each chimney.",
   },
   "Process 3 · Water": {
     title: "Town water in, a fund and a study out",
-    takeaway: "As filed: a potable cap of 20,000 gallons a day on average (60,000 at peak), an undisclosed non-potable operating volume, 103 million gallons pumped April to August 2026 under an emergency authorization, a $50M water fund (about $25M collected, flowing early 2027), $250,000 toward a desalination study, and the county building its own 4 MGD STAR plant with $15M of Jupiter tax money.",
+    takeaway: {
+      overall: "As filed: the campus draws town drinking water under a cap, pumps an old farm's water for its fills, and pays for a $250,000 study of a water plant, not the plant.",
+      homeowner: "As filed: the campus takes water from the same town pipe and the same fresh wells your house depends on, and it makes no new water for your tap.",
+      legislator: "As filed: the agreement caps drinking water at 20,000 gallons a day, leaves the other water volume unstated, gives a $50 million fund and a $250,000 study, and the county is building its own water plant with $15 million of the project's tax money.",
+      business: "As filed: a $50 million payment to the water utility and a $250,000 study, with no water plant on the books and no water to sell.",
+      expert: "As filed: a potable cap of 20,000 gallons a day on average (60,000 at peak), an undisclosed non-potable operating volume, 103 million gallons pumped April to August 2026 under an emergency authorization, a $50M water fund (about $25M collected, flowing early 2027), $250,000 toward a desalination study, and the county building its own 4 MGD STAR plant with $15M of Jupiter tax money.",
+    },
     kidTakeaway: "The computer place takes some drinking water from the town pipe and pays money into a water fund, and the town builds its own water machine.",
   },
   "Process 4 · Retire the gas": {
     title: "Gas fuel cells, all year, plus batteries",
-    takeaway: "As filed: 2,462 MW of Bloom fuel cells on natural gas 8,760 hours a year plus battery storage, fed by the 17.7-mile Green Chile lateral (up to 400 MMcf/day) whose state-trust segment was denied on Mar. 20 and July 15, 2026, with carbon-free matching by 2031 through credits.",
+    takeaway: {
+      overall: "As filed: gas fuel cells run all day every day, with batteries; the clean-energy promise for 2031 is paper credits, not the machines.",
+      homeowner: "As filed: the gas machines never rest, so there is no hour of the year without exhaust over your neighborhood, and the gas pipe to feed them has been refused twice.",
+      legislator: "As filed: the lease has no schedule for cutting gas hours; the 2031 promise is met with credits, and the 2045 net-zero law can be met with offsets, so nothing changes at the machines.",
+      business: "As filed: gas is the largest running cost, bought all year at an unfixed price, and the pipeline to deliver it has been refused twice and delayed to 2027.",
+      expert: "As filed: 2,462 MW of Bloom fuel cells on natural gas 8,760 hours a year plus battery storage, fed by the 17.7-mile Green Chile lateral (up to 400 MMcf/day) whose state-trust segment was denied on Mar. 20 and July 15, 2026, with carbon-free matching by 2031 through credits.",
+    },
     kidTakeaway: "The gas machines run every hour of every day, and the gas pipe to feed them has been told no twice.",
   },
   "Process 5 · Food & jobs": {
     title: "750 jobs, no greenhouses",
-    takeaway: "As filed: 750 full-time and 50 part-time jobs binding within 3 years (1,500 advertised) at a $75k–$100k average wage, at least 2,500 construction jobs, $4M for workforce programs, a $1M habitat fund and $12M a year in lieu of taxes; no greenhouses and no training institute.",
+    takeaway: {
+      overall: "As filed: 750 full-time jobs are promised in the lease, 1,500 advertised, and the land beside the coolers stays empty.",
+      homeowner: "As filed: 750 full-time jobs are promised for your area, no food is grown, and the land next to the fans stays bare desert.",
+      legislator: "As filed: the binding number is 750 full-time and 50 part-time jobs within 3 years, the advertised 1,500 is not in the agreement, and nothing in it covers greenhouses or training.",
+      business: "As filed: a $12 million a year payment in lieu of taxes, 750 binding jobs, and no lease income from the empty land beside the coolers.",
+      expert: "As filed: 750 full-time and 50 part-time jobs binding within 3 years (1,500 advertised) at a $75k–$100k average wage, at least 2,500 construction jobs, $4M for workforce programs, a $1M habitat fund and $12M a year in lieu of taxes; no greenhouses and no training institute.",
+    },
     kidTakeaway: "The deal promises 750 jobs and some money for the town, and the land next to the fans stays empty desert.",
   },
 };
