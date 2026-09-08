@@ -85,7 +85,6 @@ export const timelineKid: Record<number, string> = {
   20: "Twenty years on: the law says the plant must count as clean by 2045, but it lets a gas plant count by cutting other pollution somewhere else. Our plan asks for the real thing: fewer gas hours every year, measured, as far as hot rock and wind can go.",
   25: "Twenty-five years on: the whole site is built out, with water, food, power and training on one piece of land.",
   30: "Thirty years on: the deal ends and the land goes back on the tax rolls. Our plan paid schools about $1 billion along the way; theirs paid $360 million.",
-  250: "Two hundred and fifty years on, our best guess: the gas catcher has been measured the whole time and the gas machines rest more than they run, the water underground dropped much more slowly because the town's cleaned water went back into it, and the gas we caught is stone. The deep wells are still checked every year, because money was set aside at the start to pay for it. In their plan, run the same way the whole time, the sky got a lot more gas and nobody wrote down who checks the wells.",
 };
 
 /** A short plain-words note under the takeaway where readers get stuck. Facts here already appear, cited, in the card below. */
