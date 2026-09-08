@@ -167,7 +167,7 @@ function Card({ title, kicker, children, intro, kid, sources, mode, onMode, voic
   const theirs = mode === "theirs" ? theirsCards[kicker] : undefined;
   // The label already says "Net gain for humanity", so drop that prefix from the sentence itself (text is otherwise verbatim).
   const ourPoint = (takeaways[kicker]?.[audience] ?? kid).replace(/^Net gain for humanity:\s*/i, "").replace(/^Your takeaway:\s*/i, "");
-  const point = theirs ? (isKid ? theirs.kidTakeaway : theirs.takeaway.replace(/^As filed:\s*/i, "")) : ourPoint;
+  const point = theirs ? (isKid ? theirs.kidTakeaway : (theirs.takeaway[audience] ?? theirs.takeaway.overall).replace(/^As filed:\s*/i, "")) : ourPoint;
   const pointLabel = theirs ? "As filed" : audience === "overall" || audience === "expert" ? "Net gain for humanity" : audience === "kid" ? "The big idea" : "Why it matters to you";
   const header = (
     <div className="md:grid md:grid-cols-[minmax(0,1fr)_auto] md:items-start md:gap-6">
@@ -559,7 +559,7 @@ export function HeatDiagram() {
               <rect x={426} y={12} width={nGh * ghW + 4} height={54} fill="transparent" />
               {Array.from({ length: nGh }).map((_, i) => <GreenhouseIcon key={i} x={428 + i * ghW} y={14} w={ghW - 3} h={50} warm={winter} />)}
             </Clickable>
-            <Tag x={535} y={8} text={`3 · GREENHOUSES · ${acres} acres`} anchor="middle" bold color="#1f5f3a" size={9} />
+            <Tag x={535} y={8} text={`3 · GREENHOUSES · ${acres} acres by year 10 (first block year 5)`} anchor="middle" bold color="#1f5f3a" size={9} />
             <Tag x={535} y={80} text={winter ? `warm water heats roots · ${Math.round(gh)} MW ≈ ${humanHeat(gh).furnaces.toLocaleString()} furnaces` : "summer: greenhouses cool with wet pads; only the water plant takes heat"} anchor="middle" size={8} color={winter ? "#1f5f3a" : "#1f7ae0"} />
             <NewMarker box={{ x: 428, y: 14, w: nGh * ghW, h: 50 }} side="left" />
 
@@ -791,14 +791,14 @@ export function CarbonDiagram() {
       <PartInfo id={part} onClose={() => setPart(null)} />
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-        <Slider label="Capture efficiency (how much of the CO₂ the box catches)" value={ours ? rate : 0} min={0} max={95} step={5} unit="%" onChange={setRate} disabled={!ours} />
+        <Slider label="Capture target (metered from year 5; 50–75% until year 10)" value={ours ? rate : 0} min={0} max={95} step={5} unit="%" onChange={setRate} disabled={!ours} />
         <Slider label="Share of captured CO₂ used (greenhouses, concrete, aggregate) instead of stored" value={ours ? useShare : 0} min={0} max={100} step={1} unit="%" onChange={setUseShare} disabled={!ours} />
       </div>
       <div className="mt-4">
         <Bar what="all the gas the power plant breathes out in a year" total={GHG_PERMIT_TPY} parts={[{ label: "Captured (tons/yr)", value: captured, color: "#003047" }, { label: "Released (tons/yr)", value: left, color: "#9aa5ad" }]} />
       </div>
       <div className="pj-stats mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-        <Stat label="Released" value={`${(releasedLow / 1e6).toFixed(2)}–${(releasedHigh / 1e6).toFixed(2)} Mt`} sub={<>expected vs permitted stream, counting the 5–15% more gas the capture burns<Cite ids={["sob"]} /></>} color={r >= 0.9 ? "#2e8b57" : "#c0392b"} />
+        <Stat label="Released" value={`${(releasedLow / 1e6).toFixed(2)}–${(releasedHigh / 1e6).toFixed(2)} Mt`} sub={<>per year at the slider target; metered from year 5, 50–75% until year 10; counts the 5–15% more gas the capture burns<Cite ids={["sob"]} /></>} color={r >= 0.9 ? "#2e8b57" : "#c0392b"} />
         <Stat label="Used, not buried" value={`${(used / 1e6).toFixed(1)} Mt`} sub={ours ? "per year into food, concrete and aggregate (buyers set the pace)" : "nothing is used"} color="#2e8b57" />
         <Stat label="Stored as fallback" value={`${(stored / 1e6).toFixed(1)} Mt`} sub={ours ? "per year by pipeline to permitted storage; shrinks as use and clean power grow" : "nothing is captured"} color="#1f7ae0" />
         <Stat label="Equals" value={`${(left / 1e6 / ABQ_LC_MT).toFixed(2)}×`} sub={<>Albuquerque + Las Cruces (~6.7 Mt)<Cite ids={["abq-lc"]} /></>} color={r >= 0.9 ? "#2e8b57" : "#c0392b"} />
@@ -884,7 +884,7 @@ export function WaterDiagram() {
   const tankFill = 8 + (mgd / 10) * 24;
 
   return (
-    <Card voices={{ homeowner: "This is your tap. CRRUA needs 6 million gallons a day next year and 15 by 2042. The plant makes 5 million a day from water nobody could drink, so your supply goes up instead of down.", legislator: "The CBA already funds a $250,000 study of exactly this plant. NMSU designed and priced it in 2023. A lease condition that funds construction instead of a study delivers 5 MGD to CRRUA for about 0.54% of the $50 billion first phase (0.16% of the bond cap).", business: "A designed, priced plant with a utility customer whose demand more than doubles by 2042, plus El Paso's precedent of recovering water and minerals from the brine. Water is a product here, not a cost.", overall: "Deep under the desert is salty water nobody can drink. A filter takes the salt out and gives 16,700 homes' worth of clean water a day to the town." }} kicker="Process 3 · Water" title="Salty groundwater in, clean water out" mode={mode} onMode={setMode} kid="Deep under the desert there is a huge lake of salty water nobody can drink. In their plan the campus takes drinking water from the town pipe and pumps an old farm's water for its fills. In ours, pumps bring the salty water up, server heat warms it, and a super-fine filter lets water through but not salt. Three cups out of four come out clean and go to homes. The salty cup is pumped very deep, below the good water, so it can never mix back in." sources={["nmsu", "epwater", "twdb", "cduaws", "cba", "faq", "haussamen-water", "cbd-well", "epa-watersense", "usgs-mesilla"]} intro={(<p>
+    <Card voices={{ homeowner: "This is your tap. CRRUA needs 6 million gallons a day next year and 15 by 2042. The plant makes 5 million a day from water nobody could drink, so the towns can meet next year's demand without pumping the fresh wells harder.", legislator: "The CBA already funds a $250,000 study of exactly this plant. NMSU designed and priced it in 2023. A lease condition that funds construction instead of a study delivers 5 MGD to CRRUA for about 0.54% of the $50 billion first phase (0.16% of the bond cap).", business: "A designed, priced plant with a utility customer whose demand more than doubles by 2042, plus El Paso's precedent of recovering water and minerals from the brine. Water is a product here, not a cost.", overall: "Deep under the desert is salty water nobody can drink. NMSU has already designed the plant that takes the salt out; this condition has the developer fund it, so from about 2031 it makes 5 million gallons a day that the towns would otherwise pump from their fresh wells." }} kicker="Process 3 · Water" title="Salty groundwater in, clean water out" mode={mode} onMode={setMode} kid="Deep under the desert there is a huge lake of salty water nobody can drink. In their plan the campus takes drinking water from the town pipe and pumps an old farm's water for its fills. In ours, pumps bring the salty water up, server heat warms it, and a super-fine filter lets water through but not salt. Three cups out of four come out clean and go to homes. The salty cup is pumped very deep, below the good water, so it can never mix back in." sources={["nmsu", "epwater", "twdb", "cduaws", "cba", "faq", "haussamen-water", "cbd-well", "epa-watersense", "usgs-mesilla"]} intro={(<p>
         {ours ? (
           <>
             NMSU has already designed a 5 MGD brackish reverse-osmosis plant for Santa Teresa: 75% recovery, 1 MGD skids, $115.5M plant, $269.5M system, brine to deep injection wells
@@ -968,15 +968,16 @@ export function WaterDiagram() {
             <Tag x={515} y={190} text={`5 · TREATED DRINKING-WATER TANK · ${mgd} MGD (${Math.round(NMSU_RECOVERY * 100)}% of the feed)`} anchor="middle" bold size={8.5} color="#1f5f3a" />
             <Flow d="M470,150 H370" color="#1f7ae0" width={Math.max(4, 3 + mgd)} dur={2} />
             <Clickable id="crruaMains" selected={part} onSelect={setPart}>
-              <rect x={280} y={132} width={90} height={36} rx={4} fill="#2e8b57" />
-              <text x={325} y={147} textAnchor="middle" fontSize={9.5} fontWeight={800} fill="#fff" pointerEvents="none">CRRUA MAINS</text>
-              <text x={325} y={160} textAnchor="middle" fontSize={8.5} fill="#e8f8ee" pointerEvents="none">homes · greenhouses</text>
+              <rect x={250} y={132} width={120} height={36} rx={4} fill="#2e8b57" />
+              <text x={310} y={147} textAnchor="middle" fontSize={9.5} fontWeight={800} fill="#fff" pointerEvents="none">TO CRRUA&apos;S PIPES</text>
+              <text x={310} y={160} textAnchor="middle" fontSize={7.5} fill="#e8f8ee" pointerEvents="none">replaces fresh-well pumping</text>
               {Array.from({ length: nHomes }).map((_, i) => <House key={i} x={250 + i * 16} y={200} />)}
             </Clickable>
-            <NewMarker box={{ x: 280, y: 132, w: 90, h: 36 }} side="left" />
-            <Flow d="M325,168 V196" color="#2e8b57" width={3} dur={2} r={2.4} />
+            <NewMarker box={{ x: 250, y: 132, w: 120, h: 36 }} side="left" />
+            <Flow d="M310,168 V196" color="#2e8b57" width={3} dur={2} r={2.4} />
             <Tag x={270} y={230} text={`${Math.round(households / 1000)}k homes' daily water · ${Math.round((mgd / CRRUA_2027_MGD) * 100)}% of CRRUA's 2027 need`} anchor="middle" size={8} color="#1f5f3a" bold />
             <Tag x={270} y={244} text="used water goes back to CRRUA's treatment plant, as today" anchor="middle" size={7.5} color="#6b6b6b" />
+            <Tag x={270} y={258} text="reclaimed water recharged ~2 MGD from year 5 (permit needed)" anchor="middle" size={7.5} color="#6b6b6b" />
 
             <Flow d="M420,102 V215 H520 V262" color="#8e3b2f" width={Math.max(2, 2 + brine * 1.5)} dur={3} />
             <Clickable id="brineWell" selected={part} onSelect={setPart}>
@@ -1041,13 +1042,13 @@ export function WaterDiagram() {
       </svg></div>
       <PartInfo id={part} onClose={() => setPart(null)} />
 
-      <Slider label="Plant capacity" value={ours ? mgd : 0} min={ours ? 1 : 0} max={10} step={1} unit="MGD" onChange={setMgd} disabled={!ours} />
+      <Slider label="Plant size (MGD; 5 designed, 10 only if CRRUA demand triggers it, about year 10)" value={ours ? mgd : 0} min={ours ? 1 : 0} max={10} step={1} unit="MGD" onChange={setMgd} disabled={!ours} />
       <div className="pj-stats mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
         {ours ? (
           <>
             <Stat label="Clean water made" value={`${mgd} M gal/day`} sub={`${Math.round(acreFeet).toLocaleString()} acre-feet a year`} color="#1f7ae0" />
             <Stat label="Homes' daily water" value={`~${Math.round(households / 1000).toLocaleString()}k`} sub={<>at {GAL_PER_HOME_DAY} gal/day per home<Cite ids={["epa-watersense"]} /></>} color="#2e8b57" />
-            <Stat label="Of CRRUA's 2027 demand" value={`${Math.round((mgd / CRRUA_2027_MGD) * 100)}%`} sub={<>6 MGD projected<Cite ids={["nmsu"]} /></>} color="#2e8b57" />
+            <Stat label="Of CRRUA's 2027 demand" value={`${Math.round((mgd / CRRUA_2027_MGD) * 100)}%`} sub={<>6 MGD projected; plant opens about 2031 (year 5)<Cite ids={["nmsu"]} /></>} color="#2e8b57" />
             <Stat label="Whole-system cost" value={`$${Math.round(system)}M`} sub={<>plant alone ${Math.round(plant)}M, NMSU 2023<Cite ids={["nmsu"]} /></>} color="#d99a00" />
             <Stat label="Share of $50B first phase" value={pctOfPhase1(system)} sub={`${pctOfBond(system)} of the $165B cap · what we ask them to fund`} color="#d99a00" />
             <Stat label="Brine to inject" value={`${brine.toFixed(1)} MGD`} sub={<>two deep wells ~20 miles out<Cite ids={["nmsu"]} /></>} color="#8e3b2f" />
@@ -1220,7 +1221,7 @@ export function SolarDiagram() {
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
         <Slider label="Geothermal online by year 10 (2036), MW (target)" value={ours ? geoMW : 0} min={0} max={500} step={25} unit="MW" onChange={setGeoMW} disabled={!ours} />
-        <Slider label="Wind + solar under a delivered contract (MW; needs new transmission)" value={ours ? ppaMW : 0} min={0} max={2000} step={100} unit="MW" onChange={setPpaMW} disabled={!ours} />
+        <Slider label="Wind + solar under a delivered contract (MW; needs new transmission; target)" value={ours ? ppaMW : 0} min={0} max={2000} step={100} unit="MW" onChange={setPpaMW} disabled={!ours} />
         <Slider label="Roofs with solar" value={ours ? step : 0} min={0} max={solarSteps.length} step={1} unit={`of ${solarSteps.length}`} onChange={setStep} disabled={!ours} />
       </div>
       <div className="mt-4">
@@ -1331,7 +1332,7 @@ export function GreenhouseDiagram() {
               <text x={154} y={119} textAnchor="middle" fontSize={5} fill="#e6f0ff" pointerEvents="none">(heat not used)</text>
             </Clickable>
             <NewMarker box={{ x: 178, y: 26, w: nBays * bayW + 4, h: 96 }} side="left" align="start" />
-            <Tag x={180 + (nBays * bayW) / 2} y={20} text={`${acres} acres · ${nBays} block${nBays > 1 ? "s" : ""} of ~50 acres · sealed, few pesticides`} anchor="middle" bold size={9} color="#1f5f3a" />
+            <Tag x={180 + (nBays * bayW) / 2} y={20} text={`${acres} acres · ${nBays} block${nBays > 1 ? "s" : ""} of ~50 acres by year 10 (first block year 5) · sealed, few pesticides`} anchor="middle" bold size={9} color="#1f5f3a" />
             <Tag x={182} y={134} text={winter ? `winter blocks: roots at ${tempRange(20, 22)} · summer: wet-pad cooling` : "summer: wet pads and shade cool the glass (uses water) · root heat off"} anchor="start" size={7.5} />
             {Array.from({ length: nPeople }).map((_, i) => <Person key={i} x={190 + i * 18} y={160} />)}
             <Tag x={190 + (nPeople * 18) / 2} y={196} text={`~${jobs.toLocaleString()} jobs · ${GH_JOBS_PER_ACRE} per acre incl. packing, rounded (industry average)`} anchor="middle" size={8} color="#003047" />
@@ -1387,7 +1388,7 @@ export function GreenhouseDiagram() {
       <div className="pj-stats mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
         {ours ? (
           <>
-            <Stat label="Permanent jobs" value={`~${jobs.toLocaleString()}`} sub={`${GH_JOBS_PER_ACRE} per acre incl. packing, rounded to hundreds (industry average)`} color="#d99a00" />
+            <Stat label="Permanent jobs" value={`~${jobs.toLocaleString()}`} sub={`by year 10 (first block year 5); ${GH_JOBS_PER_ACRE} per acre incl. packing, rounded to hundreds (industry average)`} color="#d99a00" />
             <Stat label="Food per year" value={`up to ${(lbs / 1_000_000).toFixed(0)}M lbs`} sub="tomatoes, peppers, greens, berries (industry average)" color="#2e8b57" />
             <Stat label="Water saved vs. fields" value={`${(waterSaved / 1_000_000_000).toFixed(1)}B gal`} sub="per year, recirculating hydroponics" color="#1f7ae0" />
             <Stat label="Winter heat drawn" value={`${Math.round(acres * GH_PEAK_MW_PER_ACRE)} MW`} sub={`≈ ${humanHeat(acres * GH_PEAK_MW_PER_ACRE).furnaces.toLocaleString()} home furnaces, coldest night (estimate)`} color="#c0392b" />
