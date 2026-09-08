@@ -10,6 +10,8 @@ import {
   BRINE_CONCENTRATOR_MW,
   ABQ_LC_MT,
   CAPTURE_MAX_PENALTY,
+  CAPTURE_PENALTY_LO,
+  CAPTURE_PENALTY_HI,
   NMSU_COST_POINTS,
   NMSU_SYSTEM_MULTIPLIER,
   NMSU_RECOVERY,
@@ -624,12 +626,13 @@ export function HeatDiagram() {
 
 // ─── 2. Carbon ───────────────────────────────────────────────────────────────
 
-const GHG_PERMIT_TPY = 10_144_115; // NMED draft Statement of Basis, safety factor removed
-const GHG_APPLICANT_TPY = 8_820_970; // applicant's figure with 15% safety factor
+const GHG_PERMIT_TPY = 8_820_970; // Draft Permit 10883 Part A, Table 102.A; NMED struck the 15% safety factor
+const GHG_APPLICATION_TPY = 10_144_115; // the application figure NMED would not accept
+const GHG_EXPECTED_TPY = 6_086_469; // BOCC deck, July 28, 2026
 const STACKS = 2275;
 
 const pollutants = [
-  { name: "Carbon dioxide (CO₂)", amount: "8,820,970 tons/yr permitted (10.1 million applied for)", does: "Warms the climate. Not a smog gas; it is the climate gas.", standard: "No ambient health standard; it is regulated as a greenhouse gas and reported.", future: "20 years as filed: about 160 million tons in the air at the permitted rate, where CO₂ stays for centuries. Warming is cumulative, so every year adds to the last. Upgraded: about 25 to 55 million tons over the same 20 years, because capture cannot be metered before the storage line in year 5 and reaches its 90–95% target in year 10; falling after that as the gas share falls.", sources: ["sob", "sob-part-a"] },
+  { name: "Carbon dioxide (CO₂)", amount: "8,820,970 tons/yr permitted (10.1 million applied for)", does: "Warms the climate. Not a smog gas; it is the climate gas.", standard: "No ambient health standard; it is regulated as a greenhouse gas and reported.", future: "20 years as filed: about 176 million tons in the air at the permitted rate, where CO₂ stays for centuries. Warming is cumulative, so every year adds to the last. Upgraded: about 25 to 55 million tons over the same 20 years, because capture cannot be metered before the storage line in year 5 and reaches its 90–95% target in year 10; falling after that as the gas share falls.", sources: ["sob", "sob-part-a"] },
   { name: "Nitrogen oxides (NOx)", amount: "37.2 tons/yr (draft permit)", does: "Reacts with VOCs in sunlight to make ground-level ozone, the main ingredient of smog. Irritates lungs, triggers asthma.", standard: "Ozone health standard: 70 ppb over 8 hours. Sunland Park, next door, has failed it since 2018; the campus sits just outside the boundary.", future: "20 years as filed: about 750 tons of NOx estimated from four tests of one 65 kW unit and never measured at the real stacks, beside a town that already fails the ozone standard. Upgraded: the same fuel cells, but every ton measured and posted, with limits set for the capture configuration.", sources: ["sob-part-a", "epa-ozone-naaqs", "sunland-park-ozone"] },
   { name: "Carbon monoxide (CO)", amount: "161.2 tons/yr (draft permit)", does: "Reduces the blood's ability to carry oxygen at high concentrations.", standard: "Above 100 tons/yr, which is what makes the plant a Title V major source.", future: "20 years as filed: about 3,200 tons, released and estimated rather than measured. Upgraded: continuous monitors, so a bad day is known the day it happens.", sources: ["sob-part-a", "sob"] },
   { name: "Volatile organic compounds (VOC)", amount: "124.0 tons/yr (draft permit)", does: "The other half of the smog recipe with NOx.", standard: "Above 100 tons/yr, a second reason the plant is a Title V major source.", future: "20 years as filed: about 2,500 tons feeding summer ozone. Upgraded: measured, posted, and falling with the gas share.", sources: ["sob-part-a", "sob"] },
@@ -649,7 +652,8 @@ export function CarbonDiagram() {
   const used = captured * (useShare / 100);
   const stored = captured - used;
   const left = GHG_PERMIT_TPY * (1 - r);
-  const leftLow = GHG_APPLICANT_TPY * (1 - r);
+  const releasedLow = GHG_EXPECTED_TPY * (1 + CAPTURE_PENALTY_LO) * (1 - r);
+  const releasedHigh = GHG_PERMIT_TPY * (1 + CAPTURE_PENALTY_HI) * (1 - r);
   const penaltyMW = IT_LOAD_MW * CAPTURE_MAX_PENALTY * (ours ? rate / 95 : 0);
   const plume = 8 + (1 - r) * 30;
 
@@ -764,8 +768,8 @@ export function CarbonDiagram() {
               <Cloud cx={480} cy={42} size={40} variant="smog" opacity={0.9} />
               <Cloud cx={565} cy={62} size={30} variant="smog" opacity={0.75} />
             </Clickable>
-            <Tag x={500} y={112} text={`100% released · ${(GHG_PERMIT_TPY / 1e6).toFixed(1)} Mt/yr permitted`} anchor="middle" bold size={9} color="#c0392b" />
-            <Tag x={500} y={130} text={`developers expect ~${((GHG_PERMIT_TPY * 0.6) / 1e6).toFixed(1)} Mt in practice · ≈ ${(GHG_PERMIT_TPY / 1e6 / ABQ_LC_MT).toFixed(1)}× Albuquerque + Las Cruces`} anchor="middle" size={8} />
+            <Tag x={500} y={112} text={`100% released · ${(GHG_PERMIT_TPY / 1e6).toFixed(1)} Mt/yr permitted (${(GHG_APPLICATION_TPY / 1e6).toFixed(1)} applied for)`} anchor="middle" bold size={9} color="#c0392b" />
+            <Tag x={500} y={130} text={`developers expect ~${(GHG_EXPECTED_TPY / 1e6).toFixed(1)} Mt in practice · ≈ ${(GHG_PERMIT_TPY / 1e6 / ABQ_LC_MT).toFixed(1)}× Albuquerque + Las Cruces`} anchor="middle" size={8} />
             {/* smog over homes */}
             <rect x={420} y={150} width={215} height={60} fill="#d9d3c7" />
             <rect x={420} y={150} width={215} height={60} fill="#4a4a4a" opacity={0.18} />
@@ -775,7 +779,7 @@ export function CarbonDiagram() {
             <text x={527} y={248} textAnchor="middle" fontSize={9.5} fontWeight={800} fill="#c0392b">NO DRYER · NO CAPTURE · NO STORAGE</text>
             <text x={527} y={268} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">&quot;100% carbon-free matching by 2031&quot; = credits</text>
             <text x={527} y={282} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">bought elsewhere; the stacks are unchanged</text>
-            <text x={527} y={302} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">Sunland Park: ozone nonattainment since 2018</text>
+            <text x={527} y={302} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">Sunland Park: ozone nonattainment since 2018 · this site sits just outside that area</text>
             <text x={527} y={316} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">Doña Ana County: F for ozone, 15 bad-air days/yr</text>
             <text x={527} y={336} textAnchor="middle" fontSize={8.5} fill="#3c3c3c">HB93: net-zero by 2045, methane offsets allowed</text>
           </>
@@ -791,7 +795,7 @@ export function CarbonDiagram() {
         <Bar what="all the gas the power plant breathes out in a year" total={GHG_PERMIT_TPY} parts={[{ label: "Captured (tons/yr)", value: captured, color: "#003047" }, { label: "Released (tons/yr)", value: left, color: "#9aa5ad" }]} />
       </div>
       <div className="pj-stats mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-        <Stat label="Released" value={`${(leftLow / 1e6).toFixed(2)}–${(left / 1e6).toFixed(2)} Mt`} sub={<>per year, applicant vs. NMED figure<Cite ids={["sob"]} /></>} color={r >= 0.9 ? "#2e8b57" : "#c0392b"} />
+        <Stat label="Released" value={`${(releasedLow / 1e6).toFixed(2)}–${(releasedHigh / 1e6).toFixed(2)} Mt`} sub={<>expected vs permitted stream, counting the 5–15% more gas the capture burns<Cite ids={["sob"]} /></>} color={r >= 0.9 ? "#2e8b57" : "#c0392b"} />
         <Stat label="Used, not buried" value={`${(used / 1e6).toFixed(1)} Mt`} sub={ours ? "per year into food, concrete and aggregate (buyers set the pace)" : "nothing is used"} color="#2e8b57" />
         <Stat label="Stored as fallback" value={`${(stored / 1e6).toFixed(1)} Mt`} sub={ours ? "per year by pipeline to permitted storage; shrinks as use and clean power grow" : "nothing is captured"} color="#1f7ae0" />
         <Stat label="Equals" value={`${(left / 1e6 / ABQ_LC_MT).toFixed(2)}×`} sub={<>Albuquerque + Las Cruces (~6.7 Mt)<Cite ids={["abq-lc"]} /></>} color={r >= 0.9 ? "#2e8b57" : "#c0392b"} />
