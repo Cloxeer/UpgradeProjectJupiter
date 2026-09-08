@@ -91,14 +91,14 @@ export const timelineKid: Record<number, string> = {
 /** A short plain-words note under the takeaway where readers get stuck. Facts here already appear, cited, in the card below. */
 export const takeawayNotes: Record<string, string> = {
   "Process 1 · Heat":
-    "How heat makes cooling: an absorption chiller runs on hot water instead of electricity, the way a propane camping fridge does. And winter is real here: Santa Teresa nights drop into the 20s and 30s °F from December to February, so a greenhouse needs root heat on every cold night from November to March. This is not about making more power: the heat is already there and free. Their plan blows it into the sky; ours puts it to work so 150 acres of greenhouses grow food year-round. The gain is measured in food and jobs, not megawatts.",
+    "Can heat make cooling? An absorption chiller runs on hot water instead of electricity, the way a propane camping fridge does, but standard units want water near 90 °C and this loop is 45 to 65 °C, so no summer cooling is counted here. Winter is real here: Santa Teresa nights drop into the 20s and 30s °F from December to February, so a greenhouse needs root heat on every cold night from November to March. This is not about making more power: the heat is already there and free. Their plan blows it into the sky; ours puts it to work so 150 acres of greenhouses grow food year-round. The gain is measured in food and jobs, not megawatts.",
 };
 
 /** The one line each reader most wants, per process. Everyone and Expert get the net-gain-for-humanity line. */
 export const takeaways: Record<string, Record<Audience, string>> = {
   "Process 1 · Heat": {
-    overall: "Net gain for humanity: free heat that was going to the sky now grows food in winter and makes cooling in summer.",
-    expert: "Net gain for humanity: ~105 MW of reject heat put to work year-round for about $60M of standard hardware, recovered in fan and chiller electricity.",
+    overall: "Net gain for humanity: free heat that was going to the sky now warms greenhouse roots in winter and preheats the water plant all year; summer cooling stays evaporative.",
+    expert: "Net gain for humanity: ≈100 MW of reject heat put to work on winter nights (≈10 MW year-round for desal preheat), about 1% of the stream on average, for about $60M of standard hardware paid back by heat sold to growers, not fan savings; absorption cooling not counted at 45–65 °C.",
     homeowner: "Your takeaway: the heat that would blow across the desert toward your street heats greenhouses instead, and your neighborhood gets the food.",
     legislator: "Your takeaway: the cheapest condition on the list, about $60M paid by the developer, and it makes the greenhouse jobs possible.",
     business: "Your takeaway: heat becomes a product with a buyer, and the fans you already pay for run less.",
