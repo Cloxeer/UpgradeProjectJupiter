@@ -7,7 +7,7 @@ import { PetitionForm } from "./PetitionForm";
 
 export const metadata: Metadata = {
   title: "Sign the petition",
-  description: "Do not cancel Project Jupiter; upgrade it. Six conditions for the county lease, each beside what the filed plan does today, and a one-minute petition to the Doña Ana County commissioners and New Mexico legislators.",
+  description: "Do not cancel Project Jupiter; upgrade it. Six conditions for the county lease, each beside what the filed plan does today, and a one-minute count of support handed to the Doña Ana County commissioners and New Mexico legislators, beside the comments that bind.",
   alternates: { canonical: "/petition/" },
 };
 
