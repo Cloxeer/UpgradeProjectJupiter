@@ -137,3 +137,32 @@ export const takeaways: Record<string, Record<Audience, string>> = {
     kid: "Tomatoes and lettuce all year, and about 3,000 jobs.",
   },
 };
+
+/** Their plan, as filed, in their own terms: what the theirs mode of each process card says. No net-gain framing. Sources: CBA, BOCC packet, NMED Statement of Basis (cited on the cards). */
+export const theirsCards: Record<string, { title: string; takeaway: string; kidTakeaway: string }> = {
+  "Process 1 · Heat": {
+    title: "Heat blown into the air",
+    takeaway: "As filed: a closed-loop dry-cooling system rejects all of the roughly 2,462 MW of server heat to the air, and neither the CBA nor the permit filings offer that heat to anyone.",
+    kidTakeaway: "The computers' heat goes to giant fans that blow it into the sky, and nobody uses it.",
+  },
+  "Process 2 · Carbon": {
+    title: "Gas fuel cells, exhaust to the sky",
+    takeaway: "As filed: 2,462 MW of gas fuel cells permitted for 8,820,970 tons of CO₂e a year (10.1 million applied for; the developers expect about 40% less), no capture, emission factors from four 4-hour tests of one 65 kW unit with no continuous stack monitors required, “100% carbon-free energy matching by 2031” as an accounting commitment, and HB93 net-zero by 2045 with methane offsets allowed.",
+    kidTakeaway: "The power machines breathe out gas into the sky all day and all night, and nobody measures each chimney.",
+  },
+  "Process 3 · Water": {
+    title: "Town water in, a fund and a study out",
+    takeaway: "As filed: a potable cap of 20,000 gallons a day on average (60,000 at peak), an undisclosed non-potable operating volume, 103 million gallons pumped April to August 2026 under an emergency authorization, a $50M water fund (about $25M collected, flowing early 2027), $250,000 toward a desalination study, and the county building its own 4 MGD STAR plant with $15M of Jupiter tax money.",
+    kidTakeaway: "The computer place takes some drinking water from the town pipe and pays money into a water fund, and the town builds its own water machine.",
+  },
+  "Process 4 · Retire the gas": {
+    title: "Gas fuel cells, all year, plus batteries",
+    takeaway: "As filed: 2,462 MW of Bloom fuel cells on natural gas 8,760 hours a year plus battery storage, fed by the 17.7-mile Green Chile lateral (up to 400 MMcf/day) whose state-trust segment was denied on Mar. 20 and July 15, 2026, with carbon-free matching by 2031 through credits.",
+    kidTakeaway: "The gas machines run every hour of every day, and the gas pipe to feed them has been told no twice.",
+  },
+  "Process 5 · Food & jobs": {
+    title: "750 jobs, no greenhouses",
+    takeaway: "As filed: 750 full-time and 50 part-time jobs binding within 3 years (1,500 advertised) at a $75k–$100k average wage, at least 2,500 construction jobs, $4M for workforce programs, a $1M habitat fund and $12M a year in lieu of taxes; no greenhouses and no training institute.",
+    kidTakeaway: "The deal promises 750 jobs and some money for the town, and the land next to the fans stays empty desert.",
+  },
+};
