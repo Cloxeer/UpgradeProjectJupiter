@@ -7,7 +7,7 @@ const cards = [
   { title: "Why capture works on fuel cells", body: "NMED's draft permit says the dried exhaust is about 95% CO₂. That is what makes capture practical here and not at a gas turbine.", href: "/science#components" },
   { title: "Why the water plant is real", body: "NMSU engineers designed and priced a 5-million-gallon-a-day brackish plant for Santa Teresa in 2023. El Paso has run one since 2007.", href: "/science#components" },
   { title: "Why heat can grow food", body: "Gothenburg heats a greenhouse with data-center heat today. Their dry coolers throw away about 2,400 MW, roughly 90,000 home furnaces' worth.", href: "/science#components" },
-  { title: "What it costs and who pays", body: "Every upgrade line is shown as a share of the $165 billion bond, with the payer named.", href: "/blueprint#cost" },
+  { title: "What it costs and who pays", body: "Every upgrade line is shown as a share of the $50 billion first phase and of the $165 billion bond cap, with the payer named.", href: "/blueprint#cost" },
 ];
 
 export function ScienceTeaser() {

@@ -3,8 +3,9 @@ import { SiteHeader } from "@/components/jupiter/SiteHeader";
 import { SiteFooter } from "@/components/jupiter/SiteFooter";
 import { SectionHeading } from "@/components/jupiter/SectionHeading";
 import { Steps } from "@/components/jupiter/Steps";
-import { CopyScriptButton } from "@/components/jupiter/CopyScript";
-import { mailtoWithScript } from "@/lib/script";
+import { CopyScriptButton, CopyTextButton } from "@/components/jupiter/CopyScript";
+import { mailtoWithScript, clausesText } from "@/lib/script";
+import { demands, CLAUSE_NOTE } from "@/data/feasibility";
 import {
   commissioners,
   commissionMeeting,
@@ -108,6 +109,21 @@ export default function LegislatorsPage() {
                   Then sign the petition
                 </a>
               </div>
+              {/* For the commissioner who asks "what would the clause say": six model clauses, folded, copyable. */}
+              <details className="mt-4 rounded px-3 py-2" style={{ backgroundColor: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.2)" }}>
+                <summary className="cursor-pointer text-[14px] font-bold text-white">Appendix: six draft lease clauses for the commission (model text, not legal advice) ▾</summary>
+                <ol className="mt-3 space-y-3 pl-5" style={{ fontSize: 14, lineHeight: 1.55, color: "rgba(255,255,255,0.9)", listStyle: "decimal" }}>
+                  {demands.map((d) => (
+                    <li key={d.id}>
+                      <strong className="text-white">{d.short}.</strong> {d.clause}
+                    </li>
+                  ))}
+                </ol>
+                <p className="mt-2 text-[12px]" style={{ color: "rgba(255,255,255,0.7)" }}>{CLAUSE_NOTE}</p>
+                <div className="mt-3">
+                  <CopyTextButton text={clausesText()} label="Copy the six clauses" dark />
+                </div>
+              </details>
             </div>
           </div>
         </div>

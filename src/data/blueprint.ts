@@ -1,3 +1,4 @@
+import type { ClaimLabel } from "./claims";
 // Blueprint data: the 819-acre site plan (theirs and ours), process constants
 // for the interactive diagrams, costs, phasing, and receipts.
 //
@@ -23,7 +24,7 @@ export type Zone = {
   stats?: ZoneStat[];
 };
 
-export type ZoneStat = { value: string; label: string; color: string };
+export type ZoneStat = { value: string; label: string; color: string; claim?: ClaimLabel };
 
 /** Phase-1 greenhouse acreage. One number for the map zone and the diagram slider. */
 export const GH_ACRES_PHASE1 = 150;
@@ -150,7 +151,7 @@ export const zones: Zone[] = [
     plan: "ours",
     short: "WATER PLANT",
     theirs: "They pledge $50 million to CRRUA for water upgrades and describe cooling water as about 9 households' worth. Reporting shows the campus overall needs nearly 1 million gallons a day (Santa Fe New Mexican) and more than first disclosed (Haussamen, April 2026). The Supreme Court also stayed an emergency well authorization in Aug. 2026.",
-    ours: "The 5 MGD reverse-osmosis plant NMSU designed for Santa Teresa in 2023, built inside the extended fence south of the dry coolers, delivering water to CRRUA. $269.5 million for the whole system, 0.16% of the bond.",
+    ours: "The 5 MGD reverse-osmosis plant NMSU designed for Santa Teresa in 2023, built inside the extended fence south of the dry coolers, delivering water to CRRUA. $269.5 million for the whole system, 0.54% of the $50B first phase (0.16% of the bond cap).",
   },
   {
     id: "greenhouse",
@@ -213,7 +214,9 @@ export const CO2_BASELINE_MT = 8.8; // Draft Permit 10883 Part A: 8,820,970 tons
 export const CO2_LOW_MT = 6.1; // developers' expectation: about 40% below their 10.14 Mt application figure
 export const CO2_HIGH_MT = 8.8;
 export const ABQ_LC_MT = 6.7; // Albuquerque + Las Cruces annual emissions
-export const CAPTURE_MAX_PENALTY = 0.15; // share of output consumed at max capture
+export const CAPTURE_PENALTY_LO = 0.05; // share of output the capture skids consume (literature 4–6% for anode streams)
+export const CAPTURE_PENALTY_HI = 0.15;
+export const CAPTURE_MAX_PENALTY = CAPTURE_PENALTY_HI; // share of output consumed at max capture
 
 export const NMSU_COST_POINTS: [number, number][] = [
   [1, 35.117],
@@ -225,7 +228,8 @@ export const NMSU_RECOVERY = 0.75;
 export const CRRUA_2027_MGD = 6.0;
 export const CRRUA_2042_MGD = 15.0;
 export const GAL_PER_HOUSEHOLD_DAY = 300;
-export const BOND_M = 165000;
+export const BOND_M = 165000; // IRB bond cap: a ceiling, not cash [cba]
+export const PHASE1_M = 50_000; // $50B committed in the first five years [cba]
 
 export const SOLAR_ACRES_PER_MW = 4;
 export const SOLAR_CAPACITY_FACTOR = 0.24;
@@ -235,7 +239,7 @@ export const COMMUNITY_LOAD_MW = 21; // greenhouses + RO plant + offices, averag
 export const GH_JOBS_PER_ACRE = 6.5;
 export const GH_LBS_PER_ACRE = 400_000;
 export const GH_WATER_SAVED_GAL_PER_LB = 22;
-export const GH_CO2_TONS_PER_ACRE = 60;
+export const GH_CO2_TONS_PER_ACRE = 60; // estimate; fed only with vents closed (cool season, mornings): 150 acres ≈ 9,000 t/yr ≈ 0.1% of the stream
 export const GH_LEASE_PER_ACRE_M = 0.05; // land lease plus heat sold near propane parity (estimate; no grower quote)
 
 // ─── Numbers a reader sees first when a zone is tapped ────────────────────────
@@ -243,66 +247,66 @@ const GREEN = "#2e8b57", BLUE = "#1f7ae0", GOLD = "#d99a00", RED = "#c0392b";
 const M = (n: number) => `${Math.round(n)}M`;
 export const zoneStats: Record<string, ZoneStat[]> = {
   greenhouse: [
-    { value: `~${M((GH_ACRES_PHASE1 * GH_LBS_PER_ACRE) / 1e6)} lbs`, label: "of food a year", color: GREEN },
-    { value: `~${(Math.round((GH_ACRES_PHASE1 * GH_JOBS_PER_ACRE) / 100) * 100).toLocaleString()}`, label: "jobs", color: GOLD },
-    { value: `~$${Math.round(GH_ACRES_PHASE1 * GH_LEASE_PER_ACRE_M)}M/yr`, label: "lease and heat revenue", color: GOLD },
+    { value: `~${M((GH_ACRES_PHASE1 * GH_LBS_PER_ACRE) / 1e6)} lbs`, label: "of food a year", color: GREEN , claim: "projection" },
+    { value: `~${(Math.round((GH_ACRES_PHASE1 * GH_JOBS_PER_ACRE) / 100) * 100).toLocaleString()}`, label: "jobs", color: GOLD , claim: "projection" },
+    { value: `~$${Math.round(GH_ACRES_PHASE1 * GH_LEASE_PER_ACRE_M)}M/yr`, label: "lease and heat revenue", color: GOLD , claim: "projection" },
   ],
   water: [
-    { value: "5M gal", label: "a day, clean", color: BLUE },
-    { value: `~${Math.round((5e6 / GAL_PER_HOUSEHOLD_DAY) / 100) * 100}`.replace(/\B(?=(\d{3})+(?!\d))/g, ","), label: "homes' worth", color: BLUE },
-    { value: "$269.5M", label: "priced by NMSU, 2023", color: GOLD },
+    { value: "5M gal", label: "a day, clean", color: BLUE , claim: "verified-estimate" },
+    { value: `~${Math.round((5e6 / GAL_PER_HOUSEHOLD_DAY) / 100) * 100}`.replace(/\B(?=(\d{3})+(?!\d))/g, ","), label: "homes' worth", color: BLUE , claim: "projection" },
+    { value: "$269.5M", label: "priced by NMSU, 2023", color: GOLD , claim: "verified-estimate" },
   ],
   capture: [
-    { value: "~95%", label: "CO₂ in the dried exhaust", color: GREEN },
-    { value: "90–95%", label: "caught", color: GREEN },
-    { value: "~8M tons", label: "a year to keep out of the sky (90–95% capture target)", color: GREEN },
+    { value: "~95%", label: "CO₂ in the dried exhaust", color: GREEN , claim: "fact" },
+    { value: "90–95%", label: "caught", color: GREEN , claim: "projection" },
+    { value: "~8M tons", label: "a year to keep out of the sky (90–95% capture target)", color: GREEN , claim: "projection" },
   ],
   fuel: [
-    { value: "2,462 MW", label: "fuel cells", color: RED },
-    { value: `~${CO2_BASELINE_MT}M tons`, label: "CO₂ a year permitted", color: RED },
-    { value: "Stayed", label: "air permit, in court", color: RED },
+    { value: "2,462 MW", label: "fuel cells", color: RED , claim: "fact" },
+    { value: `~${CO2_BASELINE_MT}M tons`, label: "CO₂ a year permitted", color: RED , claim: "fact" },
+    { value: "Stayed", label: "air permit, in court", color: RED , claim: "fact" },
   ],
   halls: [
-    { value: `${IT_LOAD_MW.toLocaleString()} MW`, label: "of computers", color: RED },
-    { value: `${HEAT_MW.toLocaleString()} MW`, label: "of heat to use", color: GOLD },
+    { value: `${IT_LOAD_MW.toLocaleString()} MW`, label: "of computers", color: RED , claim: "fact" },
+    { value: `${HEAT_MW.toLocaleString()} MW`, label: "of heat to use", color: GOLD , claim: "fact" },
   ],
   dry: [
-    { value: `${HEAT_MW.toLocaleString()} MW`, label: "blown into the air as filed", color: RED },
-    { value: "~1%", label: "of the heat used on average in ours (about 4% on the coldest night); the rest still goes to the fans", color: GREEN },
+    { value: `${HEAT_MW.toLocaleString()} MW`, label: "blown into the air as filed", color: RED , claim: "fact" },
+    { value: "~1%", label: "of the heat used on average in ours (about 4% on the coldest night); the rest still goes to the fans", color: GREEN , claim: "projection" },
   ],
   solar: [
-    { value: `~${ROOF_AND_CANOPY_ACRES} acres`, label: "of roof and canopy", color: GOLD },
-    { value: "~0.25%", label: "of the load, honestly", color: GOLD },
+    { value: `~${ROOF_AND_CANOPY_ACRES} acres`, label: "of roof and canopy", color: GOLD , claim: "projection" },
+    { value: "~0.25%", label: "of the load, honestly", color: GOLD , claim: "projection" },
   ],
   institute: [
-    { value: "$50M", label: "NMSU / DACC institute", color: GOLD },
-    { value: "~3,000", label: "jobs it trains for", color: GREEN },
+    { value: "$50M", label: "NMSU / DACC institute", color: GOLD , claim: "projection" },
+    { value: "~3,000", label: "jobs it trains for", color: GREEN , claim: "projection" },
   ],
   power: [
-    { value: `${IT_LOAD_MW.toLocaleString()} MW`, label: "fed by gas, as filed", color: RED },
-    { value: "Falling", label: "gas hours each year, in ours", color: GREEN },
+    { value: `${IT_LOAD_MW.toLocaleString()} MW`, label: "fed by gas, as filed", color: RED , claim: "fact" },
+    { value: "Falling", label: "gas hours each year, in ours", color: GREEN , claim: "projection" },
   ],
 };
 for (const z of zones) if (zoneStats[z.id]) z.stats = zoneStats[z.id];
 
 // ─── Costs ──────────────────────────────────────────────────────────────────
 
-export const costItems = [
-  { item: "Carbon-capture on 2,462 MW of fuel cells (2,275 stacks, manifolded by cluster)", cost: "$1.5B", who: "Developer (Oracle / STACK / BorderPlex)", note: "Order-of-magnitude estimate for concentrated-stream capture; exhaust is ~95% CO₂ per NMED [3]. Includes compression but not the extra fuel cells the capture energy needs. No vendor quote exists; no plant of this kind operates anywhere yet." },
-  { item: "CO₂ pipeline to permitted storage in Texas, injection wells, storage operations and 50-year post-injection care", cost: "$1.5–2B", who: "Developer", note: "New Mexico has no permitted Class VI well; the nearest permitted storage is in the Texas Permian (about 200 miles). Estimate. The federal 45Q credit pays $85 a ton stored or used for 12 years, which at 7.9 million tons a year would repay most of the capture and transport cost if construction starts before 2033." },
-  { item: "Higher payments in lieu of taxes (the \"$1 billion for schools\" ask)", cost: "+$640M over 30 years", who: "Developer", note: "A payment, not capital: about $33M a year instead of $12M, paid as verified jobs and metered emissions targets are met. Listed here so the full ask is visible." },
-  { item: "NMSU-designed 5 MGD desalination system", cost: "$269.5M", who: "Developer, delivered to CRRUA / county", note: "2023 NMSU figure for the whole system: wells, plant, storage, brine injection wells, lines [9]. The CBA has the companies pay the county $250,000 toward a desalination study [1]; the county is now designing a 4 MGD plant of its own." },
-  { item: "Plate heat exchanger, pumps, insulated header to greenhouses", cost: "$60M", who: "Developer", note: "Standard district-heating hardware. Paid back by heat sold to growers, not by fan savings, which are a few percent of the heat moved." },
-  { item: "~150 acres of glass greenhouses (proposed)", cost: "$450M", who: "Commercial growers (leaseholders)", note: "About $3M per acre for high-tech Venlo glass, industry average. Off the developer's balance sheet. Acreage depends on the unpublished site plan." },
-  { item: "Roof and canopy solar (~25–35 MW peak)", cost: "$45M", who: "Developer", note: "Scaled from the reported 3 million sq ft of halls [33]. Runs the community side of the campus." },
-  { item: "NMSU / DACC institute endowment", cost: "$50M", who: "Developer", note: "On top of the CBA's Exhibit B payments, which total $11.4M including $4.5M of building-permit fee offsets [1]." },
-  { item: "Packing house, produce road, public gate", cost: "$25M", who: "Growers and developer", note: "Keeps farm trucks off the secure entrance." },
+export const costItems: { item: string; label: ClaimLabel; cost: string; who: string; note: string }[] = [
+  { item: "Carbon-capture on 2,462 MW of fuel cells (2,275 stacks, manifolded by cluster)", label: "projection", cost: "$1.5B", who: "Developer (Oracle / STACK / BorderPlex)", note: "Order-of-magnitude estimate for concentrated-stream capture; exhaust is ~95% CO₂ per NMED [3]. Includes compression but not the extra fuel cells the capture energy needs: about 120 to 370 MW more (5 to 15% of output), which is more gas and more CO₂ that must itself be captured. No vendor quote exists; no plant of this kind operates anywhere yet." },
+  { item: "CO₂ pipeline to permitted storage in Texas, injection wells, storage operations and 50-year post-injection care", label: "unknown", cost: "$1.5–2B", who: "Developer", note: "New Mexico has no permitted Class VI well; the nearest permitted storage is in the Texas Permian (about 200 miles). Estimate. The federal 45Q credit pays $85 a ton stored or used for 12 years, which at 7.9 million tons a year would repay most of the capture and transport cost if construction starts before 2033." },
+  { item: "Higher payments in lieu of taxes (the \"$1 billion for schools\" ask)", label: "projection", cost: "+$640M over 30 years", who: "Developer", note: "A payment, not capital: about $33M a year instead of $12M, paid as verified jobs and metered emissions targets are met. Listed here so the full ask is visible." },
+  { item: "NMSU-designed 5 MGD desalination system", label: "verified-estimate", cost: "$269.5M", who: "Developer, delivered to CRRUA / county", note: "2023 NMSU figure for the whole system: wells, plant, storage, brine injection wells, lines [9]. The CBA has the companies pay the county $250,000 toward a desalination study [1]; the county is now designing a 4 MGD plant of its own." },
+  { item: "Plate heat exchanger, pumps, insulated header to greenhouses", label: "projection", cost: "$60M", who: "Developer", note: "Standard district-heating hardware. Paid back by heat sold to growers, not by fan savings, which are a few percent of the heat moved." },
+  { item: "~150 acres of glass greenhouses (proposed)", label: "projection", cost: "$450M", who: "Commercial growers (leaseholders)", note: "About $3M per acre for high-tech Venlo glass, industry average. Off the developer's balance sheet. Acreage depends on the unpublished site plan." },
+  { item: "Roof and canopy solar (~25–35 MW peak)", label: "verified-estimate", cost: "$45M", who: "Developer", note: "Scaled from the reported 3 million sq ft of halls [33]. Runs the community side of the campus." },
+  { item: "NMSU / DACC institute endowment", label: "projection", cost: "$50M", who: "Developer", note: "On top of the CBA's Exhibit B payments, which total $11.4M including $4.5M of building-permit fee offsets [1]." },
+  { item: "Packing house, produce road, public gate", label: "projection", cost: "$25M", who: "Growers and developer", note: "Keeps farm trucks off the secure entrance." },
 ];
 
 export const costTotals = {
   developer: "$3.4–3.9B capital, plus $640M more in payments over 30 years",
   growers: "$0.47B",
-  pctOfBond: "about 2.5% of the $165B bond cap, about 8% of the $50B first-phase commitment, before the federal 45Q credit",
+  share: "about 8% of the $50B first-phase commitment (2.5% of the $165B bond cap, a ceiling, not cash), before the federal 45Q credit",
 };
 
 export const phases = [
@@ -467,7 +471,7 @@ export const timelineYears: { year: number; when: string; facts: string; built: 
   { year: 1, when: "2027", facts: "Their filed dates: initial operations targeted for Q4 2026 [1]. The Microgrid Oversight Act (SB 235) passed the Senate and died in the House in 2026; sponsors plan to reintroduce it in the 2027 session [35], alongside the proposed moratorium [34]. Whether the stayed permit is reissued with conditions is decided in this window.", built: "First halls close in. Heat exchanger installed with the chiller plants; capture-ready manifolds on every fuel-cell cluster. NMSU water plant in final design; the storage-and-recovery, Class VI and CO₂-pipeline applications are filed.", running: "Construction only. Stack meters commissioned with the first cluster. Solar goes on each roof as it closes.", delivered: "First quarterly job and emissions reports published." },
   { year: 2, when: "2028 · their Q3 2028 target", facts: "Their filed dates: the 400-acre first phase, including the microgrid, complete by Q3 2028 [1]. Their $50M water fund is paid and CRRUA pipe projects finish [2]. Fuel cells begin running 8,760 hours a year under permit 10883 [3].", built: "400-acre first phase complete. Capture skids, dryer and compression on the clusters, but the storage line and wells are still in permitting: Texas Class VI reviews take about a year, NMSU puts injection wells at 4 to 5 years, and the gas pipeline shows what a right-of-way fight costs in time [10]. Water plant under construction.", running: "Fuel cells at full load; every stack metered and public. About 1% of the CO₂ goes to concrete curing; the rest is measured and vented until the line exists, the same stacks as theirs. Heat header live.", delivered: "Public stack data from the first full year. No water or produce yet: the plant is a 2–3 year build and the greenhouses wait for it." },
   { year: 5, when: "2031 · their 100% matching date", facts: "Their filed dates: 750 full-time and 50 part-time jobs due within three years of opening [1]; \"100% carbon-free energy matching by 2031\", an accounting match, not a stack change [2]. First $12M-a-year payments in lieu of taxes accrue toward $360M over 30 years [1].", built: "NMSU plant online at 5 MGD. Brine wells, the CO₂ line and storage wells connected. Recharge basins permitted; about 2 MGD of the towns' reclaimed water begins going back into the fresh aquifer this year. First greenhouse block (~50 acres) on the heat loop.", running: "Capture metered for the first time, at 50–75%, the range the best operating plants have averaged, against a 90–95% target due in year 10 with a lease penalty behind it. Geothermal test wells drilled; first delivered wind and solar contract (targets).", delivered: "5 million gallons a day into CRRUA's pipes from this year. First produce trucks out the produce gate. About 2,500 jobs: 1,500 tech, the first growers, plant and capture crews." },
-  { year: 10, when: "2036", facts: "Their plan: unchanged operation. About 71 million tons of CO₂e released so far at the permitted rate over eight operating years, or about 49 million at the developers' expected rate [3][2]. Under the upgrade about 20 to 40 million, because capture could not be metered before the storage line in year 5.", built: "~150 acres of greenhouses. Desalination expansion toward 10 MGD designed if CRRUA's demand (15 MGD by 2042) triggers it [9].", running: "Capture at the 90–95% target from this year, or the lease penalty applies. First 100–200 MW of geothermal online (target, sized by the test wells); gas hours falling year on year; every stack monitored and public.", delivered: "~3,000 permanent jobs and up to 60 million lbs of food a year. About 9 billion gallons of clean water so far, and about 3.7 billion put back into the fresh aquifer (low estimate); about $330 million in conditioned bond payments so far." },
+  { year: 10, when: "2036", facts: "Their plan: unchanged operation. About 71 million tons of CO₂e released so far at the permitted rate over eight operating years, or about 49 million at the developers' expected rate [3][2]. Under the upgrade about 20 to 45 million, because capture could not be metered before the storage line in year 5 and the skids themselves burn 5 to 15% more gas.", built: "~150 acres of greenhouses. Desalination expansion toward 10 MGD designed if CRRUA's demand (15 MGD by 2042) triggers it [9].", running: "Capture at the 90–95% target from this year, or the lease penalty applies. First 100–200 MW of geothermal online (target, sized by the test wells); gas hours falling year on year; every stack monitored and public.", delivered: "~3,000 permanent jobs and up to 60 million lbs of food a year. About 9 billion gallons of clean water so far, and about 3.7 billion put back into the fresh aquifer (low estimate); about $330 million in conditioned bond payments so far." },
   { year: 15, when: "2041", facts: "Their plan: unchanged operation. CRRUA demand projected at 15 MGD by 2042 with no new supply from the campus [9].", built: "Greenhouse acreage set by demand, up to the unbuilt acres.", running: "Fuel cells begin aging out; replacement plan filed under HB93.", delivered: "About 18 billion gallons; up to about 600 million lbs of food; about $500 million in bond payments." },
   { year: 20, when: "2046 · HB93 net-zero date (2045)", facts: "HB93 requires qualified microgrids to use net-zero carbon resources by 2045 [1]; the statute counts a gas plant that offsets a tenth of its CO₂ in methane cuts as net-zero, and the developers' stated route is carbon-free energy matching by 2031 [2].", built: "Gas fuel cells replaced by geothermal or delivered clean supply as they retire, as far as test wells, storage and transmission allow.", running: "Share of energy from gas falling on a public meter; capture metered on what still runs (targets).", delivered: "A physical schedule toward the 2045 date instead of an accounting one." },
   { year: 25, when: "2051", facts: "Their plan: no filed milestones. IRB term continues.", built: "Campus at full 819-acre build-out.", running: "Water, food, power and training on one site.", delivered: "About 37 billion gallons; about $830 million in bond payments." },

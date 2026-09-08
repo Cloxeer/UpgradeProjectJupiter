@@ -3,7 +3,9 @@
 import type { Audience } from "@/components/jupiter/Audience";
 import { heroBullets, heroQuestion, whatIsParagraphs, pitches, willList, willNotList, updatesLead, ctaText } from "./upgrade";
 
-export type HeroStat = { icon: "datacenter" | "water" | "school" | "community" | "helmet" | "emissions" | "energy" | "household"; value: string; label: string; color: string };
+import type { ClaimLabel } from "./claims";
+
+export type HeroStat = { icon: "datacenter" | "water" | "school" | "community" | "helmet" | "emissions" | "energy" | "household"; value: string; label: string; color: string; claim?: ClaimLabel };
 
 export type Copy = {
   /** one sentence under the title: what this site is, in this reader's words */
@@ -28,7 +30,7 @@ export type Copy = {
 
 export const expertCopy: Copy = {
   heroLine: "A 2,462 MW fuel-cell campus in Santa Teresa, financed by up to $165 billion in county bonds. Six lease conditions make it capture, reuse, produce and hire. Every figure below is cited.",
-  heroStats: [{ icon: "emissions", value: "8.8 Mt", label: "CO₂e a year to capture (90–95% target)", color: "#2e8b57" }, { icon: "water", value: "5 MGD", label: "brackish RO to CRRUA", color: "#1f7ae0" }, { icon: "community", value: "~60M lbs", label: "produce a year", color: "#2e8b57" }],
+  heroStats: [{ icon: "emissions", value: "8.8 Mt", label: "CO₂e a year to capture (90–95% target)", color: "#2e8b57", claim: "fact" }, { icon: "water", value: "5 MGD", label: "brackish RO to CRRUA", color: "#1f7ae0", claim: "verified-estimate" }, { icon: "community", value: "~60M lbs", label: "produce a year", color: "#2e8b57", claim: "projection" }],
   heroQuestion,
   heroBullets,
   whatIsParagraphs,
@@ -48,7 +50,7 @@ export const expertCopy: Copy = {
 /** Earth: the default voice. Air, water, land and people first; the numbers second, as proof. Plain words, no jargon. */
 export const overallCopy: Copy = {
   heroLine: "A giant data center with its own gas power plant is coming to Sunland Park. We say build it **only if** it is force-upgraded and becomes a net gain for humanity.",
-  heroStats: [{ icon: "emissions", value: "8.8M tons", label: "of CO₂ a year to catch", color: "#2e8b57" }, { icon: "water", value: "5M gallons", label: "of clean water a day", color: "#1f7ae0" }, { icon: "community", value: "60M lbs", label: "of food a year (upper estimate)", color: "#2e8b57" }],
+  heroStats: [{ icon: "emissions", value: "8.8M tons", label: "of CO₂ a year to catch", color: "#2e8b57", claim: "fact" }, { icon: "water", value: "5M gallons", label: "of clean water a day", color: "#1f7ae0", claim: "verified-estimate" }, { icon: "community", value: "60M lbs", label: "of food a year (upper estimate)", color: "#2e8b57", claim: "projection" }],
   heroQuestion: "WHAT SHOULD PROJECT JUPITER MEAN FOR THE EARTH, AND FOR US?",
   heroBullets: [
     { strong: "Cleaner air.", rest: " The plant's exhaust is caught at the stack, metered and used, instead of 8.8 million tons of CO₂ a year going into a sky beside a town that already fails the smog standard." },
@@ -56,11 +58,11 @@ export const overallCopy: Copy = {
     { strong: "Heat that feeds people.", rest: " The computers' warmth grows about 60 million pounds of food a year next door, instead of being blown into the desert." },
     { strong: "Less gas every year.", rest: " Hot rock under the valley and New Mexico's own wind take over more hours, so the gas machines rest more each year." },
     { strong: "Work for the people who live here.", rest: " About 3,000 permanent jobs instead of the 750 the company signed for, with a training school on site." },
-    { strong: "", rest: "Same buildings, about 2.5% more, most of it repayable by the federal capture credit. This is the version the Earth can live with." },
+    { strong: "", rest: "Same buildings, about 8% more on the $50 billion first phase, most of it repayable by the federal capture credit. This is the version the Earth can live with." },
   ],
   whatIsParagraphs: [
     "Project Jupiter is a giant data center being built near Sunland Park, with its own gas-fired power plant beside it. The county approved $165 billion in bonds for it in 2025. As filed, the plant is allowed to release 8.8 million tons of CO₂ a year, more than Albuquerque and Las Cruces emit combined, beside a valley whose air has failed the federal smog standard since 2018, with its smog gases estimated from one small test unit and never measured. It takes drinking water from the local utility and pumps more from the fresh aquifer under everyone's wells. All the computers' heat is blown into the desert. The company signed for 750 jobs.",
-    "The upgrade does not cancel any of it. It keeps every building and the same schedule, and adds six things the Earth and the people here need: catch the CO₂ and meter it, turn the heat into food, make clean water from the salty aquifer, cut the share of gas with geothermal and wind, put every ton of smog on a public meter, and set money aside to care for the land and wells afterwards. About 2.5% more, most of it repayable by the federal capture credit. Pick who you are below if you want it explained your way.",
+    "The upgrade does not cancel any of it. It keeps every building and the same schedule, and adds six things the Earth and the people here need: catch the CO₂ and meter it, turn the heat into food, make clean water from the salty aquifer, cut the share of gas with geothermal and wind, put every ton of smog on a public meter, and set money aside to care for the land and wells afterwards. About 8% more on the $50 billion first phase, most of it repayable by the federal capture credit. Pick who you are below if you want it explained your way.",
   ],
   highlightsIntro: "Eight things their website says, and what the air, the water and the people here get instead. Tap a card to see how we got the number.",
   pitches: [
@@ -81,7 +83,7 @@ export const overallCopy: Copy = {
 
 const legislator: Copy = {
   heroLine: "The county holds the lease on a $165 billion data center and none of the six conditions is in it yet. This is what to negotiate in before the fuel cells arrive.",
-  heroStats: [{ icon: "helmet", value: "3,000", label: "enforceable jobs (estimate)", color: "#2e8b57" }, { icon: "water", value: "$269.5M", label: "water plant, designed", color: "#1f7ae0" }, { icon: "energy", value: "~2.5%", label: "of the bond cap, before 45Q", color: "#d99a00" }],
+  heroStats: [{ icon: "helmet", value: "3,000", label: "enforceable jobs (estimate)", color: "#2e8b57", claim: "projection" }, { icon: "water", value: "$269.5M", label: "water plant, designed", color: "#1f7ae0", claim: "verified-estimate" }, { icon: "energy", value: "~8%", label: "of the $50B first phase, before 45Q", color: "#d99a00", claim: "projection" }],
   heroQuestion: "WHAT SHOULD THE LEASE REQUIRE BEFORE THE FUEL CELLS ARRIVE?",
   heroBullets: [
     { strong: "Enforceable jobs.", rest: " About 3,000 permanent positions in Phase 1 negotiated into the IRB lease, against the 750 the signed agreement requires today." },
@@ -89,11 +91,11 @@ const legislator: Copy = {
     { strong: "Water delivered, not studied.", rest: " The 5 MGD brackish plant NMSU priced at $269.5 million, built and handed to CRRUA, in place of the $250,000 desalination study the CBA funds." },
     { strong: "Every stack monitored.", rest: " Capture-ready stacks from day one, capture metered once the storage line is connected (about year 5), and continuous smog monitors with public data on every cluster, in a county that already fails the federal ozone standard; the draft permit requires none." },
     { strong: "Gas share falling.", rest: " Geothermal test wells and delivered wind contracted in the lease, so HB93's 2045 net-zero date, which the statute lets a gas plant meet with methane offsets, has a physical schedule instead of an accounting one." },
-    { strong: "", rest: "The county's only enforcement tool is the lease, which can be changed only by agreement, so the conditions are negotiated in at the next consent the companies need. Three bills are drafted. The conditions cost the developer about 2.5% of the bond cap before the federal 45Q credit." },
+    { strong: "", rest: "The county's only enforcement tool is the lease, which can be changed only by agreement, so the conditions are negotiated in at the next consent the companies need. Three bills are drafted. The conditions cost the developer about 8% of the $50 billion first phase (2.5% of the bond cap, a ceiling, not cash) before the federal 45Q credit." },
   ],
   whatIsParagraphs: [
     "Project Jupiter is a data-center campus in Santa Teresa financed through $165 billion in Doña Ana County industrial revenue bonds. The county holds title and leases the project back, so the lease, not the permit, is where conditions bind. The signed Community Benefits Agreement of Nov. 12, 2025 describes about 819 acres with a 400-acre first phase, a minimum of 750 full-time jobs, a 20,000-gallon-a-day potable cap and $11.4 million in programs. NMED's draft air permit puts the fuel-cell plant at 2,462 MW and 8,820,970 tons of CO₂e a year after striking the applicant's 15% safety factor; NOx is 37 tons a year, estimated from four tests of one 65 kW unit, and no continuous stack monitor is required.",
-    "The upgrade is six lease conditions, not a redesign: capture-ready stacks with metered capture, continuous monitors on every cluster, waste heat offered to growers at cost, the NMSU water plant funded, bond payments tied to verified jobs and emissions, and a closure bond. It keeps their halls, fuel cells and fence. Added capital is about $3.4 to 3.9 billion, about 2.5% of the bond cap or 8% of the $50 billion first-phase commitment, plus $640 million more in payments over 30 years; the federal 45Q credit could repay most of the capture cost, and growers fund the greenhouses.",
+    "The upgrade is six lease conditions, not a redesign: capture-ready stacks with metered capture, continuous monitors on every cluster, waste heat offered to growers at cost, the NMSU water plant funded, bond payments tied to verified jobs and emissions, and a closure bond. It keeps their halls, fuel cells and fence. Added capital is about $3.4 to 3.9 billion, about 8% of the $50 billion first-phase commitment (2.5% of the bond cap, a ceiling, not cash), plus $640 million more in payments over 30 years; the federal 45Q credit could repay most of the capture cost, and growers fund the greenhouses.",
     "Status as of Sept. 2, 2026: the air-permit hearing and the construction well are stayed by the Supreme Court, the pipeline's state-land segment has been denied twice, quarterly job reports were missed, and construction is 9% complete by the developers' own report. None of the six conditions is in the lease.",
   ],
   highlightsIntro: "Eight of their published figures, each answered in the same unit with the arithmetic and the document behind it. Tap a card for the math you will be asked about.",
@@ -122,12 +124,12 @@ const legislator: Copy = {
   updatesLead: "Construction is 9% complete by the developers' July 28, 2026 report. The permit and the well are stayed. The conditions have to be negotiated in before the fuel cells are delivered; today none of the six is in the lease.",
   scienceIntro: "The engineering behind each condition, with vendor specifications, operating plants and university research, at four reading levels. The Expert level is the one to hand staff.",
   ctaAfter: " to put the six conditions in the lease for ",
-  supportLead: "Ask the commission to negotiate the six conditions into the IRB leases and the Legislature to pass the bills before the first fuel cell turns on. The conditions cost the developer about 2.5% of the bond cap before the federal capture credit.",
+  supportLead: "Ask the commission to negotiate the six conditions into the IRB leases and the Legislature to pass the bills before the first fuel cell turns on. The conditions cost the developer about 8% of the $50 billion first phase (2.5% of the bond cap) before the federal capture credit.",
 };
 
 const homeowner: Copy = {
   heroLine: "A giant data center with its own gas plant is being built near your home. We say build it **only if** it adds water instead of taking it and cleans its air instead of dirtying yours.",
-  heroStats: [{ icon: "water", value: "5M gallons", label: "a day into your pipes", color: "#1f7ae0" }, { icon: "emissions", value: "Every stack", label: "on a public meter", color: "#2e8b57" }, { icon: "community", value: "60M lbs", label: "of local food a year", color: "#2e8b57" }],
+  heroStats: [{ icon: "water", value: "5M gallons", label: "a day into your pipes", color: "#1f7ae0", claim: "verified-estimate" }, { icon: "emissions", value: "Every stack", label: "on a public meter", color: "#2e8b57", claim: "fact" }, { icon: "community", value: "60M lbs", label: "of local food a year", color: "#2e8b57", claim: "projection" }],
   heroQuestion: "WHAT DOES THIS MEAN FOR YOUR WATER, YOUR AIR AND YOUR STREET?",
   heroBullets: [
     { strong: "Water added, not taken.", rest: " Their plan takes drinking water from CRRUA and pumps more from a farm well. Ours adds 5 million gallons a day of clean water to the same pipes, enough for about 16,700 homes." },
@@ -140,7 +142,7 @@ const homeowner: Copy = {
   whatIsParagraphs: [
     "A company is building one of the largest data centers in the world just south of Santa Teresa, with its own gas-fired power plant next to it. The county approved $165 billion in bonds for it in 2025. The power plant, by the state's own draft permit, may release 8.8 million tons of carbon dioxide a year, more than Albuquerque and Las Cruces put together, and its smog gases were estimated from one small test unit with no requirement to measure the real stacks. Sunland Park has failed the federal smog standard since 2018.",
     "Water: the signed agreement lets the campus take up to 20,000 gallons a day of drinking water from CRRUA, and the company bought an old sod farm's water right in the same fresh aquifer your well and your tap draw from. More than 103 million gallons were pumped for construction in five months before a court stopped it. The company has not said how much non-potable water it will use each year.",
-    "The upgrade keeps the same buildings and schedule and adds what your neighborhood gets: a plant that turns deep salty water into 5 million gallons a day of drinking water for CRRUA, greenhouses heated by the computers' waste heat, metered capture of the CO₂ at the stack, and public air monitors. It costs the developer about 2.5% of the bond cap before the federal capture credit.",
+    "The upgrade keeps the same buildings and schedule and adds what your neighborhood gets: a plant that turns deep salty water into 5 million gallons a day of drinking water for CRRUA, greenhouses heated by the computers' waste heat, metered capture of the CO₂ at the stack, and public air monitors. It costs the developer about 8% of the $50 billion first phase (2.5% of the bond cap) before the federal capture credit.",
   ],
   highlightsIntro: "Eight things their website says, and what your neighborhood actually gets under the upgrade. Tap a card for the math in plain words.",
   pitches: [
@@ -172,15 +174,15 @@ const homeowner: Copy = {
 };
 
 const business: Copy = {
-  heroLine: "A closed box as filed: one tenant, one product, a permit stuck in court. Six conditions open leases, water, heat and clean power on the same land, for about 2.5% of the bond cap before the federal capture credit.",
-  heroStats: [{ icon: "datacenter", value: "150 acres", label: "to lease, heat included", color: "#2e8b57" }, { icon: "household", value: "$40–60k", label: "per acre a year (estimate)", color: "#d99a00" }, { icon: "water", value: "6 → 15 MGD", label: "utility demand by 2042", color: "#1f7ae0" }],
+  heroLine: "A closed box as filed: one tenant, one product, a permit stuck in court. Six conditions open leases, water, heat and clean power on the same land, for about 8% of the $50 billion first phase (2.5% of the bond cap) before the federal capture credit.",
+  heroStats: [{ icon: "datacenter", value: "150 acres", label: "to lease, heat included", color: "#2e8b57", claim: "projection" }, { icon: "household", value: "$40–60k", label: "per acre a year (estimate)", color: "#d99a00", claim: "projection" }, { icon: "water", value: "6 → 15 MGD", label: "utility demand by 2042", color: "#1f7ae0", claim: "verified-estimate" }],
   heroQuestion: "WHERE IS THE MONEY IN THE UPGRADE?",
   heroBullets: [
     { strong: "The most sophisticated campus in the country.", rest: " To our knowledge no U.S. hyperscale site yet combines stack capture, heat reuse, water production and a public emissions meter. The first one owns that headline." },
     { strong: "Metrics shareholders can track.", rest: " Tons captured, gas hours avoided, gallons produced, verified jobs and lease revenue per acre: five numbers reported every quarter that turn an ESG promise into an earnings line." },
     { strong: "New revenue on land you already hold.", rest: " About 150 acres of greenhouse leases with heat and CO₂ piped in, a 5 MGD water plant with a utility customer, and heat sold instead of blown away. Lease plus heat alone is estimated at about $40,000 to $60,000 an acre a year, with heat priced near propane parity." },
     { strong: "Gas to buy less of.", rest: " Geothermal and delivered wind under contract cut gas hours every year, and gas is the plant's largest operating cost." },
-    { strong: "", rest: "Added capital is about $3.4 to 3.9 billion, 2.5% of the $165 billion bond cap, with about $470 million more in grower capital off the developer's balance sheet and the 45Q credit repaying most of the capture line, and the permit stops being a court risk." },
+    { strong: "", rest: "Added capital is about $3.4 to 3.9 billion, 8% of the $50 billion first phase (2.5% of the $165 billion bond cap, a ceiling, not cash), with about $470 million more in grower capital off the developer's balance sheet and the 45Q credit repaying most of the capture line, and the permit stops being a court risk." },
   ],
   whatIsParagraphs: [
     "Project Jupiter is a $165 billion hyperscale campus in Santa Teresa with a 2,462 MW Bloom fuel-cell microgrid, financed through county industrial revenue bonds that swap property tax for lease payments over 30 years. As filed it is a closed box: one tenant, one product, all power from gas, all heat rejected, no water produced. The air permit and the construction well are stayed in court and the gas pipeline's state-land route has been denied twice, which is schedule risk for everyone on the site.",
@@ -190,7 +192,7 @@ const business: Copy = {
   highlightsIntro: "Eight of their published figures with the revenue and cost behind each answer. Tap a card for the arithmetic.",
   pitches: [
     { title: "If you grow", body: "Glass greenhouses at about $3 million an acre, industry average, on leased land with winter heat near propane parity, CO₂ enrichment from the stacks, a packing house and a border crossing next door. About 4 to 6.5 jobs an acre including packing, as at Marfa and Willcox." },
-    { title: "If you run the campus", body: "You lease 150 acres you are not using, sell heat your fans are already paid to reject, capture exhaust that is 95% CO₂ once dried with 45Q paying $85 a ton, and contract geothermal and wind that cut your biggest operating cost. It adds about 2.5% of the bond cap and answers the litigation that has your permit frozen." },
+    { title: "If you run the campus", body: "You lease 150 acres you are not using, sell heat your fans are already paid to reject, capture exhaust that is 95% CO₂ once dried with 45Q paying $85 a ton, and contract geothermal and wind that cut your biggest operating cost. It adds about 8% to your first-phase commitment (2.5% of the bond cap) and answers the litigation that has your permit frozen." },
     { title: "If you hold the stock", body: "A stayed permit is an unpriced risk on the balance sheet; a capture-first, monitored campus removes it. It also gives the investor-relations team five auditable numbers each quarter: tons of CO₂ captured and sold, gas hours displaced by geothermal and wind, gallons of water delivered, jobs verified against the lease, and greenhouse lease revenue. Those are the metrics that keep an earnings multiple high when the next moratorium bill is filed." },
   ],
   netlossLead: "The as-filed column is what the site produces for anyone but the tenant: nothing. The upgraded column is the new revenue and the new assets, year by year, on cited figures.",
@@ -213,7 +215,7 @@ const business: Copy = {
   updatesLead: "Construction 9% complete by the developers' July 28 report; permit and well stayed; pipeline route denied twice. The next lease consent is the moment to add the side businesses, before the fuel cells are delivered.",
   scienceIntro: "The engineering and the precedents behind each revenue line, at four reading levels. The Expert level carries the units, capacity factors and costs.",
   ctaAfter: " to open the side businesses on ",
-  supportLead: "Tell the county the upgrade is a business plan, not a protest: leases, water, heat and clean power on the same site, for about 2.5% of the bond cap before the federal credit, and, to our knowledge, the first data-center campus in the country to combine all of it.",
+  supportLead: "Tell the county the upgrade is a business plan, not a protest: leases, water, heat and clean power on the same site, for about 8% of the $50 billion first phase (2.5% of the bond cap) before the federal credit, and, to our knowledge, the first data-center campus in the country to combine all of it.",
 };
 
 const kid: Copy = {

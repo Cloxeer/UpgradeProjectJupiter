@@ -1,4 +1,5 @@
 // Plain-language unit helpers. Every conversion here is cited on the Sources page.
+import { BOND_M, PHASE1_M } from "@/data/blueprint";
 
 /** "60 °C / 140 °F" */
 export function temp(c: number): string {
@@ -45,8 +46,33 @@ export function tons(t: number): string {
   return `${Math.round(t).toLocaleString()} tons`;
 }
 
-/** Share of the $165B bond, as a percent string */
+const pct = (millions: number, denomM: number): string => {
+  const v = (millions / denomM) * 100;
+  return v < 0.01 ? "<0.01%" : `${v.toFixed(2)}%`;
+};
+/** Share of the $165B IRB bond cap (a ceiling, not cash), as a percent string */
 export function pctOfBond(millions: number): string {
-  const pct = (millions / 165_000) * 100;
-  return pct < 0.01 ? "<0.01%" : `${pct.toFixed(2)}%`;
+  return pct(millions, BOND_M);
+}
+/** Share of the $50B the developers committed to the first five years (CBA), as a percent string */
+export function pctOfPhase1(millions: number): string {
+  return pct(millions, PHASE1_M);
+}
+
+/**
+ * Parse a cost string from the cost table into millions. "$1.5B" → 1500; "$1.5–2B" → lo 1500, hi 2000, m 1750;
+ * "+$640M over 30 years" → 640 with stream = true (a payment stream, not capital). Only the text before " over" is read.
+ */
+export function parseCostM(v: string): { m: number; lo?: number; hi?: number; stream: boolean } {
+  const stream = /over\s+\d+\s+years/i.test(v);
+  const head = v.split(/\s+over\s+/i)[0];
+  const mt = head.match(/\$?\s*([\d.]+)(?:\s*[–-]\s*([\d.]+))?\s*([MB])/i);
+  if (!mt) return { m: 0, stream };
+  const mult = mt[3].toUpperCase() === "B" ? 1000 : 1;
+  const lo = parseFloat(mt[1]) * mult;
+  if (mt[2]) {
+    const hi = parseFloat(mt[2]) * mult;
+    return { m: (lo + hi) / 2, lo, hi, stream };
+  }
+  return { m: lo, stream };
 }
