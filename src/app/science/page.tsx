@@ -7,7 +7,6 @@ import { IrbSection } from "@/components/jupiter/IrbSection";
 import { HelpImprove } from "@/components/jupiter/HelpImprove";
 import { ScienceLevels } from "@/components/jupiter/ScienceLevels";
 import { Stamp } from "@/components/jupiter/Stamp";
-import { WhatItMeansSection } from "@/components/jupiter/WhatItMeansSection";
 import { OpenQuestions } from "@/components/jupiter/OpenQuestions";
 
 export const metadata: Metadata = {
@@ -30,7 +29,7 @@ export default function SciencePage() {
               Why each part of the upgrade works, what it costs, and what the documents say. Their original sections sit one click below ours.
             </p>
             <p className="mx-auto mt-4 max-w-[760px]" style={{ fontSize: 16, lineHeight: 1.6, color: "rgba(255,255,255,0.85)" }}>
-              For the drawings and sliders, see the <a href="/blueprint" className="underline text-gold">Blueprint</a>. For every document, see{" "}
+              For the drawings, see the <a href="/blueprint" className="underline text-gold">Blueprint</a>. For every document, see{" "}
               <a href="/sources" className="underline text-gold">Sources</a>.
             </p>
           </div>
@@ -43,7 +42,6 @@ export default function SciencePage() {
           </ScienceLevels>
           <OpenQuestions />
         </div>
-        <WhatItMeansSection />
         <HelpImprove />
       </main>
       <SiteFooter />

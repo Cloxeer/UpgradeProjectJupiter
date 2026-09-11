@@ -512,6 +512,37 @@
   .pj-sheet, .pj-backdrop, .pj-fade, .pj-fs { animation: none !important; }
 }
 
+/* ─── Story motion: tokens, section reveal, press feedback, depth switch ─────── */
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 120ms;
+  --dur-base: 300ms;
+  --dur-slow: 500ms;
+}
+@layer components {
+  /* A section reveals once: fade and a short lift, transform and opacity only. Rest state is visible. */
+  .pj-beat { will-change: auto; }
+  .pj-beat--hidden { opacity: 0; transform: translateY(16px); }
+  .pj-beat--in { opacity: 1; transform: none; transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out); }
+  /* The guide's line changes with the depth: a short cross-fade so the swap reads as a change, not a jump. */
+  @keyframes pj-swap-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  .pj-swap { animation: pj-swap-in var(--dur-base) var(--ease-out) both; }
+  /* Press feedback on real controls: fast in, springy release. */
+  .pj-press { transition: transform var(--dur-fast) var(--ease-out); }
+  .pj-press:active { transform: scale(0.98); transition-timing-function: var(--spring); }
+  @media (hover: hover) and (pointer: fine) {
+    .pj-press:hover { transform: translateY(-1px); }
+  }
+  .pj-pop { animation: pj-swap-in var(--dur-fast) var(--ease-out) both; }
+  @media (prefers-reduced-motion: reduce) {
+    .pj-beat--hidden { opacity: 1; transform: none; }
+    .pj-beat--in, .pj-swap, .pj-pop, .pj-press { animation: none !important; transition: none !important; }
+  }
+}
+
 @layer utilities {
   @keyframes pj-flow {
     to { stroke-dashoffset: -32px; }

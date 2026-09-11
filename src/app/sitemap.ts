@@ -7,7 +7,6 @@ const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://upgradeprojectjupiter.
 /** Every public page, most important first. Paths end in "/" to match the static export. */
 const pages: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
   { path: "/", priority: 1.0, changeFrequency: "weekly" },
-  { path: "/petition/", priority: 0.9, changeFrequency: "monthly" },
   { path: "/blueprint/", priority: 0.9, changeFrequency: "weekly" },
   { path: "/legislators/", priority: 0.8, changeFrequency: "monthly" },
   { path: "/science/", priority: 0.7, changeFrequency: "monthly" },

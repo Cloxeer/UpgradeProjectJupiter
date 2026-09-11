@@ -2,7 +2,6 @@ import { asset } from "@/lib/base";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import { AudienceFlag } from "@/components/jupiter/AudienceFlag";
 
 // Roboto — the exact font used on projectjupitertogether.com.
 const roboto = Roboto({
@@ -104,7 +103,6 @@ export default function RootLayout({
     <html lang="en" className={`${roboto.variable}`} suppressHydrationWarning>
       <body suppressHydrationWarning>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        <AudienceFlag />
         {children}
       </body>
     </html>
