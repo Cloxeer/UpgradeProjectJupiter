@@ -12,7 +12,7 @@ const places = [
   { href: "/", label: "Home", note: "what the upgrade is" },
   { href: "/blueprint", label: "Blueprint", note: "the site plan and the five processes" },
   { href: "/science", label: "The Science", note: "how each part works" },
-  { href: "/petition", label: "Petition", note: "add your name" },
+  { href: "/blueprint#act", label: "Act on the record", note: "comment on the permit" },
   { href: "/sources", label: "Sources", note: "every document we cite" },
 ];
 

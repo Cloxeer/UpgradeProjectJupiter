@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { nav } from "@/data/upgrade";
 import { MenuIcon } from "./icons";
+import { DepthChip } from "./Depth";
 
 /** The one page we point at with a small tilted "!" until the reader has opened it once. */
 const ALERT_PAGE = "/blueprint";
@@ -97,40 +98,46 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="pj-nav hidden items-center gap-7 lg:flex">
-          {nav.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className={`pj-nav__link text-[15px] font-semibold uppercase tracking-wide text-navy ${isCurrent(item.href) ? "pj-nav__link--current" : ""}`}
-              aria-current={isCurrent(item.href) ? "page" : undefined}
-            >
-              {item.label}
-              {item.href === ALERT_PAGE && !seenAlert && <span className="pj-alert" aria-label="New: open the blueprint">!</span>}
-            </a>
-          ))}
-        </nav>
+        {/* Desktop nav, then the one control that follows the reader everywhere: the reading depth. */}
+        <div className="hidden items-center gap-6 lg:flex">
+          <nav className="pj-nav flex items-center gap-6">
+            {nav.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className={`pj-nav__link text-[15px] font-semibold uppercase tracking-wide text-navy ${isCurrent(item.href) ? "pj-nav__link--current" : ""}`}
+                aria-current={isCurrent(item.href) ? "page" : undefined}
+              >
+                {item.label}
+                {item.href === ALERT_PAGE && !seenAlert && <span className="pj-alert" aria-label="New: open the blueprint">!</span>}
+              </a>
+            ))}
+          </nav>
+          <DepthChip />
+        </div>
 
-        {/* Mobile toggle */}
-        <button
-          type="button"
-          aria-label={mobileOpen ? "Close menu" : "Menu"}
-          aria-expanded={mobileOpen}
-          className="-mr-2 flex h-11 w-11 items-center justify-center rounded text-navy lg:hidden"
-          onClick={() => setMobileOpen((o) => !o)}
-        >
-          {mobileOpen ? <span style={{ fontSize: 28, lineHeight: 1 }}>×</span> : <MenuIcon className="h-7 w-7" />}
-        </button>
+        {/* Phones: the depth chip and the menu toggle. */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <DepthChip />
+          <button
+            type="button"
+            aria-label={mobileOpen ? "Close menu" : "Menu"}
+            aria-expanded={mobileOpen}
+            className="-mr-2 flex h-11 w-11 items-center justify-center rounded text-navy"
+            onClick={() => setMobileOpen((o) => !o)}
+          >
+            {mobileOpen ? <span style={{ fontSize: 28, lineHeight: 1 }}>×</span> : <MenuIcon className="h-7 w-7" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu: the whole page goes white, and the options arrive one after another. */}
       {mobileOpen && (
         <nav className="pj-menu fixed inset-0 z-[95] flex flex-col bg-white lg:hidden" aria-label="Site menu">
           <div className="pj-container flex items-center justify-between" style={{ paddingBlock: 12 }}>
-            <a href="/petition" onClick={() => setMobileOpen(false)} className="min-h-[44px] inline-flex items-center text-[13px] font-black uppercase tracking-wide" style={{ color: "#c0392b" }}>
-              Force Upgrade Project Jupiter → sign the petition
-            </a>
+            <span className="min-h-[44px] inline-flex items-center text-[13px] font-black uppercase tracking-wide" style={{ color: "#003047" }}>
+              Force Upgrade Project Jupiter
+            </span>
             <button type="button" aria-label="Close menu" onClick={() => setMobileOpen(false)} className="-mr-2 flex h-11 w-11 items-center justify-center rounded text-navy" style={{ fontSize: 30, lineHeight: 1 }}>
               ×
             </button>

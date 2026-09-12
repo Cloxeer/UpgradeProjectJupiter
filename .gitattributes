@@ -7,3 +7,6 @@
 # Batch files must always use CRLF
 *.bat text eol=crlf
 *.cmd text eol=crlf
+
+# Frozen static snapshot of the previous site: keep bytes exactly as built.
+public/original/** -text
