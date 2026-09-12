@@ -1,6 +1,6 @@
 "use client";
 
-import { AudienceChip, useAudience } from "./Audience";
+import { useDepth } from "./Depth";
 import { topics } from "@/data/science-levels";
 import { Cite, SourceList } from "@/components/Cite";
 import { TheySay } from "./TheySay";
@@ -38,15 +38,12 @@ function ExecutiveCards() {
 
 /** Wraps the adult sections; renders the simple or expert view instead when the reader picks that level. */
 export function ScienceLevels({ children }: { children: React.ReactNode }) {
-  // One site-wide choice, the same six readers as the Blueprint. Little kid gets pictures and one sentence; Expert gets the numbers.
-  const [audience] = useAudience();
-  const level: "little" | "adult" | "expert" = audience === "kid" ? "little" : audience === "expert" ? "expert" : "adult";
+  // One site-wide depth, chosen in the header. Simple gets one sentence per topic; expert gets the numbers first.
+  const [depth] = useDepth();
+  const level: "little" | "adult" | "expert" = depth === "simple" ? "little" : depth === "expert" ? "expert" : "adult";
   return (
     <>
-      <div className="pj-container py-6" id="science-who">
-        <AudienceChip />
-      </div>
-      <div id="science-body" className="scroll-mt-32" />
+      <div id="science-body" className="scroll-mt-32 pt-6" />
       {level !== "little" && <ExecutiveCards />}
       {level === "adult" && children}
       {level === "little" && <Simple level="little" />}

@@ -1,247 +1,176 @@
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/jupiter/SiteHeader";
 import { SiteFooter } from "@/components/jupiter/SiteFooter";
-import { SectionHeading } from "@/components/jupiter/SectionHeading";
-import { Stamp } from "@/components/jupiter/Stamp";
-import { TheySay } from "@/components/jupiter/TheySay";
-import { SitePlan } from "@/components/blueprint/SitePlan";
-import { HeatDiagram, CarbonDiagram, WaterDiagram, SolarDiagram, GreenhouseDiagram } from "@/components/blueprint/Diagrams";
-import { YearTimeline } from "@/components/blueprint/YearTimeline";
-import { costItems, receipts, SOURCE_NOTE } from "@/data/blueprint";
+import { BeatSection } from "@/components/story/BeatSection";
+import { Guide } from "@/components/story/Guide";
+import { NotAt } from "@/components/story/Tiered";
+import { SiteMap } from "@/components/story/diagrams/SiteMap";
+import { CarbonDiagram } from "@/components/story/diagrams/CarbonDiagram";
+import { WaterDiagram } from "@/components/story/diagrams/WaterDiagram";
+import { HeatDiagram } from "@/components/story/diagrams/HeatDiagram";
+import { PowerDiagram } from "@/components/story/diagrams/PowerDiagram";
+import { MilestoneStrip } from "@/components/story/diagrams/MilestoneStrip";
 import { CostTotals } from "@/components/blueprint/CostTotals";
-import { HelpImprove } from "@/components/jupiter/HelpImprove";
-import { pctOfBond, pctOfPhase1, parseCostM } from "@/lib/units";
-import { PlanModeProvider, PlanSwitch } from "@/components/blueprint/PlanMode";
-import { Glossary } from "@/components/jupiter/Term";
-import { JupiterStorm } from "@/components/jupiter/JupiterStorm";
-import { AudienceChip } from "@/components/jupiter/Audience";
-import { VoiceText, HideFor, OnlyFor, HeroSub } from "@/components/blueprint/Voice";
+import { ActOnRecord } from "@/components/jupiter/ActOnRecord";
 import { Truth } from "@/components/jupiter/Truth";
+import { costItems } from "@/data/blueprint";
+import { pctOfBond, pctOfPhase1, parseCostM } from "@/lib/units";
+import { blueprint } from "@/data/story";
+import { Photo, PhotoPair } from "@/components/story/Photo";
+import { changePhotos } from "@/data/photos";
 
 export const metadata: Metadata = {
-  title: "Blueprint: the upgraded site plan, drawn",
-  description: "Interactive site plan and five process drawings for upgrading Project Jupiter on its own 819 acres: waste heat to greenhouses, carbon capture on the fuel cells, a 5 MGD desalination plant, geothermal and wind, costs as a share of the $50B first phase and the $165B bond cap, and a 30-year timeline.",
+  title: "The plan: four changes, six conditions, one campus",
+  description: "The upgraded site plan for Project Jupiter on its own 819 acres, the four changes in order of impact (carbon, water, heat and food, gas), what it costs against the $50B first phase, the years, and how to comment on the permit record.",
   alternates: { canonical: "/blueprint/" },
 };
 
-const renderLabels = ["Secure Entrance", "Secure Exit", "Operations", "Warehouse", "Parking", "Guard Booth", "Security Fence", "Transformer Yard", "Modular Chiller Plants — Closed Loop System", "Dry Coolers"];
+const diagrams: Record<string, React.ComponentType> = { carbon: CarbonDiagram, water: WaterDiagram, heat: HeatDiagram, gas: PowerDiagram };
 
-const processes = [
-  { id: "p1", Comp: HeatDiagram },
-  { id: "p2", Comp: CarbonDiagram },
-  { id: "p3", Comp: WaterDiagram },
-  { id: "p4", Comp: SolarDiagram },
-  { id: "p5", Comp: GreenhouseDiagram },
-];
-
+/** The plan. Four sections: the site, the four changes, what it costs and when, act on the record. */
 export default function BlueprintPage() {
   return (
     <>
       <SiteHeader />
-      <PlanModeProvider>
       <main>
-        {/* A different page, at a glance: graph paper, navy type, one control. */}
-        <section style={{ backgroundColor: "#f6f9fb", backgroundImage: "repeating-linear-gradient(0deg, rgba(0,48,71,0.08) 0 1px, transparent 1px 24px), repeating-linear-gradient(90deg, rgba(0,48,71,0.08) 0 1px, transparent 1px 24px)" }}>
-          <div className="pj-container py-10 text-center">
-            <p className="mb-2 text-[13px] font-black uppercase tracking-wide" style={{ color: "#2e8b57" }}>The blueprint · tap any building</p>
-            <h1 className="font-black" style={{ fontSize: "clamp(36px,6vw,56px)", lineHeight: 1.05, color: "#003047" }}>
-              <Stamp kind="force">PROJECT JUPITER</Stamp> BLUEPRINT
+        {/* 1. The site */}
+        <section id="site" style={{ backgroundColor: "#f6f8f8" }}>
+          <div className="pj-container py-14 md:py-20">
+            <h1 className="max-w-[24ch] font-black" style={{ fontSize: "clamp(28px,4vw,44px)", lineHeight: 1.1, color: "#003047", letterSpacing: "-0.01em" }}>
+              {blueprint.opening}
             </h1>
-            <p className="mx-auto mt-4 max-w-[760px] font-semibold" style={{ fontSize: "clamp(17px,2vw,21px)", lineHeight: 1.4, color: "#003047" }}>
-              <HeroSub />
-            </p>
-            <div className="mt-6 flex flex-col items-center gap-4">
-              <PlanSwitch labelTheirs="Their plan, as filed" labelOurs="The upgraded plan" big hint scrollTo="#site" />
-              <AudienceChip />
+            <h2 className="mt-12 text-[22px] font-black" style={{ color: "#003047" }}>{blueprint.site.title}</h2>
+            <div className="mt-5 rounded bg-white p-3 md:p-4">
+              <SiteMap />
+            </div>
+            <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] md:items-start">
+              <Guide t={blueprint.site.line} />
+              <Photo id="halls" ratio="16 / 10" />
             </div>
           </div>
         </section>
 
-        <JupiterStorm />
+        {/* 2. The four changes, in order of impact */}
+        <BeatSection id="changes" tone="light">
+          <div className="pj-container py-16 md:py-24">
+            <h2 className="font-black" style={{ fontSize: "clamp(26px,3.4vw,38px)", lineHeight: 1.15, color: "#003047" }}>
+              {blueprint.changesTitle}
+            </h2>
+            <div className="mt-6 grid grid-cols-1 gap-16 md:gap-24">
+              {blueprint.changes.map((c) => {
+                const Diagram = diagrams[c.id];
+                return (
+                  <article key={c.id} id={c.id} className="scroll-mt-32">
+                    <h3 className="text-[24px] font-black md:text-[28px]" style={{ color: "#1f5f3a", lineHeight: 1.15 }}>{c.title}</h3>
+                    <div className="mt-6 rounded p-3 md:p-5" style={{ backgroundColor: "#f6f8f8" }}>
+                      <Diagram />
+                    </div>
+                    <div className="mt-8">
+                      <Guide t={c.line} />
+                    </div>
+                    <div className="mt-8">
+                      <PhotoPair ids={changePhotos[c.id] ?? []} />
+                    </div>
+                    {c.conditions.length > 0 ? (
+                      <ul className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+                        {c.conditions.map((d) => (
+                          <li key={d.n} style={{ borderLeft: "3px solid #2e8b57", paddingLeft: 16 }}>
+                            <div className="text-[15px] font-bold" style={{ color: "#5d6a70" }}>Condition {d.n}</div>
+                            <div className="mt-1 text-[17px] font-bold" style={{ color: "#003047", lineHeight: 1.4 }}>{d.short}</div>
+                            <NotAt depth="simple">
+                              <div className="mt-1 text-[15px]" style={{ color: "#3c3c3c", lineHeight: 1.5 }}>{d.gate}</div>
+                            </NotAt>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <NotAt depth="simple">
+                        <p className="mt-8 text-[15px]" style={{ color: "#5d6a70", lineHeight: 1.5 }}>{"note" in c ? c.note : null}</p>
+                      </NotAt>
+                    )}
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </BeatSection>
 
-        {/* Site plan */}
-        <SectionHeading stamp="force" id="site">THE SITE, THEIRS AND UPGRADED</SectionHeading>
-        <div className="pj-container pb-16">
-          <HideFor audiences={["kid"]}>
-          <p className="mx-auto mb-2 max-w-[900px] text-center" style={{ fontSize: 15, lineHeight: 1.6, color: "#6b6b6b" }}>
-            {SOURCE_NOTE}
-          </p>
-          </HideFor>
-          <p className="mx-auto mb-6 max-w-[900px] text-center font-semibold" style={{ fontSize: 15, lineHeight: 1.6, color: "#c0392b" }}>
-            This layout is the closest approximation we could draw from the one photo the developers have published. It is a mock-up, not a survey.
-          </p>
-          <OnlyFor audiences={["kid"]}>
-            <p className="mx-auto mb-6 max-w-[900px] text-center font-bold" style={{ fontSize: 19, lineHeight: 1.5, color: "#1f5f3a" }}>
-              This is a map of the computer place from above. Tap a building to see what it is. Green is what we want to add.
-            </p>
-          </OnlyFor>
-          <SitePlan />
-          <HideFor audiences={["kid"]}>
-          <TheySay label="What their Aug. 27, 2026 labeled render actually shows">
-            <p className="mb-3">Their render carries exactly these labels, and nothing else:</p>
-            <ul className="grid grid-cols-1 gap-x-8 gap-y-1 sm:grid-cols-2" style={{ listStyle: "disc", paddingLeft: 20 }}>
-              {renderLabels.map((l) => (
-                <li key={l}>{l}</li>
-              ))}
-            </ul>
-            <p className="mt-4">
-              Not labeled anywhere: the 2,462 MW fuel-cell plant, which NMED places about 3.6 miles south of Santa Teresa, the gas line feeding it, or
-              the property line. The signed agreement describes about 819 acres with a 400-acre first phase; the render shows that phase.
-            </p>
-            <p className="mt-2">
-              <a href="https://projectjupitertogether.com/wp-content/uploads/2026/08/Project-Jupiter-Site-Render_Labeled-8.27.26-Website.jpg" target="_blank" rel="noopener noreferrer" className="underline" style={{ color: "#15768c" }}>
-                Open their labeled render
+        {/* 3. What it costs, and when */}
+        <BeatSection id="cost" tone="paper">
+          <div className="pj-container py-16 md:py-24">
+            <h2 className="font-black" style={{ fontSize: "clamp(26px,3.4vw,38px)", lineHeight: 1.15, color: "#003047" }}>
+              {blueprint.cost.title}
+            </h2>
+            <div className="mt-8">
+              <Guide t={blueprint.cost.line} />
+            </div>
+            <CostTotals />
+            <NotAt depth="simple">
+              <details className="mt-10 rounded bg-white">
+                <summary className="pj-press flex min-h-[52px] cursor-pointer items-center justify-between gap-3 px-5 py-3 text-[17px] font-bold" style={{ color: "#003047" }}>
+                  <span>Every cost line, with its basis</span>
+                  <span className="text-[13px] font-black uppercase" style={{ color: "#2e8b57" }}>open</span>
+                </summary>
+              <div className="w-full overflow-x-auto p-2">
+                <table className="pj-table pj-table--compare pj-table--stack">
+                  <thead>
+                    <tr>
+                      <th>Item</th>
+                      <th>Cost</th>
+                      <th>Share of the $50B first phase</th>
+                      <th>Who pays</th>
+                      <th>Basis</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {costItems.map((c) => {
+                      const m = parseCostM(c.cost);
+                      const approx = m.lo !== undefined ? "about " : "";
+                      return (
+                        <tr key={c.item}>
+                          <th scope="row">{c.item}</th>
+                          <td data-label="Cost" className="pj-cell-ours" style={{ whiteSpace: "nowrap" }}>{c.cost}</td>
+                          <td data-label="Share of the $50B first phase" style={{ whiteSpace: "nowrap" }}>
+                            <span style={{ fontWeight: 700, color: "#003047" }}>{approx}{pctOfPhase1(m.m)}</span>
+                            <span className="block text-[13px]" style={{ color: "#6b6b6b" }}>{approx}{pctOfBond(m.m)} of the $165B cap (a ceiling, not cash)</span>
+                          </td>
+                          <td data-label="Who pays">{c.who}</td>
+                          <td data-label="Basis" style={{ fontSize: 15 }}>
+                            <Truth label={c.label} /> {c.note}{m.stream && <span style={{ color: "#6b6b6b" }}> (A payment stream, not capital.)</span>}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+              </details>
+            </NotAt>
+            <h3 className="mt-16 text-[22px] font-black" style={{ color: "#003047" }}>The years</h3>
+            <div className="mt-6">
+              <MilestoneStrip />
+            </div>
+            <p className="mt-12 text-[16px]" style={{ color: "#3c3c3c" }}>
+              {blueprint.cost.sourcesLine}{" "}
+              <a href="/sources" className="inline-flex min-h-[44px] items-center font-bold underline" style={{ color: "#15768c" }}>
+                All sources
               </a>
             </p>
-          </TheySay>
-          </HideFor>
-        </div>
-
-        {/* Processes: one full-width section each */}
-        <div style={{ backgroundColor: "#fafafa" }}>
-          <SectionHeading stamp="upgrade" id="processes">THE PROCESSES</SectionHeading>
-          <div className="pj-container pb-6">
-            <HideFor audiences={["kid"]}>
-            <p className="mx-auto mb-4 max-w-[860px] text-center" style={{ fontSize: 17, lineHeight: 1.6, color: "#3c3c3c" }}>
-              Five things happen on this campus that their site does not explain. Each one below is a real machine with real limits. The sliders
-              show the limits too. A plan that leaves them out is a plan that gets thrown out.
-            </p>
-            </HideFor>
-            <OnlyFor audiences={["kid"]}>
-              <p className="mx-auto mb-4 max-w-[860px] text-center font-bold" style={{ fontSize: 19, lineHeight: 1.5, color: "#1f5f3a" }}>
-                Five things happen here: heat, gas, water, power and food. Each drawing moves. Slide the sliders and tap the parts.
-              </p>
-            </OnlyFor>
-            <div className="mb-4">
-              <HideFor audiences={["kid", "homeowner"]}>
-              <Glossary keys={["MW", "MGD", "tpy", "ppb", "ugm3", "CO2e", "captureEfficiency", "brackish", "PSD", "TitleV", "nonattainment", "acreFoot", "IRB", "CBA"]} />
-              </HideFor>
-            </div>
-            {/* TLDR: the five ideas in one breath, for readers who will not scroll five diagrams. Each row jumps to its drawing. */}
-            <nav aria-label="Processes" className="mx-auto mb-4 max-w-[760px]">
-              <p className="mb-2 text-center text-[13px] font-black uppercase tracking-wide" style={{ color: "#6b6b6b" }}>
-                TLDR · the five ideas in one breath · tap one to see it move
-              </p>
-              <ol className="space-y-1.5">
-                {[
-                  { n: 1, name: "Heat", line: "Their fans blow all the computers' heat into the sky. One extra box sends it to greenhouses first." },
-                  { n: 2, name: "Carbon", line: "8.8 million tons of CO₂ a year is allowed out. The exhaust is almost pure, so a box can catch it, with a meter to prove it." },
-                  { n: 3, name: "Water", line: "The plant that turns salty water into 5 million gallons a day is already designed. Build it, not a study." },
-                  { n: 4, name: "Retire the gas", line: "Every hour of geothermal and wind is an hour the gas machines rest, on a public meter." },
-                  { n: 5, name: "Food & jobs", line: "150 acres of greenhouses beside the coolers: food for the region and about 1,000 jobs." },
-                ].map((t) => (
-                  <li key={t.n}>
-                    <a href={`#p${t.n}`} className="flex min-h-[44px] flex-col gap-y-0.5 rounded border bg-white px-3 py-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-2 sm:py-1.5" style={{ borderColor: "#e0e0e0" }}>
-                      <span className="text-[14px] font-black uppercase" style={{ color: "#003047" }}>{t.n} · {t.name}</span>
-                      <span className="min-w-0 flex-1 text-[15px]" style={{ color: "#3c3c3c", lineHeight: 1.4 }}>{t.line}</span>
-                      <span className="whitespace-nowrap text-[13px] font-bold sm:ml-auto" style={{ color: "#2e8b57" }}>see it move ↓</span>
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </nav>
           </div>
-          {processes.map(({ id, Comp }, i) => (
-            <section key={id} id={id} className="scroll-mt-32" style={{ backgroundColor: i % 2 ? "#ffffff" : "#fafafa" }}>
-              <div className="pj-container py-8">
-                <Comp />
-              </div>
-            </section>
-          ))}
-        </div>
+        </BeatSection>
 
-        {/* Cost */}
-        <SectionHeading stamp="force" id="cost">WHAT IT COSTS AND WHO PAYS</SectionHeading>
-        <div className="pj-container pb-16">
-          <p className="mx-auto mb-6 max-w-[900px] text-center font-semibold" style={{ fontSize: 18, lineHeight: 1.55, color: "#003047" }}>
-            <VoiceText field="cost" />
-          </p>
-          <HideFor audiences={["kid"]}>
-          <div className="w-full overflow-x-auto">
-            <table className="pj-table pj-table--compare pj-table--stack">
-              <thead>
-                <tr>
-                  <th>Item</th>
-                  <th>Cost</th>
-                  <th>% of $50B first phase</th>
-                  <th>Who pays</th>
-                  <th>Basis</th>
-                </tr>
-              </thead>
-              <tbody>
-                {costItems.map((c) => {
-                  const m = parseCostM(c.cost);
-                  const approx = m.lo !== undefined ? "~" : "";
-                  return (
-                    <tr key={c.item}>
-                      <th scope="row">{c.item}</th>
-                      <td data-label="Cost" className="pj-cell-ours" style={{ whiteSpace: "nowrap" }}>{c.cost}</td>
-                      <td data-label="% of $50B first phase" style={{ whiteSpace: "nowrap" }}>
-                        <span style={{ fontWeight: 700, color: "#c0392b" }}>{approx}{pctOfPhase1(m.m)}</span>
-                        <span className="block text-[13px]" style={{ color: "#6b6b6b" }} title="The $165 billion is the bond ceiling in the county deal, not money in a bank">{approx}{pctOfBond(m.m)} of the $165B cap (a ceiling, not cash)</span>
-                      </td>
-                      <td data-label="Who pays">{c.who}</td>
-                      <td data-label="Basis" style={{ fontSize: 15 }}>
-                        <Truth label={c.label} /> {c.note}{m.stream && <span style={{ color: "#6b6b6b" }}> (A payment stream, not capital.)</span>}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-          </HideFor>
-          <CostTotals />
-          <HideFor audiences={["kid"]}>
-          <TheySay label="What they are spending on the community today">
-            <p>
-              $50 million for water system improvements (80% funded), about $360 million in payments in lieu of taxes over 30 years, and $6.9 million
-              for workforce and community programs. Total: roughly $417 million, about 0.8% of the $50 billion first phase (0.25% of the $165 billion bond cap, a ceiling, not cash).
-            </p>
-          </TheySay>
-          </HideFor>
-        </div>
-
-        {/* Timeline, year by year */}
-        <div style={{ backgroundColor: "#003047" }}>
-          <div className="pj-container py-12" id="timeline">
-            <div className="pj-heading mb-6">
-              <h2 style={{ color: "#ffffff" }}>THE TIMELINE, YEAR BY YEAR</h2>
-            </div>
-            <YearTimeline />
-            <div className="mx-auto max-w-[900px]">
-              <HideFor audiences={["kid"]}>
-              <TheySay dark label="Their timeline">
-                <p>
-                  Development 100%, construction 30%, delivery 0% as of July 2026. Power online targeted within 18 to 24 months of permits. The air
-                  permit is currently stayed by the New Mexico Supreme Court and the pipeline route has been denied twice by the State Land Office.
-                </p>
-              </TheySay>
-              </HideFor>
+        {/* 4. Act on the record */}
+        <BeatSection id="act-section" tone="navy">
+          <div className="pj-container py-16 md:py-24">
+            <h2 className="font-black text-white" style={{ fontSize: "clamp(26px,3.4vw,38px)", lineHeight: 1.15 }}>
+              {blueprint.act.title}
+            </h2>
+            <div className="mt-8">
+              <ActOnRecord />
             </div>
           </div>
-        </div>
-
-        {/* Receipts */}
-        <HideFor audiences={["kid"]}>
-        <SectionHeading stamp="upgrade" id="receipts">THE RECEIPTS</SectionHeading>
-        <div className="pj-container pb-16">
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            {receipts.map((r) => (
-              <div key={r.claim} className="rounded border-l-4 bg-white p-5 shadow-sm" style={{ borderColor: "#219ebc" }}>
-                <div className="font-bold" style={{ fontSize: 17, color: "#003047" }}>{r.claim}</div>
-                <p className="mt-2" style={{ fontSize: 16, lineHeight: 1.6, color: "#3c3c3c" }}>{r.proof}</p>
-                <a href={r.href} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-[15px] font-bold underline" style={{ color: "#15768c" }}>
-                  {r.label} ↗
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-        </HideFor>
-        <HelpImprove dark />
+        </BeatSection>
       </main>
-      </PlanModeProvider>
       <SiteFooter />
     </>
   );

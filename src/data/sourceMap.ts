@@ -50,14 +50,6 @@ export const sourceMap: SourcePage[] = [
     ],
   },
   {
-    title: "Petition",
-    href: "/petition",
-    blurb: "The six conditions",
-    sections: [
-      { title: "The six conditions and what they rest on", ids: ["nmsa-72-12-8", "epwater", "haussamen-water", "sob-part-a", "irs-45q", "dac-irb-safeguards", "sandoval-intel", "rio-rancho-pure", "agriport", "enefg", "goteborg-energi", "epwater-recharge", "nm-asr-act", "abcwua-bear-canyon", "dac-solar-decom", "columbia-decom", "cga-pa", "epa-class-vi", "star-plant", "cba", "sob", "bloom-chart", "nmsu", "sweden", "sunland-park-ozone"] },
-    ],
-  },
-  {
     title: "FAQ",
     href: "/faq",
     blurb: "Their questions, answered with sources",

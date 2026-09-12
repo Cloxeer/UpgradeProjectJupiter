@@ -1,12 +1,12 @@
 "use client";
 
 import { CLAIM, type ClaimLabel } from "@/data/claims";
-import { useAudience } from "./Audience";
+import { useDepth } from "./Depth";
 
-/** One small pill naming what kind of claim a number is. Inline, so nothing gets taller. Hidden for little kids. */
+/** One small pill naming what kind of claim a number is. Inline, so nothing gets taller. Hidden on the simple tier. */
 export function Truth({ label, dark = false }: { label?: ClaimLabel; dark?: boolean }) {
-  const [audience] = useAudience();
-  if (!label || audience === "kid") return null;
+  const [depth] = useDepth();
+  if (!label || depth === "simple") return null;
   const c = CLAIM[label];
   return (
     <span

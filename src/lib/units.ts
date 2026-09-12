@@ -7,14 +7,14 @@ export function temp(c: number): string {
   return `${Math.round(c)} °C / ${f} °F`;
 }
 
-/** "45–65 °C / 113–149 °F" */
+/** "45-65 °C / 113-149 °F" */
 export function tempRange(c1: number, c2: number): string {
   const f = (c: number) => Math.round((c * 9) / 5 + 32);
-  return `${c1}–${c2} °C / ${f(c1)}–${f(c2)} °F`;
+  return `${c1}-${c2} °C / ${f(c1)}-${f(c2)} °F`;
 }
 
 // Heat equivalences (rough, labeled as such wherever shown):
-// - A typical U.S. home gas furnace is rated about 80,000–100,000 BTU/hr (Carrier sizing guide). We use 90,000 BTU/hr ≈ 26 kW.
+// - A typical U.S. home gas furnace is rated about 80,000-100,000 BTU/hr (Carrier sizing guide). We use 90,000 BTU/hr ≈ 26 kW.
 // - 1 MW = 3,412,142 BTU/hr.
 const BTU_PER_HR_PER_MW = 3_412_142;
 const FURNACE_BTU_PER_HR = 90_000;
@@ -60,13 +60,13 @@ export function pctOfPhase1(millions: number): string {
 }
 
 /**
- * Parse a cost string from the cost table into millions. "$1.5B" → 1500; "$1.5–2B" → lo 1500, hi 2000, m 1750;
+ * Parse a cost string from the cost table into millions. "$1.5B" → 1500; "$1.5-2B" → lo 1500, hi 2000, m 1750;
  * "+$640M over 30 years" → 640 with stream = true (a payment stream, not capital). Only the text before " over" is read.
  */
 export function parseCostM(v: string): { m: number; lo?: number; hi?: number; stream: boolean } {
   const stream = /over\s+\d+\s+years/i.test(v);
   const head = v.split(/\s+over\s+/i)[0];
-  const mt = head.match(/\$?\s*([\d.]+)(?:\s*[–-]\s*([\d.]+))?\s*([MB])/i);
+  const mt = head.match(/\$?\s*([\d.]+)(?:\s*[--]\s*([\d.]+))?\s*([MB])/i);
   if (!mt) return { m: 0, stream };
   const mult = mt[3].toUpperCase() === "B" ? 1000 : 1;
   const lo = parseFloat(mt[1]) * mult;

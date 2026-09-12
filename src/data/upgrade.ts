@@ -21,7 +21,7 @@ export const mission = "Keep the data center. Make it catch its carbon, reuse it
 export const steps = [
   { n: 1, who: "The county", what: "negotiates the six conditions into the bond lease at its next consent point, before the fuel cells arrive.", why: "The county holds title during the 30-year bond and the lease is its only remedy, but the lease can be changed only by agreement; the leverage is every consent the companies still need.", href: "/legislators#commission", cta: "Who signs the lease" },
   { n: 2, who: "Santa Fe", what: "passes the three bills so the same rules apply to the next data center.", why: "The Microgrid Oversight Act already passed the Senate in 2026. The other two are drafted.", href: "/legislators#bills", cta: "The three bills" },
-  { n: 3, who: "You", what: "write a comment on the NMED permit record, speak at the commission on a second or fourth Tuesday, call your commissioner, then add your name so the count can be shown.", why: "A petition has no legal force here; comments on the permit record and at the commission do. Your name adds to a count we hand the commissioners; the record is what binds.", href: "/petition", cta: "Sign the petition" },
+  { n: 3, who: "You", what: "write a comment on the NMED permit record, speak at the commission on a second or fourth Tuesday, and call your commissioner.", why: "A petition has no legal force here; comments on the permit record and at the commission do. The record is what binds.", href: "/blueprint#act", cta: "How to comment" },
 ] as const;
 
 /** Six tabs. Petition is the button, not a tab. */
@@ -71,7 +71,7 @@ export const highlights: UpgradeHighlight[] = [
   { icon: "community", num: "$50M", label: "COMMUNITY & WORKFORCE PROGRAMS, INCLUDING AN NMSU / DACC TECH INSTITUTE", theirs: "$6.9M", color: "#e07b00" },
   { icon: "helmet", num: "~10,500", label: "CONSTRUCTION & PERMANENT JOBS (ABOUT 3,000 PERMANENT IN PHASE 1, ESTIMATE)", theirs: "8,500+", color: "#2e8b57" },
   { icon: "emissions", num: "Every stack", label: "ON A CONTINUOUS PUBLIC MONITOR, WITH PERMIT LIMITS SET FOR THE CAPTURE CONFIGURATION", theirs: "92% lower NOx", color: "#c0392b" },
-  { icon: "energy", num: "90–95%", label: "CAPTURE TARGET, METERED AT THE STACK FROM DAY ONE, NOT \"MATCHED\" BY 2031", theirs: "100% matching by 2031", color: "#2e8b57" },
+  { icon: "energy", num: "90-95%", label: "CAPTURE TARGET, METERED AT THE STACK FROM DAY ONE, NOT \"MATCHED\" BY 2031", theirs: "100% matching by 2031", color: "#2e8b57" },
   { icon: "household", num: "5M", label: "GALLONS PER DAY OF NEW CLEAN WATER MADE FROM SALTY GROUNDWATER", theirs: "~9 households used", color: "#1f7ae0" },
 ];
 
@@ -81,7 +81,7 @@ export const speedRows: { label: string; theirs: string; ours: string }[] = [
   { label: "Land", theirs: "About 819 acres per the signed CBA, 400 in the first phase; early news reports said 1,400", ours: "The same site. Nothing added outside the property line; greenhouse acreage set from their unpublished site plan" },
   { label: "Construction footprint", theirs: "Four data halls, ops, warehouse, transformer yard, chiller plants, dry coolers, and a fuel-cell yard the render does not show", ours: "Every one of those stays where it is. Greenhouses and the water plant go on undeveloped acres beside the dry coolers" },
   { label: "Time to power online", theirs: "18 to 24 months, currently stalled by a Supreme Court stay on the air permit", ours: "18 to 24 months. Capture skids ship in containers like the fuel cells. Meeting the conditions is what un-stalls the permit" },
-  { label: "Capital cost", theirs: "~$165B bond cap; $50B committed in the first five years", ours: "About $3.4–3.9B more capital (8% of the $50B first phase; 2.5% of the cap, a ceiling, not cash) plus $640M more in payments over 30 years, before the federal 45Q credit repays most of the capture cost. Growers finance their own greenhouses" },
+  { label: "Capital cost", theirs: "~$165B bond cap; $50B committed in the first five years", ours: "About $3.4-3.9B more capital (8% of the $50B first phase; 2.5% of the cap, a ceiling, not cash) plus $640M more in payments over 30 years, before the federal 45Q credit repays most of the capture cost. Growers finance their own greenhouses" },
   { label: "Who runs the greenhouses", theirs: "Nobody. Heat is blown into the desert by the dry coolers", ours: "Commercial growers lease 150 acres. Oracle and STACK sell them heat they are paying fans to throw away" },
   { label: "Permanent jobs", theirs: "750 full-time + 50 part-time, binding. 1,500 advertised", ours: "About 3,000 in Phase 1 including the binding 750, about 4,800 at full build (estimates)" },
   { label: "CO₂ released per year", theirs: "8,820,970 tons permitted (draft permit); the developers applied for 10.1 million and expect about 40% less in practice", ours: "0.45 to 1.0 million tons if capture meets its 90 to 95% target, counting the 5 to 15% more gas the capture itself burns, falling as the share of energy from gas falls. HB93's 2045 net-zero definition allows methane offsets; we ask for the physical reading" },
@@ -115,7 +115,7 @@ export const willList = [
   "Fund the $269.5 million, 5 million gallon a day brackish desalination system that NMSU designed for Santa Teresa in 2023, instead of writing a $50 million check",
   "Fund a $50 million NMSU and Doña Ana Community College institute for power, water, greenhouse, and hardware careers, with guaranteed local placement",
   "Create about 7,500 construction jobs and about 3,000 permanent jobs in Phase 1: the same 1,500 data center roles plus up to about 1,000 in greenhouses, 250 in water and capture operations, and 250 in hardware refurbishment and training (estimates)",
-  "Pay full-time salaries averaging $75K–$100K plus benefits for tech roles, and living wages with benefits in every third-party greenhouse and water contract",
+  "Pay full-time salaries averaging $75K-$100K plus benefits for tech roles, and living wages with benefits in every third-party greenhouse and water contract",
   "Use the same Bloom Energy fuel cells, capture-ready before the first cell turns on, with capture metered against a 90 to 95% target and the federal 45Q credit paying toward it",
   "Run continuous stack monitors on every fuel-cell cluster, published on a public dashboard, with permit limits set for the capture configuration",
   "Tap the warm-water header before the dry coolers with one heat exchanger, sending heat to greenhouse root zones in winter and desalination preheat in summer, and rejecting the rest through the same dry coolers with zero water",
@@ -158,7 +158,7 @@ export const impactTabs: TabPanel[] = [
         ["Additional Estimated Economic Activity During Construction", "~$384M → ~$415M", "3", "$1.15B", "+ $100M", "$1.25B"],
         ["Gross Receipts Tax / Sales Tax During Operations (1)(2)", "$40M → $42M", "17", "$680M", "+ $40M", "$720M"],
         ["Additional Economic Activity During Operations (1)(2)", "~$113M → ~$155M", "17", "$1.92B", "+ $680M", "$2.6B"],
-        ["Industrial Revenue Bond – Schools, Infrastructure, Services (3)", "$12M → $33M", "30", "$360M", "+ $640M", "$1.0B"],
+        ["Industrial Revenue Bond - Schools, Infrastructure, Services (3)", "$12M → $33M", "30", "$360M", "+ $640M", "$1.0B"],
         ["Workforce Development & Community Programs (4)", "—", "—", "$6.9M", "+ $43M", "$50M"],
         ["Greenhouse Land Lease & Heat Sales to Growers (5)", "~$7M", "17", "—", "+ $120M", "$120M"],
         ["Total", "", "", "$4.7B", "+ $1.7B", "$6.4B"],
@@ -184,7 +184,7 @@ export const impactTabs: TabPanel[] = [
     table: {
       head: ["Water", "Their Plan", "Upgraded Plan", "Potable vs. Non-Potable"],
       rows: [
-        ["Data Center Closed-Loop Cooling", "One-time fill: 2.5M gallons per building. Top-offs: 0–1,000 gal/yr", "Same", "Non-potable"],
+        ["Data Center Closed-Loop Cooling", "One-time fill: 2.5M gallons per building. Top-offs: 0-1,000 gal/yr", "Same", "Non-potable"],
         ["Bloom Fuel Cell System", "One-time fill: 960,000 gal. Top-offs: 167,000 gal/yr", "Same", "Non-potable"],
         ["Employee Use (kitchens, bathrooms)", "20,000 gal/day average", "Same", "Potable"],
         ["Brackish Desalination Plant, NMSU 2023 design (5)", "$50M check to CRRUA", "5 MGD reverse osmosis, 75% recovery, $269.5M whole system, brine to two deep injection wells", "Potable"],
@@ -281,11 +281,10 @@ export const irbPoints = [
 // ─── Resources ───────────────────────────────────────────────────────────────
 
 export const resources = [
-  { title: "The Blueprint", desc: "Interactive 819-acre site plan and every process, theirs and ours", href: "/blueprint" },
-  { title: "The Upgrade", desc: "Every metric, theirs and ours, side by side", href: "/#highlights" },
+  { title: "The Blueprint", desc: "The 819-acre site plan, the four changes and the six conditions", href: "/blueprint" },
   { title: "The Science", desc: "Heat, carbon, water, and greenhouses, explained", href: "/science" },
   { title: "Legislators", desc: "Who to call and what to say", href: "/legislators" },
-  { title: "Petition", desc: "Add your name to force the upgrade", href: "/petition" },
+  { title: "Act on the record", desc: "Comment on Permit 10883, speak at the commission, call your commissioner", href: "/blueprint#act" },
   { title: "The Three Bills", desc: "Microgrid Oversight, Waste-Heat Reuse, Data Center Standards", href: "/legislators#bills" },
   { title: "FAQ", desc: "Their questions, answered with sources", href: "/faq" },
   { title: "Sources", desc: "Every document behind every number", href: "/sources" },
@@ -302,7 +301,7 @@ export const sources = [
 export const disclaimers = [
   "† Upgraded figures are estimates prepared for this proposal, not audited projections. They take Project Jupiter Together's own IMPLAN-based totals as the baseline and add: 17 years of Phase 1 produce output, water sales, and greenhouse land leases (heat sold near propane parity); the $269.5M NMSU-designed desalination system; a conditioned $1B bond agreement; and a $50M training institute. They assume the same air permit and pipeline approvals the original plan assumes, plus capture installed before power-on.",
   "Emissions figures come from NMED's draft Permit 10883, Part A, Table 102.A (8,820,970 tons CO₂e per year; NOx 37.2, CO 161.2, VOC 124.0, PM 75.4 tons per year) and its Statement of Basis (exhaust about 95 percent CO₂ once dried; the applicant's 10,144,115-ton figure was reduced). Capture rates of 90 to 95% are a target; no operating plant has sustained them for a decade. Greenhouse yields (200 to 250 tons per acre per year for tomatoes), 5 to 8 workers per acre, and water savings reflect controlled-environment agriculture industry averages. Desalination capacity, recovery, and cost are from the NMSU feasibility study presented to the Legislature on October 31, 2023. Site acreage: the executed Community Benefits Agreement says about 819 acres with a 400-acre first phase; early news reports said 1,400. Map positions are traced from the August 2026 render and are not survey-accurate. Full citations on the Sources page.",
-  "(1)–(4) as in the original Project Jupiter Together disclaimer, reproduced in the dropdown above. (5) New line items introduced by this proposal.",
+  "(1)-(4) as in the original Project Jupiter Together disclaimer, reproduced in the dropdown above. (5) New line items introduced by this proposal.",
 ];
 
 export const footerText = `Website built by ${author} | Not affiliated with Oracle, STACK Infrastructure, or Project Jupiter Together | Copyright © 2026 Force Upgrade Project Jupiter`;

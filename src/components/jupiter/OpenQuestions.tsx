@@ -1,6 +1,6 @@
 "use client";
 
-import { useAudience } from "./Audience";
+import { useDepth } from "./Depth";
 import { Cite, SourceList } from "@/components/Cite";
 import { openQuestions, parkedIdeas, openQuestionSources } from "@/data/openQuestions";
 
@@ -10,8 +10,8 @@ import { openQuestions, parkedIdeas, openQuestionSources } from "@/data/openQues
  * Adds nothing to the page at rest but one line.
  */
 export function OpenQuestions() {
-  const [audience] = useAudience();
-  if (audience !== "expert") return null;
+  const [depth] = useDepth();
+  if (depth !== "expert") return null;
   return (
     <section id="open-questions" style={{ backgroundColor: "#fafafa" }}>
       <div className="pj-container pb-12">

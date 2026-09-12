@@ -2,18 +2,18 @@
 
 import { useState } from "react";
 import { glossary, type GlossaryKey } from "@/data/glossary";
-import { useAudience } from "./Audience";
+import { useDepth } from "./Depth";
 import { Cite } from "@/components/Cite";
 
 /**
- * A technical word with a tap-to-explain definition. In kid mode the plain phrase replaces the term.
+ * A technical word with a tap-to-explain definition. On the simple tier the plain phrase follows the term.
  * Usage: <Term k="MW" /> or <Term k="MW">2,462 MW</Term>
  */
 export function Term({ k, children }: { k: GlossaryKey; children?: React.ReactNode }) {
   const g = glossary[k];
   const [open, setOpen] = useState(false);
-  const [audience] = useAudience();
-  if (audience === "kid") {
+  const [depth] = useDepth();
+  if (depth === "simple") {
     return (
       <span>
         {children ?? g.term} <span style={{ color: "#1f5f3a" }}>({g.kid})</span>

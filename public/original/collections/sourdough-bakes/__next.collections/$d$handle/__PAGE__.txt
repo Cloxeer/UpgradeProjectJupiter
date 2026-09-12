@@ -1,0 +1,7 @@
+1:"$Sreact.fragment"
+2:I[49587,["/original/_next/static/chunks/135.swz07tuas.js","/original/_next/static/chunks/0d3shmwh5_nmn.js","/original/_next/static/chunks/163tbhyr~8ycg.js"],"SiteChrome"]
+3:I[22016,["/original/_next/static/chunks/135.swz07tuas.js","/original/_next/static/chunks/0d3shmwh5_nmn.js","/original/_next/static/chunks/163tbhyr~8ycg.js"],""]
+4:I[97367,["/original/_next/static/chunks/135.swz07tuas.js","/original/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
+5:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"children":[["$","h1",null,{"className":"px-[15px] pb-4 pt-10 text-center font-[family-name:var(--font-fraunces)] text-[30px] font-normal text-ink md:text-[40px]","children":"Sourdough Bakes"}],["$","div",null,{"className":"ss-container py-16 md:py-24 text-center","children":[["$","p",null,{"className":"mx-auto max-w-[560px] font-[family-name:var(--font-cabin)] text-[18px] text-ink","children":"Sorry, there are currently no products available at this collection."}],["$","$L3",null,{"href":"/","className":"ss-btn-solid mt-8","children":"Continue shopping"}]]}]]}],[["$","script","script-0",{"src":"/original/_next/static/chunks/163tbhyr~8ycg.js","async":true}]],["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"jN8mdoHDahX3Dch6CexDj"}
+6:null
