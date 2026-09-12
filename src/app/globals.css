@@ -537,9 +537,15 @@
     .pj-press:hover { transform: translateY(-1px); }
   }
   .pj-pop { animation: pj-swap-in var(--dur-fast) var(--ease-out) both; }
+  /* Milestone year: lifts on hover and while selected, so the line reads as something you drive. */
+  .pj-mile { transition: transform var(--dur-fast) var(--ease-out); }
+  .pj-mile[aria-pressed="true"] { transform: translateY(-3px); }
+  @media (hover: hover) and (pointer: fine) {
+    .pj-mile:hover { transform: translateY(-3px); }
+  }
   @media (prefers-reduced-motion: reduce) {
     .pj-beat--hidden { opacity: 1; transform: none; }
-    .pj-beat--in, .pj-swap, .pj-pop, .pj-press { animation: none !important; transition: none !important; }
+    .pj-beat--in, .pj-swap, .pj-pop, .pj-press, .pj-mile { animation: none !important; transition: none !important; transform: none !important; }
   }
 }
 
