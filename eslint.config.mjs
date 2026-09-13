@@ -12,8 +12,6 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // Frozen static snapshot of the previous site, served at /original; not our source.
-    "public/original/**",
   ]),
 ]);
 
