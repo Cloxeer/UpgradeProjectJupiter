@@ -7,9 +7,9 @@ export function SiteFooter() {
       <div className="pj-container py-6 text-center">
         <p style={{ fontSize: 15, color: "rgba(255,255,255,0.85)" }}>{footerText}</p>
         <p className="mt-1" style={{ fontSize: 14, color: "#fdb715", fontWeight: 700 }}>Last updated {LAST_UPDATED}. Status lines on this site reflect public filings and reporting as of that date.</p>
-        <p className="mt-3" style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>
-          <a href="/original/" className="underline underline-offset-2" style={{ color: "rgba(255,255,255,0.6)" }}>
-            See the original, pre-story version of this site
+        <p className="mt-4">
+          <a href="/original/" className="pj-press inline-flex min-h-[44px] items-center rounded-full border px-5 text-[14px] font-bold" style={{ borderColor: "rgba(255,255,255,0.35)", color: "rgba(255,255,255,0.9)" }}>
+            See the original, pre-story version
           </a>
         </p>
         <p className="mt-4" style={{ fontSize: 13, lineHeight: 1.5, color: "rgba(255,255,255,0.6)" }}>About this site: independent commentary and a policy proposal by a student. Statements about Project Jupiter are drawn from the developers&apos; own publications, the signed county agreement, state permit filings and named news reports, each linked on the Sources page; our figures are estimates where marked. No statement here should be read as an accusation of wrongdoing by any person or company. Corrections are welcome and will be posted.</p>
