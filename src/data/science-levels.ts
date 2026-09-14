@@ -46,7 +46,7 @@ export const topics: Topic[] = [
       { line: "Precedent: Gothenburg (130 m²) and Boden (300 m²) pilots; scale precedents are Agriport A7 (NL; Microsoft and Google beside greenhouse growers) and Germany's EnEfG (10% heat reuse from July 2026, 20% from 2028). Annual average greenhouse draw ≈15–20 MW ≈ 1% of the heat stream (El Paso ≈2,600 heating degree-days).", sources: ["goteborg-energi", "agriport", "enefg"] },
       { line: "Summer: single-effect LiBr absorption chillers want ≈90 °C and reject ≈2.4× their cooling as heat; this loop is 45–65 °C, so absorption cooling is not counted. Summer cooling is evaporative pads (≈3–15 L/m²/day in Arizona → ≈1–1.6 MGD for 150 acres, consumptive); vents open means CO₂ enrichment is lost on those days (OSU HLA-6723), so it is a cool-season and morning practice. Desal preheat runs year-round.", sources: ["absorption-review"] },
     ],
-    blueprint: "/blueprint#p1",
+    blueprint: "/blueprint#heat",
   },
   {
     id: "carbon",
@@ -65,7 +65,7 @@ export const topics: Topic[] = [
       { line: "Boundary Dam BD3, the longest-running power-plant capture unit: 848,388 t captured in 2024 at 85% availability against a 1 Mt design; the skeptic's case is cited alongside.", sources: ["boundary-dam-2024", "ieefa-bd3"] },
       { line: "Ozone NAAQS 70 ppb (8-h); PM2.5 9 µg/m³ annual; Sunland Park nonattainment since Aug. 3, 2018; ALA grade F, 15.2 unhealthy days/yr.", sources: ["epa-ozone-naaqs", "epa-pm-naaqs", "sunland-park-ozone", "ala-sota-2025"] },
     ],
-    blueprint: "/blueprint#p2",
+    blueprint: "/blueprint#carbon",
   },
   {
     id: "water",
@@ -85,7 +85,7 @@ export const topics: Topic[] = [
       { line: "Local wells carry arsenic (0.002–0.036 mg/L at Lanark and Noria; Santa Teresa Well 8A shut since 2001 for uranium and arsenic). RO removes both; they leave in the concentrate and the spent membranes, state-regulated residuals under the NMED discharge permit.", sources: ["nmsu", "epa-tenorm"] },
       { line: "Long view: NMSU calls the 60–65M acre-ft brackish supply 'large, but not infinite' with recharge 'unknown' → lease condition: monitoring wells + an annual public water-level report. Brine: recover water first (El Paso/Upwell, ~3 MGD approved July 2026; the first mineral-recovery attempt there failed at commissioning), inject the rest under NMED Class I/V with groundwater monitoring. CO₂ storage: 50-year post-injection care is federal law. The county is designing its own 4 MGD plant ($75M, $15M Jupiter GRT) for 2028–29; the ask moves the developer's money behind the full 5 MGD system.", sources: ["nmsu", "epwater-brine-recovery", "ewm-elpaso", "epa-class-vi", "star-plant"] },
     ],
-    blueprint: "/blueprint#p3",
+    blueprint: "/blueprint#water",
   },
   {
     id: "solar",
@@ -102,7 +102,7 @@ export const topics: Topic[] = [
       { line: "Geothermal: Doña Ana County 150 °C isotherm at <1–5.5 km (GSA 2011); Lightning Dock ≈11 MW net since 2018; Fervo Cape Station 100 MW (2026) → 500 MW (2028), Google 396 MW PPA; Fervo's cost ≈$7,000/kW today, $3,000 goal. Proposal: test wells in Phase 1, 100–200 MW by 2032 if they flow (≈$0.5–1.4B). True zero gas for 2,462 MW would need ≈2.7 GW firm geothermal or ≈6 GW wind/solar plus tens of GWh of storage: not identified.", sources: ["gsa-2011", "lightning-dock", "fervo-cape", "fervo-google", "fervo-ipo"] },
       { line: "Delivered wind/solar: SunZia 3,650 MW (916 turbines) on a 3,021 MW HVDC line to Pinal County, Arizona, contracted to California and SRP; none is wired to Santa Teresa, and EPE's system peak is below the campus load, so a delivered PPA here needs new transmission or new NM projects. Metric: share of the year's energy from gas (full-load-hour equivalent).", sources: ["sunzia-eia", "bocc"] },
     ],
-    blueprint: "/blueprint#p4",
+    blueprint: "/blueprint#gas",
   },
   {
     id: "food",
@@ -117,6 +117,6 @@ export const topics: Topic[] = [
       { line: "Lease + heat revenue ≈$0.04–0.06M/acre/yr to the developer (heat near propane parity; estimate); growers' capital ≈$3M/acre.", sources: ["cba"] },
       { line: "Packing house and produce gate on the public road, separate from the secure entrance.", sources: ["render"] },
     ],
-    blueprint: "/blueprint#p5",
+    blueprint: "/blueprint#heat",
   },
 ];

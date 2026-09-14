@@ -62,7 +62,7 @@ function Simple({ level }: { level: "little" | "kid" }) {
     <div className="pj-container pb-16">
       <div className="mx-auto grid max-w-[1000px] grid-cols-1 gap-4 sm:grid-cols-2">
         {topics.map((t) => (
-          <a key={t.id} href={`/blueprint?spot=${t.id}&next=${encodeURIComponent(t.blueprint)}#site`} className="flex gap-4 rounded bg-white p-5 shadow-sm hover:shadow-md" style={{ borderLeft: "6px solid #2e8b57" }}>
+          <a key={t.id} href={t.blueprint} className="flex gap-4 rounded bg-white p-5 shadow-sm hover:shadow-md" style={{ borderLeft: "6px solid #2e8b57" }}>
             <div style={{ fontSize: level === "little" ? 56 : 40, lineHeight: 1 }} aria-hidden>{t.icon}</div>
             <div>
               <h3 className="font-black" style={{ fontSize: level === "little" ? 24 : 20, color: "#003047" }}>{t.title}</h3>
