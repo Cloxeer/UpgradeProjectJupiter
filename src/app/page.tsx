@@ -90,10 +90,14 @@ export default function Home() {
             <div className="mx-auto mt-12 max-w-[720px]">
               <Guide t={idea.line} size="lg" />
             </div>
-            <ol className="mx-auto mt-12 grid max-w-[880px] grid-cols-2 gap-x-6 gap-y-6 md:grid-cols-4" aria-label="The four changes, in order of impact">
-              {idea.marks.map((m) => (
-                <li key={m} className="text-[17px] font-bold" style={{ color: "#1f5f3a", borderTop: "3px solid #2e8b57", paddingTop: 10 }}>
-                  {m}
+            <ol className="mx-auto mt-12 grid max-w-[920px] grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2" aria-label="The four changes, in order of impact">
+              {idea.changes.map((c, i) => (
+                <li key={c.do} className="grid grid-cols-[28px_minmax(0,1fr)] gap-3" style={{ borderTop: "3px solid #2e8b57", paddingTop: 12 }}>
+                  <span aria-hidden className="text-[17px] font-black" style={{ color: "#2e8b57", fontVariantNumeric: "tabular-nums" }}>{i + 1}</span>
+                  <div>
+                    <p className="text-[18px] font-black" style={{ color: "#1f5f3a", lineHeight: 1.2 }}>{c.do}</p>
+                    <p className="mt-1.5 text-[16px]" style={{ color: "#3c3c3c", lineHeight: 1.5 }}>{c.why}</p>
+                  </div>
                 </li>
               ))}
             </ol>

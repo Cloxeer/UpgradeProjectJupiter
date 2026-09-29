@@ -35,7 +35,7 @@ export const stakes: { title: string; line: Tiered; tiles: { value: string; labe
   ],
 };
 
-export const idea: { headline: string; line: Tiered; marks: string[] } = {
+export const idea: { headline: string; line: Tiered; marks: string[]; changes: { do: string; why: string }[] } = {
   headline: "You don't have to stop it to fix it.",
   line: {
     simple: "Build the same campus, on the same land, on the same schedule, and make it catch its carbon, make its own water, use its heat, and burn less gas each year.",
@@ -47,6 +47,14 @@ export const idea: { headline: string; line: Tiered; marks: string[] } = {
     },
   },
   marks: ["catch the carbon", "make the water", "use the heat", "shrink the gas"],
+  // The four changes as plain bullets: what happens, and what it does for the earth. Every figure here
+  // is the same one carried on the Blueprint page, traced to KNOWLEDGE.md and the sources.
+  changes: [
+    { do: "Catch the carbon", why: "Trap most of the CO₂ at the stacks instead of venting it, so far less heat-trapping gas reaches the sky." },
+    { do: "Make the water", why: "Turn deep salty water into 5 million gallons a day and recharge the aquifer with the towns' cleaned water, so its long decline slows." },
+    { do: "Use the heat", why: "Send the servers' waste heat to greenhouses that grow up to 60 million pounds of food a year, instead of blowing it into the desert." },
+    { do: "Shrink the gas", why: "Put the share of power that comes from gas on a public meter and lower it every year, toward wind and geothermal." },
+  ],
 };
 
 export const years: { title: string; line: Tiered; strip: { year: number; cal: string; caption: string; on?: boolean }[]; closing: string; button: string } = {
